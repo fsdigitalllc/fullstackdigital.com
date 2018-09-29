@@ -1,45 +1,49 @@
 ---
-title: 'Tutorial: Building pages'
+title: 'Home Page'
 language: en
-layout: single
+layout: pancakes
 description: page description
 date: 2018-07-03 04:00:00 +0000
 tags: []
 stacks:
-- template: block-builder-section
-  background_color: "#FFFFFF"
+- template: block-builder-section-home1
+  background_color: "#ddd"
+  background_image: 
   size: container
-  padding_top: XL
-  padding_bottom: XL
-  h_content: space-between
+  p_top_val: 600px
+  p_top: 
+  p_bottom: XL
   v_content: center
   row_space: M
   rows:
   - template: include-row
+    h_content: end
+    v_content: center
     cols:
     - template: block-column-builder
-      size: '5'
+      size: '4'
       text_align: left
       animate: fade-up
       duration: '400'
       elements:
       - template: element-title
         tag: h1
-        title: Header 1 Title Example - Center
+        title: Home 1 Title Example - Center
         text_align: center
         color: "#000000"
       - template: element-title
         tag: h2
-        title: Header 2 Title Example - Left
+        title: Home 1-2 Title Example - Left
         text_align: left
     - template: block-column-builder
-      size: '6'
+      size: '4'
       text_align: left
       animate: fade-up
       duration: '400'
       elements:
       - template: element-image
-        image: "/uploads/blur-business-close-up-1029757.jpg"
+        image: "/uploads/pexels-photo-373965.jpeg"
+        quality: 10
     container_size: container
   - template: include-row
     container_size: container
@@ -60,7 +64,7 @@ stacks:
       elements:
       - template: element-title
         tag: h3
-        title: Header 3 Title - Center
+        title: Home 1 -3  Title - Center
         text_align: center
       - template: element-text
         text: "<p>Normal paragraph text with strong markup. Enable <strong>draft mode</strong>
@@ -73,10 +77,10 @@ stacks:
       content_width: XXS
     h_content: space-between
     v_content: center
-- template: block-builder-section
-  background_color: "#EEEEEE"
-  padding_top: XL
-  padding_bottom: XL
+- template: block-builder-section-home2
+  background_color: "#ffffff"
+  p_top: XXL
+  p_bottom: XL
   h_content: center
   v_content: center
   rows:
@@ -93,7 +97,19 @@ stacks:
       elements:
       - template: element-title
         tag: h1
-        title: Example Contact Form
+        title: Home Contact Form Title
+        text_align: center
+      - template: element-contact-form
+    - template: block-column-builder
+      size: '6'
+      text_align: left
+      animate: fade-up
+      duration: '400'
+      h_content: center
+      elements:
+      - template: element-title
+        tag: h1
+        title: Home Contact Form Title
         text_align: center
       - template: element-contact-form
 meta:
