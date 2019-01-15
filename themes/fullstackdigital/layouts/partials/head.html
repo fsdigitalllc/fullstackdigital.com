@@ -1,0 +1,13 @@
+{{ with .Params.scripts }}
+    {{ range . }}
+        {{ $thesrc := . }}
+        {{ with $.Resources }}
+        {{ $thesrc }}
+            {{ range . }}
+                {{ with $.Resources.Match $thesrc }}
+                    <script src="{{ .RelPermalink }}"></script>"
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}

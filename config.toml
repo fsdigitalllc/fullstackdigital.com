@@ -1,9 +1,37 @@
-baseURL = ""
-languageCode = "en-us"
-title = "Fullstack Digital"
-theme = ["pancakes-builder"]
+baseURL = "/"
+languageCode = "en-gb"
+title = "{TITLE}"
+theme = ["fullstackdigital","pancakes-builder"]
+
+enableRobotsTXT = true
+disableAliases = true
+
+[permalinks]
+  pages = "/:title/"
+
 [params]
-cloudinary_base = "https://res.cloudinary.com/dzttfmzl7/image/upload/"
-cloudinary_folder = "pancakes"
-cloudinary_name = "dzttfmzl7"
-postcss_testing = false
+disallow_search_engines = false # set robots.txt to disallow everything
+
+# add redirects/headers
+[outputs]
+home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]
+
+# remove .{ext} from text/netlify
+[mediaTypes."text/netlify"]
+suffixes = [""]
+delimiter = ""
+
+# add output format for netlify _redirects
+[outputFormats.REDIRECTS]
+mediatype = "text/netlify"
+baseName = "_redirects"
+isPlainText = true
+notAlternative = true
+
+# add output format for netlify _headers
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
+

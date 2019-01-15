@@ -1,0 +1,9 @@
+<header class="site-header" role="banner">
+
+    <strong><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></strong>
+
+    {{ range .Site.Pages }}
+        <a href ="{{ .URL }}">{{ .Params.title }}</a>
+    {{ end }}
+    
+</header>
