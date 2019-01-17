@@ -1,0 +1,291 @@
+<style>
+  #poster .clss-1 {
+    fill: rgb(150, 228, 255);
+  }
+  #poster .clss-2 {
+    fill: rgb(27, 173, 255);
+  }
+  #poster .clss-3 {
+    fill: rgb(0, 105, 242);
+  }
+  #one .button-fill {
+    background: ;
+  }
+  #one .button-fill:before {
+    border-top-color: ;
+  }
+  #one .button-fill:after {
+    border-top-color: ;
+  }
+  #two .button-fill {
+    background: ;
+  }
+  #two .button-fill:before {
+    border-top-color: ;
+  }
+  #two .button-fill:after {
+    border-top-color: ;
+  }
+  #three .button-fill {
+    background: ;
+  }
+  #three .button-fill:before {
+    border-top-color: ;
+  }
+  #three .button-fill:after {
+    border-top-color: ;
+  }
+</style>
+
+<h2>fullpage js</h2>
+{{ range .Params.fullpage }}
+
+
+{{ with .template }}<h1>template: {{ . }}</h1>{{ end }}
+
+{{ with .left }}
+  {{ with .slashes }}
+      {{ with .c_1 }}{{ . }}{{ end }}
+      {{ with .c_2 }}{{ . }}{{ end }}
+      {{ with .c_3 }}{{ . }}{{ end }}
+      {{ with .contact_color }}{{ . }}{{ end }}
+      {{ with .contact_hover }}{{ . }}{{ end }}
+      {{ with .background_2 }}{{ . }}{{ end }}
+      {{ with .background_3 }}{{ . }}{{ end }}
+    {{ end }}
+
+{{ end }}
+
+
+{{ end }}
+
+
+
+
+<div id="fullpage" class="hero">
+
+  <!--mouse indicator-->
+   <div class="mouse">
+          <span></span>
+    </div>
+
+  <!--mobile-down indicator with link-->
+  
+    <div class="mobile-down">
+        <a id="down" class="strip-margin color-white"></a>
+       <span class="mobile-down__bar"></span>
+     </div>
+   
+  <section class="snap s1 section" id="hero">
+
+    <div id="poster" class="desktop-poster strip-margin-bottom contain-tablet">
+
+      <div class="inner a">
+        <svg class="poster-crop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 792 519">
+<g id="Layer_2" data-name="Layer 2">
+ 
+  <image class="overlayed imageA" width="100%" height="100%" y="0" x="0" xlink:href="" alt="" src="" clip-path="url(#image1)"/>
+  <image class="overlayed imageB" width="100%" height="100%" y="0" x="0" xlink:href="" alt="" src="" clip-path="url(#image1)"/>
+  <image class="overlayed imageC" width="100%" height="100%" y="0" x="0" xlink:href="" alt="" src="" clip-path="url(#image1)"/>
+  <clipPath id="image1"> 
+
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+  </clipPath>
+
+  <svg>
+
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+
+  
+  </svg>
+      </div>
+
+    </div>
+    
+    <!--show different SVG on < 1024-->
+    <div id="poster" class="mobile-poster strip-margin-bottom contain-tablet">
+
+      <div class="inner a tablet-version">
+        <svg class="poster-crop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 792 519">
+<g id="Layer_2" data-name="Layer 2">
+ 
+  <clipPath id="image2"> 
+      <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  </clipPath>
+
+  <svg>
+    <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  
+  </svg>
+      </div>
+
+      <!--show on large mobile screens, hide on anything above. Include this later-->
+    <div class="inner a mobile-version">
+      <img src="/assets/images/home/logo-hero-mobile.svg">
+    </div>
+
+    </div>
+    <div class="innerText innerS1 color-white span-2 maxwidth-m left">
+    <div>
+        <div class="logo-text mobile-version color-white margin-xs-bottom"></div>
+        <h1 class="color-white"></h1>
+        <h3 class="color-white"></h3>
+      
+    <div class="flex center-fixed featured-logos margin-s-top">
+        <div class="contain-image dell"><img src=""></div>
+        <div class="contain-image ddn"><img src=""></div>
+        <div class="contain-image microsoft"><img src=""></div>
+        <div class="contain-image curefest"><img src=""></div>
+        <div class="contain-image code"><img src=""></div>
+    </div>
+
+    
+      <div class="margin-s-top">
+         <a id="down" href="" class="button-fill deepblue strip-margin mobile-version"></a>
+       </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="snap s2 section" id="one">
+  <div id="poster" class="mobile-poster strip-margin-bottom contain-tablet">
+
+      <div class="inner b">
+        <svg class="poster-crop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 792 519">
+<g id="Layer_2" data-name="Layer 2">
+ 
+  <image class="overlayed imageA" width="100%" height="100%" y="0" x="0" xlink:href="" alt="" src="" clip-path="url(#image3)"/>
+  <clipPath id="image3"> 
+      <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  </clipPath>
+
+  <svg>
+    <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  
+  </svg>
+      </div>
+
+    </div>
+    <div class="innerText innerS2 color-white span-2 maxwidth-m left">
+    <div>
+        <h1 class="color-white"></h1>
+        <h3 class="color-white"></h3>
+      
+    <div class="flex center-fixed section-logo margin-s-top">
+        <div class="contain-image besc"><img src=""></div>
+        <p class="caption"></p>
+    </div>
+    <div class="margin-s-top">
+        <a href="" class="button-fill deepblue strip-margin page-link"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="snap s3 section" id="two">
+  <div id="poster" class="mobile-poster strip-margin-bottom contain-tablet">
+
+      <div class="inner c">
+        <svg class="poster-crop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 792 519">
+<g id="Layer_2" data-name="Layer 2">
+ 
+  <image class="overlayed imageB" width="100%" height="100%" y="0" x="0" xlink:href="" alt="" src="" clip-path="url(#image4)"/>
+  <clipPath id="image4"> 
+      <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  </clipPath>
+
+  <svg>
+    <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  
+  </svg>
+      </div>
+
+    </div>
+  <div class="innerText innerS3 color-white span-2 maxwidth-m left">
+    <div>
+        <h1 class="color-white"></h1>
+        <h3 class="color-white"></h3>
+      
+    <div class="flex center-fixed section-logo margin-s-top">
+        <div class="contain-image code"><img src=""></div>
+        <p class="caption"></p>
+    </div>
+    <div class="margin-s-top">
+        <a href="" class="button-fill deepblue strip-margin page-link"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="snap s4 section" id="three">
+  <div id="poster" class="mobile-poster strip-margin-bottom contain-tablet">
+
+      <div class="inner d">
+        <svg class="poster-crop" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 792 519">
+<g id="Layer_2" data-name="Layer 2">
+  <image class="overlayed imageC" width="100%" height="100%" y="0" x="0" xlink:href="" alt="" src="" clip-path="url(#image5)"/>
+  <clipPath id="image5"> 
+      <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  </clipPath>
+
+  <svg>
+    <polygon class="clss-1 color1 poster" points="265.46 519 0 385.28 151.88 0 462.25 0 265.46 519"/>
+
+    <polygon class="clss-2 color1 poster" points="430.34 519 322.94 464.08 499.23 0 627.12 0 430.34 519"/>
+    <polygon class="clss-3 color1 poster" points="595.22 519 487.76 464.08 664.1 0 792 0 595.22 519"/>
+  
+  </svg>
+      </div>
+
+    </div>
+  <div class="innerText innerS4 color-white span-2 maxwidth-m left">
+    <div>
+        <h1 class="color-white"></h1>
+        <h3 class="color-white"></h3>
+      
+    <div class="flex center-fixed section-logo margin-s-top">
+        <div class="contain-image ddn"><img src=""></div>
+        <p class="caption"></p>
+    </div>
+    <div class="margin-s-top">
+        <a href="" class="button-fill deepblue strip-margin page-link"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--looks like it detects the closest anchor link and scrolls there automatically. Probably have to add footer with an anchor-->
+<!--do fp auto height solution-->
+<section class="section fp-auto-height" id="footer">
+  <footer>
+    </footer>
+</section>
+
+</div><!--end fullpage-->

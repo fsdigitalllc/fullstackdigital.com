@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-gb"
-title = "{TITLE}"
+title = "Fullstack Digital / Brand, Web, Market"
 theme = ["fullstackdigital","pancakes-builder"]
 
 enableRobotsTXT = true

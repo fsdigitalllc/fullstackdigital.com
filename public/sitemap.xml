@@ -3,8 +3,21 @@
   
     
       <url>
+        <loc>/about/</loc>
+        <lastmod>2018-07-03T04:00:00+00:00</lastmod>
+      </url>
+    
+  
+    
+      <url>
         <loc>/</loc>
         <lastmod>2018-07-03T04:00:00+00:00</lastmod>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/uploads/</loc>
       </url>
     
   
