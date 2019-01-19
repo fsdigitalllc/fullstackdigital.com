@@ -1,0 +1,17 @@
+{{ $dt := $.Site.Data }}
+.masthead {
+  width: {{ $dt.css.container | default "1100px" }};
+}
+.masthead {
+  .nav-list {
+
+  }
+}
+.night-header {
+  .masthead {
+    background-color: #000000;
+  }
+  .nav-list li a {
+    color: #ffffff;
+  }
+}

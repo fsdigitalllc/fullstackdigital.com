@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home Page on Fullstack Digital</title>
+    <title>Fullstack Digital / Brand, Web, Market</title>
     <link>/</link>
-    <description>Recent content in Home Page on Fullstack Digital</description>
+    <description>Recent content on Fullstack Digital / Brand, Web, Market</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en-gb</language>
     <lastBuildDate>Tue, 03 Jul 2018 04:00:00 +0000</lastBuildDate>
     
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
       <item>
-        <title>About</title>
-        <link>/about/</link>
+        <title>About us</title>
+        <link>/about-us/</link>
         <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
-        <guid>/about/</guid>
-        <description></description>
+        <guid>/about-us/</guid>
+        <description>About us</description>
+      </item>
+    
+      <item>
+        <title>Services</title>
+        <link>/services/</link>
+        <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+        <guid>/services/</guid>
+        <description>Services</description>
       </item>
     
   </channel>

@@ -1,8 +1,6 @@
 ---
-title: 'About us'
-name: "about"
-nightHeader: true
-nightFooter: true
+title: 'Services'
+name: "help"
 language: en
 published: true
 layout: single
@@ -12,4 +10,4 @@ tags: []
 image: 
   - "/uploads/typeking-cover.png"
 ---
-About us
+Services
