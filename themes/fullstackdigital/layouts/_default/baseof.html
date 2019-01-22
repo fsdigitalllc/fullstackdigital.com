@@ -15,7 +15,7 @@
         {{ block "site/styles" . }}{{ partial "site/styles.html" . }}{{ end }}
 
     </head>
-    <body class='page {{ block "body_classes" . }}{{ end }}'>
+    <body class='{{ partial "site/body_classes.html" . }}'>
 
         {{ block "header" . }}{{ partial "site/header.html" . }}{{ end }}
 

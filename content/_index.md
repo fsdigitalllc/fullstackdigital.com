@@ -3,8 +3,8 @@ title: Home
 date: 2018-06-14 19:51:34 +0000
 description: 'Fullstack Digital is a business-focused digital agency in Los Angeles.
 Our team is made up of ''full-stack'' experts across multiple disciplines.'
-nightheader: false
-nightfooter: false
+night_header: true
+night_footer: false
 og_image: "/assets/images/fsd-black-square.jpg"
 fullpage:
   - template: fullslide

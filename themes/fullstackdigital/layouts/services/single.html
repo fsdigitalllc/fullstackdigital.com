@@ -1,0 +1,27 @@
+{{ define "main" }}
+
+
+page content here dafs
+
+{{ range $index, $sections := .Params.sections }}
+  <section data-index="{{ $index }}" class="template-{{ .template }} {{ .classes }} padding-m-top padding-m-bottom">
+    <div class="container">
+      {{ if eq .template "title" }}
+        {{ with .subtitle }}<h4 class="subtitle">{{ . }}</h4>{{ end }}
+        {{ with .title }}<h1 class="title">{{ . }}</h1>{{ end }}
+      {{ end }}
+      {{ with .paragraph }}<p class="lead strip-margin">{{ . }}</p>{{ end }}
+
+      
+
+        <div class="flex center-fixed featured-logos margin-s-top">
+          {{ partial "helpers/logos.html" (dict "p" . "g" $ ) }}
+          
+        </div>
+    </div>
+    
+  </section>  
+{{ end }}
+
+
+{{ end }}

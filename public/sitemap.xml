@@ -3,7 +3,14 @@
   
     
       <url>
-        <loc>/about-us/</loc>
+        <loc>/about/</loc>
+        <lastmod>2018-07-03T04:00:00+00:00</lastmod>
+      </url>
+    
+  
+    
+      <url>
+        <loc>/services/brand/</loc>
         <lastmod>2018-07-03T04:00:00+00:00</lastmod>
       </url>
     
@@ -17,7 +24,7 @@
   
     
       <url>
-        <loc>/pages/</loc>
+        <loc>/</loc>
         <lastmod>2018-06-14T19:51:34+00:00</lastmod>
       </url>
     
@@ -31,14 +38,6 @@
     
       <url>
         <loc>/categories/</loc>
-        <priority>0</priority>
-      </url>
-    
-  
-    
-      <url>
-        <loc>/</loc>
-        <lastmod>2018-07-03T04:00:00+00:00</lastmod>
         <priority>0</priority>
       </url>
     

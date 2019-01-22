@@ -1,0 +1,3 @@
+{{ range $.Site.Pages }}
+<a href="{{ .URL }}">{{ with .Params.Name }}{{ . }}{{ end }}</a>
+{{ end }}

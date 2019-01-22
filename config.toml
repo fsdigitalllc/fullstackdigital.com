@@ -7,7 +7,7 @@ enableRobotsTXT = true
 disableAliases = true
 
 [permalinks]
-  pages = "/:title/"
+  pages = "/:section/:title/"
 
 [[menu.main]]
   identifier = "blog"

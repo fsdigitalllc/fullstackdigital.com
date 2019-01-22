@@ -1,0 +1,16 @@
+client_default_section: work
+clients:
+  - name: "dell"
+    image: "dell.svg"
+  - name: "quantum"
+    image: "quantum.svg"
+    url: "/wtm/"
+  - name: "ddn"
+    image: "ddn.svg"
+    logo_link: false
+  - name: "rigado"
+    image: "rigado.svg"
+    logo_link: false
+  - name: "threefactor"
+    image: "threefactor.png"
+    logo_link: false

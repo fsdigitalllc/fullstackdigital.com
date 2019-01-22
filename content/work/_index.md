@@ -1,6 +1,6 @@
 ---
-title: 'Services'
-name: "help"
+title: 'Work'
+name: "work"
 language: en
 published: true
 layout: single
@@ -10,4 +10,4 @@ tags: []
 image: 
   - "/uploads/typeking-cover.png"
 ---
-Services
+Work

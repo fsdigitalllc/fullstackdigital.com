@@ -1,13 +1,15 @@
 main:
-  - name: "About"
-    title: "About"
+  - name: "Services"
+    title: "Services"
     sub:
       - name: "Brand"
-        title: ""
+        title: "Brand"
       - name: "Web"
       - name: "Market"
-  - name: "seven"
-    title: ""
-  - name: "Web"
-    title: "Web"
-    url:
+  - name: "About"
+    title: "About Us"
+  - name: "Work"
+    title: "Work"
+  - name: "Blog"
+    title: "Blog"
+    url: "https://blog.fullstackdigital.com"

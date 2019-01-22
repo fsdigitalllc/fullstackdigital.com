@@ -1,9 +1,9 @@
-{{ define "body_classes" }}{{ if eq .Params.nightHeader false }}{{ else }}night-header{{ end }}{{ end }}
 <link rel="stylesheet" href="{{ "css/app.css" | absURL }}">
 
 <style class="critical">
+{{ $base_css := resources.Get "scss/critical/base.scss" | resources.ExecuteAsTemplate "style.base.scss" . | toCSS | minify }}
 {{ $nav_css := resources.Get "scss/critical/navigation.scss" | resources.ExecuteAsTemplate "style.navigation.scss" . | toCSS | minify }}
 
-{{ (slice $nav_css | resources.Concat "style.scss").Content | safeCSS }}
+{{ (slice $nav_css $base_css | resources.Concat "style.scss").Content | safeCSS }}
 
 </style>

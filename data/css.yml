@@ -1,1 +1,5 @@
 container: "1130px"
+color:
+  oil: "#222"
+body:
+  font_family: "'Lato', sans-serif;"

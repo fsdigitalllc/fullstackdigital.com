@@ -1,0 +1,139 @@
+{{/* <!-- Needed Update for this partial: Add ability to just specify a client category and count, then return the required logos --> */}}
+
+{{/* <!--ABOUT: Easily add logos to any page. Upload logos one time, then look them up in the data file to get the logo location. Let the user override the URL on the individual page (some pages don't need the logos to link out) and allow the admin to toggle the logo color individually or for the entire row --> */}}
+
+{{/* <!--assets/images/clients/color --> */}}
+{{/* <!--assets/images/clients/white --> */}}
+
+{{/* <!--logo pass defaults to color, but admin can toggle white version --> */}}
+{{/* <!--WHEN UPDATING LOGOS IN THE FOLDER: Use same naming convention for both white and color, I have added some checks and balances, but it's not perfect --> */}}
+
+{{ $site := $.g.Site }}
+
+{{ $prefix := "assets/images/clients/" }}
+{{ $asset_prefix := "images/clients/" }}
+{{/* <!--the default color setting --> */}}
+{{ if eq .p.logos_color false }}
+  {{ $prefix = "assets/images/clients/white/" }}
+  {{ $asset_prefix = "images/clients/white/" }}
+{{ else }}
+  {{ $prefix = "assets/images/clients/color/" }}
+  {{ $asset_prefix = "images/clients/color/" }}
+{{ end }}
+
+{{ range .p.logos }}
+{{/* <!--on an individual level, override the default setting --> */}}
+{{ $logos_link := $.p.logos_link }}
+
+  {{ if eq .logo_color true }}
+    {{ $prefix = "assets/images/clients/color/" }}
+    {{ $asset_prefix = "images/clients/color/" }}
+  {{ end }}
+  {{ if eq .logo_color false }}
+    {{ $prefix = "assets/images/clients/white/" }}
+    {{ $asset_prefix = "images/clients/white/" }}
+  {{ end }}
+
+    {{ $name := .name }}
+    {{ $url := .url }}
+    {{ $image := "" }}
+    
+    {{/* <!--lookup the client in the datafile --> */}}
+  {{ range $site.Data.lookup.clients }}
+
+
+    {{ if eq $name .name }}
+    {{ $image = .image }}
+    {{ if $url }}
+      {{ $url = $url }}
+    {{ else }}
+      {{ $url = .url }}
+    {{ end }}
+    {{ if eq .logo_link false }}
+      {{ $logos_link = false }}
+    {{ else }}
+      {{ $logos_link = $logos_link }}
+    {{ end }}
+
+  {{ $path := print $prefix $image }}
+  {{ $assetpath := print $asset_prefix $image }}
+ 
+    {{/* <!--on an individual level, override the default setting --> */}}
+    
+    {{ if or ($url) ( eq $logos_link false ) }}
+      {{ if eq $url "" }}
+        {{ $logos_link = false }}
+      {{ end }}
+        {{ if (fileExists $path) }}
+          {{ $imagesrc := resources.Get $assetpath }}
+          {{ if eq $logos_link false }}
+            <span>
+          {{ else }}
+            <a href="{{ $url }}">
+          {{ end }}
+            <img src="{{ $imagesrc.Permalink }}">
+          {{ if eq $logos_link false }}
+            </span>
+          {{ else }}
+            </a>
+          {{ end }}
+        {{ end }}
+
+    {{ else if not $url }}
+
+      {{ range where $.g.Site.Pages "Section" $.g.Site.Data.lookup.client_default_section }}
+      {{ if eq .Params.name $name }}
+      {{ $url = .Permalink }}
+        {{/* <!--did I override the URL, path, or image on this page?--> */}}
+
+        {{/* <!--If the work page doesn't exist, or the data logo url is undefined, or the page logo url is undefined, remove the link entirely--> */}}
+
+          {{ if (fileExists $path) }}
+            {{ $imagesrc := resources.Get $assetpath }}
+            {{ if eq $logos_link false }}
+              <span>
+            {{ else }}
+              <a href="{{ $url }}">
+            {{ end }}
+              <img src="{{ $imagesrc.Permalink }}">
+            {{ if eq $logos_link false }}
+              </span>
+            {{ else }}
+              </a>
+            {{ end }}
+          {{ end }}
+
+      {{ end }}
+      {{ end }}
+
+
+    {{ else }}
+    {{ if (fileExists $path) }}
+      {{ $imagesrc := resources.Get $assetpath }}
+      {{ if eq $logos_link false }}
+        <span>
+      {{ else }}
+        <a href="{{ $url }}">
+      {{ end }}
+        <img src="{{ $imagesrc.Permalink }}">
+      {{ if eq $logos_link false }}
+        </span>
+      {{ else }}
+        </a>
+      {{ end }}
+    {{ end }}
+
+    {{ end }}
+
+
+
+
+    {{ end }}
+    {{/* <!--end lookup the client in the datafile --> */}}
+  
+
+
+  
+
+  {{ end }}
+{{ end }}
