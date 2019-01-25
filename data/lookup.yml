@@ -4,7 +4,7 @@ clients:
     image: "dell.svg"
   - name: "quantum"
     image: "quantum.svg"
-    url: "/wtm/"
+    logo_link: false
   - name: "ddn"
     image: "ddn.svg"
     logo_link: false
@@ -13,4 +13,7 @@ clients:
     logo_link: false
   - name: "threefactor"
     image: "threefactor.png"
+    logo_link: false
+  - name: "code"
+    image: "code.svg"
     logo_link: false

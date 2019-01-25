@@ -1,26 +1,191 @@
 {{ define "main" }}
 
-
-page content here dafs
+<!-- logos_color: true
+logos_link: true
+logos_width: xs
+logos:
+  - name: "dell"
+    logo_link: false
+  - name: "quantum"
+    logo_color: false
+  - name: "rigado"
+  - name: "threefactor"
+  - name: "ddn"
+  - name: "code" -->
 
 {{ range $index, $sections := .Params.sections }}
-  <section data-index="{{ $index }}" class="template-{{ .template }} {{ .classes }} padding-m-top padding-m-bottom">
-    <div class="container">
-      {{ if eq .template "title" }}
-        {{ with .subtitle }}<h4 class="subtitle">{{ . }}</h4>{{ end }}
-        {{ with .title }}<h1 class="title">{{ . }}</h1>{{ end }}
-      {{ end }}
-      {{ with .paragraph }}<p class="lead strip-margin">{{ . }}</p>{{ end }}
+  {{ $title_t := "" }}
+  {{ $description_t := "" }}
+  {{ $process_t := "" }}
 
-      
+  {{ if eq .template "service_title" }}
+    {{ $title_t = .template }}
+  {{ end }}
+  {{ if eq .template "service_description" }}
+    {{ $description_t = .template }}
+  {{ end }}
+  {{ if eq .template "service_process" }}
+    {{ $process_t = .template }}
+  {{ end }}
 
-        <div class="flex center-fixed featured-logos margin-s-top">
-          {{ partial "helpers/logos.html" (dict "p" . "g" $ ) }}
-          
-        </div>
-    </div>
+  <section data-index='{{ $index }}' class='template-{{ .template }}{{ if $title_t }} padding-l-top padding-xl-bottom {{ end }}{{ if $description_t}} padding-l bg_grey{{ end }}{{ if $process_t }} padding-xl-top padding-m-bottom{{ end }}'>
+
+  {{ if $title_t }}
+  <div class="container flex h_children_center">
+    <div class="col-12 maxwidth-m text-center">      
     
-  </section>  
+      {{ with .subtitle }}<h4 class="subtitle">{{ . }}</h4>{{ end }}
+      {{ with .title }}<h1 class="title">{{ . }}</h1>{{ end }}
+    
+    {{ with .paragraph }}<p class="big-paragraph strip-margin">{{ . }}</p>{{ end }}
+
+    </div>
+  </div>
+  <div class="container flex h_children_center">
+    <div class="col-12 featured-logos margin-s-top{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
+      {{ partial "helpers/logos.html" (dict "p" . "g" $ ) }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{ if $description_t }}
+    <div class="container flex h_children_center text-center">
+      <div class="col-inner maxwidth-xs"><p class="big-paragraph strip-margin-bottom">{{ .paragraph | safeHTML }}</p>
+      </div>
+    </div>
+  {{ end }}
+
+
+
+  {{ if $process_t }}
+    <div class="container flex h_children_center">
+      <div class="text-center col-10">
+        {{ .section_icon | safeHTML }}
+        <h4 class="color-oil subtitle">{{ .subtitle | safeHTML }}</h4>
+        <h2 class="color-oil">{{ .title | safeHTML }}</h2>
+      </div>
+    </div>
+
+    <div class="container flex h_children_center margin-m-bottom">
+      <div class="col-4">
+        <div class="perspective-items">
+        <div data-aos="fade-up" data-aos-anchor="#service-offering" data-aos-offset="500" data-aos-easing="ease-out-cubic" duration="1000" class="perspective-item aos-init aos-animate">
+        <svg id="Layer_1" width="132" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="7" y1="0" x2="7" y2="64"></line>
+        <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="32.062,6 26,11 26,35 57,35 51,23 57,11   26,11 "></polyline>
+        <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="26,30 7,30 7,6 32,6 32,11 "></polyline>
+        </svg>
+        </div>
+        <div data-aos="fade-up" data-aos-anchor="#service-offering" data-aos-offset="700" duration="1000" class="perspective-item aos-init aos-animate">
+        <svg id="Layer_1" width="132" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <g>
+        <rect x="1" y="11" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="42"></rect>
+        <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="1,47 24,27 36,39 42,31 63,49  "></polyline>
+        <circle fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" cx="51" cy="22" r="5"></circle>
+        </g>
+        </svg>
+        </div>
+        <div data-aos="fade-up" data-aos-offset="900" duration="1000" data-aos-anchor="#service-offering" class="perspective-item aos-init">
+        <svg id="Layer_1" width="132" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <polygon fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="1,30 63,1 23,41   "></polygon>
+        <polygon fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="34,63 63,1 23,41   "></polygon>
+        </svg>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container maxwidth-xl flex wrap break-mobile h_children_space-between">
+      <div class="maxwidth-xxxs text-center col-3">
+        <span class="black-number">
+        <span class="color-white strip-margin strip-padding">1</span>
+        </span>
+
+        <p class="number-title">{{ .number_1.title | safeHTML }}</p>
+
+        <p>{{ .number_1.paragraph | safeHTML }}</p>
+          
+        <p class="small_link flex h_children_center strip-margin">
+          <a class="color-oil strip-underline flex hover-right" href="{{ .number_1.link }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+          </g>
+          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                                          54,23 "></polyline>
+          </svg></a>
+        </p>
+      </div>
+
+      <div class="maxwidth-xxxs text-center col-3">
+        <span class="black-number">
+        <span class="color-white strip-margin strip-padding">2</span>
+        </span>
+
+        <p class="number-title">{{ .number_2.title | safeHTML }}</p>
+
+        <p>{{ .number_2.paragraph | safeHTML }}</p>
+        
+        <p class="small_link flex h_children_center strip-margin">
+          <a class="color-oil strip-underline flex hover-right" href="{{ .number_2.link }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+          </g>
+          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                                          54,23 "></polyline>
+          </svg></a>
+        </p>
+      </div>
+
+      <div class="maxwidth-xxxs text-center col-3">
+        <span class="black-number">
+        <span class="color-white strip-margin strip-padding">3</span>
+        </span>
+        <p class="number-title">{{ .number_3.title | safeHTML }}</p>
+        <p>{{ .number_3.paragraph | safeHTML }}</p>
+        <p class="small_link flex h_children_center strip-margin">
+          <a class="color-oil flex hover-right" href="{{ .number_3.link | safeHTML }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+          </g>
+          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                                          54,23 "></polyline>
+          </svg></a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container flex break-mobile border-dark margin-m-top margin-m-bottom"></div>
+
+    <div id="number-4-row" class="container break-mobile margin-m-top margin-m-bottom h_children_center v_children_center">
+      <div class="flex text-center col-1">
+        <span class="black-number strip-margin-bottom">
+        <span class="color-white strip-margin strip-padding">4</span>
+        </span>
+      </div>
+
+      <div class="text-left col-3">
+        <p class="number-title strip-margin">{{ .number_4.title | safeHTML }}</p>
+      </div>
+
+      <div class="text-left col-5">
+        <p class="strip-margin">{{ .number_4.paragraph | safeHTML }}</p>
+      </div>
+
+      <div class="text-center col-2">
+        <p class="small_link flex h_children_center strip-margin">
+          <a class="color-oil flex hover-right" href="{{ .number_4.link | safeHTML }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+          </g>
+          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                                        54,23 "></polyline>
+          </svg></a>
+        </p>
+      </div>
+    </div>
+
+  {{ end }}
+  </section>
 {{ end }}
 
 

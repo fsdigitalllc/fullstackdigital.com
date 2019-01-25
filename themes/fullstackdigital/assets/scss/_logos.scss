@@ -1,0 +1,52 @@
+.featured-logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.featured-logos .ddn img {
+  height: 40px;
+}
+.featured-logos .dell img {
+  height: 20px;
+}
+.featured-logos .rigado img {
+  height: 26px;
+}
+.featured-logos .quantum img {
+  height: 22px;
+}
+.featured-logos .threefactor img {
+  height: 40px;
+}
+.featured-logos .code img {
+  height: 40px;
+}
+
+@media screen and (max-width: $screen-tablet ) {
+  .featured-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: $screen-tablet*.7;
+  }
+  .featured-logos img {
+    margin: 10px 20px;
+  }
+}
+@media screen and (max-width: $screen-mobile-m  ) {
+  .featured-logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .featured-logos img {
+    margin: auto;
+    display: block;
+  }
+}

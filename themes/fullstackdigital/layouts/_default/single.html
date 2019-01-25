@@ -1,5 +1,4 @@
 {{ define "main" }}
-Type: {{ .Type }}
 {{ with .Resources.ByType "image" }}
     {{ range . }}
     {{ with $.Resources.GetMatch "typeking-cover" }}

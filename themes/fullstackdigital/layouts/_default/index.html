@@ -2,4 +2,11 @@
 
 {{ partial "layouts/fullpage.html" . }}
 
+{{ range $.Site.RegularPages }}
+{{ $dir := .Dir }}
+
+{{ $dir = replace $dir "\\" "" }}
+
+<h1>{{ $dir }}</h1>
+{{ end }}
 {{ end }}

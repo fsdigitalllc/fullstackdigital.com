@@ -1,3 +1,16 @@
+<!-- logos_color: true
+logos_link: true
+logos_width: xs
+logos:
+  - name: "dell"
+    logo_link: false
+  - name: "quantum"
+    logo_color: false
+  - name: "rigado"
+  - name: "threefactor"
+  - name: "ddn"
+  - name: "code" -->
+
 {{/* <!-- Needed Update for this partial: Add ability to just specify a client category and count, then return the required logos --> */}}
 
 {{/* <!--ABOUT: Easily add logos to any page. Upload logos one time, then look them up in the data file to get the logo location. Let the user override the URL on the individual page (some pages don't need the logos to link out) and allow the admin to toggle the logo color individually or for the entire row --> */}}
@@ -67,9 +80,9 @@
         {{ if (fileExists $path) }}
           {{ $imagesrc := resources.Get $assetpath }}
           {{ if eq $logos_link false }}
-            <span>
+            <span class="{{ $name }}">
           {{ else }}
-            <a href="{{ $url }}">
+            <a class="{{ $name }}" href="{{ $url }}">
           {{ end }}
             <img src="{{ $imagesrc.Permalink }}">
           {{ if eq $logos_link false }}
@@ -91,9 +104,9 @@
           {{ if (fileExists $path) }}
             {{ $imagesrc := resources.Get $assetpath }}
             {{ if eq $logos_link false }}
-              <span>
+              <span class="{{ $name }}">
             {{ else }}
-              <a href="{{ $url }}">
+              <a class="{{ $name }}" href="{{ $url }}">
             {{ end }}
               <img src="{{ $imagesrc.Permalink }}">
             {{ if eq $logos_link false }}
@@ -111,9 +124,9 @@
     {{ if (fileExists $path) }}
       {{ $imagesrc := resources.Get $assetpath }}
       {{ if eq $logos_link false }}
-        <span>
+        <span class="{{ $name }}">
       {{ else }}
-        <a href="{{ $url }}">
+        <a class="{{ $name }}" href="{{ $url }}">
       {{ end }}
         <img src="{{ $imagesrc.Permalink }}">
       {{ if eq $logos_link false }}

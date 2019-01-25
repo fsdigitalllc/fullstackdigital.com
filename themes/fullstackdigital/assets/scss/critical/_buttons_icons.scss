@@ -1,0 +1,11 @@
+.hover-right svg {
+  margin-left: 10px;
+  margin-right: 0px;
+  transition: margin-right 1.0s;
+  -webkit-transition: margin-left 1.0s, margin-right 1.0s;
+  transition: margin-left 1.0s, margin-right 1.0s;
+}
+.hover-right:hover svg {
+  margin-left: 20px;
+  margin-right: -10px;
+}

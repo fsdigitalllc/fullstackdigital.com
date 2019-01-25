@@ -1,9 +1,13 @@
-<link rel="stylesheet" href="{{ "css/app.css" | absURL }}">
+<style>
 
-<style class="critical">
-{{ $base_css := resources.Get "scss/critical/base.scss" | resources.ExecuteAsTemplate "style.base.scss" . | toCSS | minify }}
-{{ $nav_css := resources.Get "scss/critical/navigation.scss" | resources.ExecuteAsTemplate "style.navigation.scss" . | toCSS | minify }}
+ {{ $critical_css := "" }}
+{{ if $.Site.IsServer }}
+  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS }}
+{{ else }}
+  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | minify }}
+{{ end }}
 
-{{ (slice $nav_css $base_css | resources.Concat "style.scss").Content | safeCSS }}
+{{ (slice $critical_css | resources.Concat "style.scss").Content | safeCSS }}
+
 
 </style>

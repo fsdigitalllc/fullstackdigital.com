@@ -1,0 +1,3 @@
+{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | minify }}
+
+<link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>
