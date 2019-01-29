@@ -63,3 +63,32 @@ input:focus, textarea:focus {
   -webkit-box-shadow: 0 0 0 4px #1badff;
   box-shadow: 0 0 0 4px #1badff;
 }
+
+/*invalid entries*/
+input[type=text]:invalid:not(:focus):not(:placeholder-shown), input[type=email]:invalid:not(:focus):not(:placeholder-shown), input[type=url]:invalid:not(:focus):not(:placeholder-shown) {
+  background: #f6d0d0;
+}
+
+/*valid entries*/
+input[type=text]:valid, input[type=email]:valid, input[type=url]:valid {
+  background: #c6e2d0;
+}
+
+button[type="submit"][disabled=""]:hover {
+  cursor: not-allowed;
+}
+button[type="submit"][disabled=""].button.fill.deepblue:before {
+  width: 100%;
+}
+button[type="submit"][disabled=""][percent-left="75%"].button.fill.deepblue:before {
+  width: 75%;
+}
+button[type="submit"][disabled=""][percent-left="50%"].button.fill.deepblue:before {
+  width: 50%;
+}
+button[type="submit"][disabled=""][percent-left="25%"].button.fill.deepblue:before {
+  width: 25%;
+}
+button[type="submit"][disabled=""][percent-left="0%"].button.fill.deepblue:before {
+  width: 0%;
+}

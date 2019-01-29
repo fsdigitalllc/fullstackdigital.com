@@ -323,6 +323,9 @@ a {
   color: #fff;
   transition: all .2s ease; }
 
+.button.fill:focus::before, .button.fill:active::before {
+  width: 120%; }
+
 .padding-xs {
   padding-top: 20px;
   padding-bottom: 20px; }

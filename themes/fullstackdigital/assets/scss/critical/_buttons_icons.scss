@@ -82,3 +82,6 @@
   // box-shadow: inset 0 0 0 1px #1badff;
   transition: all .2s ease;
 }
+.button.fill:focus::before, .button.fill:active::before {
+  width: 120%;
+}

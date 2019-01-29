@@ -56,22 +56,42 @@ document.addEventListener("DOMContentLoaded", function() {
 function validateForm() {
   let submitBtn = document.querySelector('[type="submit"]');
   let formFields = document.querySelectorAll('[required="true"]');
-      
+  
+  submitBtn.setAttribute("percent-left", "100%");
+
   formFields.forEach(function (field, index ) {
     field.addEventListener("click", function(e) {
-      setDisabled(field);
+      count = formFields.length;
+      setDisabled(field, count);
     });
   });
 
-  function setDisabled(field) {
+  function setDisabled(field, count) {
+    
     field.addEventListener("keyup", function(e) {
       let filledIn = false;
-
-      formFields.forEach(function (field, index ) {
+      let inputsWithoutValue = count;
+      let totalPercent;
+      formFields.forEach(function (field, count, index ) {
+        
         if ( field.value == "" ) {
           filledIn = true;
+          
+        } else {
+          inputsWithoutValue-= 1;
         }
+        totalPercent = inputsWithoutValue / count * 100 + "%";
       });
+      console.log(totalPercent);
+      if (totalPercent >= "75%") {
+        submitBtn.setAttribute("percent-left", "75%");
+      } else if (totalPercent >= "50%") {
+        submitBtn.setAttribute("percent-left", "50%");
+      } else if (totalPercent >= "25%") {
+        submitBtn.setAttribute("percent-left", "25%");
+      } else if (totalPercent == "0%" ) {
+        submitBtn.setAttribute("percent-left", "0%");
+      }
       if (filledIn) {
         submitBtn.setAttribute("disabled", "");
       } else {
