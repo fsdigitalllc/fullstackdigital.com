@@ -60,6 +60,7 @@ function validateForm() {
   submitBtn.setAttribute("percent-left", "100%");
 
   formFields.forEach(function (field, index ) {
+    console.log(field);
     field.addEventListener("click", function(e) {
       count = formFields.length;
       console.log("clicked");
