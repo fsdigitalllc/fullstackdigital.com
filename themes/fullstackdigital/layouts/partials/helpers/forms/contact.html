@@ -56,12 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
 function validateForm() {
   let submitBtn = document.querySelector('[type="submit"]');
   let formFields = document.querySelectorAll('[required="true"]');
-  
+
   submitBtn.setAttribute("percent-left", "100%");
 
   formFields.forEach(function (field, index ) {
     field.addEventListener("click", function(e) {
       count = formFields.length;
+      console.log("clicked");
       setDisabled(field, count);
     });
   });
