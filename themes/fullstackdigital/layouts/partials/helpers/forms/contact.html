@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function validateForm() {
-  let submitBtn = document.querySelector('[type="submit"]');
-  let formFields = document.querySelectorAll('[required="true"]');
+  let submitBtn = document.querySelector('.template-cta [type="submit"]');
+  let formFields = document.querySelectorAll('.template-cta input[required="true"]');
 
   submitBtn.setAttribute("percent-left", "100%");
 
