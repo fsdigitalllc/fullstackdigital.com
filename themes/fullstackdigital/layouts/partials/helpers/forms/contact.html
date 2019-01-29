@@ -1,11 +1,6 @@
 <form name="form-{{ .global.Title | lower | urlize }}" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" class="flex wrap">
   
-  <input type="text" style="display:none;" name="xnQsjsdp" value="a0456f69f79690e347386642e1d0d4c819731723f052fe811477c8b0cd50100a">
-  <input type="hidden" name="zc_gad" id="zc_gad" value="">
   <input type="hidden" name="permalink" id="zc_gad" value="{{ .global.Permalink }}">
-  <input type="hidden" name="zc_gad" id="zc_gad" value="">
-  <input type="text" style="display:none;" name="xmIwtLD" value="01aad3be08f24f99eec2e5fa13272482e46de5b6cc8dea64cb86646ac7d64e40">
-  <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
   <input type="text" style="display:none;" name="returnURL" value="https://fullstackdigital.com/contact-success/">
   
   <div class="form-row">
@@ -13,25 +8,25 @@
     <p class="hidden">
       <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
     </p>
-      <input type="text" maxlength="80" placeholder="Your Name" name="Last Name" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+      <input type="text" maxlength="80" placeholder="Your Name" name="Last Name" required="true" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
     </div>
     <div class="form-2">
-      <input type="email" placeholder="Your Email" maxlength="100" name="Email" pattern="[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required="">
+      <input type="email" placeholder="Your Email" maxlength="100" name="Email" pattern="[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required="true">
     </div>
   </div>
 
   <div class="form-row">
     <div class="form-2">
-      <input type="text" placeholder="Your Company Name" maxlength="255" name="Company" required="">
+      <input type="text" placeholder="Your Company Name" maxlength="255" name="Company" required="true">
     </div>
     <div class="form-2">
-    <input type="url" placeholder="Your Website" maxlength="255" name="Website" pattern="https?://.+" required="">
+    <input type="url" placeholder="Your Website" maxlength="255" name="Website" pattern="https?://.+" required="true">
     </div>
   </div>
 
   <div class="form-row">
     <div class="form-1">
-    <textarea placeholder="Your story..." name="Description" maxlength="1000" required=""></textarea>
+    <textarea placeholder="Your story..." name="Description" maxlength="1000" required="true"></textarea>
     </div>
   </div>
 
@@ -39,7 +34,7 @@
     <div class="form-1">
     
     <div data-netlify-recaptcha="true"></div>
-    <button class="button fill deepblue strip-margin hover-right submit" type="submit" id="submit" value="Submit" disabled="disabled">Send Message <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+    <button class="button fill deepblue strip-margin hover-right submit" type="submit" id="submit" value="Submit" disabled>Send Message <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
     <g>
     <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
     </g>
@@ -49,3 +44,41 @@
   </div>
   
   </form>
+
+<script type="text/javascript">
+
+//validate forms for inputs
+document.addEventListener("DOMContentLoaded", function() {
+  validateForm();
+  
+});
+
+function validateForm() {
+  let submitBtn = document.querySelector('[type="submit"]');
+  let formFields = document.querySelectorAll('[required="true"]');
+      
+  formFields.forEach(function (field, index ) {
+    field.addEventListener("click", function(e) {
+      setDisabled(field);
+    });
+  });
+
+  function setDisabled(field) {
+    field.addEventListener("keyup", function(e) {
+      let filledIn = false;
+
+      formFields.forEach(function (field, index ) {
+        if ( field.value == "" ) {
+          filledIn = true;
+        }
+      });
+      if (filledIn) {
+        submitBtn.setAttribute("disabled", "");
+      } else {
+        submitBtn.removeAttribute("disabled");
+      }
+    });
+  }
+}
+  
+</script>
