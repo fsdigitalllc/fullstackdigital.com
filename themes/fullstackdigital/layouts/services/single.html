@@ -81,7 +81,7 @@ logos:
     </div>
 
     <div class="container flex h_children_center margin-m-bottom">
-      <div class="col-4">
+      <div class="col-4 perspecitive-col">
         <div class="perspective-items">
         <div data-aos="fade-up" data-aos-anchor="#service-offering" data-aos-offset="500" data-aos-easing="ease-out-cubic" duration="1000" class="perspective-item aos-init aos-animate">
         <svg id="Layer_1" width="132" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -109,7 +109,7 @@ logos:
       </div>
     </div>
 
-    <div class="container maxwidth-xl flex wrap break-mobile h_children_space-between">
+    <div class="container maxwidth-xl flex wrap break-tablet-s h_children_space-between">
       <div class="maxwidth-xxxs text-center col-3">
         <span class="black-number">
         <span class="color-white strip-margin strip-padding">1</span>
@@ -168,25 +168,18 @@ logos:
       </div>
     </div>
 
-    <div class="container flex break-mobile border-dark margin-m-top margin-m-bottom"></div>
+    <div class="container flex break-tablet-s border-dark margin-m-top margin-m-bottom"></div>
 
     <div id="number-4-row" class="container break-mobile margin-m-top margin-m-bottom h_children_center v_children_center">
-      <div class="flex text-center col-1">
-        <span class="black-number strip-margin-bottom">
-        <span class="color-white strip-margin strip-padding">4</span>
+        <span class="black-number col-1">
+        <span class="color-white strip-padding">4</span>
         </span>
-      </div>
 
-      <div class="text-left col-3">
-        <p class="number-title strip-margin">{{ .number_4.title | safeHTML }}</p>
-      </div>
+        <p class="text-left number-title col-3">{{ .number_4.title | safeHTML }}</p>
 
-      <div class="text-left col-5">
-        <p class="strip-margin">{{ .number_4.paragraph | safeHTML }}</p>
-      </div>
+        <p class="col-5">{{ .number_4.paragraph | safeHTML }}</p>
 
-      <div class="text-center col-2">
-        <p class="small_link flex h_children_center strip-margin">
+        <p class="small_link flex h_children_center text-center col-2">
           <a class="color-oil flex hover-right" href="{{ .number_4.link | safeHTML }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
@@ -195,7 +188,6 @@ logos:
                                         54,23 "></polyline>
           </svg></a>
         </p>
-      </div>
     </div>
 
   {{ end }}
@@ -239,17 +231,9 @@ logos:
       </div>
   </div>
   
-  <div id="dribble-row" class="container flex break-mobile">
-      <div class="flex col-6">
-        <h4 class="text-left color-oil subtitle"><strong>{{ .column_1.subtitle | safeHTML }}</strong></h4>
-      </div>
-      <div class="flex text-left col-6 maxwidth-xs">
-        <h4 class="text-left color-oil subtitle"><strong>{{ .column_2.subtitle | safeHTML }}</strong></h4>
-      </div>
-  </div>
-  
-  <div class="container flex break-mobile h_children_start wrap">
+  <div class="container grid-2 break-mobile h_children_start wrap">
     <div class="text-left col-6">
+      <h4 class="text-left color-oil subtitle"><strong>{{ .column_1.subtitle | safeHTML }}</strong></h4>
       <div class="text-align-left color-oil">
         <div class="grid-image-overlay">
           {{ range .column_1.images }}
@@ -270,45 +254,26 @@ logos:
     </div>
   
     <div class="text-left col-6">
+      <h4 class="text-left color-oil subtitle"><strong>{{ .column_2.subtitle | safeHTML }}</strong></h4>
+      {{ range first 3 $.Site.Data.placeholder.posts }}
       <div class="article related-blog-feed">
-      <a class="text-align-left color-oil" target="_blank" href="https://news.fullstackdigital.com/rigado-commercial-iot-selects-fullstack/">
-      <h3 class="strip-margin-bottom">Rigado selects Fullstack as Design and Branding Partner</h4>
-      <p class="flex v_children_end h_children_end strip-margin-bottom"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-      <g>
-      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
-      </g>
-      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
-                        54,23 "></polyline>
-      </svg></span>
-      </p>
+      <a class="text-left color-oil" target="_blank" href="{{ .link }}">
+        <h3 class="strip-margin-bottom">{{ .title | safeHTML }}</h4>
+        <p class="flex v_children_end h_children_end">
+          <span class="color-oil flex hover-right">
+          <strong>Read More</strong> 
+          <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+          </g>
+          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                            54,23 "></polyline>
+          </svg>
+          </span>
+        </p>
       </a>
       </div>
-      <div class="article related-blog-feed">
-      <a class="text-left color-oil" target="_blank" href="https://blog.fullstackdigital.com/how-we-automatically-synchronize-100-projects-on-dells-open-source-website-8da0c54669d4">
-      <h3 class="strip-margin-bottom">Using GitHub to Sync 100 Projects on Dell’s Open Source Website</h4>
-      <p class="flex v_children_end h_children_end strip-margin-bottom"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-      <g>
-      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
-      </g>
-      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
-                        54,23 "></polyline>
-      </svg></span>
-      </p>
-      </a>
-      </div>
-      <div class="article related-blog-feed">
-      <a class="text-left color-oil" target="_blank" href="https://blog.fullstackdigital.com/how-to-use-hugo-template-variables-in-scss-files-in-2018-b8a834accce">
-      <h3 class="strip-margin-bottom">How to use Hugo template variables in SCSS files (in 2018)</h4>
-      <p class="flex h_children_end v_children_end strip-margin-bottom"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-      <g>
-      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
-      </g>
-      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
-                        54,23 "></polyline>
-      </svg></span>
-      </p>
-      </a>
-      </div>
+      {{ end }}
       </div>
       </div>
   </div>

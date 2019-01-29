@@ -1,0 +1,14 @@
+.grid-2, .grid-3, .grid-4, .grid-5 {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 40px;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: $screen-laptop) {
+  .grid-2 {
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}

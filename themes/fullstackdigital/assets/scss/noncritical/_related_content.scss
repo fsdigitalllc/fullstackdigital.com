@@ -31,3 +31,13 @@
 .related-blog-feed a:last-child {
   margin-bottom: 10px;
 }
+@media screen and (max-width: $screen-tablet) {
+  .related-blog-feed a {
+    grid-template-columns: 1fr;
+  }
+  .related-blog-feed a p {
+    grid-row-start: 2;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}

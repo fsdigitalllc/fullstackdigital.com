@@ -24,3 +24,9 @@
 .maxwidth-xl {
   max-width: 950px
 }
+
+@media screen and (max-width: $screen-tablet) {
+  .maxwidth-xxl,.maxwidth-xl,.maxwidth-l,.maxwidth-m.maxwidth-xxs,.maxwidth-xs,.maxwidth-s {
+    max-width:100%
+  }
+}

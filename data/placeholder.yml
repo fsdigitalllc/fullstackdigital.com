@@ -33,4 +33,9 @@ work:
     link: "#"
     logo: "/images/clients/white/threefactor.png"
 posts:
-  - title ""
+  - title: "Rigado selects Fullstack as Design and Branding Partner"
+    link: "https://news.fullstackdigital.com/rigado-commercial-iot-selects-fullstack/"
+  - title: "Using GitHub to Sync 100 Projects on Dell’s Open Source Website"
+    link: "https://blog.fullstackdigital.com/how-we-automatically-synchronize-100-projects-on-dells-open-source-website-8da0c54669d4"
+  - title: "How to use Hugo template variables in SCSS files (in 2018)"
+    link: "https://blog.fullstackdigital.com/how-to-use-hugo-template-variables-in-scss-files-in-2018-b8a834accce"
