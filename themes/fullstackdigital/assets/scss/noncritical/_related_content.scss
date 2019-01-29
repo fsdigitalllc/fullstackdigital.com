@@ -31,6 +31,11 @@
 .related-blog-feed a:last-child {
   margin-bottom: 10px;
 }
+@media screen and (min-width: $screen-tablet) {
+  .related-blog-feed h3, .related-blog-feed p {
+    margin-bottom: 0px;
+  }
+}
 @media screen and (max-width: $screen-tablet) {
   .related-blog-feed a {
     grid-template-columns: 1fr;

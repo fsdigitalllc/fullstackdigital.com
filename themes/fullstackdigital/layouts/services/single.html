@@ -258,7 +258,7 @@ logos:
       {{ range first 3 $.Site.Data.placeholder.posts }}
       <div class="article related-blog-feed">
       <a class="text-left color-oil" target="_blank" href="{{ .link }}">
-        <h3 class="strip-margin-bottom">{{ .title | safeHTML }}</h4>
+        <h3>{{ .title | safeHTML }}</h4>
         <p class="flex v_children_end h_children_end">
           <span class="color-oil flex hover-right">
           <strong>Read More</strong> 
@@ -282,13 +282,13 @@ logos:
 
 
     {{ if $cta_t }}
-      <div class="container flex break-tablet-s h_children_space-between">
+      <div class="container flex break-tablet h_children_space-between">
 
         <div class="flex col-5">
           
         </div>
 
-      <div data-aos="fade-left" class="flex wrap padding-m-top padding-m-bottom text-left col-6">
+      <div data-aos="fade-left" class="flex wrap padding-m-top padding-m-bottom text-left col-6 maxwidth-s">
 
 
       <h4 class="text-align-left subtitle">{{ .subtitle | safeHTML }}</h4>

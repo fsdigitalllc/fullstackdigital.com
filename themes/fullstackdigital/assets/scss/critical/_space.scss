@@ -148,3 +148,56 @@
     margin: 0 !important;
   }
 }
+@media screen and (max-width: $screen-tablet-s) {
+  .padding-xxl {
+    padding-top: 80px;
+    padding-bottom: 80px
+  }
+
+  .padding-xxl-top {
+      padding-top: 80px
+  }
+
+  .padding-xxl-bottom {
+      padding-bottom: 80px
+  }
+
+  .padding-xl {
+      padding-top: 80px;
+      padding-bottom: 80px
+  }
+
+  .padding-xl-top {
+      padding-top: 80px
+  }
+
+  .padding-xl-bottom {
+      padding-bottom: 80px
+  }
+
+  .padding-l {
+      padding-top: 80px;
+      padding-bottom: 80px
+  }
+
+  .padding-l-top {
+      padding-top: 80px
+  }
+
+  .padding-l-bottom {
+      padding-bottom: 80px
+  }
+
+  .padding-m {
+      padding-top: 40px;
+      padding-bottom: 40px
+  }
+
+  .padding-m-top {
+      padding-top: 40px
+  }
+
+  .padding-m-bottom {
+      padding-bottom: 40px
+  }
+}

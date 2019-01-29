@@ -157,30 +157,29 @@ a {
 .text-left {
   text-align: left; }
 
+.maxwidth-xxl, .maxwidth-xl, .maxwidth-l, .maxwidth-m, .maxwidth-xxxs, .maxwidth-xxs, .maxwidth-xs, .maxwidth-s {
+  max-width: 100%; }
+
 .maxwidth-xxxs {
-  max-width: 350px; }
+  width: 350px; }
 
 .maxwidth-xxs {
-  max-width: 450px; }
+  width: 450px; }
 
 .maxwidth-xs {
-  max-width: 550px; }
+  width: 550px; }
 
 .maxwidth-s {
-  max-width: 650px; }
+  width: 650px; }
 
 .maxwidth-m {
-  max-width: 750px; }
+  width: 750px; }
 
 .maxwidth-l {
-  max-width: 850px; }
+  width: 850px; }
 
 .maxwidth-xl {
-  max-width: 950px; }
-
-@media screen and (max-width: 900px) {
-  .maxwidth-xxl, .maxwidth-xl, .maxwidth-l, .maxwidth-m.maxwidth-xxs, .maxwidth-xs, .maxwidth-s {
-    max-width: 100%; } }
+  width: 950px; }
 
 .flex {
   display: flex; }
@@ -442,6 +441,36 @@ a {
 @media screen and (min-width: 900px) {
   .strip-margin-desktop {
     margin: 0 !important; } }
+
+@media screen and (max-width: 768px) {
+  .padding-xxl {
+    padding-top: 80px;
+    padding-bottom: 80px; }
+  .padding-xxl-top {
+    padding-top: 80px; }
+  .padding-xxl-bottom {
+    padding-bottom: 80px; }
+  .padding-xl {
+    padding-top: 80px;
+    padding-bottom: 80px; }
+  .padding-xl-top {
+    padding-top: 80px; }
+  .padding-xl-bottom {
+    padding-bottom: 80px; }
+  .padding-l {
+    padding-top: 80px;
+    padding-bottom: 80px; }
+  .padding-l-top {
+    padding-top: 80px; }
+  .padding-l-bottom {
+    padding-bottom: 80px; }
+  .padding-m {
+    padding-top: 40px;
+    padding-bottom: 40px; }
+  .padding-m-top {
+    padding-top: 40px; }
+  .padding-m-bottom {
+    padding-bottom: 40px; } }
 
 .col-1 {
   flex-basis: 8.3333%; }

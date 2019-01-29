@@ -44,7 +44,7 @@ input, textarea {
   -webkit-transition: box-shadow .3s;
   transition: box-shadow .3s;
 }
-input {
+input, textarea {
   margin-bottom: 10px;
 }
 input[type=text], input[type=email], input[type=url] {
@@ -63,6 +63,9 @@ input:focus, textarea:focus {
   -webkit-box-shadow: 0 0 0 4px #1badff;
   box-shadow: 0 0 0 4px #1badff;
 }
+button[type="submit"] {
+  margin-top: 25px;
+}
 
 /*invalid entries*/
 input[type=text]:invalid:not(:focus):not(:placeholder-shown), input[type=email]:invalid:not(:focus):not(:placeholder-shown), input[type=url]:invalid:not(:focus):not(:placeholder-shown) {
@@ -80,15 +83,23 @@ button[type="submit"][disabled=""]:hover {
 button[type="submit"][disabled=""].button.fill.deepblue:before {
   width: 100%;
 }
-button[type="submit"][disabled=""][percent-left="75%"].button.fill.deepblue:before {
-  width: 75%;
+button[type="submit"][disabled=""][percent-left="85%"].button.fill.deepblue:before {
+  width: 85%;
 }
-button[type="submit"][disabled=""][percent-left="50%"].button.fill.deepblue:before {
-  width: 50%;
+button[type="submit"][disabled=""][percent-left="60%"].button.fill.deepblue:before {
+  width: 60%;
 }
 button[type="submit"][disabled=""][percent-left="25%"].button.fill.deepblue:before {
-  width: 25%;
+  width: 35%;
 }
 button[type="submit"][disabled=""][percent-left="0%"].button.fill.deepblue:before {
   width: 0%;
+}
+
+@media screen and (max-width: $screen-mobile-m) {
+  .form-row .form-2 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
