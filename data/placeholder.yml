@@ -1,0 +1,36 @@
+work:
+  - name: "dell"
+    thumbnail: "/images/placeholder/code-brand-cover.png"
+    title: "Rebranding an Open Source Team for an Open Future"
+    tags: 
+      - "brand"
+    background: "#0370D6"
+    link: "#"
+    logo: "/images/clients/color/dell.svg"
+  - name: "ddn"
+    thumbnail: /images/placeholder/ddn-cover.png
+    title: "Connecting with Prospects Through Integrated Marketing"
+    tags: 
+      - "brand"
+      - "web"
+    background: "#AB0000"
+    link: "#"
+    logo: "/images/clients/color/ddn.svg"
+  - name: "quantum"
+    thumbnail: "/images/placeholder/qtm-web-cover.png"
+    title: "Creating a Responsive Brand Identity for an Industry Leader"
+    tags: 
+      - "brand"
+    background: "#007DB8"
+    link: "#"
+    logo: "/images/clients/color/quantum.svg"
+  - name: "threefactor"
+    thumbnail: "/images/placeholder/threefactor-cover.png"
+    title: "Welcoming a New Brand to Surveillance"
+    tags: 
+      - "brand"
+    background: "#f7f7f7"
+    link: "#"
+    logo: "/images/clients/white/threefactor.png"
+posts:
+  - title ""

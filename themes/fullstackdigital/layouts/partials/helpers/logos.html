@@ -21,12 +21,12 @@ logos:
 {{/* <!--logo pass defaults to color, but admin can toggle white version --> */}}
 {{/* <!--WHEN UPDATING LOGOS IN THE FOLDER: Use same naming convention for both white and color, I have added some checks and balances, but it's not perfect --> */}}
 
-{{ $site := $.g.Site }}
+{{ $site := $.global.Site }}
 
 {{ $prefix := "assets/images/clients/" }}
 {{ $asset_prefix := "images/clients/" }}
 {{/* <!--the default color setting --> */}}
-{{ if eq .p.logos_color false }}
+{{ if eq .page.logos_color false }}
   {{ $prefix = "assets/images/clients/white/" }}
   {{ $asset_prefix = "images/clients/white/" }}
 {{ else }}
@@ -34,10 +34,10 @@ logos:
   {{ $asset_prefix = "images/clients/color/" }}
 {{ end }}
 
-{{ range .p.logos }}
 {{/* <!--on an individual level, override the default setting --> */}}
-{{ $logos_link := $.p.logos_link }}
+{{ $logos_link := $.page.logos_link }}
 
+{{ range .page.logos }}
   {{ if eq .logo_color true }}
     {{ $prefix = "assets/images/clients/color/" }}
     {{ $asset_prefix = "images/clients/color/" }}
@@ -94,7 +94,7 @@ logos:
 
     {{ else if not $url }}
 
-      {{ range where $.g.Site.Pages "Section" $.g.Site.Data.lookup.client_default_section }}
+      {{ range where $.global.Site.Pages "Section" $.global.Site.Data.lookup.client_default_section }}
       {{ if eq .Params.name $name }}
       {{ $url = .Permalink }}
         {{/* <!--did I override the URL, path, or image on this page?--> */}}
@@ -149,4 +149,4 @@ logos:
   
 
   {{ end }}
-{{ end }}
+  {{ end }}

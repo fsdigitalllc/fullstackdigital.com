@@ -13,14 +13,14 @@
         {{ end }}
 
         {{ block "site/styles" . }}{{ partial "site/styles.html" . }}{{ end }}
-
+        
     </head>
     <body class='{{ partial "site/body_classes.html" . }}'>
 
         {{ block "header" . }}{{ partial "site/header.html" . }}{{ end }}
 
         <main class="site-main" role="main">
-
+                
             {{ block "main" . }}{{ end }}
 
         </main>

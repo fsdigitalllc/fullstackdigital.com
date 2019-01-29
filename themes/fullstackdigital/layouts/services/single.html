@@ -13,10 +13,14 @@ logos:
   - name: "ddn"
   - name: "code" -->
 
+
 {{ range $index, $sections := .Params.sections }}
   {{ $title_t := "" }}
   {{ $description_t := "" }}
   {{ $process_t := "" }}
+  {{ $related_t := "" }}
+  {{ $content_related_t := "" }}
+  {{ $cta_t := "" }}
 
   {{ if eq .template "service_title" }}
     {{ $title_t = .template }}
@@ -27,8 +31,17 @@ logos:
   {{ if eq .template "service_process" }}
     {{ $process_t = .template }}
   {{ end }}
+  {{ if eq .template "related_work" }}
+    {{ $related_t = .template }}
+  {{ end }}
+  {{ if eq .template "related_content" }}
+    {{ $content_related_t = .template }}
+  {{ end }}
+  {{ if eq .template "cta" }}
+    {{ $cta_t = .template }}
+  {{ end }}
 
-  <section data-index='{{ $index }}' class='template-{{ .template }}{{ if $title_t }} padding-l-top padding-xl-bottom {{ end }}{{ if $description_t}} padding-l bg_grey{{ end }}{{ if $process_t }} padding-xl-top padding-m-bottom{{ end }}'>
+  <section data-index='{{ $index }}' class='template-{{ .template }}{{ if $title_t }} padding-l-top padding-xl-bottom {{ end }}{{ if $description_t}} padding-l bg_grey{{ end }}{{ if $process_t }} padding-xl-top padding-m-bottom{{ end }}{{ if $related_t }} padding-l-bottom{{ end }}{{ if $content_related_t }} padding-l-bottom{{ end }}{{ if $cta_t }} cta-left{{ end }}'>
 
   {{ if $title_t }}
   <div class="container flex h_children_center">
@@ -43,7 +56,8 @@ logos:
   </div>
   <div class="container flex h_children_center">
     <div class="col-12 featured-logos margin-s-top{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
-      {{ partial "helpers/logos.html" (dict "p" . "g" $ ) }}
+      
+      {{ partial "helpers/logos.html" (dict "page" . "global" $ ) }}
     </div>
   </div>
   {{ end }}
@@ -185,8 +199,153 @@ logos:
     </div>
 
   {{ end }}
+
+  {{ if $related_t }}
+
+  <div class="container flex padding-s-bottom break-tablet h_children_start">
+    <div class="text-left col-9">
+        <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <title>Services</title>
+        <g>
+        <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
+        </g>
+        <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
+        <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
+        <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
+        </svg>
+        <h4 class="text-align-left color-oil maxwidth-l subtitle">{{ .subtitle | safeHTML }}</h4>
+        <h2 class="text-align-left color-oil maxwidth-l">{{ .title | safeHTML }}</h2>
+      </div>
+    </div>
+  
+
+    
+    {{ partial "helpers/work/grid_item.html" (dict "page" . "global" $ ) }}
+
+  {{ end }}
+
+  {{ if $content_related_t }}
+  
+  <div class="container flex wrap padding-m-bottom break-tablet h_children_start">
+      <div class="text-left col-12 maxwidth-l"><svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <title>{{ .subtitle | safeHTML }}</title>
+        <polygon fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="40,1 17,37 31,37 
+            24,63 50,27 36,27 "></polygon>
+        </svg>
+      </div>
+      <div class="flex col-12 maxwidth-l wrap">
+        <h4 class="text-align-left subtitle">{{ .subtitle | safeHTML }}</h4>
+        <h2 class="text-align-left">{{ .title | safeHTML }}</h2>
+      </div>
+  </div>
+  
+  <div id="dribble-row" class="container flex break-mobile">
+      <div class="flex col-6">
+        <h4 class="text-left color-oil subtitle"><strong>{{ .column_1.subtitle | safeHTML }}</strong></h4>
+      </div>
+      <div class="flex text-left col-6 maxwidth-xs">
+        <h4 class="text-left color-oil subtitle"><strong>{{ .column_2.subtitle | safeHTML }}</strong></h4>
+      </div>
+  </div>
+  
+  <div class="container flex break-mobile h_children_start wrap">
+    <div class="text-left col-6">
+      <div class="text-align-left color-oil">
+        <div class="grid-image-overlay">
+          {{ range .column_1.images }}
+            {{ partial "helpers/image.html" (dict "page" . "global" $ ) }}
+          {{ end }}
+        </div>
+      </div>
+  
+      <div class=""><a href="https://dribbble.com/fullstackdigital" class="flex strip-underline justify-children-start align-children-start strip-margin-bottom" target="_blank"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g>
+      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      </g>
+      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                        54,23 "></polyline>
+      </svg></span>
+      </a>
+      </div>
+    </div>
+  
+    <div class="text-left col-6">
+      <div class="article related-blog-feed">
+      <a class="text-align-left color-oil" target="_blank" href="https://news.fullstackdigital.com/rigado-commercial-iot-selects-fullstack/">
+      <h3 class="strip-margin-bottom">Rigado selects Fullstack as Design and Branding Partner</h4>
+      <p class="flex v_children_end h_children_end strip-margin-bottom"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g>
+      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      </g>
+      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                        54,23 "></polyline>
+      </svg></span>
+      </p>
+      </a>
+      </div>
+      <div class="article related-blog-feed">
+      <a class="text-left color-oil" target="_blank" href="https://blog.fullstackdigital.com/how-we-automatically-synchronize-100-projects-on-dells-open-source-website-8da0c54669d4">
+      <h3 class="strip-margin-bottom">Using GitHub to Sync 100 Projects on Dell’s Open Source Website</h4>
+      <p class="flex v_children_end h_children_end strip-margin-bottom"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g>
+      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      </g>
+      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                        54,23 "></polyline>
+      </svg></span>
+      </p>
+      </a>
+      </div>
+      <div class="article related-blog-feed">
+      <a class="text-left color-oil" target="_blank" href="https://blog.fullstackdigital.com/how-to-use-hugo-template-variables-in-scss-files-in-2018-b8a834accce">
+      <h3 class="strip-margin-bottom">How to use Hugo template variables in SCSS files (in 2018)</h4>
+      <p class="flex h_children_end v_children_end strip-margin-bottom"><span class="color-oil strip-underline flex hover-right"><strong>Read More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g>
+      <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      </g>
+      <polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                        54,23 "></polyline>
+      </svg></span>
+      </p>
+      </a>
+      </div>
+      </div>
+      </div>
+  </div>
+
+  {{ end }}
+
+
+    {{ if $cta_t }}
+      <div class="container flex break-tablet-s h_children_space-between">
+
+        <div class="flex col-5">
+          
+        </div>
+
+      <div data-aos="fade-left" class="flex wrap padding-m-top padding-m-bottom text-left col-6">
+
+
+      <h4 class="text-align-left subtitle">{{ .subtitle | safeHTML }}</h4>
+      <h3 class="text-align-left"><strong id="get-started">{{ .title | safeHTML }}</strong></h3>
+
+
+
+      {{ with .form }}
+        {{ partial "helpers/forms/contact.html" (dict "page" . "global" $)}}
+      {{ end }}
+      </div>
+
+
+      </div>
+
+    {{ end }}
   </section>
+  
 {{ end }}
+
+
+
 
 
 {{ end }}

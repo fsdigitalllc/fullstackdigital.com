@@ -34,14 +34,23 @@ h2 {
 }
 
 h3 {
+  font-size: 28px;
   font-weight: 300;
-  font-size: 36px
+  line-height: 1.5em;
+}
+
+h3 strong {
+  font-weight: 900;
 }
 
 h4 {
   font-weight: 300;
   font-size: 19px;
   line-height: 1.5em;
+}
+
+h4 strong {
+  font-weight: 900;
 }
 
 h5 {

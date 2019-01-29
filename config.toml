@@ -8,25 +8,7 @@ disableAliases = true
 
 [permalinks]
   pages = "/:section/:title/"
-
-[[menu.main]]
-  identifier = "blog"
-  name = "Blog"
-  url = "blog.fullstackdigital.com"
-  weight = 3
-
-[[menu.main]]
-  identifier = "about"
-  name = "About"
-  url = "blog.fullstackdigital.com"
-  weight = 2
-
-[[menu.main]]
-parent = "About"
-identifier = "about"
-name = "About"
-url = "blog.fullstackdigital.com"
-weight = 2
+  blog = "/:title/"
 
 [params]
 disallow_search_engines = false # set robots.txt to disallow everything

@@ -1,3 +1,7 @@
-{{ range $.Site.Pages }}
-<a href="{{ .URL }}">{{ with .Params.Name }}{{ . }}{{ end }}</a>
-{{ end }}
+<footer>
+  <div class="container">
+    {{ range $.Site.Pages }}
+    <a href="{{ .URL }}">{{ with .Params.Name }}{{ . }}{{ end }}</a>
+    {{ end }}
+  </div>
+</footer>

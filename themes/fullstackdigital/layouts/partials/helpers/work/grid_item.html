@@ -1,0 +1,78 @@
+{{ $size := .page.grid.columns | default "4" }}
+
+<div class="container" id="loading_content" style="visibility: visible; display: block;">
+<div class="masonry-container work-grid row-{{ $size }}">
+<!-- <div class="gutter-guide"></div> -->
+
+{{ $total := len .page.grid.items }}
+{{ range $index, $grid_items := .page.grid.items }}
+{{ $name := .name }}
+{{ $order := $index }}
+
+{{ range $index, $item := $.global.Site.Data.placeholder.work }}
+
+{{ if eq .name $name }}
+{{ $logo_src := .logo | default "/images/clients/color/quantum.svg" }}
+{{ $logo := resources.Get $logo_src }}
+{{ $thumb_src := .thumbnail | default "/images/placeholder/ddn-cover.png" }}
+{{ $thumb := resources.Get $thumb_src }}
+
+<div class='{{ with .tags }}{{ delimit . " " }}{{ end }} gridgrow'>
+  <a class="work-link gridgrow-link" href='{{ .link | default "x" }}' title="{{ .title | safeHTML }}"><span>{{ .title | safeHTML }}</span></a>
+  <div class="gridwrap background-night">
+    <div class="flex-center gridgrow-image-holder" style="background-color: {{ .background }};">
+      <div class="gridgrow-image" style='background-image: url("{{ $thumb.Permalink }}");background-position-y: 60%;'></div>
+      <div style="background-color: {{ .background }};" class="wipe">
+      </div>
+    </div>
+  <div class="card-footer background-night color-white" itemprop="description">
+  <div class="excerpt-group">
+  <div class="card-logo-holder flex-center-vertical">
+  <img class="card-logo" src="{{ $logo.Permalink }}">
+  </div>
+  <h6 class="gridgrow-excerpt strip-margin">{{ .title | safeHTML }}</h6>
+    <span class="card-footer-layer flex h_children_center hover-right">
+      <h6 class="gridgrow-view strip-margin">View Case Study</h6>
+      <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g>
+      <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      </g>
+      <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                        54,23 "></polyline>
+      </svg>
+    </span>
+  </div>
+  
+  </div>
+  </div>
+</div>
+{{ end }}
+{{ end }}
+{{ end }}
+
+</div>
+</div>
+
+<script type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", function(){
+  gridImageSize();
+});
+
+window.addEventListener("resize", function() {
+  gridImageSize();
+});
+function gridImageSize(){
+  let gridImage = document.querySelectorAll(".gridgrow-image");
+  let gridgrowHeight = document.querySelector(".gridgrow-image-holder").offsetHeight;
+  let gridgrowWidth = document.querySelector(".gridgrow-link").offsetWidth;
+
+  gridImage.forEach(function(image, index){
+
+    image.style.height = gridgrowHeight * .7 + "px";
+    image.style.width = gridgrowWidth * .7 + "px";
+    console.log(gridgrowWidth);
+  });
+}
+
+</script>

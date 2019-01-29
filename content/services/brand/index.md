@@ -55,6 +55,33 @@ sections:
       title: "Brand Management<br><strong>How the brand lives on.</strong>"
       paragraph: "Supporting the brand with its very own team of dedicated experts, so it can focus on building equity"
       link: "#get-started"
-    
+  - template: "related_work"
+    subtitle: "Fullstack Branding Work"
+    title: "Not just projects, collaborations where we helped imagine the future."
+    grid:
+      columns: "2"
+      items:
+        - name: "dell"
+        - name: "quantum"
+        - name: "threefactor"
+        - name: "ddn"
+  - template: "related_content"
+    subtitle: "Fullstack Branding Today"
+    title: "How we stay current in the world of digital branding."
+    column_1:
+      subtitle: "Design on Dribbble."
+      images: 
+        - src: "/uploads/curefest_homepage.jpg"
+          class: "grid-image-top"
+        - src: "/uploads/leadgate.jpg"
+          class: "grid-image-bottom"
+    column_2:
+      subtitle: "News &amp; Stories."
+  - template: "cta"
+    subtitle: "Get Started"
+    title: "From presentation design to new brand strategy, we’ve got you covered."
+    form:
+    - template: "contact"
+      fields:
 --- 
 Branding page

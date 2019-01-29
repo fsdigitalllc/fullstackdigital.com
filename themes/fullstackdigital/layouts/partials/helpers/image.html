@@ -1,0 +1,9 @@
+{{ if in .page.src "uploads" }}
+
+{{ $imageResource := ($.global.Site.GetPage "section" "uploads").Resources.GetMatch (strings.TrimPrefix "/uploads/" .page.src ) }}
+          
+{{ $resized900 := ($imageResource.Resize "900x q100") }}
+{{ $resized500 := ($imageResource.Resize "500x q100") }}
+
+<img data-element="element-image" data-sizes="(min-width: 1000px) 900px, 90vw" data-srcset="{{ $resized500.RelPermalink }} 500w, {{ $resized900.RelPermalink }} 900w" data-src="{{ $resized500.RelPermalink }}" class="lazyload{{ with .page.class }} {{ . }}{{ end }}" alt="{{ .alt }}"/>
+{{ end }}

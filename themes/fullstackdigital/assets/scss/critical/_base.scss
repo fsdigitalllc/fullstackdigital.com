@@ -57,6 +57,9 @@ img {
   user-select: none;
 }
 
+.hidden {
+  display: none;
+}
 @media screen and (max-width: $screen-tablet ) {
   .container {
     padding-left: 20px;

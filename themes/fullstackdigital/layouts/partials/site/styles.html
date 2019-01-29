@@ -1,3 +1,7 @@
+{{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" | minify }}
+
+<script type="text/javascript" src="{{ $lazy_js.Permalink }}"></script>
+
 <style>
 
  {{ $critical_css := "" }}

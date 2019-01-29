@@ -1,11 +1,17 @@
 .flex {
   display: flex;
 }
+.wrap {
+  flex-wrap: wrap;
+}
 .h_children_center {
   justify-content: center;
 }
 .h_children_space-between {
   justify-content: space-between;
+}
+.h_children_end {
+  justify-content: flex-end;
 }
 
 
@@ -13,4 +19,7 @@
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
+}
+.v_children_end {
+  align-items: flex-end;
 }
