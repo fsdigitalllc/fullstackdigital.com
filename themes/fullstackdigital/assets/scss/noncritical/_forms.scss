@@ -83,6 +83,9 @@ button[type="submit"][disabled=""]:hover {
 button[type="submit"][disabled=""].button.fill.deepblue:before {
   width: 110%;
 }
+button[type="submit"][disabled=""][percent-left="100%"].button.fill.deepblue:before {
+  width: 110%;
+}
 button[type="submit"][disabled=""][percent-left="75%"].button.fill.deepblue:before {
   width: 85%;
 }

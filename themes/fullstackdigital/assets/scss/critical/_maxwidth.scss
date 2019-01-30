@@ -1,32 +1,31 @@
-.maxwidth-xxl,.maxwidth-xl,.maxwidth-l,.maxwidth-m, .maxwidth-xxxs,.maxwidth-xxs,.maxwidth-xs,.maxwidth-s {
-  max-width:100%
-}
 .maxwidth-xxxs {
-  width: 350px;
+  max-width: 350px;
 }
 
 .maxwidth-xxs {
-  width: 450px
+  max-width: 450px
 }
 
 .maxwidth-xs {
-  width: 550px
+  max-width: 550px
 }
 
 .maxwidth-s {
-  width: 650px
+  max-width: 650px
 }
 .maxwidth-m {
-  width: 750px
+  max-width: 750px
 }
 
 .maxwidth-l {
-  width: 850px
+  max-width: 850px
 }
 
 .maxwidth-xl {
-  width: 950px
+  max-width: 950px
 }
 @media screen and (max-width: $screen-tablet) {
-
+  .maxwidth-xxl,.maxwidth-xl,.maxwidth-l,.maxwidth-m {
+    max-width:100%
+  }
 }

@@ -21,7 +21,7 @@
   <a class="work-link gridgrow-link" href='{{ .link | default "x" }}' title="{{ .title | safeHTML }}"><span>{{ .title | safeHTML }}</span></a>
   <div class="gridwrap background-night">
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .background }};">
-      <div class="gridgrow-image" style='background-image: url("{{ $thumb.Permalink }}");background-position-y: 60%;'></div>
+      <div class="gridgrow-image lazyload" data-bg='{{ $thumb.Permalink }}' style='background-position-y: 60%;'></div>
       <div style="background-color: {{ .background }};" class="wipe">
       </div>
     </div>

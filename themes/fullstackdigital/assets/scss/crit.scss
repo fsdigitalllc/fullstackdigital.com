@@ -1,6 +1,7 @@
 {{ partial "helpers/variables.html" . | safeCSS }}
 
 @import "./critical/base";
+@import "./critical/aos";
 
 @import "./critical/type";
 

@@ -1,3 +1,36 @@
+{{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" | minify }}
+{{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" | minify }}
+{{ $aos := resources.Get "js/plugins/aos.min.js" | minify }}
+
+<script type="text/javascript" src="{{ $lazy_js.Permalink }}"></script>
+<script type="text/javascript" src="{{ $ls_unveil.Permalink }}"></script>
+
+<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
+
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    let lazyImages = document.querySelectorAll("img");
+  
+    lazyImages.forEach(function (image) {
+      image.classList.add("lazyload");
+    });
+    //add simple support for background images:
+    document.addEventListener('lazybeforeunveil', function(e){
+        var bg = e.target.getAttribute('data-bg');
+        if(bg){
+            e.target.style.backgroundImage = 'url(' + bg + ')';
+        }
+    });
+  });
+  lazySizes.init();
+  AOS.init({
+    delay: 0, // values from 0 to 3000, with step 50ms
+    duration: 400, // values from 0 to 3000, with step 50ms
+  });
+</script>
+
+
 {{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | minify }}
 
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>
