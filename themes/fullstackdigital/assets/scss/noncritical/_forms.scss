@@ -81,12 +81,12 @@ button[type="submit"][disabled=""]:hover {
   cursor: not-allowed;
 }
 button[type="submit"][disabled=""].button.fill.deepblue:before {
-  width: 100%;
+  width: 110%;
 }
-button[type="submit"][disabled=""][percent-left="85%"].button.fill.deepblue:before {
+button[type="submit"][disabled=""][percent-left="75%"].button.fill.deepblue:before {
   width: 85%;
 }
-button[type="submit"][disabled=""][percent-left="60%"].button.fill.deepblue:before {
+button[type="submit"][disabled=""][percent-left="50%"].button.fill.deepblue:before {
   width: 60%;
 }
 button[type="submit"][disabled=""][percent-left="25%"].button.fill.deepblue:before {

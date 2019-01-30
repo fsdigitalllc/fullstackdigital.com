@@ -55,25 +55,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function validateForm() {
   let submitBtn = document.querySelector('.template-cta [type="submit"]');
-  let formFields = document.querySelectorAll('.template-cta input[required]');
+  let formFields = document.querySelectorAll('.template-cta [required]');
 
   submitBtn.setAttribute("percent-left", "100%");
 
   formFields.forEach(function (field, index ) {
     console.log(field);
-    field.addEventListener("click", function(e) {
-      count = formFields.length;
-      console.log("clicked");
-      setDisabled(field, count);
+    count = formFields.length;
+
+    let totalPercent = submitBtn.getAttribute("percent-left");
+    field.addEventListener("focus", function(e) {
+      setPercentage(totalPercent);
+      setDisabled(totalPercent, field, count);
     });
+    field.addEventListener("keyup", function(e) {
+      setPercentage(totalPercent);
+      setDisabled(totalPercent, field, count);
+    });
+
   });
 
-  function setDisabled(field, count) {
-    
-    field.addEventListener("keyup", function(e) {
-      let filledIn = false;
+  function setDisabled(totalPercent, field, count) {
+    let filledIn = false;
+    setPercentage(totalPercent);
+      
       let inputsWithoutValue = count;
-      let totalPercent;
+      
       formFields.forEach(function (field, count, index ) {
         
         if ( field.value == "" ) {
@@ -85,21 +92,27 @@ function validateForm() {
         totalPercent = inputsWithoutValue / count * 100 + "%";
       });
       console.log(totalPercent);
-      if (totalPercent >= "75%") {
-        submitBtn.setAttribute("percent-left", "85%");
-      } else if (totalPercent >= "50%") {
-        submitBtn.setAttribute("percent-left", "60%");
-      } else if (totalPercent >= "25%") {
-        submitBtn.setAttribute("percent-left", "45%");
-      } else if (totalPercent == "0%" ) {
-        submitBtn.setAttribute("percent-left", "0%");
-      }
+      setPercentage(totalPercent);
+
       if (filledIn) {
         submitBtn.setAttribute("disabled", "");
       } else {
         submitBtn.removeAttribute("disabled");
       }
-    });
+  }
+
+  function setPercentage(totalPercent) {
+    if (totalPercent >= "75%") {
+      submitBtn.setAttribute("percent-left", "75%");
+    } else if (totalPercent >= "50%") {
+      submitBtn.setAttribute("percent-left", "50%");
+    } else if (totalPercent >= "30%") {
+      submitBtn.setAttribute("percent-left", "30%");
+    } else if (totalPercent >= "25%") {
+      submitBtn.setAttribute("percent-left", "25%");
+    } else if (totalPercent == "0%" ) {
+      submitBtn.setAttribute("percent-left", "0%");
+    }
   }
 }
   
