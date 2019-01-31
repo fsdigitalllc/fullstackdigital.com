@@ -44,7 +44,6 @@
   overflow: visible;
   position: relative;
 }
-
 .gridgrow {
   .gridgrow-link {
     position: absolute;
@@ -83,7 +82,11 @@
     align-items: center;
     justify-content: center;  
   }
-
+  .wipe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
   .gridgrow-image {
     color: #fff;
     display: block;

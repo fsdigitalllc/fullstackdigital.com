@@ -1,19 +1,27 @@
-{{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" | minify }}
-{{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" | minify }}
-{{ $aos := resources.Get "js/plugins/aos.min.js" | minify }}
+{{/* <!--load this JS asap--> */}}
 
-<script type="text/javascript" src="{{ $lazy_js.Permalink }}"></script>
-<script type="text/javascript" src="{{ $ls_unveil.Permalink }}"></script>
+{{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
+{{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
+{{ $aos := resources.Get "js/plugins/aos.min.js" }}
 
-<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
+{{ $plugins_js := slice $ls_unveil $lazy_js $aos | resources.Concat "js/plugins.js" | minify | fingerprint }}
+<script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
+<script>lazySizes.init();</script>
 
+<script>
+  // start animation library for scroll in animations
+  AOS.init({
+    delay: 0, // values from 0 to 3000, with step 50ms
+    duration: 400, // values from 0 to 3000, with step 50ms
+  });
+</script>
 
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
     let lazyImages = document.querySelectorAll("img");
   
     lazyImages.forEach(function (image) {
-      image.classList.add("lazyload");
+      image.classList.add("lazyload", "lazypreload");
     });
     //add simple support for background images:
     document.addEventListener('lazybeforeunveil', function(e){
@@ -22,11 +30,6 @@
             e.target.style.backgroundImage = 'url(' + bg + ')';
         }
     });
-  });
-  lazySizes.init();
-  AOS.init({
-    delay: 0, // values from 0 to 3000, with step 50ms
-    duration: 400, // values from 0 to 3000, with step 50ms
   });
 </script>
 

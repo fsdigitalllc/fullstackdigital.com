@@ -21,7 +21,7 @@
   <a class="work-link gridgrow-link" href='{{ .link | default "x" }}' title="{{ .title | safeHTML }}"><span>{{ .title | safeHTML }}</span></a>
   <div class="gridwrap background-night">
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .background }};">
-      <div class="gridgrow-image lazyload" data-bg='{{ $thumb.Permalink }}' style='background-position-y: 60%;'></div>
+      <div class="gridgrow-image lazyload lazypreload" data-bg='{{ $thumb.Permalink }}' style='background-position-y: 60%;'></div>
       <div style="background-color: {{ .background }};" class="wipe">
       </div>
     </div>
@@ -53,10 +53,15 @@
 </div>
 </div>
 
+{{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
+
+<script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
+
 <script type="text/javascript">
 
 document.addEventListener("DOMContentLoaded", function(){
   gridImageSize();
+  animateGrid();
 });
 
 window.addEventListener("resize", function() {
@@ -73,6 +78,127 @@ function gridImageSize(){
     image.style.width = gridgrowWidth * .7 + "px";
     console.log(gridgrowWidth);
   });
+}
+
+function animateGrid(){
+
+  let gridItems = document.querySelectorAll(".gridgrow");
+  let gridLinks = document.querySelectorAll(".gridgrow a");
+  let grid = document.querySelector(".work-grid");
+  let windowHeight = window.innerHeight;
+  let windowWidth = window.innerWidth;
+  let itemOffsetLeft;
+  let itemOffsetTop;
+  let wipeOffsetLeft;
+  let wipeOffsetTop;
+  
+  //animateItem();
+  
+  function clicky(e) {
+    gridItems.forEach(function(item, index) {
+      item.addEventListener("click", function(e) {
+        e.preventDefault();
+      });
+
+      if ( !item.classList.contains("active") ) {
+        
+        let animateClick = function (e) {
+          document.querySelector("html").style.overflow = "hidden";
+          console.log(e.currentTarget);
+          item = e.currentTarget;
+          animateItem(item, animateClick);
+        }
+
+        item.addEventListener("click", animateClick, true);
+
+      } else {
+        //item.removeEventListener("click", animateClick, true);
+      }
+    }); 
+  }
+ clicky();
+  
+
+function animateItem(item, animateClick) {
+  let wipe = item.querySelector(".wipe");
+  
+    itemOffsetLeft = (item.offsetLeft + item.offsetParent.offsetLeft) - window.scrollX;
+    itemOffsetTop = (item.offsetTop + item.offsetParent.offsetTop) - window.scrollY;
+    wipeOffsetLeft = (wipe.offsetLeft + item.offsetParent.offsetLeft) - window.scrollX;
+    console.log(`wipe left: ${wipe.offsetParent.offsetLeft}`);
+    let startPosTop = item.offsetTop;
+    let startPosLeft = item.offsetLeft;
+    let startImageWidth = item.querySelector(".gridgrow-image").width;
+    let startImageHeight = item.querySelector(".gridgrow-image").height;
+    
+    let startWipeHeight = "589px";
+    let startWipeWidth = "589px";
+    let startWipeTop = item.offsetTop;
+    console.log("wipe width: " + startWipeWidth);
+    console.log(`Start top: ${startPosTop} Left: ${startPosLeft} Width: ${startImageWidth} height: ${startImageHeight}`);
+    console.log(`Offsetleft: ${itemOffsetLeft} Offsettop: ${itemOffsetTop}`);
+
+    item.style.overflow = "visible";
+    item.querySelector(".gridwrap").style.overflow = "visible";
+    item.querySelector(".gridgrow-image-holder").style.overflow = "visible";
+    
+    wipe.velocity({
+      // width: [windowWidth, startWipeWidth],
+      // height: [windowHeight, startWipeHeight],
+      transform: ["scale(20)", "scale(1)"],
+      "z-index": 33,
+    }, {
+      delay: 100,
+      duration: 1800,
+      /* Velocity's default options */
+      progress: function(complete, remaining, start, tweenValue) {
+        if (complete === 1) {
+          wipe.setAttribute("style", `width: ${windowWidth}px; height: ${windowHeight}px; left: 0px; right: 0px; top: 0px; z-index: 888;`);
+        }
+      }
+    });
+
+//need to adjust this to use gridgrow image (".gridgrow-image")
+    item.velocity({
+      width: windowWidth,
+      height: windowHeight,
+      left: ["1px", "0px"],
+      right: ["1px", "0px"],
+      top: ["1px", "0px"],
+      transform: [`translate(-${itemOffsetLeft}px, -${itemOffsetTop}px)`, `translate(0px, 0px)`],
+      position: "relative"
+    }, {
+      /* Velocity's default options */
+      
+      progress: function(complete, remaining, start, tweenValue) {
+        console.log(complete);
+        if (complete === 1) {
+          item.setAttribute("style", `transform: translate(-${itemOffsetLeft}px, -${itemOffsetTop}px); width: ${windowWidth}px; height: ${windowHeight}px; left: 0px; right: 0px; top: 0px; z-index: 999;`);
+          item.style.overflowY = "scroll";
+          item.style.overflowX = "hidden";
+          item.classList.add('active');
+          item.removeEventListener("click", animateClick, true);
+          clicky();
+        }
+    },
+      duration: 800,
+      delay: 300,
+      easing: "swing",
+      queue: "",
+      begin: undefined,
+      complete: undefined,
+      display: undefined,
+      visibility: undefined,
+      loop: false,
+      mobileHA: true
+    });
+
+    function reverseAnimation() {
+      console.log("reverse");
+    }
+    
+}
+  
 }
 
 </script>

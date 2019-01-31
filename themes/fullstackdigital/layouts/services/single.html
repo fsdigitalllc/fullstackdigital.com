@@ -55,7 +55,7 @@ logos:
     </div>
   </div>
   <div class="container flex h_children_center">
-    <div class="col-12 featured-logos margin-s-top{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
+    <div data-aos="fade-zoom-in" class="col-12 featured-logos margin-s-top{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
       
       {{ partial "helpers/logos.html" (dict "page" . "global" $ ) }}
     </div>
