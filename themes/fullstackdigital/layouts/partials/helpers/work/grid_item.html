@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function(){
   gridImageSize();
   animateGrid();
 
+  
 });
 
 
@@ -111,7 +112,7 @@ function animateGrid(){
   const navHeight = document.querySelector(".masthead").offsetHeight;
   //animateItem();
   const grid = document.querySelector(".work-grid");
-  
+  const pageUrl = window.location;
   initialGridState();
   function initialGridState(e) {
     gridItems.forEach(function(item, index) {
@@ -122,6 +123,8 @@ function animateGrid(){
         let animateClick = function (e) {
           
           //e.preventDefault();
+
+          let nextLink = item.querySelector("a").getAttribute("href");
           
           //https://stackoverflow.com/questions/36631762/returning-html-with-fetch
           // AJAX CALL
@@ -130,7 +133,7 @@ function animateGrid(){
           document.body.appendChild(workContainer);
           (e || window.event).preventDefault();
 
-            fetch("http://localhost:1313/work/dell/" /*, options */)
+            fetch(nextLink /*, options */)
             .then((response) => response.text())
             .then((html) => {
                 let parser = new DOMParser();
@@ -139,7 +142,9 @@ function animateGrid(){
                 var doc = parser.parseFromString(html, "text/html");
                 var docArticle = doc.querySelector('main').innerHTML;
                 workContainer.innerHTML = docArticle;
-                console.log(html);
+                //console.log(html);
+                window.history.pushState("object or string", "Title", nextLink);
+                
             })
             .catch((error) => {
                 console.warn(error);
@@ -331,7 +336,12 @@ function animateItem(item, animateClick, initialValue, reverse) {
       //reverseBtn.appendChild(t);
       document.body.appendChild(reverseBtn);
 
-      
+      //detect back btn then hijack it
+      window.onpopstate = function(event) {
+        window.history.pushState("object or string", "Title", pageUrl);
+        reverseClick();
+      }
+
       function reverseClick(e) {
 
         reverse = true;
