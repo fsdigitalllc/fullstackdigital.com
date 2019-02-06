@@ -1,3 +1,12 @@
+.reverseAnimation {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  z-index:999999;
+}
 .gridgrow:hover svg {
   opacity: 1;
   -webkit-transition: opacity .5s;
@@ -72,7 +81,6 @@
     transition: padding 1s cubic-bezier(.4,0,.2,1),margin 1s cubic-bezier(.4,0,.2,1),box-shadow 1s cubic-bezier(.4,0,.2,1);
     position: relative;
   }
-
   .gridgrow-image-holder {
     margin-left: -4%;
     margin-right: -4%;
@@ -90,7 +98,7 @@
   .gridgrow-image {
     color: #fff;
     display: block;
-    position: relative;
+    position: absolute;
     overflow: hidden;
     z-index: 55;
     margin-bottom: 0;

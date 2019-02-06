@@ -52,153 +52,298 @@
 
 </div>
 </div>
-
 {{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
+{{ $scroll_lock := resources.Get "js/plugins/bodyScrollLock.js" | minify }}
 
 <script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
-
+<script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script> -->
 <script type="text/javascript">
 
 document.addEventListener("DOMContentLoaded", function(){
+  //console.log(ajaxRequest);
   gridImageSize();
   animateGrid();
+
 });
 
-window.addEventListener("resize", function() {
-  gridImageSize();
-});
+
 function gridImageSize(){
+  // FIX THIS BEHAVIOR: 
+  // If grid image is expanded and window resized, the expanded image resizes. The initial values should resize, but not the currently active image.
+  let gridItem = document.querySelectorAll(".gridgrow");
   let gridImage = document.querySelectorAll(".gridgrow-image");
   let gridgrowHeight = document.querySelector(".gridgrow-image-holder").offsetHeight;
-  let gridgrowWidth = document.querySelector(".gridgrow-link").offsetWidth;
+  let gridgrowWidth;
 
-  gridImage.forEach(function(image, index){
+  // Barba.Pjax.Dom.wrapperId = "crit";
+  // Barba.Pjax.Dom.containerClass = "page_critical_css";
+  // console.log(Barba.Pjax.Dom.containerClass);
 
+  // Barba.Pjax.start();
+
+  gridItem.forEach(function(item, index){
+    let image = item.querySelector(".gridgrow-image");
+    let imageWrapper = item.querySelector(".gridgrow-image-holder");
+    let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
+    let gridLink = item.querySelector("a");
+
+   
+    gridgrowWidth = item.offsetWidth;
     image.style.height = gridgrowHeight * .7 + "px";
     image.style.width = gridgrowWidth * .7 + "px";
-    console.log(gridgrowWidth);
+    //console.log(gridgrowWidth);
+    image.style.top = (imageWrapper.offsetHeight - image.offsetHeight) / 2 - wrapperMargin + "px";
   });
 }
 
+// On click, grow the grid item and load the content
+// On close, reverse the animation and hide the loaded content
+
 function animateGrid(){
+  // Get a target element that you want to persist scrolling for (such as a modal/lightbox/flyout/nav). 
+  const targetElement = document.querySelector("#barba-wrapper");
 
   let gridItems = document.querySelectorAll(".gridgrow");
   let gridLinks = document.querySelectorAll(".gridgrow a");
-  let grid = document.querySelector(".work-grid");
-  let windowHeight = window.innerHeight;
-  let windowWidth = window.innerWidth;
-  let itemOffsetLeft;
-  let itemOffsetTop;
-  let wipeOffsetLeft;
-  let wipeOffsetTop;
-  
+  const container = document.querySelector(".container");
+  const containerPadding = parseInt(getComputedStyle(container).paddingLeft) + parseInt(getComputedStyle(container).paddingRight);
+  const navHeight = document.querySelector(".masthead").offsetHeight;
   //animateItem();
+  const grid = document.querySelector(".work-grid");
   
-  function clicky(e) {
+  initialGridState();
+  function initialGridState(e) {
     gridItems.forEach(function(item, index) {
-      item.addEventListener("click", function(e) {
-        e.preventDefault();
-      });
 
-      if ( !item.classList.contains("active") ) {
-        
+      // I need to grab some starting values ON CLICK
+      // Needs to be on click because some positions are based on the scroll offset
+        let gridgrowWidth = item.offsetWidth;
         let animateClick = function (e) {
-          document.querySelector("html").style.overflow = "hidden";
+          
+          //e.preventDefault();
+
+          // AJAX CALL
+          let workContainer = document.createElement("div");
+          workContainer.classList.add("work");
+          document.body.appendChild(workContainer);
+          (e || window.event).preventDefault();
+
+            fetch("http://localhost:1313/work/dell/" /*, options */)
+            .then((response) => response.text())
+            .then((html) => {
+                let parser = new DOMParser();
+
+                // Parse the text
+                var doc = parser.parseFromString(html, "text/html");
+                var docArticle = doc.querySelector('main').innerHTML;
+                workContainer.innerHTML = docArticle;
+                console.log(html);
+            })
+            .catch((error) => {
+                console.warn(error);
+            });
+          bodyScrollLock.disableBodyScroll(targetElement);
+          
+          // 2. ...in some event handler after showing the target element...disable body scroll
+          
+          // 3. ...in some event handler after hiding the target element...
+          //bodyScrollLock.enableBodyScroll(targetElement);
+          let wipe = item.querySelector(".wipe");
+          let wipeParent = item.querySelector(".gridgrow-image-holder");
+          let itemImage = item.querySelector(".gridgrow-image");
+          // 4. Useful if we have called disableBodyScroll for multiple target elements,
+          // and we just want a kill-switch to undo all that.
+          //bodyScrollLock.clearAllBodyScrollLocks();
+          let initialValue = {
+            wrapperMargin: parseInt(getComputedStyle(wipeParent).marginTop),
+            wipe: {
+              width: wipeParent.offsetWidth,
+              height: wipeParent.offsetHeight,
+              translateX: "0px",
+              translateY: "0px",
+              left: "0.1px",
+              top: "0.1px",
+              duration: 100,
+              delay: 0,
+              easing: "swing",
+              z: wipe.style.zIndex,
+            },
+            item: {
+              width: itemImage.offsetWidth,
+              height: itemImage.offsetHeight,
+              translateX: "0px",
+              translateY: "0px",
+              left: itemImage.offsetLeft,
+              top: itemImage.offsetTop,
+              backgroundPositionY: "60%",
+              duration: 400,
+              delay: 50,
+              easing: "swing",
+              z: itemImage.style.zIndex,
+            },
+          }
+          //enable it again
           console.log(e.currentTarget);
+          console.log("test values:");
+          console.log(initialValue.item.top);
           item = e.currentTarget;
-          animateItem(item, animateClick);
+          
+          reverse = false
+          item.removeEventListener("click", animateClick, false);
+          animateItem(item, animateClick, initialValue, reverse);
         }
 
-        item.addEventListener("click", animateClick, true);
-
-      } else {
-        //item.removeEventListener("click", animateClick, true);
-      }
+        item.addEventListener("click", animateClick, false);
     }); 
   }
- clicky();
   
+  // window.addEventListener("resize", function() {
+  //   //gridImageSize();
+  //   initialGridState();
+  // });
 
-function animateItem(item, animateClick) {
-  let wipe = item.querySelector(".wipe");
+function animateItem(item, animateClick, initialValue, reverse) {
   
-    itemOffsetLeft = (item.offsetLeft + item.offsetParent.offsetLeft) - window.scrollX;
-    itemOffsetTop = (item.offsetTop + item.offsetParent.offsetTop) - window.scrollY;
-    wipeOffsetLeft = (wipe.offsetLeft + item.offsetParent.offsetLeft) - window.scrollX;
-    console.log(`wipe left: ${wipe.offsetParent.offsetLeft}`);
-    let startPosTop = item.offsetTop;
-    let startPosLeft = item.offsetLeft;
-    let startImageWidth = item.querySelector(".gridgrow-image").width;
-    let startImageHeight = item.querySelector(".gridgrow-image").height;
-    
-    let startWipeHeight = "589px";
-    let startWipeWidth = "589px";
-    let startWipeTop = item.offsetTop;
-    console.log("wipe width: " + startWipeWidth);
-    console.log(`Start top: ${startPosTop} Left: ${startPosLeft} Width: ${startImageWidth} height: ${startImageHeight}`);
-    console.log(`Offsetleft: ${itemOffsetLeft} Offsettop: ${itemOffsetTop}`);
+  // don't want image to trigger click again
+  //item.removeEventListener("click", animateClick, false);
+      console.log("ANIMATION ITEM START ---------------------");
+      console.log(initialValue);
 
-    item.style.overflow = "visible";
-    item.querySelector(".gridwrap").style.overflow = "visible";
-    item.querySelector(".gridgrow-image-holder").style.overflow = "visible";
-    
+      wipe = item.querySelector(".wipe");
+      itemImage = item.querySelector(".gridgrow-image");
+
+        // the final velocity values. To reverse animation, 
+        let endValue = {
+          wrapperMargin: "0px",
+          wipe: {
+              width: window.innerWidth,
+              height: (window.innerHeight) + (window.innerHeight * .2),
+              translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - window.scrollX,
+              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMargin) - window.scrollY),
+              left: "0px",
+              top: "0px",
+              duration: 500,
+              delay: 50,
+              easing: "swing",
+              z: 888
+            },
+            item: {
+              width: initialValue.item.width * (grid.offsetWidth / initialValue.item.width),
+              height: initialValue.item.height * (grid.offsetWidth / initialValue.item.width),
+              translateX: -(item.offsetLeft - containerPadding),
+              translateY: -((item.offsetTop + item.offsetParent.offsetTop) - window.scrollY),
+              left: "0px",
+              top: "0px",
+              backgroundPositionY: "60%",
+              duration: 500,
+              delay: 50,
+              easing: "swing",
+              z: 999
+            },
+        }
+
+      // change start values based on if the animation is being reversed
+      let startValue
+      if (reverse) {
+        
+        startValue = endValue;
+        endValue = initialValue;
+        item.classList.remove("active");
+        
+        
+        
+      } else {
+        startValue = initialValue;
+        endValue = endValue;
+        item.classList.add("active");
+        itemImage.style.zIndex = 999;
+        wipe.style.zIndex = 888;
+        item.style.overflow = "visible";
+        item.querySelector(".gridwrap").style.overflow = "visible";
+        item.querySelector(".gridgrow-image-holder").style.overflow = "visible";
+      }
+      
     wipe.velocity({
-      // width: [windowWidth, startWipeWidth],
-      // height: [windowHeight, startWipeHeight],
-      transform: ["scale(20)", "scale(1)"],
-      "z-index": 33,
-    }, {
-      delay: 100,
-      duration: 1800,
+      width: [endValue.wipe.width, startValue.wipe.width],
+      height: [endValue.wipe.height, startValue.wipe.height],
+      transform: [`translateX(${endValue.wipe.translateX}px) translateY(${endValue.wipe.translateY}px)`, `translateX(${startValue.wipe.translateX}px) translateY(${startValue.wipe.translateY}px)`],
+      //transform: [endValue.scale, startValue.scale],
+      left: [endValue.wipe.left, startValue.wipe.left],
+      top: [endValue.wipe.top, startValue.wipe.top],
+    }, 
+    {
+      delay: startValue.wipe.delay,
+      duration: startValue.wipe.duration,
+      easing: startValue.wipe.easing,
       /* Velocity's default options */
-      progress: function(complete, remaining, start, tweenValue) {
+    });
+
+    itemImage.velocity({
+      transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
+      //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
+      left: [endValue.item.left, startValue.item.left],
+      top: [endValue.item.top, startValue.item.top],
+      bottom: [endValue.item.bottom, startValue.item.bottom],
+      "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
+      width: [endValue.item.width, startValue.item.width],
+      height: [endValue.item.height, startValue.item.height]
+    }, 
+    {
+      duration: startValue.item.duration,
+      delay: startValue.item.delay,
+      easing: startValue.item.easing,
+      queue: "",
+      loop: false,
+      mobileHA: true,
+      /* Velocity's default options */
+      progress: function(elements, complete, remaining, start, tweenValue) {
+        console.log(complete);
         if (complete === 1) {
-          wipe.setAttribute("style", `width: ${windowWidth}px; height: ${windowHeight}px; left: 0px; right: 0px; top: 0px; z-index: 888;`);
+
+          if (reverse) {
+            item.style.overflow = "";
+            item.querySelector(".gridwrap").style.overflow = "";
+            item.querySelector(".gridgrow-image-holder").style.overflow = "";
+            //gridImageSize();
+            //initialGridState();
+            bodyScrollLock.enableBodyScroll(targetElement);
+            item.addEventListener("click", animateClick, false);
+            itemImage.style.zIndex = "";
+            wipe.style.zIndex = "";
+          } else {
+            reverseAnimation(item, initialValue, startValue, endValue, animateClick);
+          }
         }
       }
     });
 
-//need to adjust this to use gridgrow image (".gridgrow-image")
-    item.velocity({
-      width: windowWidth,
-      height: windowHeight,
-      left: ["1px", "0px"],
-      right: ["1px", "0px"],
-      top: ["1px", "0px"],
-      transform: [`translate(-${itemOffsetLeft}px, -${itemOffsetTop}px)`, `translate(0px, 0px)`],
-      position: "relative"
-    }, {
-      /* Velocity's default options */
-      
-      progress: function(complete, remaining, start, tweenValue) {
-        console.log(complete);
-        if (complete === 1) {
-          item.setAttribute("style", `transform: translate(-${itemOffsetLeft}px, -${itemOffsetTop}px); width: ${windowWidth}px; height: ${windowHeight}px; left: 0px; right: 0px; top: 0px; z-index: 999;`);
-          item.style.overflowY = "scroll";
-          item.style.overflowX = "hidden";
-          item.classList.add('active');
-          item.removeEventListener("click", animateClick, true);
-          clicky();
-        }
-    },
-      duration: 800,
-      delay: 300,
-      easing: "swing",
-      queue: "",
-      begin: undefined,
-      complete: undefined,
-      display: undefined,
-      visibility: undefined,
-      loop: false,
-      mobileHA: true
-    });
-
-    function reverseAnimation() {
-      console.log("reverse");
-    }
+    
     
 }
-  
+    function reverseAnimation(item, initialValue, startValue, endValue, animateClick) {
+      //window.location.href = window.location.origin;
+      let reverseBtn = document.createElement("div");
+      reverseBtn.classList.add("reverseAnimation");
+      reverseBtn.innerHTML = `<span>Close</span><i class="fa fa-window-close" aria-hidden="true"></i>`;
+
+      //reverseBtn.appendChild(t);
+      document.body.appendChild(reverseBtn);
+
+      
+      function reverseClick(e) {
+
+        reverse = true;
+
+        let element = document.querySelector(".reverseAnimation");
+        element.parentNode.removeChild(element);
+
+        animateItem(item, animateClick, initialValue, reverse);
+        //clicky();
+      }
+      reverseBtn.addEventListener("click", reverseClick, false);     
+          
+    }
 }
 
 </script>

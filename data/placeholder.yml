@@ -5,7 +5,7 @@ work:
     tags: 
       - "brand"
     background: "#0370D6"
-    link: "#"
+    link: "/work/dell"
     logo: "/images/clients/color/dell.svg"
   - name: "ddn"
     thumbnail: /images/placeholder/ddn-cover.png
@@ -14,7 +14,7 @@ work:
       - "brand"
       - "web"
     background: "#AB0000"
-    link: "#"
+    link: "/work/dell"
     logo: "/images/clients/color/ddn.svg"
   - name: "quantum"
     thumbnail: "/images/placeholder/qtm-web-cover.png"
@@ -22,7 +22,7 @@ work:
     tags: 
       - "brand"
     background: "#007DB8"
-    link: "#"
+    link: "/work/dell"
     logo: "/images/clients/color/quantum.svg"
   - name: "threefactor"
     thumbnail: "/images/placeholder/threefactor-cover.png"
@@ -30,7 +30,7 @@ work:
     tags: 
       - "brand"
     background: "#f7f7f7"
-    link: "#"
+    link: "/work/dell"
     logo: "/images/clients/white/threefactor.png"
 posts:
   - title: "Rigado selects Fullstack as Design and Branding Partner"
