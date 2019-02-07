@@ -5,7 +5,7 @@ theme = ["pancakes-builder", "fullstackdigital"]
 
 enableRobotsTXT = true
 disableAliases = true
-#ignoreFiles = [ "parts.*" ]
+ignoreFiles = [ "parts.*" ]
 
 [permalinks]
   pages = "/:section/:title/"
