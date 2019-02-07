@@ -1,0 +1,40 @@
+baseURL = "/"
+languageCode = "en-gb"
+title = "DEV Fullstack Digital / Brand, Web, Market"
+theme = ["pancakes-builder", "fullstackdigital"]
+
+enableRobotsTXT = true
+disableAliases = true
+#ignoreFiles = [ "parts.*" ]
+
+[permalinks]
+  pages = "/:section/:title/"
+  blog = "/:title/"
+  parts = "/:sections/:title/"
+
+[params]
+disallow_search_engines = false # set robots.txt to disallow everything
+debug_enabled = true
+# add redirects/headers
+[outputs]
+home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]
+
+# remove .{ext} from text/netlify
+[mediaTypes."text/netlify"]
+suffixes = [""]
+delimiter = ""
+
+# add output format for netlify _redirects
+[outputFormats.REDIRECTS]
+mediatype = "text/netlify"
+baseName = "_redirects"
+isPlainText = true
+notAlternative = true
+
+# add output format for netlify _headers
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
+

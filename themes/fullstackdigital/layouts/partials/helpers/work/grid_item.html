@@ -306,7 +306,7 @@ function animateItem(item, animateClick, initialValue, reverse) {
       progress: function(elements, complete, remaining, start, tweenValue) {
         console.log(complete);
         if (complete === 1) {
-
+          AOS.refresh();
           if (reverse) {
             item.style.overflow = "";
             item.querySelector(".gridwrap").style.overflow = "";

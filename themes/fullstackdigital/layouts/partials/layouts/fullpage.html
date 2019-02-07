@@ -37,6 +37,13 @@
   }
 </style>
 
+{{ range .Site.Pages }}
+<ul>
+  <li><a href="{{ .URL }}">{{ .Section }} - {{ .Title }}</a></li>
+</ul>
+
+{{ end }}
+
 <h2>fullpages js</h2>
 {{ range .Params.fullpage }}
 

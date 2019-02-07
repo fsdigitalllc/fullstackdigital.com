@@ -13,7 +13,17 @@
         {{ end }}
 
         {{ block "site/styles" . }}{{ partial "site/styles.html" . }}{{ end }}
-        
+        {{- block "critical" . }}{{ end -}}
+
+        <!--add pancakes-->
+        {{ if eq .Params.layout "pancakes" }}
+        <!--fetch inject is lazy loading for scripts-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fetch-inject" media="screen"></script>
+            {{ block "pancakes_critical" . }}{{ end }}
+            {{- partial "site/pancakes/styles.html" . | safeHTML -}}
+        {{ end }}
+        <!--end pancakes-->
+
     </head>
     <body class='{{ partial "site/body_classes.html" . }}'>
      
@@ -26,6 +36,14 @@
         </main>
 
         {{ block "footer" . }}{{ partial "site/footer.html" . }}{{ end }}
+
+        <!--add pancakes-->
+        {{ if eq .Params.layout "pancakes" }}
+        <!--pancakes enabled-->
+            
+            {{- partial "site/pancakes/scripts.html" . | safeHTML -}}
+        {{ end }}
+        <!--end pancakes-->
 
         {{ block "site/scripts" . }}{{ partial "site/scripts.html" . }}{{ end }}
 
