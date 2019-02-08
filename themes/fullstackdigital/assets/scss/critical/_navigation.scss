@@ -3,7 +3,10 @@
   max-height: 60px;
   font-size: 15px;
   padding: 0 20px;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #efefef;
 }
 .masthead {
   /**animations**/
@@ -134,6 +137,9 @@
   }
 }
 .night-header {
+  .masthead {
+    background-color: #000000;
+  }
   .masthead, .nav-list li > ul {
     background-color: #000000;
   }

@@ -1,4 +1,70 @@
-<section>
+{{ $context := .Params.stacks_hero }}
+{{ $src := "" }}
+{{ $textClass := "color-white"}}
+{{ with $context.text_class }}
+  {{ $textClass = . }}
+{{ end }}
 
-  
+<section class="work-hero padding-m"{{ with $context.background_color }} style="background-color: {{ . }};"{{ end }}>
+
+  <div class="container flex h_children_space-between v_children_center">
+    <div class="col-3 grid">
+        {{ $logo := $context.client }}
+        {{ range where .Site.Data.lookup.clients "name" $logo }}
+        {{ if eq $context.logo_color true }}
+          {{ $logo = print "/images/clients/color/" .image }}
+        {{ else }}
+          {{ $logo = print "/images/clients/white/" .image }}
+        {{ end }}
+        {{ $logo_check := print "assets" $logo }}
+        {{ if (fileExists $logo_check )}}
+          {{ $src = resources.Get $logo }}
+          <img class="client_logo" src="{{ $src.Permalink }}">
+        {{ else }}
+          <p>no logo found</p>
+        {{ end }}
+
+        {{ end }}
+
+      <div class="flex tiny {{ $textClass }} padding-s-top strip-padding-tablet h_children_space-between">
+          
+          <ul>
+            <li><strong>Brand</strong></li>
+            <li>Development</li>
+            <li>Identity</li>
+            <li>Strategy</li>
+          </ul>
+
+          <ul>
+            <li><strong>Web</strong></li>
+            <li class="color-cloud">Experience</li>
+            <li class="color-cloud">Design</li>
+            <li class="color-cloud">Development</li>
+          </ul>
+          
+          <ul>
+            <li><strong>Market</strong></li>
+            <li class="color-cloud">Search</li>
+            <li class="color-cloud">Content</li>
+            <li class="color-cloud">Social</li>
+          </ul>
+          
+        </div>
+    </div>
+    
+
+    <div class="col-7">
+        <h1 class="page-title {{ $textClass }}">{{ .Title }}</h1>
+    </div>
+
+
+  </div>
+
+  <div class="container padding-m">
+    <div class="container-m">
+      {{ $src = .Resources.GetMatch $context.image }}
+      <img src="{{ $src.Permalink }}">
+    </div>
+          
+    </div>
 </section>

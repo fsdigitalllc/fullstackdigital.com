@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-gb"
-title = "PRODUCTION Fullstack Digital / Brand, Web, Market"
+title = "Fullstack Digital / Brand, Web, Market"
 theme = ["pancakes-builder", "fullstackdigital"]
 
 enableRobotsTXT = true
@@ -14,7 +14,7 @@ ignoreFiles = [ "parts.*" ]
 
 [params]
 disallow_search_engines = false # set robots.txt to disallow everything
-debug_enabled = true
+debug_enabled = false
 # add redirects/headers
 [outputs]
 home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]

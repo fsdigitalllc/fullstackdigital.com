@@ -41,12 +41,21 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
-.container {
-  width: $container;
+.container, .container-l, .container-m {
   max-width: 100%;
   margin: 0 auto;
   position: relative;
   padding: 0 20px;
+  box-sizing: border-box;
+}
+.container {
+  width: $container;
+}
+.container-l {
+  width: $container-l;
+}
+.container-m {
+  width: $container-m;
 }
 
 img {
@@ -56,10 +65,14 @@ img {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  display: block;
 }
 
 .hidden {
   display: none;
+}
+main {
+  padding-top: 60px;
 }
 @media screen and (max-width: $screen-tablet ) {
   .container {

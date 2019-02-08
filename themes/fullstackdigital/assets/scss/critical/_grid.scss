@@ -1,3 +1,7 @@
+.grid {
+  display: grid;
+  display: -ms-grid;
+}
 .grid-2, .grid-3, .grid-4, .grid-5 {
   display: -ms-grid;
   display: grid;
