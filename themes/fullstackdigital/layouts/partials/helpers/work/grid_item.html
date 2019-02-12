@@ -73,12 +73,11 @@ document.addEventListener("DOMContentLoaded", function(){
   //console.log(ajaxRequest);
   gridImageSize();
   animateGrid();
-
-  
 });
 
 
 function gridImageSize(){
+
   // FIX THIS BEHAVIOR: 
   // If grid image is expanded and window resized, the expanded image resizes. The initial values should resize, but not the currently active image.
   let gridItem = document.querySelectorAll(".gridgrow");
@@ -86,35 +85,38 @@ function gridImageSize(){
   let gridgrowHeight = document.querySelector(".gridgrow-image-holder").offsetHeight;
   let gridgrowWidth;
 
-  // Barba.Pjax.Dom.wrapperId = "crit";
-  // Barba.Pjax.Dom.containerClass = "page_critical_css";
-  // console.log(Barba.Pjax.Dom.containerClass);
-
-  // Barba.Pjax.start();
-
   gridItem.forEach(function(item, index){
     let image = item.querySelector(".gridgrow-image");
     let imageWrapper = item.querySelector(".gridgrow-image-holder");
     let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
     let gridLink = item.querySelector("a");
 
-    gridgrowWidth = item.offsetWidth;
-    // image.style.height = gridgrowHeight * .7 + "px";
-    // image.style.width = gridgrowWidth * .7 + "px";
     image.addEventListener('load', () => {
-      let ratio = image.naturalHeight / imageWrapper.offsetHeight;
-      let imageHeight = (image.naturalHeight / ratio) * .7;
-      let imageWidth = (image.naturalWidth /ratio) * .7;
-
-      image.style.height = imageHeight + "px";
-      image.style.width = imageWidth + "px";
-    
-      //console.log(gridgrowWidth);
-      image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
-      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
-      console.log("height: " + imageHeight);
+      setImageSize();
     });
-    
+    window.addEventListener("resize", function(){
+      // Resize the images based on the calculated values
+      setImageSize();
+    });
+    // If not the active image in the ajax animation, resize it
+    if (!item.classList.contains("active")) {
+      gridgrowWidth = item.offsetWidth;      
+      
+        function setImageSize () {
+          let ratio = image.naturalHeight / imageWrapper.offsetHeight;
+          let imageHeight = (image.naturalHeight / ratio) * .7;
+          let imageWidth = (image.naturalWidth /ratio) * .7;
+
+          image.style.height = imageHeight + "px";
+          image.style.width = imageWidth + "px";
+        
+          //console.log(gridgrowWidth);
+          image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
+          image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+          console.log("height: " + imageHeight);
+        }
+      
+    }
   });
 }
 
