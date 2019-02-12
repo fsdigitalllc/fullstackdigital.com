@@ -72,7 +72,7 @@
 document.addEventListener("DOMContentLoaded", function(){
   //console.log(ajaxRequest);
   gridImageSize();
-  animateGrid();
+  
 });
 
 
@@ -81,23 +81,43 @@ function gridImageSize(){
   // FIX THIS BEHAVIOR: 
   // If grid image is expanded and window resized, the expanded image resizes. The initial values should resize, but not the currently active image.
   let gridItem = document.querySelectorAll(".gridgrow");
-  let gridImage = document.querySelectorAll(".gridgrow-image");
+  
   let gridgrowHeight = document.querySelector(".gridgrow-image-holder").offsetHeight;
   let gridgrowWidth;
+  
 
-  gridItem.forEach(function(item, index){
+  //BEN NOTE:
+  // get count of all images
+  // compare the count of all images to images loaded
+  // run the next function when all loaded
+  // just show loading indicator for the page untill the items finish.
+  
+  //console.log(gridImageCount);
+  gridItem.forEach(function(item, imageLoaded = 0, index){
+    let gridImages = document.querySelectorAll(".gridgrow-image");
     let image = item.querySelector(".gridgrow-image");
+    let gridImageCount = gridImages.length;
     let imageWrapper = item.querySelector(".gridgrow-image-holder");
     let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
     let gridLink = item.querySelector("a");
+    console.log(imageLoaded);
 
     image.addEventListener('load', () => {
       setImageSize();
+      //imageLoaded++;
+      // if ( imageLoaded.length = index.length ) {
+      //   console.log("imageLoaded");
+      //   console.log(imageLoaded);
+      // }
     });
-    window.addEventListener("resize", function(){
-      // Resize the images based on the calculated values
-      setImageSize();
-    });
+    console.log(index.length);
+      if (gridImageCount === index.length ) {
+        console.log("index " + index.length);
+      }
+    // window.addEventListener("resize", function(){
+    //   // Resize the images based on the calculated values
+    //   setImageSize();
+    // });
     // If not the active image in the ajax animation, resize it
     if (!item.classList.contains("active")) {
       gridgrowWidth = item.offsetWidth;      
@@ -114,10 +134,15 @@ function gridImageSize(){
           image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
           image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
           console.log("height: " + imageHeight);
+          
         }
       
     }
+    
+  
+    
   });
+  
 }
 
 // On click, grow the grid item and load the content
@@ -130,6 +155,7 @@ function animateGrid(){
   let workAjax = document.querySelector(".work-ajax");
   let gridItems = document.querySelectorAll(".gridgrow");
   let gridLinks = document.querySelectorAll(".gridgrow a");
+  const body = document.querySelector("body");
 
   const gridContainer = document.querySelector(".container");
   const gridContainerPadding = parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight);
@@ -142,36 +168,31 @@ function animateGrid(){
   //animateItem();
   const grid = document.querySelector(".work-grid");
   const pageUrl = window.location;
-  initialGridState();
+  
+  
+
   function initialGridState(e) {
     gridItems.forEach(function(item, index) {
 
       // I need to grab some starting values ON CLICK
       // Needs to be on click because some positions are based on the scroll offset
         let gridgrowWidth = item.offsetWidth;
-        let animateClick = function (e) {
-
-          (e || window.event).preventDefault();
-          //e.preventDefault();
-
-          
-          bodyScrollLock.disableBodyScroll(targetElement);
-          
-          // 2. ...in some event handler after showing the target element...disable body scroll
-          
-          // 3. ...in some event handler after hiding the target element...
-          //bodyScrollLock.enableBodyScroll(targetElement);
-          let wipe = item.querySelector(".wipe");
-          let wipeParent = item.querySelector(".gridgrow-image-holder");
-          let itemImage = item.querySelector(".gridgrow-image");
-          // 4. Useful if we have called disableBodyScroll for multiple target elements,
-          // and we just want a kill-switch to undo all that.
-          //bodyScrollLock.clearAllBodyScrollLocks();
-          let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-          
-          console.log("scroll width: " + scrollbarWidth);
-
-          let initialValue = {
+        
+        //console.log("RESIZING");
+        let wipe = item.querySelector(".wipe");
+            let wipeParent = item.querySelector(".gridgrow-image-holder");
+            let itemImage = item.querySelector(".gridgrow-image");
+            // 4. Useful if we have called disableBodyScroll for multiple target elements,
+            // and we just want a kill-switch to undo all that.
+            //bodyScrollLock.clearAllBodyScrollLocks();
+            let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            //console.log("itemImage");
+            //console.log(itemImage);
+        let initialValue = {
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight,
+            windowScrollX: window.scrollX,
+            windowScrollY: window.scrollY,
             wrapperMarginTop: parseInt(getComputedStyle(wipeParent).marginTop),
             wrapperMarginLeft: -(parseInt(getComputedStyle(wipeParent).marginLeft)),
             containerPaddingLeft: containerPadding / 2,
@@ -205,22 +226,39 @@ function animateGrid(){
               top: 0,
             }
           }
-          //enable it again
-          console.log(e.currentTarget);
-          console.log(initialValue.wrapperMarginLeft);
+            
+          
           console.log("initial values:");
           console.log(initialValue);
+          console.log(itemImage.style.width);
+
+        let animateClick = function (e) {
+
+          console.log(e.currentTarget);
+          console.log("INIT");
+          (e || window.event).preventDefault();
+          //e.preventDefault();
+        
+          bodyScrollLock.disableBodyScroll(targetElement);
+
+          //in some event handler after hiding the target element...
+          //bodyScrollLock.enableBodyScroll(targetElement);
+         
           item = e.currentTarget;
           
           reverse = false
           item.removeEventListener("click", animateClick, false);
           animateItem(item, animateClick, initialValue, reverse);
         }
-
         item.addEventListener("click", animateClick, false);
     }); 
-  }
-  
+  };
+  initialGridState();
+  window.addEventListener("resize", function(){
+    // Resize the images based on the calculated values
+    //console.log("resizeing");
+    initialGridState();
+  });
   // window.addEventListener("resize", function() {
   //   //gridImageSize();
   //   initialGridState();
@@ -234,19 +272,24 @@ function animateItem(item, animateClick, initialValue, reverse) {
   console.log("ANIMATION ITEM START ---------------------");
   console.log("initial values:");
   console.log(initialValue);
-
+  // let windowHeight = initialValue.windowHeight;
+  // let windowWidth = initialValue.windowWidth;
       wipe = item.querySelector(".wipe");
       itemImage = item.querySelector(".gridgrow-image");
 
         // the final velocity values. To reverse animation, 
         let endValue = {
-          wrapperMarginTop: "",
+          windowWidth: window.innerWidth,
+          windowHeight: window.innerHeight,
+          windowScrollX: window.scrollX,
+          windowScrollY: window.scrollY,
+          wrapperMarginTop: initialValue.windowWidth,
           wrapperMarginLeft: "",
           wipe: {
-              width: window.innerWidth,
-              height: (window.innerHeight) + (window.innerHeight * .2),
-              translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - window.scrollX,
-              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - window.scrollY - navHeight),
+              width: initialValue.windowWidth,
+              height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
+              translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX,
+              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - navHeight),
               left: "0px",
               top: "0px",
               duration: 500,
@@ -260,7 +303,7 @@ function animateItem(item, animateClick, initialValue, reverse) {
               // gridContainerPadding 20
               // 20 - 20 + 80 + 125 - 21 - 80
               translateX: -(item.offsetLeft - initialValue.gridContainerPaddingLeft + initialValue.item.left - initialValue.wrapperMarginLeft) + container.offsetLeft,
-              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - window.scrollY - navHeight),
+              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
               top: "0px",
               duration: 500,
               delay: 50,
@@ -271,8 +314,8 @@ function animateItem(item, animateClick, initialValue, reverse) {
               top: 0,
             }
         }
-      console.log("MATH:")
-      console.log(initialValue.wrapperMarginLeft);
+      //console.log("MATH:")
+      //console.log(initialValue.wrapperMarginLeft);
       console.log("end values:");
       console.log(endValue);
       // change start values based on if the animation is being reversed
@@ -332,9 +375,9 @@ function animateItem(item, animateClick, initialValue, reverse) {
       mobileHA: true,
       /* Velocity's default options */
       progress: function(elements, complete, remaining, start, tweenValue) {
-        console.log(complete);
+        //console.log(complete);
         if (complete === 1) {
-          AOS.refresh();
+          //AOS.refresh();
           if (reverse) {
             item.style.overflow = "";
             item.querySelector(".gridwrap").style.overflow = "";
@@ -380,7 +423,7 @@ function animateItem(item, animateClick, initialValue, reverse) {
         let element = document.querySelector(".reverseAnimation");
         element.parentNode.removeChild(element);
 
-        animateItem(item, animateClick, initialValue, endValue, reverse);
+        //animateItem(item, animateClick, initialValue, endValue, reverse);
         //clicky();
       }
       reverseBtn.addEventListener("click", reverseClick, false);     
