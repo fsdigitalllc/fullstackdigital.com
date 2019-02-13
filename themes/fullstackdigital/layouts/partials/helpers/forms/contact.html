@@ -59,7 +59,7 @@ function validateForm() {
   submitBtn.setAttribute("percent-left", "100%");
 
   formFields.forEach(function (field, index ) {
-    console.log(field);
+    //console.log(field);
     count = formFields.length;
 
     let totalPercent = submitBtn.getAttribute("percent-left");
@@ -90,7 +90,7 @@ function validateForm() {
         }
         totalPercent = inputsWithoutValue / count * 100 + "%";
       });
-      console.log(totalPercent);
+      //console.log(totalPercent);
       setPercentage(totalPercent);
 
       if (filledIn) {

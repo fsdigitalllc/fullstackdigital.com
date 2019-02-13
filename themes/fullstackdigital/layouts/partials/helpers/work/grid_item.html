@@ -1,5 +1,37 @@
 {{ $size := .page.grid.columns | default "4" }}
 
+<div class="work-grid-tabs container flex h_children_space-between">
+  <div class="col-4 flex h_children_space-between">
+      <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <title>Services</title>
+        <g>
+        <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
+        </g>
+        <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
+        <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
+        <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
+        </svg>
+        <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <title>Services</title>
+          <g>
+          <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
+          </g>
+          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
+          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
+          <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
+          </svg>
+          <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+            <title>Services</title>
+            <g>
+            <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
+            </g>
+            <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
+            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
+            <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
+          </svg>
+  </div>
+  
+</div>
 <div class="container" id="loading_content" style="visibility: visible; display: block;">
 <div class="masonry-container work-grid row-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
@@ -71,49 +103,95 @@
 
 document.addEventListener("DOMContentLoaded", function(){
   //console.log(ajaxRequest);
-  gridImageSize();
+  ajaxGrid();
   
 });
 
 
+function ajaxGrid(){
+console.log("DOMContentLoaded... Starting Ajax Grid");
+
+// get all of the selectors we are working with.
+let gridItems = document.querySelectorAll(".gridgrow");
+let gridImages = document.querySelectorAll(".gridgrow-image");
+const targetElement = document.querySelector("#barba-wrapper");
+let workAjax = document.querySelector(".work-ajax");
+let gridLinks = document.querySelectorAll(".gridgrow a");
+const body = document.querySelector("body");
+const gridContainer = document.querySelector(".container");
+
+gridImageSize();
+
 function gridImageSize(){
 
-  // FIX THIS BEHAVIOR: 
-  // If grid image is expanded and window resized, the expanded image resizes. The initial values should resize, but not the currently active image.
-  let gridItem = document.querySelectorAll(".gridgrow");
-  
-  let gridgrowHeight = document.querySelector(".gridgrow-image-holder").offsetHeight;
-  let gridgrowWidth;
-  
+// FIX THIS BEHAVIOR: 
+// If grid image is expanded and window resized, the expanded image resizes. The initial values should resize, but not the currently active image.
 
-  //BEN NOTE:
-  // get count of all images
-  // compare the count of all images to images loaded
-  // run the next function when all loaded
-  // just show loading indicator for the page untill the items finish.
-  
-  //console.log(gridImageCount);
-  gridItem.forEach(function(item, imageLoaded = 0, index){
-    let gridImages = document.querySelectorAll(".gridgrow-image");
-    let image = item.querySelector(".gridgrow-image");
-    let gridImageCount = gridImages.length;
-    let imageWrapper = item.querySelector(".gridgrow-image-holder");
-    let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
-    let gridLink = item.querySelector("a");
-    console.log(imageLoaded);
+let gridgrowHeight = document.querySelector(".gridgrow-image-holder").offsetHeight;
+let gridgrowWidth;
+//BEN NOTE:
+// get count of all images
+// compare the count of all images to images loaded
+// run the next function when all loaded
+// just show loading indicator for the page untill the items finish.
 
-    image.addEventListener('load', () => {
-      setImageSize();
-      //imageLoaded++;
-      // if ( imageLoaded.length = index.length ) {
-      //   console.log("imageLoaded");
-      //   console.log(imageLoaded);
-      // }
-    });
-    console.log(index.length);
-      if (gridImageCount === index.length ) {
-        console.log("index " + index.length);
+//console.log(gridImageCount);
+//console.log("count of images: " + gridImages.length);
+gridImages.forEach(function(image, imageLoaded = 0) {
+  // console.log(image);
+  // console.log("loaded " + image);
+  image.addEventListener('load', () => {
+    // if (image.classList.contains("lazyloaded")) {
+      console.log(image);
+      imageLoaded++;
+
+      // resize the image as it loads
+      setImageSize(image);
+
+      if ( imageLoaded === gridImages.length ) {
+        console.log("----- All Images Loaded Image Loaded.... run animate grid ");
+        //console.log(imageLoaded);
+        // Grid can be animated now since all initial values are set
+        animateGrid();
+      } else {
+        console.log(`Not all images loaded yet -----${gridImages.length - imageLoaded} left to load.`);
       }
+    // }
+    
+  });
+  function setImageSize (image) {
+    console.log("setimagesize");
+    let imageWrapper = image.parentNode;
+    let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
+    let ratio = image.naturalHeight / imageWrapper.offsetHeight;
+    let imageHeight = (image.naturalHeight / ratio) * .7;
+    let imageWidth = (image.naturalWidth /ratio) * .7;
+
+    image.style.height = imageHeight + "px";
+    image.style.width = imageWidth + "px";
+  
+    //console.log(gridgrowWidth);
+    image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
+    image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+    //console.log("height: " + imageHeight);
+    
+  }
+});
+
+  gridItems.forEach(function(item, imageLoaded = 0, index){
+
+    let image = item.querySelector(".gridgrow-image");
+    let imageWrapper = item.querySelector(".gridgrow-image-holder");
+    
+    let gridLink = item.querySelector("a");
+    let gridImageCount = gridImages.length;
+    let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
+
+    
+          
+      //imageLoaded + imageLoaded +1;
+      //console.log("IMAGE LOADED" + imageLoaded);
+
     // window.addEventListener("resize", function(){
     //   // Resize the images based on the calculated values
     //   setImageSize();
@@ -123,6 +201,8 @@ function gridImageSize(){
       gridgrowWidth = item.offsetWidth;      
       
         function setImageSize () {
+          //console.log("setimagesize");
+
           let ratio = image.naturalHeight / imageWrapper.offsetHeight;
           let imageHeight = (image.naturalHeight / ratio) * .7;
           let imageWidth = (image.naturalWidth /ratio) * .7;
@@ -133,31 +213,21 @@ function gridImageSize(){
           //console.log(gridgrowWidth);
           image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
           image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
-          console.log("height: " + imageHeight);
+          //console.log("height: " + imageHeight);
           
         }
       
     }
     
-  
     
   });
-  
 }
-
 // On click, grow the grid item and load the content
 // On close, reverse the animation and hide the loaded content
 
 function animateGrid(){
   // Get a target element that you want to persist scrolling for (such as a modal/lightbox/flyout/nav). 
-  const targetElement = document.querySelector("#barba-wrapper");
 
-  let workAjax = document.querySelector(".work-ajax");
-  let gridItems = document.querySelectorAll(".gridgrow");
-  let gridLinks = document.querySelectorAll(".gridgrow a");
-  const body = document.querySelector("body");
-
-  const gridContainer = document.querySelector(".container");
   const gridContainerPadding = parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight);
 
   const container = document.querySelector(".container-m.spacer");
@@ -254,19 +324,20 @@ function animateGrid(){
     }); 
   };
   initialGridState();
+
   window.addEventListener("resize", function(){
     // Resize the images based on the calculated values
     //console.log("resizeing");
     initialGridState();
   });
+
   // window.addEventListener("resize", function() {
   //   //gridImageSize();
   //   initialGridState();
   // });
 
 function animateItem(item, animateClick, initialValue, reverse) {
-  
-  
+
   // don't want image to trigger click again
   //item.removeEventListener("click", animateClick, false);
   console.log("ANIMATION ITEM START ---------------------");
@@ -274,215 +345,222 @@ function animateItem(item, animateClick, initialValue, reverse) {
   console.log(initialValue);
   // let windowHeight = initialValue.windowHeight;
   // let windowWidth = initialValue.windowWidth;
-      wipe = item.querySelector(".wipe");
-      itemImage = item.querySelector(".gridgrow-image");
+  wipe = item.querySelector(".wipe");
+  itemImage = item.querySelector(".gridgrow-image");
 
-        // the final velocity values. To reverse animation, 
-        let endValue = {
-          windowWidth: window.innerWidth,
-          windowHeight: window.innerHeight,
-          windowScrollX: window.scrollX,
-          windowScrollY: window.scrollY,
-          wrapperMarginTop: initialValue.windowWidth,
-          wrapperMarginLeft: "",
-          wipe: {
-              width: initialValue.windowWidth,
-              height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
-              translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX,
-              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - navHeight),
-              left: "0px",
-              top: "0px",
-              duration: 500,
-              delay: 50,
-              easing: "swing",
-              z: 888
-            },
-            item: {
-              width: initialValue.item.width * (containerWidth / initialValue.item.width),
-              height: initialValue.item.height * (containerWidth / initialValue.item.width),
-              // gridContainerPadding 20
-              // 20 - 20 + 80 + 125 - 21 - 80
-              translateX: -(item.offsetLeft - initialValue.gridContainerPaddingLeft + initialValue.item.left - initialValue.wrapperMarginLeft) + container.offsetLeft,
-              translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
-              top: "0px",
-              duration: 500,
-              delay: 50,
-              easing: "swing",
-              z: 999
-            },
-            content: {
-              top: 0,
-            }
-        }
-      //console.log("MATH:")
-      //console.log(initialValue.wrapperMarginLeft);
-      console.log("end values:");
-      console.log(endValue);
-      // change start values based on if the animation is being reversed
-      let startValue
-      if (reverse) {
-        
-        startValue = endValue;
-        endValue = initialValue;
-        item.classList.remove("active");
-        
-        
-        
-      } else {
-        startValue = initialValue;
-        endValue = endValue;
-        item.classList.add("active");
-        itemImage.style.zIndex = 999;
-        wipe.style.zIndex = 888;
-        item.style.overflow = "visible";
-        item.querySelector(".gridwrap").style.overflow = "visible";
-        item.querySelector(".gridgrow-image-holder").style.overflow = "visible";
+  // the final velocity values. To reverse animation, 
+  let endValue = {
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
+    windowScrollX: window.scrollX,
+    windowScrollY: window.scrollY,
+    wrapperMarginTop: initialValue.windowWidth,
+    wrapperMarginLeft: "",
+    wipe: {
+        width: initialValue.windowWidth,
+        height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
+        translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX,
+        translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - navHeight),
+        left: "0px",
+        top: "0px",
+        duration: 500,
+        delay: 50,
+        easing: "swing",
+        z: 888
+      },
+      item: {
+        width: initialValue.item.width * (containerWidth / initialValue.item.width),
+        height: initialValue.item.height * (containerWidth / initialValue.item.width),
+        // gridContainerPadding 20
+        // 20 - 20 + 80 + 125 - 21 - 80
+        translateX: -(item.offsetLeft - initialValue.gridContainerPaddingLeft + initialValue.item.left - initialValue.wrapperMarginLeft) + container.offsetLeft,
+        translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
+        top: "0px",
+        duration: 500,
+        delay: 50,
+        easing: "swing",
+        z: 999
+      },
+      content: {
+        top: 0,
       }
+  }
 
-      // Start ajax loading the content
-      ajaxWorkItem(item, animateClick, initialValue, endValue, reverse);
+  //console.log("MATH:")
+  //console.log(initialValue.wrapperMarginLeft);
+  console.log("end values:");
+  console.log(endValue);
+  // change start values based on if the animation is being reversed
+
+  let startValue;
+  if (reverse) {
+
+    startValue = endValue;
+    endValue = initialValue;
+    item.classList.remove("active");
+
+  } else {
+
+    startValue = initialValue;
+    endValue = endValue;
+    item.classList.add("active");
+    itemImage.style.zIndex = 999;
+    wipe.style.zIndex = 888;
+    item.style.overflow = "visible";
+    item.querySelector(".gridwrap").style.overflow = "visible";
+    item.querySelector(".gridgrow-image-holder").style.overflow = "visible";
+
+  }
+
+  // Start ajax loading the content
+  ajaxWorkItem(item, animateClick, initialValue, endValue, reverse);
       
-    wipe.velocity({
-      width: [endValue.wipe.width, startValue.wipe.width],
-      height: [endValue.wipe.height, startValue.wipe.height],
-      transform: [`translateX(${endValue.wipe.translateX}px) translateY(${endValue.wipe.translateY}px)`, `translateX(${startValue.wipe.translateX}px) translateY(${startValue.wipe.translateY}px)`],
-      //transform: [endValue.scale, startValue.scale],
-      left: [endValue.wipe.left, startValue.wipe.left],
-      top: [endValue.wipe.top, startValue.wipe.top],
-    }, 
-    {
-      delay: startValue.wipe.delay,
-      duration: startValue.wipe.duration,
-      easing: startValue.wipe.easing,
-      /* Velocity's default options */
-    });
+  wipe.velocity({
+    width: [endValue.wipe.width, startValue.wipe.width],
+    height: [endValue.wipe.height, startValue.wipe.height],
+    transform: [`translateX(${endValue.wipe.translateX}px) translateY(${endValue.wipe.translateY}px)`, `translateX(${startValue.wipe.translateX}px) translateY(${startValue.wipe.translateY}px)`],
+    //transform: [endValue.scale, startValue.scale],
+    left: [endValue.wipe.left, startValue.wipe.left],
+    top: [endValue.wipe.top, startValue.wipe.top],
+  }, 
+  {
+    delay: startValue.wipe.delay,
+    duration: startValue.wipe.duration,
+    easing: startValue.wipe.easing,
+    /* Velocity's default options */
+  });
 
-    itemImage.velocity({
-      transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
-      //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
-      top: [endValue.item.top, startValue.item.top],
-      bottom: [endValue.item.bottom, startValue.item.bottom],
-      "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
-      width: [endValue.item.width, startValue.item.width],
-      height: [endValue.item.height, startValue.item.height]
-    }, 
-    {
-      duration: startValue.item.duration,
-      delay: startValue.item.delay,
-      easing: startValue.item.easing,
-      queue: "",
-      loop: false,
-      mobileHA: true,
-      /* Velocity's default options */
-      progress: function(elements, complete, remaining, start, tweenValue) {
-        //console.log(complete);
-        if (complete === 1) {
-          //AOS.refresh();
-          if (reverse) {
-            item.style.overflow = "";
-            item.querySelector(".gridwrap").style.overflow = "";
-            item.querySelector(".gridgrow-image-holder").style.overflow = "";
-            
-            //gridImageSize();
-            //initialGridState();
-            bodyScrollLock.enableBodyScroll(targetElement);
-            item.addEventListener("click", animateClick, false);
-            itemImage.style.zIndex = "";
-            wipe.style.zIndex = "";
+  itemImage.velocity({
+    transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
+    //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
+    top: [endValue.item.top, startValue.item.top],
+    bottom: [endValue.item.bottom, startValue.item.bottom],
+    "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
+    width: [endValue.item.width, startValue.item.width],
+    height: [endValue.item.height, startValue.item.height]
+  }, 
+  {
+    duration: startValue.item.duration,
+    delay: startValue.item.delay,
+    easing: startValue.item.easing,
+    queue: "",
+    loop: false,
+    mobileHA: true,
+    /* Velocity's default options */
+    progress: function(elements, complete, remaining, start, tweenValue) {
+      //console.log(complete);
+      if (complete === 1) {
+        //AOS.refresh();
+        if (reverse) {
+          item.style.overflow = "";
+          item.querySelector(".gridwrap").style.overflow = "";
+          item.querySelector(".gridgrow-image-holder").style.overflow = "";
+          
+          //gridImageSize();
+          //initialGridState();
+          bodyScrollLock.enableBodyScroll(targetElement);
+          item.addEventListener("click", animateClick, false);
+          itemImage.style.zIndex = "";
+          wipe.style.zIndex = "";
 
-          } else {
-            reverseAnimation(item, initialValue, startValue, endValue, animateClick);
-          }
+        } else {
+          reverseAnimation(item, initialValue, startValue, endValue, animateClick);
         }
       }
-    });
+    }
+  });
 
     
     
 }
-    function reverseAnimation(item, initialValue, startValue, endValue, animateClick) {
-      //window.location.href = window.location.origin;
+function reverseAnimation(item, initialValue, startValue, endValue, animateClick) {
+  //window.location.href = window.location.origin;
+  
+  let reverseBtn = document.createElement("div");
+  reverseBtn.classList.add("reverseAnimation");
+  reverseBtn.innerHTML = `<span>Close</span><i class="fa fa-window-close" aria-hidden="true"></i>`;
+
+  //reverseBtn.appendChild(t);
+  document.body.appendChild(reverseBtn);
+
+  //detect back btn then hijack it
+  window.onpopstate = function(event) {
+    window.history.pushState("object or string", "Title", pageUrl);
+    reverseClick();
+  }
+
+  function reverseClick(e) {
+
+    reverse = true;
+
+    let element = document.querySelector(".reverseAnimation");
+    element.parentNode.removeChild(element);
+
+    //animateItem(item, animateClick, initialValue, endValue, reverse);
+    //clicky();
+  }
+  reverseBtn.addEventListener("click", reverseClick, false);     
       
-      let reverseBtn = document.createElement("div");
-      reverseBtn.classList.add("reverseAnimation");
-      reverseBtn.innerHTML = `<span>Close</span><i class="fa fa-window-close" aria-hidden="true"></i>`;
+}
 
-      //reverseBtn.appendChild(t);
-      document.body.appendChild(reverseBtn);
+function ajaxWorkItem (item, animateClick, initialValue, endValue, reverse) {
 
-      //detect back btn then hijack it
-      window.onpopstate = function(event) {
-        window.history.pushState("object or string", "Title", pageUrl);
-        reverseClick();
-      }
+  if (reverse) {
+    workAjax.innerHTML = "";
+    workAjax
+    .velocity({
+      opacity: 0,
+      visibility: ["hidden", "visible"]
+    }, {
+      duration: 400,
+    })
+    .velocity({
+      display: "none",
+    }, {
+      duration: 0,
+    });
+  } else {
+    let nextLink = item.querySelector("a").getAttribute("href");
+      
+    //https://stackoverflow.com/questions/36631762/returning-html-with-fetch
+    // AJAX CALL
+    
+      fetch(nextLink /*, options */)
+      .then((response) => response.text())
+      .then((html) => {
+          let parser = new DOMParser();
 
-      function reverseClick(e) {
-
-        reverse = true;
-
-        let element = document.querySelector(".reverseAnimation");
-        element.parentNode.removeChild(element);
-
-        //animateItem(item, animateClick, initialValue, endValue, reverse);
-        //clicky();
-      }
-      reverseBtn.addEventListener("click", reverseClick, false);     
+          // Parse the text
+          var doc = parser.parseFromString(html, "text/html");
+          var docArticle = doc.querySelector('main').innerHTML;
+          workAjax.innerHTML = docArticle;
+          //console.log(html);
+          window.history.pushState("object or string", "Title", nextLink);
           
-    }
-    function ajaxWorkItem (item, animateClick, initialValue, endValue, reverse) {
-
-      if (reverse) {
-        workAjax.innerHTML = "";
-        workAjax
+      })
+      .catch((error) => {
+          console.warn(error);
+      });
+      workAjax.velocity({
+        top: [navHeight, 0],
+        display: ["block", "none"]
+      })
+      workAjax
         .velocity({
-          opacity: 0,
-          visibility: ["hidden", "visible"]
+          opacity: [1, 0],
+          visibility: ["visible", "hidden"]
         }, {
+          delay: 400,
           duration: 400,
-        })
-        .velocity({
-          display: "none",
-        }, {
-          duration: 0,
         });
-      } else {
-        let nextLink = item.querySelector("a").getAttribute("href");
-          
-        //https://stackoverflow.com/questions/36631762/returning-html-with-fetch
-        // AJAX CALL
-        
-          fetch(nextLink /*, options */)
-          .then((response) => response.text())
-          .then((html) => {
-              let parser = new DOMParser();
-
-              // Parse the text
-              var doc = parser.parseFromString(html, "text/html");
-              var docArticle = doc.querySelector('main').innerHTML;
-              workAjax.innerHTML = docArticle;
-              //console.log(html);
-              window.history.pushState("object or string", "Title", nextLink);
-              
-          })
-          .catch((error) => {
-              console.warn(error);
-          });
-          workAjax.velocity({
-            top: [navHeight, 0],
-            display: ["block", "none"]
-          })
-          workAjax
-            .velocity({
-              opacity: [1, 0],
-              visibility: ["visible", "hidden"]
-            }, {
-              delay: 400,
-              duration: 400,
-            });
-      }
-      
-    }
+  }
+  
+}
 
 }
+}
+
+
+
 
 </script>
