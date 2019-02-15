@@ -7,6 +7,26 @@
   border-radius: 50%;
   z-index:999999;
 }
+.gridgrow {
+  opacity: 0;
+}
+@keyframes loading-grid {
+  0% {
+    opacity: 0;
+    visiblity: hidden;
+  }
+  100% {
+    opacity: 1;
+    visiblity: visible;
+  }
+}
+.gridgrow.loaded {
+  opacity: 1;
+  // animation-name: loading-grid; /* IE 10+, Fx 29+ */
+  // animation-duration: 0.8s;
+  // animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
 .gridgrow:hover svg {
   opacity: 1;
   -webkit-transition: opacity .5s;
