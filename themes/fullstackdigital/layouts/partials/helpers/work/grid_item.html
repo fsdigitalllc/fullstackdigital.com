@@ -56,8 +56,8 @@
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .background }};">
 
 
-      {{/* <div class="gridgrow-image lazyload lazypreload" data-bg='{{ $thumb.Permalink }}' style='background-position-y: 60%;'></div> */}}
-      <img class="gridgrow-image" calc-size='{{ $thumb.Permalink }}' data-src='{{ $thumb.Permalink }}' style='background-position-y: 60%;'>
+      {{/* <div class="gridgrow-image lazyload lazypreload" data-bg='{{ $thumb.Permalink }}'></div> */}}
+      <img class="gridgrow-image" calc-size='{{ $thumb.Permalink }}' data-src='{{ $thumb.Permalink }}'>
 
       <div style="background-color: {{ .background }};" class="wipe">
       </div>
@@ -278,8 +278,7 @@ console.log(item);
 
 function calcEnd(item, initialValue) {
 
-console.log("calcEnd:");
-console.log(initialValue);
+
 wipe = item.querySelector(".wipe");
 itemImage = item.querySelector(".gridgrow-image");
 
@@ -310,7 +309,8 @@ itemImage = item.querySelector(".gridgrow-image");
         // gridContainerPadding 20
         // 20 - 20 + 80 + 125 - 21 - 80
         translateX: -(item.offsetLeft - initialValue.gridContainerPaddingLeft + initialValue.item.left - initialValue.wrapperMarginLeft) + container.offsetLeft,
-        translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
+        // translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
+        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - navHeight),
         top: "0px",
         duration: 500,
         delay: 50,
@@ -321,6 +321,11 @@ itemImage = item.querySelector(".gridgrow-image");
         top: 0,
       }
   }
+  console.log("startValue:");
+  console.log(initialValue);
+  console.log("endValue:");
+  console.log(endValue);
+
   animateClick(item, initialValue, endValue);
 }
 // On click, grow the grid item and load the content
@@ -416,7 +421,7 @@ function animateItem(item, initialValue, endValue, reverse) {
   itemImage.velocity({
     transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
     //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
-    top: [endValue.item.top, startValue.item.top],
+    //top: [endValue.item.top, startValue.item.top],
     bottom: [endValue.item.bottom, startValue.item.bottom],
     "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
     width: [endValue.item.width, startValue.item.width],
