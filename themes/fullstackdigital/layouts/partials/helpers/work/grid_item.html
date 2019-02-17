@@ -115,13 +115,14 @@ console.log("DOMContentLoaded... Starting Ajax Grid");
 // get all of the selectors we are working with.
 let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = document.querySelectorAll(".gridgrow-image");
-let targetElement = document.querySelector("#barba-wrapper");
 let workAjax = document.querySelector(".work-ajax");
 let gridLinks = document.querySelectorAll(".gridgrow a");
 let body = document.querySelector("body");
 let gridContainer = document.querySelector(".container");
 let container = document.querySelector(".container-m.spacer");
 let grid = document.querySelector(".work-grid");
+let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+const targetElement = document.querySelector("body");
 
 gridImageSize();
 
@@ -151,7 +152,12 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       item.classList.add("loaded");
 
       // resize the image as it loads
-      setImageSize(image, item);
+      //setImageSize(image, item);
+      console.log("resizing");
+      //animateGrid();
+      clicked = false;
+      reverse = false;
+      calcStart(item, clicked, reverse);
 
       if ( imageLoaded === gridImages.length ) {
         console.log("----- All Images Loaded Image Loaded.... run animate grid ");
@@ -168,7 +174,8 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       console.log("resizing");
       //animateGrid();
       clicked = false;
-      calcStart(item, clicked);
+      reverse = false;
+      calcStart(item, clicked, reverse);
       
     });
     item.addEventListener("click", function(e){
@@ -178,7 +185,8 @@ gridImages.forEach(function(image, imageLoaded = 0) {
     e.preventDefault();
 
     clicked = true;
-      calcStart(item, clicked);
+    reverse = false;
+      calcStart(item, clicked, reverse);
       //animateClick(item, initialValue);
     });
   });
@@ -188,33 +196,49 @@ gridImages.forEach(function(image, imageLoaded = 0) {
 }
 
 function setImageSize (image, item) {
-  console.log("setimagesize");
-  let imageWrapper = image.parentNode;
-  let wrapperMargin = parseInt(getComputedStyle(imageWrapper).marginTop);
-  let ratio = image.naturalHeight / imageWrapper.offsetHeight;
-  let imageHeight = (image.naturalHeight / ratio) * .7;
-  let imageWidth = (image.naturalWidth / ratio) * .7;
+  // console.log("setimagesize");
+  // let imageWrapper = image.parentNode;
+  // let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
+  // let ratio = image.naturalHeight / imageWrapper.offsetHeight;
+  // let imageHeight = (image.naturalHeight / ratio) * .7;
+  // let imageWidth = (image.naturalWidth / ratio) * .7;
 
-  if (!item.classList.contains("active")) {
-    image.style.height = imageHeight + "px";
-    image.style.width = imageWidth + "px";
+  // if (!item.classList.contains("active")) {
+  //   image.style.height = imageHeight + "px";
+  //   image.style.width = imageWidth + "px";
 
-    //console.log(gridgrowWidth);
-    image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
-    image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
-    //console.log("height: " + imageHeight);
-  }
+  //   //console.log(gridgrowWidth);
+  //   image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
+  //   image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+  //   //console.log("height: " + imageHeight);
+  // }
   
   
 }
-
-
 
 //animateItem();
 
 let pageUrl = window.location;
 
-function calcStart(item, clicked) {
+function calcStart(item, clicked, reverse) {
+
+    console.log("setimagesize");
+    let image = item.querySelector(".gridgrow-image");
+    let imageWrapper = image.parentNode;
+    let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
+    let ratio = image.naturalHeight / imageWrapper.offsetHeight;
+    let imageHeight = (image.naturalHeight / ratio) * .7;
+    let imageWidth = (image.naturalWidth / ratio) * .7;
+
+    if (!item.classList.contains("active")) {
+      image.style.height = imageHeight + "px";
+      image.style.width = imageWidth + "px";
+
+      //console.log(gridgrowWidth);
+      image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
+      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+      //console.log("height: " + imageHeight);
+    }
 console.log("calcstart");
 console.log(item);
     // I need to grab some starting values ON CLICK
@@ -225,30 +249,34 @@ console.log(item);
     let wipe = item.querySelector(".wipe");
     let wipeParent = item.querySelector(".gridgrow-image-holder");
     let itemImage = item.querySelector(".gridgrow-image");
+    let body = document.querySelector("body");
     // 4. Useful if we have called disableBodyScroll for multiple target elements,
     // and we just want a kill-switch to undo all that.
     //bodyScrollLock.clearAllBodyScrollLocks();
-    let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    
     //console.log("itemImage");
     //console.log(itemImage);
-    let gridContainerPadding = parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight);
-    let containerPadding = parseInt(getComputedStyle(container).paddingLeft) + parseInt(getComputedStyle(container).paddingRight);
-    let containerWidth = parseInt(container.offsetWidth) - containerPadding;
+    let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
+    let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
+    let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
     console.log("containerWidth: " + containerWidth);
+    
     let navHeight = document.querySelector(".masthead").offsetHeight;
     let initialValue = {
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         windowScrollX: window.scrollX,
         windowScrollY: window.scrollY,
+        scrollbarWidth: scrollbarWidth,
         navHeight: document.querySelector(".masthead").offsetHeight,
-        gridContainerPadding: parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight),
-        containerPadding: parseInt(getComputedStyle(container).paddingLeft) + parseInt(getComputedStyle(container).paddingRight),
-        containerWidth: parseInt(container.offsetWidth) - containerPadding,
-        wrapperMarginTop: parseInt(getComputedStyle(wipeParent).marginTop),
-        wrapperMarginLeft: -(parseInt(getComputedStyle(wipeParent).marginLeft)),
+        gridContainerPadding: parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight),
+        containerPadding: parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight),
+        containerWidth: parseFloat(container.offsetWidth) - containerPadding,
+        wrapperMarginTop: parseFloat(getComputedStyle(wipeParent).marginTop),
+        wrapperMarginLeft: -(parseFloat(getComputedStyle(wipeParent).marginLeft)),
         containerPaddingLeft: containerPadding / 2,
         gridContainerPaddingLeft: gridContainerPadding / 2,
+        gridContainerOffsetLeft: gridContainer.offsetLeft,
         wipe: {
           width: wipeParent.offsetWidth,
           height: wipeParent.offsetHeight,
@@ -262,11 +290,11 @@ console.log(item);
           z: wipe.style.zIndex,
         },
         item: {
-          width: parseInt(itemImage.style.width),
-          height: parseInt(itemImage.style.height),
+          width: imageWidth,
+          height: imageHeight,
           translateX: "0px",
           translateY: "0px",
-          left: parseInt(itemImage.style.left),
+          left: parseFloat(itemImage.style.left),
           top: itemImage.offsetTop,
           backgroundPositionY: "60%",
           duration: 400,
@@ -284,15 +312,33 @@ console.log(item);
       console.log(itemImage.style.width);
       //animateClick(e, initialValue);
       //calcEnd(initialValue);
-      calcEnd(item, initialValue, clicked);
+      if (clicked && reverse === false) {
+        bodyScrollLock.disableBodyScroll(targetElement);
+      }
+      calcEnd(item, initialValue, clicked, reverse);
 };
 
-function calcEnd(item, initialValue, clicked) {
+function calcEnd(item, initialValue, clicked, reverse) {
 
 
 wipe = item.querySelector(".wipe");
 itemImage = item.querySelector(".gridgrow-image");
-
+let gridgrowWidth = item.offsetWidth;
+    
+    //console.log("RESIZING");
+    
+    let wipeParent = item.querySelector(".gridgrow-image-holder");
+ 
+    // 4. Useful if we have called disableBodyScroll for multiple target elements,
+    // and we just want a kill-switch to undo all that.
+    //bodyScrollLock.clearAllBodyScrollLocks();
+    let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    //console.log("itemImage");
+    //console.log(itemImage);
+    let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
+    let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
+    let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
+    console.log("containerWidth: " + containerWidth);
 // the final velocity values. To reverse animation, 
 
   let endValue = {
@@ -300,8 +346,16 @@ itemImage = item.querySelector(".gridgrow-image");
     windowHeight: window.innerHeight,
     windowScrollX: window.scrollX,
     windowScrollY: window.scrollY,
-    wrapperMarginTop: initialValue.windowWidth,
-    wrapperMarginLeft: "",
+    scrollbarWidth: scrollbarWidth,
+    navHeight: document.querySelector(".masthead").offsetHeight,
+    gridContainerPadding: parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight),
+    containerPadding: parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight),
+    containerWidth: parseFloat(container.offsetWidth) - containerPadding,
+    wrapperMarginTop: parseFloat(getComputedStyle(wipeParent).marginTop),
+    wrapperMarginLeft: -(parseFloat(getComputedStyle(wipeParent).marginLeft)),
+    containerPaddingLeft: containerPadding / 2,
+    gridContainerPaddingLeft: gridContainerPadding / 2,
+    gridContainerOffsetLeft: gridContainer.offsetLeft,
     wipe: {
         width: initialValue.windowWidth,
         height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
@@ -317,9 +371,16 @@ itemImage = item.querySelector(".gridgrow-image");
       item: {
         width: initialValue.item.width * (initialValue.containerWidth / initialValue.item.width),
         height: initialValue.item.height * (initialValue.containerWidth / initialValue.item.width),
-        // gridContainerPadding 20
-        // 20 - 20 + 80 + 125 - 21 - 80
-        translateX: (-initialValue.item.left) + container.offsetLeft + initialValue.containerPaddingLeft,
+        // itemLeft = -125.587
+        // gridContainerPadding = +1
+        // container offsetleft = +107
+        
+        // container paddingLeft = 20
+        
+        // 
+        // -102 + 107 = 5 - (20 -21.78 - 20)
+        
+        translateX: (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft,
         // translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
         translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
         top: "0px",
@@ -332,46 +393,22 @@ itemImage = item.querySelector(".gridgrow-image");
         top: 0,
       }
   }
+  console.log("left: " + initialValue.item.left);
   console.log("startValue:");
   console.log(initialValue);
   console.log("endValue:");
   console.log(endValue);
 
-  reverse = false;
   if (clicked) {
     animateItem(item, initialValue, endValue, reverse);
-  } 
+  }
   
-  if (item.classList.contains("active") ) {
+  if (item.classList.contains("active") && !clicked ) {
     itemImage.style.width = endValue.item.width + "px";
     itemImage.style.height = endValue.item.height + "px";
     itemImage.style.transform = `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`;
   }
 }
-// On click, grow the grid item and load the content
-// On close, reverse the animation and hide the loaded content
-
-//function animateClick (item, initialValue, endValue) {
-
-  //console.log("INIT");
-  //(e || window.event).preventDefault();
-  //e.preventDefault();
-
-  //bodyScrollLock.disableBodyScroll(targetElement);
-
-  //in some event handler after hiding the target element...
-  //bodyScrollLock.enableBodyScroll(targetElement);
-
-  //item = e.currentTarget;
-
-  //reverse = false
-  //item.removeEventListener("click", animateClick, false);
-  //animateItem(item, initialValue, endValue, reverse);
-//}
-
-  //item.addEventListener("click", animateClick, false);
-
-  //initialGridState();
 
 function animateItem(item, initialValue, endValue, reverse) {
   
@@ -414,73 +451,77 @@ function animateItem(item, initialValue, endValue, reverse) {
   }
   // Start ajax loading the content
   ajaxWorkItem(item, initialValue, endValue, reverse);
-
-  wipe.velocity({
-    width: [endValue.wipe.width, startValue.wipe.width],
-    height: [endValue.wipe.height, startValue.wipe.height],
-    transform: [`translateX(${endValue.wipe.translateX}px) translateY(${endValue.wipe.translateY}px)`, `translateX(${startValue.wipe.translateX}px) translateY(${startValue.wipe.translateY}px)`],
-    //transform: [endValue.scale, startValue.scale],
-    left: [endValue.wipe.left, startValue.wipe.left],
-    top: [endValue.wipe.top, startValue.wipe.top],
-  }, 
-  {
-    delay: startValue.wipe.delay,
-    duration: startValue.wipe.duration,
-    easing: startValue.wipe.easing,
-    /* Velocity's default options */
-  });
-
-  itemImage
-  .velocity({
-    transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
-    //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
-    //top: [endValue.item.top, startValue.item.top],
-    bottom: [endValue.item.bottom, startValue.item.bottom],
-    "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
-    width: [endValue.item.width, startValue.item.width],
-    height: [endValue.item.height, startValue.item.height]
-  }, 
-  {
-    duration: startValue.item.duration,
-    delay: startValue.item.delay,
-    easing: startValue.item.easing,
-    queue: "",
-    loop: false,
-    mobileHA: true,
-    /* Velocity's default options */
-    progress: function(elements, complete, remaining, start, tweenValue) {
-      //console.log(complete);
-      if (complete === 1) {
-        //AOS.refresh();
-        if (reverse) {
-          item.style.overflow = "";
-          item.querySelector(".gridwrap").style.overflow = "";
-          item.querySelector(".gridgrow-image-holder").style.overflow = "";
-          
-          //gridImageSize();
-          //initialGridState();
-          bodyScrollLock.enableBodyScroll(targetElement);
-          //item.addEventListener("click");
-          itemImage.style.zIndex = "";
-          wipe.style.zIndex = "";
-          
-        } else {
-          console.log("item complete: ");
-          console.log(itemImage);
-          item.classList.add("active");
-          //itemImage.style.width = endValue.item.width;
-          reverseAnimation(item, initialValue, startValue, endValue);
-          // window.addEventListener("resize", function(){
-          //   itemImage.style.width = endValue.item.width + "px";
-          // });
-        }
-      }
-    }
-  })
-  
-  
-
+  // Start animation
+  velocityAnimate(item, initialValue, startValue, endValue, reverse);
 }
+  function velocityAnimate(item, initialValue, startValue, endValue, reverse) {
+
+      wipe.velocity({
+        width: [endValue.wipe.width, startValue.wipe.width],
+        height: [endValue.wipe.height, startValue.wipe.height],
+        transform: [`translateX(${endValue.wipe.translateX}px) translateY(${endValue.wipe.translateY}px)`, `translateX(${startValue.wipe.translateX}px) translateY(${startValue.wipe.translateY}px)`],
+        //transform: [endValue.scale, startValue.scale],
+        left: [endValue.wipe.left, startValue.wipe.left],
+        top: [endValue.wipe.top, startValue.wipe.top],
+      }, 
+      {
+        delay: startValue.wipe.delay,
+        duration: startValue.wipe.duration,
+        easing: startValue.wipe.easing,
+        /* Velocity's default options */
+      });
+
+      itemImage
+      .velocity({
+        transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
+        //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
+        //top: [endValue.item.top, startValue.item.top],
+        bottom: [endValue.item.bottom, startValue.item.bottom],
+        "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
+        width: [endValue.item.width, startValue.item.width],
+        height: [endValue.item.height, startValue.item.height]
+      }, 
+      {
+        duration: startValue.item.duration,
+        delay: startValue.item.delay,
+        easing: startValue.item.easing,
+        queue: "",
+        loop: false,
+        mobileHA: true,
+        /* Velocity's default options */
+        progress: function(elements, complete, remaining, start, tweenValue) {
+          //console.log(complete);
+          if (complete === 1) {
+            //AOS.refresh();
+            if (reverse) {
+              item.style.overflow = "";
+              item.querySelector(".gridwrap").style.overflow = "";
+              item.querySelector(".gridgrow-image-holder").style.overflow = "";
+              
+              //gridImageSize();
+              //initialGridState();
+              bodyScrollLock.enableBodyScroll(targetElement);
+              //item.addEventListener("click");
+              itemImage.style.zIndex = "";
+              wipe.style.zIndex = "";
+              
+            } else {
+              console.log("item complete: ");
+              console.log(itemImage);
+              item.classList.add("active");
+              //itemImage.style.width = endValue.item.width;
+              reverseAnimation(item, initialValue, startValue, endValue);
+              // window.addEventListener("resize", function(){
+              //   itemImage.style.width = endValue.item.width + "px";
+              // });
+            }
+            
+          }
+        }
+      })
+    
+  }
+
 function setFinalValues(item, initialValue, startValue, endValue) {
 
   if (item.classList.contains("active")) {
@@ -490,16 +531,7 @@ function setFinalValues(item, initialValue, startValue, endValue) {
     itemImage.style.width = endValue.item.width;
     itemImage.style.height = endValue.item.height;
   }
-  
-  // just set the velocity start and end values as endValue so it can resize using velocity
-  // itemImage.velocity({
-  //   transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`],
-  //   //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
-  //   //top: [endValue.item.top, startValue.item.top],
-  //   bottom: [endValue.item.bottom, endValue.item.bottom],
-  //   width: [endValue.item.width, endValue.item.width],
-  //   height: [endValue.item.height, endValue.item.height]
-  // });
+
 }
 function reverseAnimation(item, initialValue, startValue, endValue) {
   //window.location.href = window.location.origin;
@@ -527,8 +559,9 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
 
     let element = document.querySelector(".reverseAnimation");
     element.parentNode.removeChild(element);
-
-    animateItem(item, initialValue, endValue, reverse);
+    clicked = true;
+    //animateItem(item, initialValue, endValue, reverse, clicked);
+    calcStart(item, initialValue, endValue, reverse, clicked);
     //clicky();
   }
   reverseBtn.addEventListener("click", reverseClick, false);     
@@ -573,18 +606,45 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
       .catch((error) => {
           console.warn(error);
       });
-      workAjax.velocity({
+      workAjax
+      .velocity({
         top: [initialValue.navHeight, 0],
         display: ["block", "none"]
       })
-      workAjax
-        .velocity({
-          opacity: [1, 0],
-          visibility: ["visible", "hidden"]
-        }, {
-          delay: 400,
-          duration: 400,
-        });
+      .velocity({
+        opacity: [1, 0],
+        visibility: ["visible", "hidden"]
+      }, {
+        delay: 400,
+        duration: 400,
+      });
+      let trans = 0;
+      workAjax.addEventListener('wheel', function(e) {
+        console.log("scrolling");
+        workAjax.style.transform = `translateX(0px) translateY(0px)`;
+        trans ++ ;
+        trans = trans + 100 ;
+          let translateY = "translateX(" + trans + "px) translateY(0px)";
+          workAjax.velocity({
+            transform: [`translateX(0px) translateY(${trans + 100})`, `${translateY}`]
+          }, {
+            delay: 0,
+            duration: 50,
+          });
+          //workAjax.style.transform = translateY;
+      });
+      // var scrolling = false;
+
+      // $( window ).scroll( function() {
+      //   scrolling = true;
+      // });
+
+      // setInterval( function() {
+      //   if ( scrolling ) {
+      //     scrolling = false;
+      //     // Do your thang!
+      //   }
+      // }, 250 );
   }
   
 }
