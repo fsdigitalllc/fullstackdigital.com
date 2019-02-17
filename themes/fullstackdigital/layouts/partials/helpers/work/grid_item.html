@@ -89,8 +89,9 @@
 {{ end }}
 
 </div>
-<div class="container-m spacer"></div>
+
 </div>
+<div class="container-m spacer"></div>
 <div class="work-ajax"></div>
 
 {{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
@@ -166,7 +167,8 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       setImageSize(image, item);
       console.log("resizing");
       //animateGrid();
-      calcStart(item);
+      clicked = false;
+      calcStart(item, clicked);
       
     });
     item.addEventListener("click", function(e){
@@ -207,11 +209,7 @@ function setImageSize (image, item) {
 }
 
 
-let gridContainerPadding = parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight);
-let containerPadding = parseInt(getComputedStyle(container).paddingLeft) + parseInt(getComputedStyle(container).paddingRight);
-let containerWidth = parseInt(getComputedStyle(container).width) - containerPadding;
-console.log("containerWidth: " + containerWidth);
-let navHeight = document.querySelector(".masthead").offsetHeight;
+
 //animateItem();
 
 let pageUrl = window.location;
@@ -233,12 +231,20 @@ console.log(item);
     let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     //console.log("itemImage");
     //console.log(itemImage);
-    
+    let gridContainerPadding = parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight);
+    let containerPadding = parseInt(getComputedStyle(container).paddingLeft) + parseInt(getComputedStyle(container).paddingRight);
+    let containerWidth = parseInt(container.offsetWidth) - containerPadding;
+    console.log("containerWidth: " + containerWidth);
+    let navHeight = document.querySelector(".masthead").offsetHeight;
     let initialValue = {
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         windowScrollX: window.scrollX,
         windowScrollY: window.scrollY,
+        navHeight: document.querySelector(".masthead").offsetHeight,
+        gridContainerPadding: parseInt(getComputedStyle(gridContainer).paddingLeft)+ parseInt(getComputedStyle(gridContainer).paddingRight),
+        containerPadding: parseInt(getComputedStyle(container).paddingLeft) + parseInt(getComputedStyle(container).paddingRight),
+        containerWidth: parseInt(container.offsetWidth) - containerPadding,
         wrapperMarginTop: parseInt(getComputedStyle(wipeParent).marginTop),
         wrapperMarginLeft: -(parseInt(getComputedStyle(wipeParent).marginLeft)),
         containerPaddingLeft: containerPadding / 2,
@@ -288,8 +294,7 @@ wipe = item.querySelector(".wipe");
 itemImage = item.querySelector(".gridgrow-image");
 
 // the final velocity values. To reverse animation, 
-console.log("containerWidth");
-console.log(containerWidth);
+
   let endValue = {
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight,
@@ -301,7 +306,7 @@ console.log(containerWidth);
         width: initialValue.windowWidth,
         height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
         translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX,
-        translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - navHeight),
+        translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
         left: "0px",
         top: "0px",
         duration: 500,
@@ -310,13 +315,13 @@ console.log(containerWidth);
         z: 888
       },
       item: {
-        width: initialValue.item.width * (containerWidth / initialValue.item.width),
-        height: initialValue.item.height * (containerWidth / initialValue.item.width),
+        width: initialValue.item.width * (initialValue.containerWidth / initialValue.item.width),
+        height: initialValue.item.height * (initialValue.containerWidth / initialValue.item.width),
         // gridContainerPadding 20
         // 20 - 20 + 80 + 125 - 21 - 80
-        translateX: -(item.offsetLeft - initialValue.gridContainerPaddingLeft + initialValue.item.left - initialValue.wrapperMarginLeft) + container.offsetLeft,
+        translateX: (-initialValue.item.left) + container.offsetLeft + initialValue.containerPaddingLeft,
         // translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
-        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - navHeight),
+        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
         top: "0px",
         duration: 500,
         delay: 50,
@@ -335,8 +340,13 @@ console.log(containerWidth);
   reverse = false;
   if (clicked) {
     animateItem(item, initialValue, endValue, reverse);
-  }
+  } 
   
+  if (item.classList.contains("active") ) {
+    itemImage.style.width = endValue.item.width + "px";
+    itemImage.style.height = endValue.item.height + "px";
+    itemImage.style.transform = `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`;
+  }
 }
 // On click, grow the grid item and load the content
 // On close, reverse the animation and hide the loaded content
@@ -365,7 +375,7 @@ console.log(containerWidth);
 
 function animateItem(item, initialValue, endValue, reverse) {
   
-  bodyScrollLock.disableBodyScroll(targetElement);
+  //bodyScrollLock.disableBodyScroll(targetElement);
 
   //item.removeEventListener("click", animateClick, false);
 
@@ -376,7 +386,7 @@ function animateItem(item, initialValue, endValue, reverse) {
   console.log(initialValue);
   // let windowHeight = initialValue.windowHeight;
   // let windowWidth = initialValue.windowWidth;
-  
+  itemImage = item.querySelector(".gridgrow-image");
 
   //console.log("MATH:")
   //console.log(initialValue.wrapperMarginLeft);
@@ -395,7 +405,6 @@ function animateItem(item, initialValue, endValue, reverse) {
 
     startValue = initialValue;
     endValue = endValue;
-    item.classList.add("active");
     itemImage.style.zIndex = 999;
     wipe.style.zIndex = 888;
     item.style.overflow = "visible";
@@ -421,7 +430,8 @@ function animateItem(item, initialValue, endValue, reverse) {
     /* Velocity's default options */
   });
 
-  itemImage.velocity({
+  itemImage
+  .velocity({
     transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
     //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
     //top: [endValue.item.top, startValue.item.top],
@@ -453,26 +463,51 @@ function animateItem(item, initialValue, endValue, reverse) {
           //item.addEventListener("click");
           itemImage.style.zIndex = "";
           wipe.style.zIndex = "";
-
+          
         } else {
+          console.log("item complete: ");
+          console.log(itemImage);
+          item.classList.add("active");
+          //itemImage.style.width = endValue.item.width;
           reverseAnimation(item, initialValue, startValue, endValue);
+          // window.addEventListener("resize", function(){
+          //   itemImage.style.width = endValue.item.width + "px";
+          // });
         }
       }
     }
-  });
+  })
   
-  window.addEventListener("resize", function(){
-    setFinalValues(item, initialValue, startValue, endValue);
-  });
+  
+
 }
 function setFinalValues(item, initialValue, startValue, endValue) {
-  console.log("setting final values...");
-  item.style.width = "200px";
-  item.style.height = endValue.item.height;
+
+  if (item.classList.contains("active")) {
+    console.log("setting final values...");
+    itemImage = item.querySelector(".gridgrow-image");
+    console.log(itemImage);
+    itemImage.style.width = endValue.item.width;
+    itemImage.style.height = endValue.item.height;
+  }
+  
+  // just set the velocity start and end values as endValue so it can resize using velocity
+  // itemImage.velocity({
+  //   transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`],
+  //   //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
+  //   //top: [endValue.item.top, startValue.item.top],
+  //   bottom: [endValue.item.bottom, endValue.item.bottom],
+  //   width: [endValue.item.width, endValue.item.width],
+  //   height: [endValue.item.height, endValue.item.height]
+  // });
 }
 function reverseAnimation(item, initialValue, startValue, endValue) {
   //window.location.href = window.location.origin;
-  
+
+  window.addEventListener("resize", function(){
+    setFinalValues(item, initialValue, startValue, endValue);
+  });
+
   let reverseBtn = document.createElement("div");
   reverseBtn.classList.add("reverseAnimation");
   reverseBtn.innerHTML = `<span>Close</span><i class="fa fa-window-close" aria-hidden="true"></i>`;
@@ -539,7 +574,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           console.warn(error);
       });
       workAjax.velocity({
-        top: [navHeight, 0],
+        top: [initialValue.navHeight, 0],
         display: ["block", "none"]
       })
       workAjax
