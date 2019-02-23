@@ -222,6 +222,7 @@ let pageUrl = window.location;
 
 function calcStart(item, clicked, reverse) {
 
+    
     console.log("setimagesize");
     let image = item.querySelector(".gridgrow-image");
     let imageWrapper = image.parentNode;
@@ -250,6 +251,7 @@ console.log(item);
     let wipeParent = item.querySelector(".gridgrow-image-holder");
     let itemImage = item.querySelector(".gridgrow-image");
     let body = document.querySelector("body");
+    let main = document.querySelector("main");
     // 4. Useful if we have called disableBodyScroll for multiple target elements,
     // and we just want a kill-switch to undo all that.
     //bodyScrollLock.clearAllBodyScrollLocks();
@@ -261,8 +263,11 @@ console.log(item);
     let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
     console.log("containerWidth: " + containerWidth);
     
+    let imgTop = 355;
+
     let navHeight = document.querySelector(".masthead").offsetHeight;
     let initialValue = {
+        containerOffsetLeft: container.offsetLeft - (scrollbarWidth/2),
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         windowScrollX: window.scrollX,
@@ -304,15 +309,19 @@ console.log(item);
         },
         content: {
           top: 0,
+          imgTop: imgTop,
         }
       }
         
-      console.log("initial values:");
-      console.log(initialValue);
+      console.log("START OFFSET LEFT:");
+      console.log(initialValue.containerOffsetLeft);
       console.log(itemImage.style.width);
       //animateClick(e, initialValue);
       //calcEnd(initialValue);
       if (clicked && reverse === false) {
+        document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+        main.style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+        body.style.overflowY = "hidden";
         bodyScrollLock.disableBodyScroll(targetElement);
       }
       calcEnd(item, initialValue, clicked, reverse);
@@ -342,6 +351,7 @@ let gridgrowWidth = item.offsetWidth;
 // the final velocity values. To reverse animation, 
 
   let endValue = {
+    containerOffsetLeft: container.offsetLeft - (scrollbarWidth/2),
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight,
     windowScrollX: window.scrollX,
@@ -357,9 +367,9 @@ let gridgrowWidth = item.offsetWidth;
     gridContainerPaddingLeft: gridContainerPadding / 2,
     gridContainerOffsetLeft: gridContainer.offsetLeft,
     wipe: {
-        width: initialValue.windowWidth,
+        width: initialValue.windowWidth + initialValue.scrollbarWidth,
         height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
-        translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX,
+        translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX + initialValue.scrollbarWidth,
         translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
         left: "0px",
         top: "0px",
@@ -380,9 +390,9 @@ let gridgrowWidth = item.offsetWidth;
         // 
         // -102 + 107 = 5 - (20 -21.78 - 20)
         
-        translateX: (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft,
+        translateX: (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2),
         // translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
-        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
+        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight - initialValue.content.imgTop),
         top: "0px",
         duration: 500,
         delay: 50,
@@ -391,13 +401,15 @@ let gridgrowWidth = item.offsetWidth;
       },
       content: {
         top: 0,
+        imgTop: initialValue.content.imgTop,
       }
   }
-  console.log("left: " + initialValue.item.left);
+  
   console.log("startValue:");
   console.log(initialValue);
   console.log("endValue:");
   console.log(endValue);
+  console.log("END LEFT: " + endValue.containerOffsetLeft);
 
   if (clicked) {
     animateItem(item, initialValue, endValue, reverse);
@@ -437,7 +449,7 @@ function animateItem(item, initialValue, endValue, reverse) {
     startValue = endValue;
     endValue = initialValue;
     item.classList.remove("active");
-
+    itemImage.style.visibility = "visible";
   } else {
 
     startValue = initialValue;
@@ -500,15 +512,32 @@ function animateItem(item, initialValue, endValue, reverse) {
               
               //gridImageSize();
               //initialGridState();
+              
+              document.querySelector("html").style.marginLeft = "";
+              document.querySelector("main").style.marginLeft = "";
+              body.style.overflowY = "scroll";
               bodyScrollLock.enableBodyScroll(targetElement);
               //item.addEventListener("click");
               itemImage.style.zIndex = "";
               wipe.style.zIndex = "";
-              
+              item.querySelector(".gridgrow-image").velocity({
+                visibility: ["visible", "hidden"],
+              }, {
+                delay: 0,
+                duration: 0,
+              });
             } else {
               console.log("item complete: ");
-              console.log(itemImage);
+              //console.log(itemImage);
               item.classList.add("active");
+
+              //BEN ADD THIS BACK
+              // item.querySelector(".gridgrow-image").velocity({
+              //   visibility: ["hidden", "visible"],
+              // }, {
+              //   delay: 600,
+              //   duration: 100,
+              // });
               //itemImage.style.width = endValue.item.width;
               reverseAnimation(item, initialValue, startValue, endValue);
               // window.addEventListener("resize", function(){
@@ -556,9 +585,16 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
   function reverseClick(e) {
 
     reverse = true;
-
+    windowScrollY = 0;
     let element = document.querySelector(".reverseAnimation");
     element.parentNode.removeChild(element);
+
+    workAjax.scrollTop = 0;
+    // workAjax
+    // .velocity("scroll", { 
+    //   offset: 0,
+    //   axis: "y"
+    //   });
     clicked = true;
     //animateItem(item, initialValue, endValue, reverse, clicked);
     calcStart(item, initialValue, endValue, reverse, clicked);
@@ -571,7 +607,7 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
 function ajaxWorkItem (item, initialValue, endValue, reverse) {
 
   if (reverse) {
-    workAjax.innerHTML = "";
+    
     workAjax
     .velocity({
       opacity: 0,
@@ -584,6 +620,9 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
     }, {
       duration: 0,
     });
+
+    workAjax.innerHTML = "";
+    
   } else {
     let nextLink = item.querySelector("a").getAttribute("href");
       
@@ -618,21 +657,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
         delay: 400,
         duration: 400,
       });
-      let trans = 0;
-      workAjax.addEventListener('wheel', function(e) {
-        console.log("scrolling");
-        workAjax.style.transform = `translateX(0px) translateY(0px)`;
-        trans ++ ;
-        trans = trans + 100 ;
-          let translateY = "translateX(" + trans + "px) translateY(0px)";
-          workAjax.velocity({
-            transform: [`translateX(0px) translateY(${trans + 100})`, `${translateY}`]
-          }, {
-            delay: 0,
-            duration: 50,
-          });
-          //workAjax.style.transform = translateY;
-      });
+      
       // var scrolling = false;
 
       // $( window ).scroll( function() {
