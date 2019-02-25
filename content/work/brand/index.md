@@ -1,6 +1,6 @@
 ---
-title: 'Web'
-name: "web"
+title: 'Brand'
+name: "brand"
 language: en
 published: true
 layout: single
@@ -10,4 +10,4 @@ tags: []
 image: 
   - "/uploads/typeking-cover.png"
 ---
-Web
+Work

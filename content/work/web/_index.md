@@ -10,4 +10,4 @@ tags: []
 image: 
   - "/uploads/typeking-cover.png"
 ---
-Web
+Work

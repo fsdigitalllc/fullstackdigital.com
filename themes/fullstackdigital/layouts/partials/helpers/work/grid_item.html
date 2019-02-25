@@ -36,39 +36,27 @@
 <div class="masonry-container work-grid row-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
-{{ $total := len .page.grid.items }}
-{{ range $index, $grid_items := .page.grid.items }}
-{{ $name := .name }}
-{{ $order := $index }}
 
-{{ range $index, $item := $.global.Site.Data.placeholder.work }}
-
-{{ if eq .name $name }}
-{{ $logo_src := .logo | default "/images/clients/color/quantum.svg" }}
-{{ $logo := resources.Get $logo_src }}
-{{ $thumb_src := .thumbnail | default "/images/placeholder/ddn-cover.png" }}
-{{ $thumb := resources.Get $thumb_src }}
-
-<div class='{{ with .tags }}{{ delimit . " " }}{{ end }} gridgrow'>
-  <a class="work-link gridgrow-link" href='{{ .link | default "x" }}' title="{{ .title | safeHTML }}"><span>{{ .title | safeHTML }}</span></a>
+<div class='gridgrow'>
+  <a class="work-link gridgrow-link" href='' title=""><span>{{ .Title | safeHTML }}</span></a>
   <div class="gridwrap background-night">
 
-    <div class="flex-center gridgrow-image-holder" style="background-color: {{ .background }};">
+    <div class="flex-center gridgrow-image-holder" style="background-color: ;">
 
 
-      {{/* <div class="gridgrow-image lazyload lazypreload" data-bg='{{ $thumb.Permalink }}'></div> */}}
-      <img class="gridgrow-image" calc-size='{{ $thumb.Permalink }}' data-src='{{ $thumb.Permalink }}'>
+      {{/* <div class="gridgrow-image lazyload lazypreload" data-bg=''></div> */}}
+      <img class="gridgrow-image" calc-size='' data-src=''>
 
-      <div style="background-color: {{ .background }};" class="wipe">
+      <div style="background-color: ;" class="wipe">
       </div>
     </div>
 
   <div class="card-footer background-night color-white" itemprop="description">
   <div class="excerpt-group">
   <div class="card-logo-holder flex-center-vertical">
-  <img class="card-logo" src="{{ $logo.Permalink }}">
+  <img class="card-logo" src="">
   </div>
-  <h6 class="gridgrow-excerpt strip-margin">{{ .title | safeHTML }}</h6>
+  <h6 class="gridgrow-excerpt strip-margin"></h6>
     <span class="card-footer-layer flex h_children_center hover-right">
       <h6 class="gridgrow-view strip-margin">View Case Study</h6>
       <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
@@ -84,10 +72,6 @@
   </div>
   </div>
 </div>
-{{ end }}
-{{ end }}
-{{ end }}
-
 </div>
 
 </div>
