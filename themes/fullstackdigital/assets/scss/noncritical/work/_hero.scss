@@ -6,9 +6,6 @@
   }
 }
 .work-hero {
-  .col-3 {
-    max-width: 270px;
-  }
   .client_logo {
     max-width: 150px;
   }
@@ -17,5 +14,12 @@
   }
   ul li {
     margin-bottom: .5em;
+  }
+  li {
+    opacity: .3;
+    font-weight: 300;
+  }
+  .active {
+    opacity: 1;
   }
 }

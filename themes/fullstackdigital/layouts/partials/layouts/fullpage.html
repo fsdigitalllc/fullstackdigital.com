@@ -37,12 +37,11 @@
   }
 </style>
 
-{{ range where $.Site.Pages "Section" "work" }}
+{{ range (where $.Site.Pages "Section" "work") }}
+
 {{ range .Pages }}
 <ul>
-  <li><a href="{{ .URL }}">{{ .Section }} - {{ .Title }}</a></li>
+  <li><a href="{{ .URL }}">{{ .Title }}</a></li>
 </ul>
 {{ end }}
-
-
 {{ end }}

@@ -32,18 +32,24 @@ body {
   margin: 0;
   overflow-x: hidden; }
 
+.container-fullwidth {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box; }
+
 .container, .container-l, .container-m {
   max-width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: 0 20px;
+  padding: 0 40px;
   box-sizing: border-box; }
 
 .container {
   width: 1160px; }
 
 .container-l {
-  width: 1250px; }
+  width: 1385px; }
 
 .container-m {
   width: 1000px; }
@@ -820,6 +826,10 @@ h3 {
 h3 strong {
   font-weight: 900; }
 
+h3.big-number {
+  font-size: 100px;
+  font-style: italic; }
+
 h4 {
   font-weight: 300;
   font-size: 19px;
@@ -976,6 +986,9 @@ a {
 
 .color-white {
   color: #ffffff; }
+
+.color-gray {
+  color: #aaa; }
 
 .hover-right svg {
   margin-left: 10px;
@@ -1252,7 +1265,7 @@ a {
   z-index: 9999;
   max-height: 60px;
   font-size: 15px;
-  padding: 0 20px;
+  padding: 0 40px;
   position: fixed;
   width: 100%;
   background: #ffffff;

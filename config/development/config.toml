@@ -10,11 +10,11 @@ ignoreFiles = [ "parts.*" ]
 [permalinks]
   pages = "/:section/:title/"
   blog = "/:title/"
-  parts = "/:sections/:title/"
+  work = "/:sections/:slug/"
 
 [params]
 disallow_search_engines = true # set robots.txt to disallow everything
-debug_enabled = false
+debug_enabled = true
 # add redirects/headers
 [outputs]
 home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]

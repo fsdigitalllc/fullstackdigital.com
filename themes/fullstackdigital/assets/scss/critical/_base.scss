@@ -41,11 +41,17 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+.container-fullwidth {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+}
 .container, .container-l, .container-m {
   max-width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: 0 20px;
+  padding: 0 40px;
   box-sizing: border-box;
 }
 .container {

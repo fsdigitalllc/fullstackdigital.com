@@ -17,3 +17,8 @@ clients:
   - name: "code"
     image: "code.svg"
     logo_link: false
+tags:
+  brand:
+  - "Development"
+  - "Identity"
+  - "Strategy"

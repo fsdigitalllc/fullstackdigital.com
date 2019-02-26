@@ -36,25 +36,53 @@
 <div class="masonry-container work-grid row-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
+{{ range (where $.global.Site.RegularPages "Section" "work") }}
 
+<!--way too much effort to grab the client logo for the grid item-->
+{{ $prefix := "assets/images/clients/" }}
+{{ $asset_prefix := "images/clients/" }}
+{{ $context := .Params.stacks_hero }}
+{{ $image := .Resources.GetMatch $context.image }}
+{{ $logo := "" }}
+{{ $name := $context.client }}
+  {{ if eq $context.logo_color true }}
+    {{ $prefix = "assets/images/clients/color/" }}
+    {{ $asset_prefix = "images/clients/color/" }}
+  {{ end }}
+  {{ if eq $context.logo_color false }}
+    {{ $prefix = "assets/images/clients/white/" }}
+    {{ $asset_prefix = "images/clients/white/" }}
+  {{ end }}
+  
+{{ range $.global.Site.Data.lookup.clients }}
+  {{ if eq .name $name }}
+    {{ $logo = .image }}
+  {{ end }}
+{{ end }}
+
+{{ $path := print $prefix $logo }}
+{{ $assetpath := print $asset_prefix $logo }}
 <div class='gridgrow'>
-  <a class="work-link gridgrow-link" href='' title=""><span>{{ .Title | safeHTML }}</span></a>
+  <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
   <div class="gridwrap background-night">
 
-    <div class="flex-center gridgrow-image-holder" style="background-color: ;">
+    <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
 
       {{/* <div class="gridgrow-image lazyload lazypreload" data-bg=''></div> */}}
-      <img class="gridgrow-image" calc-size='' data-src=''>
+      <img class="gridgrow-image" calc-size='' data-src='{{ $image.Permalink }}'>
 
-      <div style="background-color: ;" class="wipe">
+      <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe">
       </div>
     </div>
 
   <div class="card-footer background-night color-white" itemprop="description">
   <div class="excerpt-group">
   <div class="card-logo-holder flex-center-vertical">
-  <img class="card-logo" src="">
+  {{ if (fileExists $path) }}
+  {{ $imagesrc := resources.Get $assetpath }}
+  <img class="card-logo" src="{{ $imagesrc.Permalink }}">
+  {{ end }}
   </div>
   <h6 class="gridgrow-excerpt strip-margin"></h6>
     <span class="card-footer-layer flex h_children_center hover-right">
@@ -72,6 +100,8 @@
   </div>
   </div>
 </div>
+
+{{ end }}
 </div>
 
 </div>
