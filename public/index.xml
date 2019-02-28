@@ -1,2 +1,61 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Fullstack Digital / Brand, Web, Market</title><link>/</link><description>Recent content in Home on Fullstack Digital / Brand, Web, Market</description><generator>Hugo -- gohugo.io</generator><language>en-gb</language><lastBuildDate>Thu, 14 Jun 2018 19:51:34 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>About us</title><link>/about/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/about/</guid><description>About usfasdf</description></item><item><title>Brand</title><link>/services/brand/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/services/brand/</guid><description>Branding page</description></item><item><title>How to break stuff</title><link>/how-to-break-stuff/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/how-to-break-stuff/</guid><description>Header 1 Header 2 Header 3 Header 4 &amp;lt;html&amp;gt; &amp;lt;p&amp;gt;formatted code block&amp;lt;/p&amp;gt; &amp;lt;/html&amp;gt;
-Inline comment &amp;lt;span&amp;gt;&amp;lt;/span&amp;gt; about code.</description></item><item><title>Rebranding an Open Source Team for an Open Future</title><link>/work/brand/code/rebranding-code-open-source/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/brand/code/rebranding-code-open-source/</guid><description>Dell case study</description></item><item><title>Rebranding an Open Source Team for an Open Future</title><link>/work/web/code/code-open-source/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/web/code/code-open-source/</guid><description>Dell case study</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Fullstack Digital / Brand, Web, Market</title>
+    <link>/</link>
+    <description>Recent content in Home on Fullstack Digital / Brand, Web, Market</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 14 Jun 2018 19:51:34 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About us</title>
+      <link>/about/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>About usfasdf</description>
+    </item>
+    
+    <item>
+      <title>Brand</title>
+      <link>/services/brand/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/services/brand/</guid>
+      <description>Branding page</description>
+    </item>
+    
+    <item>
+      <title>How to break stuff</title>
+      <link>/how-to-break-stuff/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/how-to-break-stuff/</guid>
+      <description>Header 1 Header 2 Header 3 Header 4 &amp;lt;html&amp;gt; &amp;lt;p&amp;gt;formatted code block&amp;lt;/p&amp;gt; &amp;lt;/html&amp;gt;
+Inline comment &amp;lt;span&amp;gt;&amp;lt;/span&amp;gt; about code.</description>
+    </item>
+    
+    <item>
+      <title>Rebranding an Open Source Team for an Open Future</title>
+      <link>/work/brand/code/rebranding-code-open-source/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/brand/code/rebranding-code-open-source/</guid>
+      <description>Dell case study</description>
+    </item>
+    
+    <item>
+      <title>Rebranding an Open Source Team for an Open Future</title>
+      <link>/work/web/code/code-open-source/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/web/code/code-open-source/</guid>
+      <description>Dell case study</description>
+    </item>
+    
+  </channel>
+</rss>

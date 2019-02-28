@@ -7,8 +7,8 @@
 
 <section class="work-hero padding-m-top"{{ with $context.background_color }} style="background-color: {{ . }};"{{ end }}>
 
-  <div class="container flex h_children_space-between v_children_center">
-    <div class="col-3 grid">
+  <div id="project-summary" class="container flex h_children_space-between break-t">
+    <div class="col-3 t-col-8 grid">
         {{ $logo := $context.client }}
         {{ range where .Site.Data.lookup.clients "name" $logo }}
         {{ if eq $context.logo_color true }}
@@ -30,7 +30,7 @@
         
         
           <ul>
-            <li{{ if or (in .Params.tags "Brand Development") (in .Params.tags "Brand Identity") (in .Params.tags "Brand Strategy") }} class='active'{{ end }}><strong>Brand</strong></li>
+            <li{{ if or (in .Params.tags "Brand Development") (in .Params.tags "Brand Identity") (in .Params.tags "Brand Strategy") }} class='active'{{ end }}>Brand</li>
 
             
               <li{{ if in .Params.tags "Brand Development" }} class='active'{{ end }}>Development</li>
@@ -39,14 +39,14 @@
           </ul>
 
           <ul>
-            <li{{ if or (in .Params.tags "Web Experience") (in .Params.tags "Web Development") (in .Params.tags "Web Design") }} class='active'{{ end }}><strong>Web</strong></li>
+            <li{{ if or (in .Params.tags "Web Experience") (in .Params.tags "Web Development") (in .Params.tags "Web Design") }} class='active'{{ end }}>Web</li>
             <li{{ if in .Params.tags "Web Experience" }} class='active'{{ end }}>Experience</li>
             <li{{ if in .Params.tags "Web Design" }} class='active'{{ end }}>Design</li>
             <li{{ if in .Params.tags "Web Development" }} class='active'{{ end }}>Development</li>
           </ul>
           
           <ul>
-            <li{{ if or (in .Params.tags "Search Marketing") (in .Params.tags "Content Marketing") (in .Params.tags "Social Marketing") }} class='active'{{ end }}><strong>Market</strong></li>
+            <li{{ if or (in .Params.tags "Search Marketing") (in .Params.tags "Content Marketing") (in .Params.tags "Social Marketing") }} class='active'{{ end }}>Market</li>
             <li{{ if in .Params.tags "Search Marketing" }} class='active'{{ end }}>Search</li>
             <li{{ if in .Params.tags "Content Marketing" }} class='active'{{ end }}>Content</li>
             <li{{ if in .Params.tags "Social Marketing" }} class='active'{{ end }}>Social</li>
@@ -56,7 +56,7 @@
     </div>
     
 
-    <div class="col-7">
+    <div class="col-7 t-col-12">
         <h1 class="page-title {{ $textClass }}">{{ .Title }}</h1>
     </div>
 

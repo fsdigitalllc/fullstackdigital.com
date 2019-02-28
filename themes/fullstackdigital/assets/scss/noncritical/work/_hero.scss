@@ -22,4 +22,29 @@
   .active {
     opacity: 1;
   }
+  #project-summary ul li:first-of-type {
+    font-weight: 600;
+  }
+  @media screen and (max-width: $screen-tablet) {
+    #project-summary ul li {
+      display: none;
+    }
+    #project-summary ul li:first-of-type {
+      display: block;
+      margin-bottom: 0px;
+    }
+    #project-summary > div > div {
+      display: none;
+      padding-bottom: 0px;
+    }
+    #project-summary > div {
+      padding-bottom: 32px;
+    }
+    h1 {
+      margin-bottom: 0px;
+    }
+    #project-summary div:nth-child(2) {
+      padding-bottom: 0px;
+    }
+  }
 }
