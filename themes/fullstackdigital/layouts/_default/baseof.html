@@ -37,13 +37,9 @@
 
         {{ block "footer" . }}{{ partial "site/footer.html" . }}{{ end }}
 
-        <!--add pancakes-->
         {{ if eq .Params.layout "pancakes" }}
-        <!--pancakes enabled-->
-            
-            {{- partial "site/pancakes/scripts.html" . | safeHTML -}}
+        {{ partial "site/pancakes/scripts.html" . | safeHTML }}
         {{ end }}
-        <!--end pancakes-->
 
         {{ block "site/scripts" . }}{{ partial "site/scripts.html" . }}{{ end }}
 

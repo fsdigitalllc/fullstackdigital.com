@@ -2,6 +2,7 @@ client_default_section: work
 clients:
   - name: "dell"
     image: "dell.svg"
+    logo_link: true
   - name: "quantum"
     image: "quantum.svg"
     logo_link: false
@@ -16,7 +17,7 @@ clients:
     logo_link: false
   - name: "code"
     image: "code.svg"
-    logo_link: false
+    logo_link: true
 tags:
   brand:
   - "Development"

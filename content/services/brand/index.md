@@ -25,6 +25,7 @@ sections:
       - name: "quantum"
       - name: "rigado"
       - name: "threefactor"
+        logo_link: false
       - name: "ddn"
       - name: "code"
   - template: "service_description"

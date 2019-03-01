@@ -36,6 +36,7 @@ logos:
 
 {{/* <!--on an individual level, override the default setting --> */}}
 {{ $logos_link := $.page.logos_link }}
+{{ $logo_link := $.page.logos_link }}
 
 {{ range .page.logos }}
   {{ if eq .logo_color true }}
@@ -53,19 +54,21 @@ logos:
     
     {{/* <!--lookup the client in the datafile --> */}}
   {{ range $site.Data.lookup.clients }}
-
-
     {{ if eq $name .name }}
-    {{ $image = .image }}
+      {{ $image = .image }}
     {{ if $url }}
       {{ $url = $url }}
-    {{ else }}
+      {{ $logo_link = true }}
+    {{ else if .url }}
       {{ $url = .url }}
+      {{ $logo_link = true }}
+    {{ else }}
+      {{ $logo_link = false }}
     {{ end }}
     {{ if eq .logo_link false }}
-      {{ $logos_link = false }}
-    {{ else }}
-      {{ $logos_link = $logos_link }}
+      {{ $logo_link = false }}
+    {{ else if eq .logo_link true }}
+      {{ $logo_link = $logos_link }}
     {{ end }}
 
   {{ $path := print $prefix $image }}
@@ -73,28 +76,9 @@ logos:
  
     {{/* <!--on an individual level, override the default setting --> */}}
     
-    {{ if or ($url) ( eq $logos_link false ) }}
-      {{ if eq $url "" }}
-        {{ $logos_link = false }}
-      {{ end }}
-        {{ if (fileExists $path) }}
-          {{ $imagesrc := resources.Get $assetpath }}
-          {{ if eq $logos_link false }}
-            <span class="{{ $name }}">
-          {{ else }}
-            <a class="{{ $name }}" href="{{ $url }}">
-          {{ end }}
-            <img src="{{ $imagesrc.Permalink }}">
-          {{ if eq $logos_link false }}
-            </span>
-          {{ else }}
-            </a>
-          {{ end }}
-        {{ end }}
-
-    {{ else if not $url }}
-
+    {{ if and (not $url) (eq $logos_link true) (eq $logo_link true) }}
       {{ range where $.global.Site.Pages "Section" $.global.Site.Data.lookup.client_default_section }}
+      
       {{ if eq .Params.name $name }}
       {{ $url = .Permalink }}
         {{/* <!--did I override the URL, path, or image on this page?--> */}}
@@ -103,13 +87,13 @@ logos:
 
           {{ if (fileExists $path) }}
             {{ $imagesrc := resources.Get $assetpath }}
-            {{ if eq $logos_link false }}
+            {{ if eq $logo_link false }}
               <span class="{{ $name }}">
             {{ else }}
               <a class="{{ $name }}" href="{{ $url }}">
             {{ end }}
               <img src="{{ $imagesrc.Permalink }}">
-            {{ if eq $logos_link false }}
+            {{ if eq $logo_link false }}
               </span>
             {{ else }}
               </a>
@@ -119,17 +103,33 @@ logos:
       {{ end }}
       {{ end }}
 
+    {{ else if or ($url) ( eq $logos_link false ) }}
+      
+        {{ if (fileExists $path) }}
+          {{ $imagesrc := resources.Get $assetpath }}
+          {{ if eq $logo_link false }}
+            <span class="{{ $name }}">
+          {{ else }}
+            <a class="{{ $name }}" href="{{ $url }}">
+          {{ end }}
+            <img src="{{ $imagesrc.Permalink }}">
+          {{ if eq $logo_link false }}
+            </span>
+          {{ else }}
+            </a>
+          {{ end }}
+        {{ end }}
 
     {{ else }}
     {{ if (fileExists $path) }}
       {{ $imagesrc := resources.Get $assetpath }}
-      {{ if eq $logos_link false }}
+      {{ if eq $logo_link false }}
         <span class="{{ $name }}">
       {{ else }}
         <a class="{{ $name }}" href="{{ $url }}">
       {{ end }}
         <img src="{{ $imagesrc.Permalink }}">
-      {{ if eq $logos_link false }}
+      {{ if eq $logo_link false }}
         </span>
       {{ else }}
         </a>

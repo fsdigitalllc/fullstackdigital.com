@@ -1,6 +1,6 @@
 ---
 title: 'Rebranding an Open Source Team for an Open Future'
-name: "dell"
+name: "code"
 night_header: false
 night_footer: true
 language: en
