@@ -18,6 +18,9 @@ stacks_hero:
   background_color: "#007DB8"
   client: "code"
   logo_color: false
+grid_item:
+  client: "code"
+  logo_color: true
 stacks:
 - template: section-row-blocks
   id: overview
@@ -86,7 +89,7 @@ stacks:
         class: "big-number color-gray text-center"
         tag: h3
         title: "365"
-      - template: element-html
+      - template: element-code
         html: <p class="big-number color-white text-center"><strong>Days spent working<br> with the {code} team</strong></p>
     - template: block-column-builder
       size: '3'
@@ -97,7 +100,7 @@ stacks:
         class: "big-number color-gray text-center"
         tag: h3
         title: "15"
-      - template: element-html
+      - template: element-code
         html: <p class="big-number color-white text-center"><strong>Team &amp; community<br>interviews conducted</strong></p>
     - template: block-column-builder
       size: '3'
@@ -108,7 +111,7 @@ stacks:
         class: "big-number color-gray text-center"
         tag: h3
         title: "7"
-      - template: element-html
+      - template: element-code
         html: <p class="big-number color-white text-center"><strong>Companies supported within <br>Dell Technologies</strong></p>
 - template: section-row-blocks
   id: development
@@ -210,8 +213,9 @@ stacks:
       size: '12'
       animate: "fade"
       elements:
-      - template: element-html
-        html: <h4 class="color-oil text-center"><strong>Logo</strong></h4>
+      - template: element-code
+        html: |
+          <h4 class="color-oil text-center"><strong>Logo</strong></h4>
     - template: block-column-builder
       animate: "fade-up"
       size: '3'
@@ -260,7 +264,7 @@ stacks:
       size: '12'
       animate: "fade"
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center"><strong>Style</strong></h4>
     - template: block-column-builder
       size: '3'
@@ -270,7 +274,7 @@ stacks:
         image: "images/EMC-style.jpg"
         class:
         alt: "EMC Style"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">EMC: Passion, Authority;<br>Reliability and Innovation</p>
     - template: block-column-builder
@@ -289,7 +293,7 @@ stacks:
         image: "images/Dell-emc-style.jpg"
         class:
         alt: "Confident, dark style"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">DellEMC: Dark, Confident and Vibrant;<br>Strength and Assurance</p>
     - template: block-column-builder
@@ -308,7 +312,7 @@ stacks:
         image: "images/Dell-Tech-style.jpg"
         class:
         alt: "Bright, fresh, energetic"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">Dell Tech: Bright, Fresh and Energetic;<br>Authenticity, Humanity and Inviting</p>
   - template: include-row
@@ -319,7 +323,7 @@ stacks:
       size: '12'
       animate: "fade"
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center"><strong>Font</strong></h4>
     - template: block-column-builder
       size: '5'
@@ -329,7 +333,7 @@ stacks:
         image: "images/EMC-font.jpg"
         class:
         alt: "Meta Pro"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From EMC: Meta Pro, Architects Daughter, Arial </p>
     - template: block-column-builder
@@ -348,7 +352,7 @@ stacks:
         image: "images/Dell-font.jpg"
         class:
         alt: "Roboto"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From DellEMC &amp; Dell Tech: Replica, Roboto, Arial</p>
   - template: include-row
@@ -359,7 +363,7 @@ stacks:
       size: '12'
       animate: "fade"
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center"><strong>Color</strong></h4>
     - template: block-column-builder
       size: '3'
@@ -369,7 +373,7 @@ stacks:
         image: "images/EMC-color.png"
         class:
         alt: "From EMC colors"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From EMC</p>
     - template: block-column-builder
@@ -388,7 +392,7 @@ stacks:
         image: "images/DellEMC-color.png"
         class:
         alt: "From DellEMC"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From DellEMC</p>
     - template: block-column-builder
@@ -407,7 +411,7 @@ stacks:
         image: "images/Dell-Tech-color.png"
         class:
         alt: "to Dell Tech"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From Dell Tech, but customized</p>
   - template: include-row
@@ -418,7 +422,7 @@ stacks:
       size: '12'
       animate: "fade"
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center"><strong>Illustration</strong></h4>
     - template: block-column-builder
       size: '3'
@@ -444,7 +448,7 @@ stacks:
       - template: element-image
         image: "images/Dell-EMC-illustration.jpg"
         alt: "REX-Ray illustration"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">Loved by many, the REX-Ray<br>artwork started from a project</p>
     - template: block-column-builder
@@ -464,7 +468,7 @@ stacks:
         image: "images/code-illustration.png"
         class:
         alt: "rex-ray color illustration"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">REX-Ray brought into the<br> world as {code} sees it</p>
   - template: include-row
@@ -475,7 +479,7 @@ stacks:
       size: '12'
       animate: "fade"
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center"><strong>Voice & Approach</strong></h4>
     - template: block-column-builder
       size: '3'
@@ -485,7 +489,7 @@ stacks:
         image: "images/EMC-voice.jpg"
         class:
         alt: "Forward thinking"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From EMC</p>
     - template: block-column-builder
@@ -504,7 +508,7 @@ stacks:
         image: "images/DellEMC-voice.jpg"
         class:
         alt: "From DellEMC"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From DellEMC</p>
     - template: block-column-builder
@@ -523,7 +527,7 @@ stacks:
         image: "images/Code-voice.jpg"
         class:
         alt: "to {code}"
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil image-cap">From Dell Tech, but customized</p>
 - template: section-row-blocks
@@ -559,9 +563,9 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center strip-margin-bottom"><strong>{code} Website</strong></h4>
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil text-center"><a class="color-oil strip-underline hover-right" target="_blank" href="/work/code-open-source/">Learn more about how we re-imagined<br>the open source web experience <svg class="color-oil abs" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line></g><polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline>
@@ -582,9 +586,9 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil strip-margin-bottom text-center"><strong>{code} Blog</strong></h4>
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil text-center"><a class="color-oil strip-underline hover-right" target="_blank" href="https://blog.thecodeteam.com/">Re-designed and re-built.<br>See it live <svg class="color-oil abs" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g><line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line></g><polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23"></polyline></svg></a></p>
     - template: block-column-builder
@@ -605,9 +609,9 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center strip-margin-bottom"><strong>{code} Newsletter</strong></h4>
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil text-center">Re-designed and optimized.</p>
     - template: block-column-builder
@@ -628,9 +632,9 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center strip-margin-bottom"><strong>{code} Events</strong></h4>
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil text-center">Re-designed with the all-new look & feel.</p>
     - template: block-column-builder
@@ -651,9 +655,9 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         html: <h4 class="color-oil text-center strip-margin-bottom"><strong>{code} Brand Guidelines</strong></h4>
-      - template: element-html
+      - template: element-code
         html: |
           <p class="color-oil text-center"><a class="color-oil strip-underline hover-right" target="_blank" href="https://thecodeteam.com/brand/">Internal &amp; external versions created.<br>See it live <svg class="color-oil abs" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g><line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line></g><polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline></svg></a></p>
     - template: block-column-builder
@@ -725,7 +729,7 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         html: |
           <h4 class="text-left color-white subtitle">Results</h4>
           <h2 class="text-left color-white">#CodeOpen</h2>
@@ -737,7 +741,7 @@ stacks:
       animate: fade-up
       duration: '400'
       elements:
-      - template: element-html
+      - template: element-code
         class: numbers
         html: |
           <div>

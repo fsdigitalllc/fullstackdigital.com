@@ -18,7 +18,7 @@ sections:
     title: "Build a forward thinking brand"
     paragraph: |
       Fullstack works with global teams during times of invention to build innovative brands through an open, coherent approach.
-    logos_color: true
+    logos_color: "color"
     logos_link: true
     logos:
       - name: "dell"
@@ -84,5 +84,4 @@ sections:
     form:
     - template: "contact"
       fields:
---- 
-Branding page
+---

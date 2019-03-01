@@ -87,6 +87,9 @@ a {
 .tiny {
   font-size: 13px;
 }
+.underline {
+  text-decoration: underline;
+}
 
 @media screen and (max-width: $screen-tablet) {
   h1,h2,h3 {

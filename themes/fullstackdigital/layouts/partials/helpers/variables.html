@@ -12,4 +12,5 @@ $container-m: {{ $.Site.Data.css.container_m | default "1000px" }};
 
 $font-family: 'Lato', sans-serif;
 
-$oil: #222;
+$oil: {{ $.Site.Data.css.color.oil | default "#222"}};
+$babyblue: {{ $.Site.Data.css.color.baby_blue | default "#1badff"}};

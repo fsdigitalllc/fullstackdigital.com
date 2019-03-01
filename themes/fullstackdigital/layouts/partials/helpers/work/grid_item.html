@@ -45,11 +45,11 @@
 {{ $image := .Resources.GetMatch $context.image }}
 {{ $logo := "" }}
 {{ $name := $context.client }}
-  {{ if eq $context.logo_color true }}
+  {{ if eq .Params.grid_item.logo_color true }}
     {{ $prefix = "assets/images/clients/color/" }}
     {{ $asset_prefix = "images/clients/color/" }}
   {{ end }}
-  {{ if eq $context.logo_color false }}
+  {{ if eq .Params.grid_item false }}
     {{ $prefix = "assets/images/clients/white/" }}
     {{ $asset_prefix = "images/clients/white/" }}
   {{ end }}
@@ -62,9 +62,9 @@
 
 {{ $path := print $prefix $logo }}
 {{ $assetpath := print $asset_prefix $logo }}
-<div class='gridgrow'>
+<div class='gridgrow '>
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
-  <div class="gridwrap background-night">
+  <div class="gridwrap background-light">
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-  <div class="card-footer background-night color-white" itemprop="description">
+  <div class="card-footer" itemprop="description">
   <div class="excerpt-group">
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
@@ -84,14 +84,14 @@
   <img class="card-logo" src="{{ $imagesrc.Permalink }}">
   {{ end }}
   </div>
-  <h6 class="gridgrow-excerpt strip-margin"></h6>
+  <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
     <span class="card-footer-layer flex h_children_center hover-right">
       <h6 class="gridgrow-view strip-margin">View Case Study</h6>
-      <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
       <g>
-      <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      <line fill="none" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
       </g>
-      <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+      <polyline fill="none" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
                         54,23 "></polyline>
       </svg>
     </span>

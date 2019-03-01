@@ -6,6 +6,9 @@ clients:
   - name: "quantum"
     image: "quantum.svg"
     logo_link: false
+  - name: "microsoft"
+    image: "microsoft.svg"
+    logo_link: false
   - name: "ddn"
     image: "ddn.svg"
     logo_link: false

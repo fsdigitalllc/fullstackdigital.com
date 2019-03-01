@@ -26,12 +26,15 @@ logos:
 {{ $prefix := "assets/images/clients/" }}
 {{ $asset_prefix := "images/clients/" }}
 {{/* <!--the default color setting --> */}}
-{{ if eq .page.logos_color false }}
+{{ if eq .page.logos_color "white" }}
   {{ $prefix = "assets/images/clients/white/" }}
   {{ $asset_prefix = "images/clients/white/" }}
-{{ else }}
+{{ else if eq .page.logos_color "color" }}
   {{ $prefix = "assets/images/clients/color/" }}
   {{ $asset_prefix = "images/clients/color/" }}
+  {{ else if eq .page.logos_color "black" }}
+  {{ $prefix = "assets/images/clients/black/" }}
+  {{ $asset_prefix = "images/clients/black/" }}
 {{ end }}
 
 {{/* <!--on an individual level, override the default setting --> */}}
@@ -39,13 +42,17 @@ logos:
 {{ $logo_link := $.page.logos_link }}
 
 {{ range .page.logos }}
-  {{ if eq .logo_color true }}
+  {{ if eq .logo_color "color" }}
     {{ $prefix = "assets/images/clients/color/" }}
     {{ $asset_prefix = "images/clients/color/" }}
   {{ end }}
-  {{ if eq .logo_color false }}
+  {{ if eq .logo_color "white" }}
     {{ $prefix = "assets/images/clients/white/" }}
     {{ $asset_prefix = "images/clients/white/" }}
+  {{ end }}
+  {{ if eq .logo_color "black" }}
+    {{ $prefix = "assets/images/clients/black/" }}
+    {{ $asset_prefix = "images/clients/black/" }}
   {{ end }}
 
     {{ $name := .name }}
