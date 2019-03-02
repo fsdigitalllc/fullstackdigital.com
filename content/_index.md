@@ -14,7 +14,7 @@ sections:
       We <span class="underline color-babyblue">make brands.</span><br>Mostly for the tech world.
     paragraph: |
       Fullstack works with global teams during times of invention to build innovative brands through an open, coherent approach.
-    logos_color: "color"
+    logos_color: "black"
     logos_link: false
     logos:
       - name: "dell"

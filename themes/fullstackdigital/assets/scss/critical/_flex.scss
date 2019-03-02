@@ -23,7 +23,14 @@
 .v_children_end {
   align-items: flex-end;
 }
-
+.break-desktop {
+  flex-direction: column;
+}
+@media screen and (max-width: $screen-laptop) {
+  .break-laptop {
+    flex-direction: column;
+  }
+}
 @media screen and (max-width: $screen-tablet) {
   .break-tablet {
     flex-direction: column;

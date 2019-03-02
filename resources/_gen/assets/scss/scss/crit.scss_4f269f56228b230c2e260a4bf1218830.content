@@ -69,10 +69,25 @@ img {
 main {
   padding-top: 60px; }
 
+.display-desktop {
+  display: block; }
+
+.display-mobile {
+  display: none; }
+
 @media screen and (max-width: 900px) {
   .container {
     padding-left: 20px;
-    padding-right: 20px; } }
+    padding-right: 20px; }
+  .display-desktop {
+    display: none; } }
+
+@media screen and (max-width: 520px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px; }
+  .display-mobile {
+    display: block; } }
 
 [data-aos][data-aos][data-aos-duration="50"], body[data-aos-duration="50"] [data-aos] {
   transition-duration: 50ms; }
@@ -950,6 +965,13 @@ a {
 .v_children_end {
   align-items: flex-end; }
 
+.break-desktop {
+  flex-direction: column; }
+
+@media screen and (max-width: 1024px) {
+  .break-laptop {
+    flex-direction: column; } }
+
 @media screen and (max-width: 900px) {
   .break-tablet {
     flex-direction: column; } }
@@ -1420,6 +1442,9 @@ a {
 .featured-logos .ddn img {
   height: 40px; }
 
+.featured-logos .microsoft img {
+  height: 22px; }
+
 .featured-logos .dell img {
   height: 20px; }
 
@@ -1470,3 +1495,11 @@ a {
 .home .template-related_content .subtitle {
   font-style: italic;
   color: #aaa; }
+
+@media screen and (max-width: 520px) {
+  .home .template-related_content .grid-2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 25px; }
+  .home .copyright {
+    margin-bottom: 0px; } }

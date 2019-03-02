@@ -1,0 +1,40 @@
+footer {
+  .night footer .fcls-1 {
+    fill: #fff
+  }
+  .fcls-1 {
+    fill: #000
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  li a {
+    color: $oil;
+    font-weight: 400;
+  }
+  .night li a {
+    color: #ffffff;
+  }
+  ul > li {
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .row:first-of-type {
+    margin-bottom: 40px;
+  }
+  @media screen and (max-width: $screen-mobile-l) {
+    // ul li:not(:first-child) {
+    //   display: none;
+    // }
+    .row:first-of-type {
+      margin-top: 40px;
+    }
+    .copyright {
+      text-align: center;
+    }
+  }
+}

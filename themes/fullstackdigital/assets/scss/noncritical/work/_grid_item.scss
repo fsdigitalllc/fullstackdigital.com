@@ -242,6 +242,15 @@
   }
 }
 
+@media screen and (max-width: $screen-mobile-l) {
+  .gridgrow .card-footer {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridgrow .excerpt-group {
+    grid-column-gap: 10px;
+  }
+}
 @media screen and (max-width: $screen-mobile-m) {
   .gridgrow .gridgrow-excerpt {
     font-size: 14px;
