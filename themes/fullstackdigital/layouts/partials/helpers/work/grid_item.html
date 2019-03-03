@@ -620,6 +620,9 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
 
 function ajaxWorkItem (item, initialValue, endValue, reverse) {
 
+  let pageCritical = document.querySelector(".page_critical_css");
+  console.log(pageCritical);
+
   if (reverse) {
     
     workAjax
@@ -651,9 +654,18 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           // Parse the text
           var doc = parser.parseFromString(html, "text/html");
           var docArticle = doc.querySelector('main').innerHTML;
+          var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
+          
           workAjax.innerHTML = docArticle;
-          //console.log(html);
+          //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
+          console.log(pageCritical);
           window.history.pushState("object or string", "Title", nextLink);
+          // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
+          setTimeout(redoAOS, 4000);
+          function redoAOS() {
+            AOS.init();
+            AOS.refresh();
+          }
           
       })
       .catch((error) => {

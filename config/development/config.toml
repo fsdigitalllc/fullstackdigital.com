@@ -14,7 +14,7 @@ ignoreFiles = [ "parts.*" ]
 
 [params]
 disallow_search_engines = true # set robots.txt to disallow everything
-debug_enabled = true
+debug_enabled = false
 # add redirects/headers
 [outputs]
 home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]

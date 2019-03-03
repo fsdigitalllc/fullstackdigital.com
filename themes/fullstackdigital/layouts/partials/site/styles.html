@@ -1,5 +1,4 @@
 <style class="page_critical_css">
-  {{ .Title }}
  {{ $critical_css := "" }}
 {{ if $.Site.IsServer }}
   {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS }}

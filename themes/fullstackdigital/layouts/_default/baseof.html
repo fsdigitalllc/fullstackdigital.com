@@ -19,8 +19,7 @@
         {{ if eq .Params.layout "pancakes" }}
         <!--fetch inject is lazy loading for scripts-->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fetch-inject" media="screen"></script>
-            {{ block "pancakes_critical" . }}{{ end }}
-            {{- partial "site/pancakes/styles.html" . | safeHTML -}}
+            {{- partial "site/pancakes/critical.html" . | safeHTML -}}
         {{ end }}
         <!--end pancakes-->
 
