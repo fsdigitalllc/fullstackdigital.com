@@ -63,6 +63,9 @@ body {
 .container-m {
   width: $container-m;
 }
+section {
+  margin-bottom: -1px;
+}
 
 img {
   max-width: 100%;
@@ -77,6 +80,9 @@ img {
 .hidden {
   display: none;
 }
+.mobile-break {
+  display: none;
+}
 main {
   padding-top: 60px;
 }
@@ -87,20 +93,21 @@ main {
   display: none;
 }
 @media screen and (max-width: $screen-tablet ) {
-  .container {
-    padding-left: 20px;
-    padding-right: 20px
+  .container, .container-l, .container-m {
+    padding: 0 20px;
   }
   .display-desktop {
     display: none;
   }
 }
 @media screen and (max-width: $screen-mobile-l ) {
-  .container {
-    padding-left: 20px;
-    padding-right: 20px;
+  .container, .container-l, .container-m {
+    padding: 0 20px;
   }
   .display-mobile {
+    display: block;
+  }
+  .mobile-break {
     display: block;
   }
 }
