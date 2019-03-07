@@ -11,11 +11,17 @@
     <div class="col-3 t-col-8 grid">
         {{ $logo := $context.client }}
         {{ range where .Site.Data.lookup.clients "name" $logo }}
-        {{ if eq $context.logo_color true }}
+
+        {{ if or (eq $context.logo_color true) (eq $context.logo_color "color") }}
           {{ $logo = print "/images/clients/color/" .image }}
-        {{ else }}
+
+        {{ else if or (eq $context.logo_color false) (eq $context.logo_color "white") }}
           {{ $logo = print "/images/clients/white/" .image }}
+
+        {{ else if or (eq $context.logo_color "black") }}
+          {{ $logo = print "/images/clients/black/" .image }}
         {{ end }}
+
         {{ $logo_check := print "assets" $logo }}
         {{ if (fileExists $logo_check )}}
           {{ $src = resources.Get $logo }}
@@ -56,8 +62,8 @@
     </div>
     
 
-    <div class="col-7 t-col-12">
-        <h1 class="page-title {{ $textClass }}">{{ .Title }}</h1>
+    <div class="col-8 flex v_c-center maxwidth-s t-col-12">
+        <h1 class="page-title strip-margin-bottom {{ $textClass }}">{{ .Title }}</h1>
     </div>
 
 

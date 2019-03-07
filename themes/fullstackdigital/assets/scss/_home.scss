@@ -13,7 +13,7 @@
     font-style: italic;
     color: #aaa;
   }
-  @media screen and (max-width: $screen-mobile-l ) {
+  @media screen and (max-width: $screen-tablet ) {
     .template-related_content .grid-2 {
       grid-template-columns: 1fr;
       grid-template-rows: auto;

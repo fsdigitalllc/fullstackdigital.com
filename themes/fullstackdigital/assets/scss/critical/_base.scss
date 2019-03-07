@@ -86,17 +86,25 @@ img {
 main {
   padding-top: 60px;
 }
-.display-desktop {
-  display: block;
-}
-.display-mobile {
+.hide-desktop {
   display: none;
+}
+@media screen and (max-width: $screen-laptop ) {
+  .display-laptop {
+    display: block;
+  }
+  .hide-laptop {
+    display: none;
+  }
 }
 @media screen and (max-width: $screen-tablet ) {
   .container, .container-l, .container-m {
     padding: 0 20px;
   }
-  .display-desktop {
+  .display-tablet {
+    display: block;
+  }
+  .hide-tablet {
     display: none;
   }
 }
@@ -109,5 +117,8 @@ main {
   }
   .mobile-break {
     display: block;
+  }
+  .hide-mobile {
+    display: none;
   }
 }

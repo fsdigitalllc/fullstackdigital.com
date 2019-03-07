@@ -45,13 +45,15 @@
 {{ $image := .Resources.GetMatch $context.image }}
 {{ $logo := "" }}
 {{ $name := $context.client }}
-  {{ if eq .Params.grid_item.logo_color true }}
+  {{ if or (eq .Params.grid_item.logo_color "color") (eq .Params.grid_item.logo_color true ) }}
     {{ $prefix = "assets/images/clients/color/" }}
     {{ $asset_prefix = "images/clients/color/" }}
-  {{ end }}
-  {{ if eq .Params.grid_item false }}
+  {{ else if or (eq .Params.grid_item.logo_color "white") (eq .Params.grid_item.logo_color false ) }}
     {{ $prefix = "assets/images/clients/white/" }}
     {{ $asset_prefix = "images/clients/white/" }}
+  {{ else if or (eq .Params.grid_item.logo_color "black") }}
+    {{ $prefix = "assets/images/clients/black/" }}
+    {{ $asset_prefix = "images/clients/black/" }}
   {{ end }}
   
 {{ range $.global.Site.Data.lookup.clients }}
