@@ -5,7 +5,7 @@
   {{ $textClass = . }}
 {{ end }}
 
-<section class="work-hero padding-m-top"{{ with $context.background_color }} style="background-color: {{ . }};"{{ end }}>
+<section class="work-hero padding-m-top{{ with $context.class }} {{ . }}{{ end }}"{{ with $context.background_color }} style="background-color: {{ . }};"{{ end }}>
 
   <div id="project-summary" class="container flex h_children_space-between break-t">
     <div class="col-3 t-col-8 grid">

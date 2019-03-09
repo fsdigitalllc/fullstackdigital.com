@@ -1562,6 +1562,9 @@ a {
   .home .copyright {
     margin-bottom: 0px; } }
 
+.work-hero.light-skin .color-white {
+  color: #222; }
+
 .work-hero h1 {
   font-size: 2.12em; }
 
