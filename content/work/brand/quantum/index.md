@@ -203,16 +203,18 @@ stacks:
   - template: include-row  
     class: h_c-end v_c-center wrap padding-m-bottom
     size: fullsize
+    css:
+    - rule: ".right-image {margin-left: auto;}"
     cols:
     - template: block-column-builder
       class:
-      wrapper_class: flex h_c-end
+      wrapper_class:
       size: '12'
       animate: fade-left
       duration: '400'
       elements:
       - template: element-image
-        class: h_s-end
+        class: right-image
         image: "images/Qtm-website.png"
   - template: include-row  
     class: h_c-end v_c-center padding-m-bottom
@@ -287,15 +289,17 @@ stacks:
   - template: include-row  
     class: 
     size: fullwidth
+    css:
+    - rule: ".right-image {margin-left: auto;}"
     cols:
     - template: block-column-builder
-      wrapper_class: flex h_c-end
+      wrapper_class: 
       size: '12'
       animate: fade-left
       duration: '400'
       elements:
       - template: element-image
-        class: 
+        class: right-image
         image: "images/qtm-product-cropped.png"
 - template: section-row-blocks
   id: digital

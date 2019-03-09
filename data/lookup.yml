@@ -21,6 +21,21 @@ clients:
   - name: "code"
     image: "code.svg"
     logo_link: true
+  - name: "typeking"
+    image: "typeking.svg"
+    logo_link: false
+  - name: "4dv"
+    image: "4dv.svg"
+    logo_link: false
+  - name: "usdrs"
+    image: "usdrs.svg"
+    logo_link: false
+  - name: "leadgate"
+    image: "leadgate.svg"
+    logo_link: false
+  - name: "awo"
+    image: "awo.png"
+    logo_link: false
 tags:
   brand:
   - "Development"

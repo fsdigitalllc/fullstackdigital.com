@@ -14,7 +14,7 @@ aliases :
   - /work/code-open-source/
 stacks_hero:
   path: "helpers/work/hero.html"
-  image: "images/code-brand-cover.png"
+  image: "images/code.png"
   background_color: "#b7285a"
   client: "code"
   logo_color: false
@@ -552,7 +552,6 @@ stacks:
   background_color: "#000000"
   background_image:
   scripts:
-  - src: "js/plugins/velocity.min.js"
   - src: "js/work/cards.js"
   rows:
   - template: include-row
