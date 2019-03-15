@@ -161,7 +161,7 @@ gridImages.forEach(function(image, imageLoaded = 0) {
   // console.log("loaded " + image);
   image.addEventListener('load', () => {
     // if (image.classList.contains("lazyloaded")) {
-      console.log(image);
+      //console.log(image);
       imageLoaded++;
       let item = image.parentElement.parentElement.parentElement;
       let link = item.querySelector("a");
@@ -169,7 +169,7 @@ gridImages.forEach(function(image, imageLoaded = 0) {
 
       // resize the image as it loads
       //setImageSize(image, item);
-      console.log("resizing");
+      //console.log("resizing");
       //animateGrid();
       clicked = false;
       reverse = false;
@@ -187,7 +187,7 @@ gridImages.forEach(function(image, imageLoaded = 0) {
     window.addEventListener("resize", function(){
     //console.log(ajaxRequest);
       setImageSize(image, item);
-      console.log("resizing");
+      //console.log("resizing");
       //animateGrid();
       clicked = false;
       reverse = false;
@@ -197,7 +197,7 @@ gridImages.forEach(function(image, imageLoaded = 0) {
     item.addEventListener("click", function(e){
     //console.log(ajaxRequest);
     item = e.currentTarget;
-    console.log("clicked");
+    //console.log("clicked");
     e.preventDefault();
 
     clicked = true;
@@ -239,7 +239,7 @@ let pageUrl = window.location;
 function calcStart(item, clicked, reverse) {
 
     
-    console.log("setimagesize");
+    //console.log("setimagesize");
     let image = item.querySelector(".gridgrow-image");
     let imageWrapper = image.parentNode;
     let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
@@ -256,8 +256,8 @@ function calcStart(item, clicked, reverse) {
       image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
       //console.log("height: " + imageHeight);
     }
-console.log("calcstart");
-console.log(item);
+//console.log("calcstart");
+//console.log(item);
     // I need to grab some starting values ON CLICK
     // Needs to be on click because some positions are based on the scroll offset
     let gridgrowWidth = item.offsetWidth;
@@ -277,7 +277,7 @@ console.log(item);
     let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
     let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
     let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
-    console.log("containerWidth: " + containerWidth);
+    //console.log("containerWidth: " + containerWidth);
     
     let imgTop = 355;
 
@@ -329,9 +329,9 @@ console.log(item);
         }
       }
         
-      console.log("START OFFSET LEFT:");
-      console.log(initialValue.containerOffsetLeft);
-      console.log(itemImage.style.width);
+      //console.log("START OFFSET LEFT:");
+      //console.log(initialValue.containerOffsetLeft);
+      //console.log(itemImage.style.width);
       //animateClick(e, initialValue);
       //calcEnd(initialValue);
       if (clicked && reverse === false) {
@@ -363,7 +363,7 @@ let gridgrowWidth = item.offsetWidth;
     let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
     let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
     let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
-    console.log("containerWidth: " + containerWidth);
+    //console.log("containerWidth: " + containerWidth);
 // the final velocity values. To reverse animation, 
 
   let endValue = {
@@ -421,11 +421,11 @@ let gridgrowWidth = item.offsetWidth;
       }
   }
   
-  console.log("startValue:");
-  console.log(initialValue);
-  console.log("endValue:");
-  console.log(endValue);
-  console.log("END LEFT: " + endValue.containerOffsetLeft);
+  // console.log("startValue:");
+  // console.log(initialValue);
+  // console.log("endValue:");
+  // console.log(endValue);
+  // console.log("END LEFT: " + endValue.containerOffsetLeft);
 
   if (clicked) {
     animateItem(item, initialValue, endValue, reverse);
@@ -446,17 +446,17 @@ function animateItem(item, initialValue, endValue, reverse) {
 
   // don't want image to trigger click again
   //item.removeEventListener("click", animateClick, false);
-  console.log("ANIMATION ITEM START ---------------------");
-  console.log("initial values:");
-  console.log(initialValue);
+  // console.log("ANIMATION ITEM START ---------------------");
+  // console.log("initial values:");
+  // console.log(initialValue);
   // let windowHeight = initialValue.windowHeight;
   // let windowWidth = initialValue.windowWidth;
   itemImage = item.querySelector(".gridgrow-image");
 
   //console.log("MATH:")
   //console.log(initialValue.wrapperMarginLeft);
-  console.log("end values:");
-  console.log(endValue);
+  // console.log("end values:");
+  // console.log(endValue);
   // change start values based on if the animation is being reversed
 
   let startValue;
@@ -570,9 +570,9 @@ function animateItem(item, initialValue, endValue, reverse) {
 function setFinalValues(item, initialValue, startValue, endValue) {
 
   if (item.classList.contains("active")) {
-    console.log("setting final values...");
+    //console.log("setting final values...");
     itemImage = item.querySelector(".gridgrow-image");
-    console.log(itemImage);
+    //console.log(itemImage);
     itemImage.style.width = endValue.item.width;
     itemImage.style.height = endValue.item.height;
   }
@@ -623,7 +623,7 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
 function ajaxWorkItem (item, initialValue, endValue, reverse) {
 
   let pageCritical = document.querySelector(".page_critical_css");
-  console.log(pageCritical);
+  //console.log(pageCritical);
 
   if (reverse) {
     
@@ -640,7 +640,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
       duration: 0,
     });
 
-    workAjax.innerHTML = "";
+    //workAjax.innerHTML = "";
     
   } else {
     let nextLink = item.querySelector("a").getAttribute("href");
@@ -656,19 +656,13 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           // Parse the text
           var doc = parser.parseFromString(html, "text/html");
           var docArticle = doc.querySelector('main').innerHTML;
-          var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
-          
+          //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
           workAjax.innerHTML = docArticle;
           //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
           console.log(pageCritical);
           window.history.pushState("object or string", "Title", nextLink);
           // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
-          setTimeout(redoAOS, 4000);
-          function redoAOS() {
-            AOS.init();
-            AOS.refresh();
-          }
-          
+              
       })
       .catch((error) => {
           console.warn(error);
@@ -685,7 +679,10 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
         delay: 400,
         duration: 400,
       });
-      
+      // setTimeout(function(){
+      //   AOS.init();
+      //   console.log("aos refresh");
+      // }, 3000);
       // var scrolling = false;
 
       // $( window ).scroll( function() {

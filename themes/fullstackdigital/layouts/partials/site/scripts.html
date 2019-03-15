@@ -4,20 +4,24 @@
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
 
+{{ $css := partial "components/component_generator.html" . | safeCSS }}
+{{ $string := print $css }}
+{{ $vars := $css | resources.FromString "scss/pb_noncritical.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+
 {{ $plugins_js := slice $ls_unveil $lazy_js $aos | resources.Concat "js/plugins.js" | minify | fingerprint }}
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
 <script>lazySizes.init();</script>
-
-<script>
-  // start animation library for scroll in animations
-  AOS.init({
-    delay: 0, // values from 0 to 3000, with step 50ms
-    duration: 400, // values from 0 to 3000, with step 50ms
-  });
-</script>
-
+<style>
+  [data-aos]{opacity: 1 !important; transform: translate3d(0,0,0) !important;}
+</style>
 <script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function() {
+  function startPage() {
+    console.log("startPage");
+    // AOS.init({
+    //   delay: 0, // values from 0 to 3000, with step 50ms
+    //   duration: 400, // values from 0 to 3000, with step 50ms
+    // });
+    
     let lazyImages = document.querySelectorAll("img");
   
     lazyImages.forEach(function (image) {
@@ -30,10 +34,33 @@
             e.target.style.backgroundImage = 'url(' + bg + ')';
         }
     });
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', startPage);
+
+  // do some stuff if ajax clicked
+  let gridAjaxItems = document.querySelectorAll(".gridgrow");
+
+  if (gridAjaxItems) {
+    gridAjaxItems.forEach(function(item, index) {
+      item.addEventListener("click", function(e){
+        //setTimeout(startPage, 3000);
+          
+      });
+    });
+  }
 </script>
 
 
 {{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | minify }}
 
+
+
+<script type="text/javascript">
+fetchInject([
+  '{{ $vars.Permalink }}',
+]).then(() => {
+      console.log(`PB Noncritical css loaded`);
+})
+</script>
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>

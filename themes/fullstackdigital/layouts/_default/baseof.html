@@ -15,13 +15,6 @@
         {{ block "site/styles" . }}{{ partial "site/styles.html" . }}{{ end }}
         {{- block "critical" . }}{{ end -}}
 
-        <!--add pancakes-->
-        {{ if eq .Params.layout "pancakes" }}
-        <!--fetch inject is lazy loading for scripts-->
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fetch-inject" media="screen"></script>
-            {{- partial "site/pancakes/critical.html" . | safeHTML -}}
-        {{ end }}
-        <!--end pancakes-->
 
     </head>
     <body class='{{ partial "site/body_classes.html" . }}'>
