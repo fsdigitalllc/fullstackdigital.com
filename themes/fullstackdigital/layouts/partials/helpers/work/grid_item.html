@@ -108,6 +108,7 @@
 
 </div>
 <div class="container-m spacer"></div>
+<div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex h_children_space-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src=""><div class="flex tiny color-oil padding-s-top strip-padding-tablet h_children_space-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex v_c-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
 <div class="work-ajax"></div>
 
 {{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
@@ -132,12 +133,21 @@ console.log("DOMContentLoaded... Starting Ajax Grid");
 let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = document.querySelectorAll(".gridgrow-image");
 let workAjax = document.querySelector(".work-ajax");
+let heightSpacer = document.querySelector(".height-spacer");
 let gridLinks = document.querySelectorAll(".gridgrow a");
 let body = document.querySelector("body");
 let gridContainer = document.querySelector(".container");
 let container = document.querySelector(".container-m.spacer");
 let grid = document.querySelector(".work-grid");
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+let mobileScrollbar;
+
+if (scrollbarWidth === 0) {
+  console.log("no scrollbarwidth");
+  mobileScrollbar = 20;
+} else {
+  mobileScrollbar = 0;
+}
 const targetElement = document.querySelector("body");
 
 gridImageSize();
@@ -192,13 +202,50 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       clicked = false;
       reverse = false;
       calcStart(item, clicked, reverse);
+
       
     });
+
+    window.addEventListener("scroll", function(){
+       itemViewport(item);
+    });
+    
+    function heightSpacerContent(item){
+      let logoImage = item.querySelector(".card-logo");
+      let spacerLogo = heightSpacer.querySelector(".client_logo");
+      let itemExcerpt = item.querySelector(".gridgrow-excerpt");
+      let spacerTitle = heightSpacer.querySelector(".page-title");
+      spacerLogo.src = logoImage.src;
+      spacerTitle.innerText = itemExcerpt.innerText;
+    }
+    
+    function itemViewport(item){
+      var isInViewport = function (elem) {
+      var bounding = elem.getBoundingClientRect();
+      return (
+          bounding.top >= 0 &&
+          bounding.left >= 0 &&
+          bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+          );
+      };
+
+      if (isInViewport(item)) {
+          // Do something...
+          console.log("in viewport");
+          console.log(item);
+          heightSpacerContent(item);
+      }
+    }
+
     item.addEventListener("click", function(e){
     //console.log(ajaxRequest);
     item = e.currentTarget;
+    
+    heightSpacerContent(item);
     //console.log("clicked");
     e.preventDefault();
+    
 
     clicked = true;
     reverse = false;
@@ -247,6 +294,7 @@ function calcStart(item, clicked, reverse) {
     let imageHeight = (image.naturalHeight / ratio) * .7;
     let imageWidth = (image.naturalWidth / ratio) * .7;
 
+
     if (!item.classList.contains("active")) {
       image.style.height = imageHeight + "px";
       image.style.width = imageWidth + "px";
@@ -289,6 +337,7 @@ function calcStart(item, clicked, reverse) {
         windowScrollX: window.scrollX,
         windowScrollY: window.scrollY,
         scrollbarWidth: scrollbarWidth,
+        mobileScrollbar: parseFloat(mobileScrollbar),
         navHeight: document.querySelector(".masthead").offsetHeight,
         gridContainerPadding: parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight),
         containerPadding: parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight),
@@ -298,6 +347,7 @@ function calcStart(item, clicked, reverse) {
         containerPaddingLeft: containerPadding / 2,
         gridContainerPaddingLeft: gridContainerPadding / 2,
         gridContainerOffsetLeft: gridContainer.offsetLeft,
+        heightSpacerHeight: heightSpacer.offsetHeight,
         wipe: {
           width: wipeParent.offsetWidth,
           height: wipeParent.offsetHeight,
@@ -330,7 +380,8 @@ function calcStart(item, clicked, reverse) {
       }
         
       //console.log("START OFFSET LEFT:");
-      //console.log(initialValue.containerOffsetLeft);
+      console.log(initialValue);
+      console.log(initialValue.mobileScrollbar, item.offsetTop, itemImage.offsetTop, grid.offsetParent.offsetTop, initialValue.wrapperMarginTop);
       //console.log(itemImage.style.width);
       //animateClick(e, initialValue);
       //calcEnd(initialValue);
@@ -372,7 +423,8 @@ let gridgrowWidth = item.offsetWidth;
     windowHeight: window.innerHeight,
     windowScrollX: window.scrollX,
     windowScrollY: window.scrollY,
-    scrollbarWidth: scrollbarWidth,
+    scrollbarWidth: parseFloat(scrollbarWidth),
+    mobileScrollbar: parseFloat(mobileScrollbar),
     navHeight: document.querySelector(".masthead").offsetHeight,
     gridContainerPadding: parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight),
     containerPadding: parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight),
@@ -382,12 +434,13 @@ let gridgrowWidth = item.offsetWidth;
     containerPaddingLeft: containerPadding / 2,
     gridContainerPaddingLeft: gridContainerPadding / 2,
     gridContainerOffsetLeft: gridContainer.offsetLeft,
+    heightSpacerHeight: heightSpacer.offsetHeight,
     wipe: {
         width: initialValue.windowWidth + initialValue.scrollbarWidth,
         height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
         translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX + initialValue.scrollbarWidth,
         translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
-        left: "0px",
+        left: initialValue.mobileScrollbar,
         top: "0px",
         duration: 500,
         delay: 50,
@@ -408,7 +461,7 @@ let gridgrowWidth = item.offsetWidth;
         
         translateX: (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2),
         // translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
-        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight - initialValue.content.imgTop),
+        translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight - initialValue.heightSpacerHeight),
         top: "0px",
         duration: 500,
         delay: 50,

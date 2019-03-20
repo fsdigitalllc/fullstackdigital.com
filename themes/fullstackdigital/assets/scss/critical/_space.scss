@@ -148,7 +148,7 @@
     margin: 0 !important;
   }
 }
-@media screen and (max-width: $screen-tablet-s) {
+@media screen and (max-width: $screen-tablet) {
   .padding-xxl {
     padding-top: 80px;
     padding-bottom: 80px
@@ -176,16 +176,16 @@
   }
 
   .padding-l {
-      padding-top: 80px;
-      padding-bottom: 80px
+      padding-top: 60px;
+      padding-bottom: 60px
   }
 
   .padding-l-top {
-      padding-top: 80px
+      padding-top: 60px
   }
 
   .padding-l-bottom {
-      padding-bottom: 80px
+      padding-bottom: 60px
   }
 
   .padding-m {
