@@ -186,12 +186,12 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       calcStart(item, clicked, reverse);
 
       if ( imageLoaded === gridImages.length ) {
-        console.log("----- All Images Loaded Image Loaded.... run animate grid ");
+        //console.log("----- All Images Loaded Image Loaded.... run animate grid ");
         //console.log(imageLoaded);
         // Grid can be animated now since all initial values are set
         //animateGrid();
       } else {
-        console.log(`Not all images loaded yet -----${gridImages.length - imageLoaded} left to load.`);
+        //console.log(`Not all images loaded yet -----${gridImages.length - imageLoaded} left to load.`);
       }
     // }
     window.addEventListener("resize", function(){
@@ -232,8 +232,8 @@ gridImages.forEach(function(image, imageLoaded = 0) {
 
       if (isInViewport(item)) {
           // Do something...
-          console.log("in viewport");
-          console.log(item);
+          //console.log("in viewport");
+          //console.log(item);
           heightSpacerContent(item);
       }
     }
@@ -380,8 +380,8 @@ function calcStart(item, clicked, reverse) {
       }
         
       //console.log("START OFFSET LEFT:");
-      console.log(initialValue);
-      console.log(initialValue.mobileScrollbar, item.offsetTop, itemImage.offsetTop, grid.offsetParent.offsetTop, initialValue.wrapperMarginTop);
+      //console.log(initialValue);
+      //console.log(initialValue.mobileScrollbar, item.offsetTop, itemImage.offsetTop, grid.offsetParent.offsetTop, initialValue.wrapperMarginTop);
       //console.log(itemImage.style.width);
       //animateClick(e, initialValue);
       //calcEnd(initialValue);
@@ -596,7 +596,7 @@ function animateItem(item, initialValue, endValue, reverse) {
                 duration: 0,
               });
             } else {
-              console.log("item complete: ");
+              //console.log("item complete: ");
               //console.log(itemImage);
               item.classList.add("active");
 
@@ -715,6 +715,8 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           console.log(pageCritical);
           window.history.pushState("object or string", "Title", nextLink);
           // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
+          
+          //reload scripts that are in innerHTML https://ghinda.net/article/script-tags/
               
       })
       .catch((error) => {
