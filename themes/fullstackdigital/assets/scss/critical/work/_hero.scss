@@ -10,7 +10,11 @@
     color: #222;
   }
 }
-.work-hero {
+.height-spacer {
+  // opacity: 0;
+  // visibility: hidden;
+}
+.work-hero, .height-spacer {
   h1 {
     font-size: 2.12em;
   }
@@ -33,7 +37,7 @@
   #project-summary ul li:first-of-type {
     font-weight: 600;
   }
-  div:last-child img {
+  .container-m img {
     width: 100%;
   }
   @media screen and (max-width: $screen-tablet) {
@@ -56,6 +60,16 @@
     }
     #project-summary div:nth-child(2) {
       padding-bottom: 0px;
+    }
+    .break-t {
+      flex-direction: column;
+    }
+    .t-col-8 {
+      flex-basis: 58.3333%;
+    }
+    .t-col-12 {
+      flex-basis: 100%;
+      width: 100%;
     }
   }
 }

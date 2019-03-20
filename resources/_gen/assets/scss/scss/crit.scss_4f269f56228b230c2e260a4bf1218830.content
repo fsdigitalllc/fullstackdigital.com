@@ -1282,7 +1282,7 @@ a {
   .strip-margin-desktop {
     margin: 0 !important; } }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .padding-xxl {
     padding-top: 80px;
     padding-bottom: 80px; }
@@ -1298,12 +1298,12 @@ a {
   .padding-xl-bottom {
     padding-bottom: 80px; }
   .padding-l {
-    padding-top: 80px;
-    padding-bottom: 80px; }
+    padding-top: 60px;
+    padding-bottom: 60px; }
   .padding-l-top {
-    padding-top: 80px; }
+    padding-top: 60px; }
   .padding-l-bottom {
-    padding-bottom: 80px; }
+    padding-bottom: 60px; }
   .padding-m {
     padding-top: 40px;
     padding-bottom: 40px; }
@@ -1568,43 +1568,50 @@ a {
 .work-hero.light-skin .color-white {
   color: #222; }
 
-.work-hero h1 {
+.work-hero h1, .height-spacer h1 {
   font-size: 2.12em; }
 
-.work-hero .client_logo {
+.work-hero .client_logo, .height-spacer .client_logo {
   max-width: 150px; }
 
-.work-hero ul {
+.work-hero ul, .height-spacer ul {
   list-style: none; }
 
-.work-hero ul li {
+.work-hero ul li, .height-spacer ul li {
   margin-bottom: .5em; }
 
-.work-hero li {
+.work-hero li, .height-spacer li {
   opacity: .3;
   font-weight: 300; }
 
-.work-hero .active {
+.work-hero .active, .height-spacer .active {
   opacity: 1; }
 
-.work-hero #project-summary ul li:first-of-type {
+.work-hero #project-summary ul li:first-of-type, .height-spacer #project-summary ul li:first-of-type {
   font-weight: 600; }
 
-.work-hero div:last-child img {
+.work-hero .container-m img, .height-spacer .container-m img {
   width: 100%; }
 
 @media screen and (max-width: 900px) {
-  .work-hero #project-summary ul li {
+  .work-hero #project-summary ul li, .height-spacer #project-summary ul li {
     display: none; }
-  .work-hero #project-summary ul li:first-of-type {
+  .work-hero #project-summary ul li:first-of-type, .height-spacer #project-summary ul li:first-of-type {
     display: block;
     margin-bottom: 0px; }
-  .work-hero #project-summary > div > div {
+  .work-hero #project-summary > div > div, .height-spacer #project-summary > div > div {
     display: none;
     padding-bottom: 0px; }
-  .work-hero #project-summary > div {
+  .work-hero #project-summary > div, .height-spacer #project-summary > div {
     padding-bottom: 32px; }
-  .work-hero h1 {
+  .work-hero h1, .height-spacer h1 {
     margin-bottom: 0px; }
-  .work-hero #project-summary div:nth-child(2) {
-    padding-bottom: 0px; } }
+  .work-hero #project-summary div:nth-child(2), .height-spacer #project-summary div:nth-child(2) {
+    padding-bottom: 0px; }
+  .work-hero .break-t, .height-spacer .break-t {
+    flex-direction: column; }
+  .work-hero .t-col-8, .height-spacer .t-col-8 {
+    flex-basis: 58.3333%; }
+  .work-hero .t-col-12, .height-spacer .t-col-12 {
+    flex-basis: 100%;
+    width: 100%; } }
