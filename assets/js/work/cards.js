@@ -1,15 +1,33 @@
-document.addEventListener("DOMContentLoaded", function(e) {
-  console.log("cards---");
-  animateCards();
-});
-window.addEventListener("resize", function(e){
-  animateCards();
-});
-window.addEventListener("scroll", function(e){
-  animateCards();
-});
-    function animateCards() {
+// document.addEventListener("DOMContentLoaded", function(e) {
+//   console.log("cards---");
+//   animateCards();
+// });
+if (document.querySelector(".work-ajax") ) {
+  let workAjax = document.querySelector(".work-ajax")
+  workAjax.addEventListener("scroll", function(e){
+    container = workAjax;
+    animateCards(container);
+  });
+} else {
+  window.addEventListener("scroll", function(e){
+    container = window;
+    animateCards(container);
+  });
+  window.addEventListener("resize", function(e){
+    container = window;
+    animateCards(container);
+  });
+}
 
+    function animateCards(container) {
+      console.log(container);
+      let cY;
+
+      if (container === window) {
+        cY = container.scrollY
+      } else {
+        cY = container.scrollTop;
+      }
       if (window.innerWidth >= 900 ) {
       let col1 = document.querySelector(".cards .column:first-child");
       let col2 = document.querySelector(".cards .column:last-child");
@@ -42,17 +60,17 @@ window.addEventListener("scroll", function(e){
       console.log("scrollInterval:");
       console.log(scrollInterval);
 		  //where the magic happens
-      let a = (window.scrollY - topOfRow ) / scrollInterval;
+      let a = (cY - topOfRow ) / scrollInterval;
       console.log("a:");
       console.log(a);
 			//find the bottom of the right column and give a Bool (true)
-      let b = window.scrollY >= topOfRow + heightDiff + smaller.offsetHeight - window.innerHeight;
+      let b = cY >= topOfRow + heightDiff + smaller.offsetHeight - window.innerHeight;
       console.log("b:");
       console.log(b);
 
   
       console.log("b: " + b);
-        if (window.scrollY >= topOfRow && b === false ) {
+        if (cY >= topOfRow && b === false ) {
         
           smaller.style.transform = `translateY(${a}px)`
         }
