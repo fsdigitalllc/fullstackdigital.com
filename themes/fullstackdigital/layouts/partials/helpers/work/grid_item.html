@@ -72,7 +72,7 @@
 
 
       {{/* <div class="gridgrow-image lazyload lazypreload" data-bg=''></div> */}}
-      <img class="gridgrow-image" calc-size='' data-src='{{ $image.Permalink }}'>
+      <img class="gridgrow-image lazyload lazypreload" calc-size='' data-src='{{ $image.Permalink }}'>
 
       <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe">
       </div>
@@ -83,7 +83,7 @@
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
   {{ $imagesrc := resources.Get $assetpath }}
-  <img class="card-logo" src="{{ $imagesrc.Permalink }}">
+  <img class="card-logo lazyload lazypreload" src="{{ $imagesrc.Permalink }}">
   {{ end }}
   </div>
   <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
@@ -119,15 +119,22 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script> -->
 <script type="text/javascript">
 
-document.addEventListener("DOMContentLoaded", function(){
-  //console.log(ajaxRequest);
-  ajaxGrid();
+// Alternative to DOMContentLoaded event
+document.onreadystatechange = function () {
+  if (document.readyState === 'interactive') {
+    ajaxGrid();
+    console.log("DOMContentLoaded... Starting Ajax Grid");
+  }
+}
+// document.addEventListener("DOMContentLoaded", function(){
+//   //console.log(ajaxRequest);
+//   ajaxGrid();
   
-});
+// });
 
 
 function ajaxGrid(){
-console.log("DOMContentLoaded... Starting Ajax Grid");
+
 
 // get all of the selectors we are working with.
 let gridItems = document.querySelectorAll(".gridgrow");
@@ -693,7 +700,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
       duration: 0,
     });
 
-    //workAjax.innerHTML = "";
+    workAjax.innerHTML = "";
     
   } else {
     let nextLink = item.querySelector("a").getAttribute("href");
