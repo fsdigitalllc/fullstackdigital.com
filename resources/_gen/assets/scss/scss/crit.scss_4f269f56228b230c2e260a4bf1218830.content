@@ -1165,61 +1165,72 @@ a {
 .button.fill:focus::before, .button.fill:active::before {
   width: 120%; }
 
+.padding-xxs {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.padding-xxs-top {
+  padding-top: 10px; }
+
+.padding-xxs-bottom {
+  padding-bottom: 10px; }
+
 .padding-xs {
   padding-top: 20px;
+  padding-bottom: 20px; }
+
+.padding-xs-top {
+  padding-top: 20px; }
+
+.padding-xs-bottom {
   padding-bottom: 20px; }
 
 .padding-s {
   padding-top: 40px;
   padding-bottom: 40px; }
 
+.padding-s-top {
+  padding-top: 40px; }
+
+.padding-s-bottom {
+  padding-bottom: 40px; }
+
 .padding-m {
   padding-top: 80px;
   padding-bottom: 80px; }
 
+.padding-m-bottom {
+  padding-bottom: 80px; }
+
+.padding-m-top {
+  padding-top: 80px; }
+
 .padding-l {
   padding-top: 120px;
+  padding-bottom: 120px; }
+
+.padding-l-top {
+  padding-top: 120px; }
+
+.padding-l-bottom {
   padding-bottom: 120px; }
 
 .padding-xl {
   padding-top: 160px;
   padding-bottom: 160px; }
 
-.padding-xxs-top {
-  padding-top: 10px; }
-
-.padding-xs-top {
-  padding-top: 20px; }
-
-.padding-s-top {
-  padding-top: 40px; }
-
-.padding-m-top {
-  padding-top: 80px; }
-
-.padding-l-top {
-  padding-top: 120px; }
-
 .padding-xl-top {
   padding-top: 160px; }
 
-.padding-xxl-top {
-  padding-top: 200px; }
-
-.padding-xs-bottom {
-  padding-bottom: 20px; }
-
-.padding-s-bottom {
-  padding-bottom: 40px; }
-
-.padding-m-bottom {
-  padding-bottom: 80px; }
-
-.padding-l-bottom {
-  padding-bottom: 120px; }
-
 .padding-xl-bottom {
   padding-bottom: 160px; }
+
+.padding-xxl {
+  padding-top: 200px;
+  padding-bottom: 200px; }
+
+.padding-xxl-top {
+  padding-top: 200px; }
 
 .padding-xxl-bottom {
   padding-bottom: 200px; }
@@ -1284,12 +1295,12 @@ a {
 
 @media screen and (max-width: 900px) {
   .padding-xxl {
-    padding-top: 80px;
-    padding-bottom: 80px; }
+    padding-top: 100px;
+    padding-bottom: 100px; }
   .padding-xxl-top {
-    padding-top: 80px; }
+    padding-top: 100px; }
   .padding-xxl-bottom {
-    padding-bottom: 80px; }
+    padding-bottom: 100px; }
   .padding-xl {
     padding-top: 80px;
     padding-bottom: 80px; }
@@ -1310,7 +1321,14 @@ a {
   .padding-m-top {
     padding-top: 40px; }
   .padding-m-bottom {
-    padding-bottom: 40px; } }
+    padding-bottom: 40px; }
+  .padding-s {
+    padding-top: 20px;
+    padding-bottom: 20px; }
+  .padding-s-top {
+    padding-top: 20px; }
+  .padding-s-bottom {
+    padding-bottom: 20px; } }
 
 .col-1 {
   flex-basis: 8.3333%; }
@@ -1337,7 +1355,7 @@ a {
   flex-basis: 58.3333%; }
 
 .col-8 {
-  flex-basis: 58.3333%; }
+  flex-basis: 66.6666%; }
 
 .col-9 {
   flex-basis: 75%; }
