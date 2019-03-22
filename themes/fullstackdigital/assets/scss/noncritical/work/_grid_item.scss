@@ -57,6 +57,55 @@
   grid-row-gap: 30px;
 }
 
+.work-grid-tabs > div {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.work-grid-tabs > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.work-grid-tabs > div > div:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+.work-grid-tabs > div > div svg {
+  padding-bottom: 0px;
+  margin-right: 20px;
+  height: 55px;
+}
+
+[data-item-filter] {
+  //display: none;
+}
+
+.brand > svg {
+  stroke: #95E3FF;
+  fill: #95E3FF;
+}
+.brand span {
+  color: #95E3FF;
+}
+.web > svg {
+  stroke: #1BACFF;
+  fill: #1BACFF;
+}
+.web span {
+  color: #1BACFF;
+}
+.market > svg {
+  stroke: #0069F1;
+  fill: #0069F1;
+}
+.market span {
+  color: #0069F1;
+}
 .container-m.spacer {
   height: 0px;
   visibility: hidden;
