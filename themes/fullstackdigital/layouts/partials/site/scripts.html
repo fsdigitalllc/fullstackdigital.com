@@ -12,15 +12,16 @@
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
 <script>lazySizes.init();</script>
 <style>
-  [data-aos]{opacity: 1 !important; transform: translate3d(0,0,0) !important;}
+  /*[data-aos]{opacity: 1 !important; transform: translate3d(0,0,0) !important;}*/
 </style>
 <script type="text/javascript">
+    AOS.init({
+      delay: 0, // values from 0 to 3000, with step 50ms
+      duration: 400, // values from 0 to 3000, with step 50ms
+    });
   function startPage() {
     console.log("startPage");
-    // AOS.init({
-    //   delay: 0, // values from 0 to 3000, with step 50ms
-    //   duration: 400, // values from 0 to 3000, with step 50ms
-    // });
+
     
     let lazyImages = document.querySelectorAll("img");
   
