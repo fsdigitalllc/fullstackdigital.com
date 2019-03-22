@@ -201,18 +201,16 @@ gridImages.forEach(function(image, imageLoaded = 0) {
         //console.log(`Not all images loaded yet -----${gridImages.length - imageLoaded} left to load.`);
       }
     // }
-    window.addEventListener("resize", function(){
-    //console.log(ajaxRequest);
-      setImageSize(image, item);
-      //console.log("resizing");
-      //animateGrid();
-      clicked = false;
-      reverse = false;
-      calcStart(item, clicked, reverse);
-
-      
-    });
-
+    
+      window.addEventListener("resize", function(){
+      //console.log(ajaxRequest);
+        //setImageSize(image, item);
+        console.log("resizing FORWARD");
+        //animateGrid();
+        clicked = false;
+        reverse = false;
+        calcStart(item, clicked, reverse);
+      });
     window.addEventListener("scroll", function(){
        itemViewport(item);
     });
@@ -621,9 +619,9 @@ function setFinalValues(item, initialValue, startValue, endValue) {
 function reverseAnimation(item, initialValue, startValue, endValue) {
   //window.location.href = window.location.origin;
 
-  window.addEventListener("resize", function(){
-    setFinalValues(item, initialValue, startValue, endValue);
-  });
+  // window.addEventListener("resize", function(){
+  //   setFinalValues(item, initialValue, startValue, endValue);
+  // });
 
   let reverseBtn = document.createElement("div");
   reverseBtn.classList.add("reverseAnimation");
