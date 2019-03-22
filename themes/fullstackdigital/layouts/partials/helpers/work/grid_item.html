@@ -1,43 +1,52 @@
 {{ $size := .page.grid.columns | default "4" }}
+{{ $tabs := .page.grid.tabs | default true }}
 
-<div class="work-grid-tabs container flex h_children_space-between">
-  <div class="col-4 flex h_children_space-between">
-      <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-        <title>Services</title>
-        <g>
-        <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
-        </g>
-        <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
-        <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
-        <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
-        </svg>
+{{ if eq $tabs true }}
+<div class="work-grid-tabs container padding-s-bottom">
+  <div class="flex h_children_space-between">
+    <div class="brand active" data-filter="brand">
         <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-          <title>Services</title>
-          <g>
-          <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
-          </g>
-          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
-          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
-          <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
+          <path stroke-width="2" stroke-miterlimit="10" d="M1,21c0,20,31,38,31,38s31-18,31-38  c0-8.285-6-16-15-16c-8.285,0-16,5.715-16,14c0-8.285-7.715-14-16-14C7,5,1,12.715,1,21z"></path>
           </svg>
-          <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-            <title>Services</title>
+        <span>Brand</span>
+      </div>
+      <div class="web" data-filter="web">
+          <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
             <g>
-            <rect x="1" y="18" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="62" height="36"></rect>
+            <rect x="1" y="10" stroke-width="2" stroke-miterlimit="10" width="62" height="41"></rect>
+            <line stroke-width="2" stroke-miterlimit="10" x1="22" y1="63" x2="42" y2="63"></line>
+            <line stroke-width="2" stroke-miterlimit="10" x1="32" y1="63" x2="32" y2="51"></line>
             </g>
-            <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="30" x2="63" y2="30"></line>
-            <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="27,30 27,36 37,36 37,30 "></polyline>
-            <path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M23,18c0,0,0-8,9-8s9,8,9,8"></path>
-          </svg>
-  </div>
-  
+            <line stroke-width="2" stroke-miterlimit="10" x1="1" y1="43" x2="64" y2="43"></line>
+            </svg>
+          <span>Web</span>
+        </div>
+        <div class="market" data-filter="market">
+          <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+            <polygon stroke-width="2" stroke-miterlimit="10" points="26,49.042 54.963,49.042 54.963,11.042   1,11.042 1,49.042 14,49.042 14,59.486 "></polygon>
+            <polyline stroke-width="2" stroke-miterlimit="10" points="57,41.042 62.963,41.042 62.963,3.042   9,3.042 9,9 "></polyline>
+            </svg>
+          <span>Market</span>
+        </div>  
+        </div>
 </div>
+
+{{ end }}
 <div class="container" id="loading_content" style="visibility: visible; display: block;">
 <div class="masonry-container work-grid row-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
 {{ range (where $.global.Site.RegularPages "Section" "work") }}
-
+{{ $tag := "" }}
+{{ if in .Path "market" }}
+  {{ $tag = "market" }}
+{{ end }}
+{{ if in .Path "web" }}
+  {{ $tag = "web" }}
+{{ end }}
+{{ if in .Path "brand" }}
+  {{ $tag = "brand" }}
+{{ end }}
 <!--way too much effort to grab the client logo for the grid item-->
 {{ $prefix := "assets/images/clients/" }}
 {{ $asset_prefix := "images/clients/" }}
@@ -64,7 +73,7 @@
 
 {{ $path := print $prefix $logo }}
 {{ $assetpath := print $asset_prefix $logo }}
-<div class='gridgrow '>
+<div class='gridgrow' data-item-filter="{{ $tag }}">
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
   <div class="gridwrap background-light">
 
@@ -117,6 +126,56 @@
 <script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
 <script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script> -->
+{{ if eq $tabs true }}
+<script type="text/javascript">
+console.log("Tabs loaded----------");
+const filterBtns = document.querySelectorAll('[data-filter]');
+const filterItems = document.querySelectorAll('[data-item-filter]');
+  filterBtns.forEach(function(button, index) {
+
+    let buttonAttr = button.getAttribute("data-filter");
+    // console.log("buttonAttr");
+    // console.log(buttonAttr);
+    
+    button.addEventListener("click", function(){
+      sortItems(button, buttonAttr);
+    });
+
+    if (button.classList.contains("active")) {
+      sortItems(button, buttonAttr);
+    }
+  });
+  
+  function sortItems(button, buttonAttr) {
+    console.log("sorting " + button.innerText);
+
+    filterItems.forEach(function(filterItem, index) {
+      
+      let absWidth;
+      if (filterItem.classList.contains("loaded") ) {
+        absWidth = filterItem.offsetWidth;
+        console.log(absWidth);
+      }
+      let filterItemAttr = filterItem.getAttribute("data-item-filter");
+      
+      if (buttonAttr === filterItemAttr) {
+        filterItem.style.width = "";
+        filterItem.style.visibility = "visible";
+        filterItem.style.position = "";
+        filterItem.querySelector(".gridgrow-image").style.zIndex = "";
+      } else {
+        filterItem.style.width = 525 + "px";
+        filterItem.style.visibility = "hidden";
+        filterItem.style.position = "absolute";
+        filterItem.querySelector(".gridgrow-image").style.zIndex = -1;
+      }
+      
+    });
+
+  }
+  
+</script>
+{{ end }}
 <script type="text/javascript">
 
 // Alternative to DOMContentLoaded event
@@ -178,7 +237,7 @@ gridImages.forEach(function(image, imageLoaded = 0) {
   // console.log("loaded " + image);
   image.addEventListener('load', () => {
     // if (image.classList.contains("lazyloaded")) {
-      //console.log(image);
+      console.log(image);
       imageLoaded++;
       let item = image.parentElement.parentElement.parentElement;
       let link = item.querySelector("a");
@@ -268,7 +327,7 @@ let pageUrl = window.location;
 function calcStart(item, clicked, reverse) {
 
     
-    //console.log("setimagesize");
+    console.log("setimagesize");
     let image = item.querySelector(".gridgrow-image");
     let imageWrapper = image.parentNode;
     let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
@@ -278,6 +337,7 @@ function calcStart(item, clicked, reverse) {
 
 
     if (!item.classList.contains("active")) {
+      console.log(imageWrapper.offsetHeight);
       image.style.height = imageHeight + "px";
       image.style.width = imageWidth + "px";
 
@@ -745,7 +805,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
 }
 
 function insertScript (script, callback) {
-  console.log(script);
+  //console.log(script);
   var s = document.createElement('script')
   s.type = 'text/javascript'
   if (script.src) {
@@ -819,7 +879,8 @@ function runScripts (container) {
   var runList = [];
   var typeAttr;
 
-  [].forEach.call(scripts, function (script) {
+  if (!scripts === undefined || !scripts === null) {
+    [].forEach.call(scripts, function (script) {
     typeAttr = script.getAttribute('type');
     // only run script tags without the type attribute
     // or with a javascript mime attribute value
@@ -833,7 +894,13 @@ function runScripts (container) {
 
   // insert the script tags sequentially
   // to preserve execution order
-  seq(runList, scriptsDone)
+  seq(runList, scriptsDone);
+
+  }
+
+  
+
+  
 }
 
 function redoAos(container) {
