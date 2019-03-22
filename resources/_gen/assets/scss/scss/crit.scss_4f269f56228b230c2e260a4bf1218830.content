@@ -1586,6 +1586,13 @@ a {
 .work-hero.light-skin .color-white {
   color: #222; }
 
+.height-spacer {
+  opacity: 0;
+  visibility: hidden;
+  max-width: 100%;
+  position: absolute;
+  z-index: -1; }
+
 .work-hero h1, .height-spacer h1 {
   font-size: 2.12em; }
 

@@ -11,8 +11,11 @@
   }
 }
 .height-spacer {
-  // opacity: 0;
-  // visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 100%;
+  position: absolute;
+  z-index: -1;
 }
 .work-hero, .height-spacer {
   h1 {
