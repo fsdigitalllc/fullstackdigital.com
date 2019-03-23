@@ -1,1 +1,96 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on Fullstack Digital / Brand, Web, Market</title><link>/tags/</link><description>Recent content in Tags on Fullstack Digital / Brand, Web, Market</description><generator>Hugo -- gohugo.io</generator><language>en-gb</language><lastBuildDate>Wed, 06 Mar 2019 04:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>Brand Development</title><link>/tags/brand-development/</link><pubDate>Wed, 06 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/brand-development/</guid><description/></item><item><title>Brand Identity</title><link>/tags/brand-identity/</link><pubDate>Wed, 06 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/brand-identity/</guid><description/></item><item><title>Brand Strategy</title><link>/tags/brand-strategy/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/tags/brand-strategy/</guid><description/></item><item><title>Content Marketing</title><link>/tags/content-marketing/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/content-marketing/</guid><description/></item><item><title>Search Marketing</title><link>/tags/search-marketing/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/search-marketing/</guid><description/></item><item><title>Social Marketing</title><link>/tags/social-marketing/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/social-marketing/</guid><description/></item><item><title>Web Design</title><link>/tags/web-design/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/web-design/</guid><description/></item><item><title>Web Development</title><link>/tags/web-development/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/web-development/</guid><description/></item><item><title>Web Experience</title><link>/tags/web-experience/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/tags/web-experience/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Fullstack Digital / Brand, Web, Market</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Fullstack Digital / Brand, Web, Market</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 06 Mar 2019 04:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Brand Development</title>
+      <link>/tags/brand-development/</link>
+      <pubDate>Wed, 06 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/brand-development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Brand Identity</title>
+      <link>/tags/brand-identity/</link>
+      <pubDate>Wed, 06 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/brand-identity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Brand Strategy</title>
+      <link>/tags/brand-strategy/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/brand-strategy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Content Marketing</title>
+      <link>/tags/content-marketing/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/content-marketing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Search Marketing</title>
+      <link>/tags/search-marketing/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/search-marketing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Social Marketing</title>
+      <link>/tags/social-marketing/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/social-marketing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Design</title>
+      <link>/tags/web-design/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/web-design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Development</title>
+      <link>/tags/web-development/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/web-development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Experience</title>
+      <link>/tags/web-experience/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/tags/web-experience/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

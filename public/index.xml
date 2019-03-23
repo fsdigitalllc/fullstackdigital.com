@@ -1,2 +1,133 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Fullstack Digital / Brand, Web, Market</title><link>/</link><description>Recent content in Home on Fullstack Digital / Brand, Web, Market</description><generator>Hugo -- gohugo.io</generator><language>en-gb</language><lastBuildDate>Fri, 01 Mar 2019 19:51:34 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Connecting with Prospects Through Integrated Marketing</title><link>/work/market/ddn-storage-marketing/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/work/market/ddn-storage-marketing/</guid><description/></item><item><title>Inspiring Donations With Fee-Free Crowdfunding</title><link>/work/web/custom-wordpress-crowdfunding-website/</link><pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate><guid>/work/web/custom-wordpress-crowdfunding-website/</guid><description/></item><item><title>Creating a Responsive Brand Identity for an Industry Leader</title><link>/work/brand/quantum-brand-design/</link><pubDate>Wed, 06 Mar 2019 04:00:00 +0000</pubDate><guid>/work/brand/quantum-brand-design/</guid><description/></item><item><title>About us</title><link>/about/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/about/</guid><description>About usfasdf</description></item><item><title>Boosting A Brand To Digital Success</title><link>/work/web/legal-services-website/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/web/legal-services-website/</guid><description/></item><item><title>Brand</title><link>/services/brand/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/services/brand/</guid><description/></item><item><title>How to break stuff</title><link>/how-to-break-stuff/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/how-to-break-stuff/</guid><description>Header 1 Header 2 Header 3 Header 4 &amp;lt;html&amp;gt; &amp;lt;p&amp;gt;formatted code block&amp;lt;/p&amp;gt; &amp;lt;/html&amp;gt;
-Inline comment &amp;lt;span&amp;gt;&amp;lt;/span&amp;gt; about code.</description></item><item><title>Re-Imagining The Open Source User Experience</title><link>/work/web/code-open-source/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/web/code-open-source/</guid><description/></item><item><title>Real-Time Multiplayer Typing Competition</title><link>/work/brand/typeking/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/brand/typeking/</guid><description/></item><item><title>Rebranding an Open Source Team for an Open Future</title><link>/work/brand/rebranding-code-open-source/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/brand/rebranding-code-open-source/</guid><description>Dell case study</description></item><item><title>Revitalizing a Brand Through Design</title><link>/work/web/engineering-company-website-rebuild/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/web/engineering-company-website-rebuild/</guid><description/></item><item><title>Revitalizing a Brand Through Design</title><link>/work/web/custom-lead-generation-application/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/web/custom-lead-generation-application/</guid><description/></item><item><title>Welcoming a New Brand to Surveillance</title><link>/work/brand/security-company-branding/</link><pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate><guid>/work/brand/security-company-branding/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Fullstack Digital / Brand, Web, Market</title>
+    <link>/</link>
+    <description>Recent content in Home on Fullstack Digital / Brand, Web, Market</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Fri, 01 Mar 2019 19:51:34 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Connecting with Prospects Through Integrated Marketing</title>
+      <link>/work/market/ddn-storage-marketing/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/work/market/ddn-storage-marketing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Inspiring Donations With Fee-Free Crowdfunding</title>
+      <link>/work/web/custom-wordpress-crowdfunding-website/</link>
+      <pubDate>Fri, 08 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/work/web/custom-wordpress-crowdfunding-website/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Creating a Responsive Brand Identity for an Industry Leader</title>
+      <link>/work/brand/quantum-brand-design/</link>
+      <pubDate>Wed, 06 Mar 2019 04:00:00 +0000</pubDate>
+      
+      <guid>/work/brand/quantum-brand-design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About us</title>
+      <link>/about/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>About usfasdf</description>
+    </item>
+    
+    <item>
+      <title>Boosting A Brand To Digital Success</title>
+      <link>/work/web/legal-services-website/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/web/legal-services-website/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Brand</title>
+      <link>/services/brand/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/services/brand/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>How to break stuff</title>
+      <link>/how-to-break-stuff/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/how-to-break-stuff/</guid>
+      <description>Header 1 Header 2 Header 3 Header 4 &amp;lt;html&amp;gt; &amp;lt;p&amp;gt;formatted code block&amp;lt;/p&amp;gt; &amp;lt;/html&amp;gt;
+Inline comment &amp;lt;span&amp;gt;&amp;lt;/span&amp;gt; about code.</description>
+    </item>
+    
+    <item>
+      <title>Re-Imagining The Open Source User Experience</title>
+      <link>/work/web/code-open-source/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/web/code-open-source/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Real-Time Multiplayer Typing Competition</title>
+      <link>/work/brand/typeking/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/brand/typeking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rebranding an Open Source Team for an Open Future</title>
+      <link>/work/brand/rebranding-code-open-source/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/brand/rebranding-code-open-source/</guid>
+      <description>Dell case study</description>
+    </item>
+    
+    <item>
+      <title>Revitalizing a Brand Through Design</title>
+      <link>/work/web/engineering-company-website-rebuild/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/web/engineering-company-website-rebuild/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Revitalizing a Brand Through Design</title>
+      <link>/work/web/custom-lead-generation-application/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/web/custom-lead-generation-application/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Welcoming a New Brand to Surveillance</title>
+      <link>/work/brand/security-company-branding/</link>
+      <pubDate>Tue, 03 Jul 2018 04:00:00 +0000</pubDate>
+      
+      <guid>/work/brand/security-company-branding/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
