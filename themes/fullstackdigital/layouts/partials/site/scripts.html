@@ -4,9 +4,7 @@
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
 
-{{ $css := partial "components/component_generator.html" . | safeCSS }}
-{{ $string := print $css }}
-{{ $vars := $css | resources.FromString "scss/pb_noncritical.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+
 
 {{ $plugins_js := slice $ls_unveil $lazy_js $aos | resources.Concat "js/plugins.js" | minify | fingerprint }}
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
@@ -55,13 +53,4 @@
 
 {{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | minify }}
 
-
-
-<script type="text/javascript">
-fetchInject([
-  '{{ $vars.Permalink }}',
-]).then(() => {
-      console.log(`PB Noncritical css loaded`);
-})
-</script>
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>
