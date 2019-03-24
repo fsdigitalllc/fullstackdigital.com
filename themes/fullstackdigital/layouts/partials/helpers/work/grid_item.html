@@ -490,13 +490,16 @@ let gridgrowWidth = item.offsetWidth;
     let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
     let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
     let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
-    let translateX;
+    let translateX, wipeTranslateX;
     if (featured) {
       console.log("left: " + (-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
       
       translateX = ((-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft) - (initialValue.scrollbarWidth/2));
+      
+      wipeTranslateX = -(initialValue.item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX - initialValue.scrollbarWidth;
     } else {
       translateX = (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2);
+      wipeTranslateX = -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX + initialValue.scrollbarWidth;
     }
 
     //console.log("containerWidth: " + containerWidth);
@@ -523,7 +526,7 @@ let gridgrowWidth = item.offsetWidth;
     wipe: {
         width: initialValue.windowWidth + initialValue.scrollbarWidth,
         height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
-        translateX: -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX + initialValue.scrollbarWidth,
+        translateX: wipeTranslateX,
         translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
         left: initialValue.mobileScrollbar,
         top: "0px",
