@@ -1,6 +1,11 @@
 {{ $size := .page.grid.columns | default "4" }}
 {{ $tabs := .page.grid.tabs | default true }}
-
+{{ $layout := .page.grid.layout | default "grid" }}
+{{ $featured := false }}
+{{ if eq $layout "row" }}
+  {{ $size = "1" }}
+  {{ $featured = true }}
+{{ end }}
 {{ if eq $tabs true }}
 <div class="work-grid-tabs container padding-s-bottom">
   <div class="flex h_children_space-between">
@@ -32,8 +37,8 @@
 </div>
 
 {{ end }}
-<div class="container" id="loading_content" style="visibility: visible; display: block;">
-<div class="masonry-container work-grid row-{{ $size }}">
+<div class="container work-{{ $layout }}" id="loading_content" style="visibility: visible; display: block;">
+<div class="work-container row-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
 {{ range (where $.global.Site.RegularPages "Section" "work") }}
@@ -73,9 +78,9 @@
 
 {{ $path := print $prefix $logo }}
 {{ $assetpath := print $asset_prefix $logo }}
-<div class='gridgrow' data-item-filter="{{ $tag }}">
+<div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow' data-item-filter="{{ $tag }}">
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
-  <div class="gridwrap background-light">
+  <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
@@ -87,7 +92,7 @@
       </div>
     </div>
 
-  <div class="card-footer" itemprop="description">
+  <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
   <div class="excerpt-group">
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
@@ -204,7 +209,7 @@ let gridLinks = document.querySelectorAll(".gridgrow a");
 let body = document.querySelector("body");
 let gridContainer = document.querySelector(".container");
 let container = document.querySelector(".container-m.spacer");
-let grid = document.querySelector(".work-grid");
+let grid = document.querySelector(".work-container");
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 let mobileScrollbar;
 
@@ -332,9 +337,22 @@ function calcStart(item, clicked, reverse) {
     let imageWrapper = image.parentNode;
     let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
     let ratio = image.naturalHeight / imageWrapper.offsetHeight;
-    let imageHeight = (image.naturalHeight / ratio) * .7;
-    let imageWidth = (image.naturalWidth / ratio) * .7;
+    let imageHeight;
+    let imageWidth;
+    let featured;
 
+    if (grid.classList.contains("row-1")) {
+      featured = true;
+      imageHeight = (image.naturalHeight / ratio) * 1;
+      imageWidth = (image.naturalWidth / ratio) * 1;
+      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+      image.style.right = 0;
+    } else {
+      feature = false;
+      imageHeight = (image.naturalHeight / ratio) * .7;
+      imageWidth = (image.naturalWidth / ratio) * .7;
+      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+    }
 
     if (!item.classList.contains("active")) {
       console.log(imageWrapper.offsetHeight);
@@ -343,7 +361,7 @@ function calcStart(item, clicked, reverse) {
 
       //console.log(gridgrowWidth);
       image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
-      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+      
       //console.log("height: " + imageHeight);
     }
     //console.log("calcstart");

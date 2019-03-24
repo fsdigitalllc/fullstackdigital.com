@@ -30,7 +30,8 @@ sections:
       We <strong>help</strong> technology brands express their unique story &amp; personality. We <strong>create</strong> identities that weave company heritage into the logo &amp; beyond. We <strong>build</strong> strategies that navigate brands to success in the digital world. Above all, we <strong>keep</strong> team mission, vision &amp; values at the core of everything we do.
   - template: "related_work"
     grid:
-      tabs: true
+      layout: "row"
+      tabs: false
       columns: "2"
       items:
         - name: "dell"
