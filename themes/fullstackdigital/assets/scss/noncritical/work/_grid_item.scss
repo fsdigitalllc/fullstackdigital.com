@@ -83,6 +83,12 @@
     height: 100%;
     order: 1;
   }
+  .gridgrow:hover .gridwrap {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }
 
 .work-grid-tabs > div {
