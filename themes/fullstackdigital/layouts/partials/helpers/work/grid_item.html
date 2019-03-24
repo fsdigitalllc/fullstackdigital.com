@@ -212,12 +212,19 @@ let container = document.querySelector(".container-m.spacer");
 let grid = document.querySelector(".work-container");
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 let mobileScrollbar;
+let featured;
 
 if (scrollbarWidth === 0) {
   console.log("no scrollbarwidth");
   mobileScrollbar = 20;
 } else {
   mobileScrollbar = 0;
+}
+
+if (grid.classList.contains("row-1")) {
+  featured = true;
+} else {
+  featured = false;
 }
 const targetElement = document.querySelector("body");
 
@@ -339,18 +346,26 @@ function calcStart(item, clicked, reverse) {
     let ratio = image.naturalHeight / imageWrapper.offsetHeight;
     let imageHeight;
     let imageWidth;
-    let featured;
 
-    if (grid.classList.contains("row-1")) {
-      featured = true;
+    if (featured) {
       imageHeight = (image.naturalHeight / ratio) * 1;
       imageWidth = (image.naturalWidth / ratio) * 1;
+      if (imageWidth > imageWrapper.offsetWidth) {
+        imageHeight = (image.naturalHeight / ratio) * .9;
+        imageWidth = (image.naturalWidth / ratio) * .9;
+      }
       image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
       image.style.right = 0;
+      ratio = image.naturalWidth / imageWrapper.offsetWidth;
     } else {
-      feature = false;
       imageHeight = (image.naturalHeight / ratio) * .7;
       imageWidth = (image.naturalWidth / ratio) * .7;
+      
+      if (imageWidth > imageWrapper.offsetWidth) {
+        imageHeight = (image.naturalHeight / ratio) * .6;
+        imageWidth = (image.naturalWidth / ratio) * .6;
+      }
+
       image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
     }
 
@@ -391,7 +406,7 @@ function calcStart(item, clicked, reverse) {
 
     let navHeight = document.querySelector(".masthead").offsetHeight;
     let initialValue = {
-        containerOffsetLeft: container.offsetLeft - (scrollbarWidth/2),
+        containerOffsetLeft: container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft),
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         windowScrollX: window.scrollX,
@@ -425,6 +440,7 @@ function calcStart(item, clicked, reverse) {
           height: imageHeight,
           translateX: "0px",
           translateY: "0px",
+          offsetLeft: wipeParent.offsetLeft,
           left: parseFloat(itemImage.style.left),
           top: itemImage.offsetTop,
           backgroundPositionY: "60%",
@@ -440,7 +456,7 @@ function calcStart(item, clicked, reverse) {
       }
         
       //console.log("START OFFSET LEFT:");
-      //console.log(initialValue);
+      console.log("offset left:" + initialValue.containerOffsetLeft);
       //console.log(initialValue.mobileScrollbar, item.offsetTop, itemImage.offsetTop, grid.offsetParent.offsetTop, initialValue.wrapperMarginTop);
       //console.log(itemImage.style.width);
       //animateClick(e, initialValue);
@@ -474,11 +490,20 @@ let gridgrowWidth = item.offsetWidth;
     let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
     let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
     let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
+    let translateX;
+    if (featured) {
+      console.log("left: " + (-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
+      
+      translateX = ((-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft) - (initialValue.scrollbarWidth/2));
+    } else {
+      translateX = (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2);
+    }
+
     //console.log("containerWidth: " + containerWidth);
 // the final velocity values. To reverse animation, 
 
   let endValue = {
-    containerOffsetLeft: container.offsetLeft - (scrollbarWidth/2),
+    containerOffsetLeft: container.offsetLeft,
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight,
     windowScrollX: window.scrollX,
@@ -509,19 +534,11 @@ let gridgrowWidth = item.offsetWidth;
       },
       item: {
         width: initialValue.item.width * (initialValue.containerWidth / initialValue.item.width),
-        height: initialValue.item.height * (initialValue.containerWidth / initialValue.item.width),
-        // itemLeft = -125.587
-        // gridContainerPadding = +1
-        // container offsetleft = +107
-        
-        // container paddingLeft = 20
-        
-        // 
-        // -102 + 107 = 5 - (20 -21.78 - 20)
-        
-        translateX: (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2),
-        // translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop ) - initialValue.windowScrollY - navHeight),
+        height: initialValue.item.height * (initialValue.containerWidth / initialValue.item.width),        
+        translateX: translateX,
         translateY: -((item.offsetTop + itemImage.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight - initialValue.heightSpacerHeight),
+        offsetLeft: wipeParent.offsetLeft,
+        left: initialValue.item.left,
         top: "0px",
         duration: 500,
         delay: 50,
@@ -534,11 +551,11 @@ let gridgrowWidth = item.offsetWidth;
       }
   }
   
-  // console.log("startValue:");
-  // console.log(initialValue);
+  console.log("startValue:");
+  console.log(initialValue);
   // console.log("endValue:");
-  // console.log(endValue);
-  // console.log("END LEFT: " + endValue.containerOffsetLeft);
+  console.log(endValue);
+  console.log("END LEFT: " + endValue);
 
   if (clicked) {
     animateItem(item, initialValue, endValue, reverse);
