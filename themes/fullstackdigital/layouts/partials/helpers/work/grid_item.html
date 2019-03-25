@@ -813,7 +813,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
           
           //reload scripts that are in innerHTML https://ghinda.net/article/script-tags/
-          runScripts(workAjax);
+          runScripts(workAjax, nextLink);
           redoAos(workAjax)
               
       })
@@ -920,13 +920,26 @@ var runScriptTypes = [
   'text/x-javascript'
 ]
 
-function runScripts (container) {
+function runScripts (container, nextLink) {
   console.log(container);
   console.log("run SCRIPTS ---");
   // get scripts tags from a node
   var scripts = container.querySelectorAll('script');
+  var images = container.querySelectorAll('img');
   var runList = [];
   var typeAttr;
+
+    images.forEach(image => {
+      
+      //image.src = nextLink + image.src;
+      let path = image.getAttribute("src");
+
+      if (!new RegExp("^(?:/|.+://)").test(path)) {
+        console.log(path);
+        path = nextLink + path;
+        image.setAttribute("src", path);
+      }
+    });
 
     [].forEach.call(scripts, function (script) {
       console.log(script);
