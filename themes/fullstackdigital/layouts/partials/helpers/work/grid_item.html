@@ -347,16 +347,23 @@ function calcStart(item, clicked, reverse) {
     let imageHeight;
     let imageWidth;
 
-    if (featured) {
+    
+      if (featured) {
       imageHeight = (image.naturalHeight / ratio) * 1;
       imageWidth = (image.naturalWidth / ratio) * 1;
+
+        if (clicked === false) {
+          image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+        }
+
       if (imageWidth > imageWrapper.offsetWidth) {
         imageHeight = (image.naturalHeight / ratio) * .9;
         imageWidth = (image.naturalWidth / ratio) * .9;
       }
-      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+      
       image.style.right = 0;
       ratio = image.naturalWidth / imageWrapper.offsetWidth;
+
     } else {
       imageHeight = (image.naturalHeight / ratio) * .7;
       imageWidth = (image.naturalWidth / ratio) * .7;
@@ -365,9 +372,12 @@ function calcStart(item, clicked, reverse) {
         imageHeight = (image.naturalHeight / ratio) * .6;
         imageWidth = (image.naturalWidth / ratio) * .6;
       }
-
-      image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+      if (clicked === false) {
+        image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
+      }
     }
+    
+    
 
     if (!item.classList.contains("active")) {
       console.log(imageWrapper.offsetHeight);
@@ -494,7 +504,7 @@ let gridgrowWidth = item.offsetWidth;
     if (featured) {
       console.log("left: " + (-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
       
-      translateX = ((-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft) - (initialValue.scrollbarWidth/2));
+      translateX = ((-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
       
       wipeTranslateX = -(initialValue.item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX - initialValue.scrollbarWidth;
     } else {
