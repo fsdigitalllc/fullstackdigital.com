@@ -20,6 +20,11 @@ stacks_hero:
   logo_color: false
 grid_item:
   client: "code"
+  featured: true
+  featured_title: "We re-imagine user experiences."
+  featured_caption: |
+    We were {code}’s digital team from their days at EMC through their merger with Dell Technologies.
+  weight: 1
   logo_color: true
 stacks:
 - template: section-row-blocks

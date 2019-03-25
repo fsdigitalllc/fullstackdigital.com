@@ -41,7 +41,13 @@
 <div class="work-container row-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
-{{ range (where $.global.Site.RegularPages "Section" "work") }}
+{{ $query := (where $.global.Site.RegularPages "Section" "work") }}
+{{ if $featured }}
+  {{ $query = first 4 (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) }}
+{{ end }}
+{{ range $query }}
+
+
 {{ $tag := "" }}
 {{ if in .Path "market" }}
   {{ $tag = "market" }}
@@ -93,14 +99,19 @@
     </div>
 
   <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
-  <div class="excerpt-group">
+  <div class="excerpt-group{{ if $featured }} padding-xl{{ end }}">
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
   {{ $imagesrc := resources.Get $assetpath }}
   <img class="card-logo lazyload lazypreload" src="{{ $imagesrc.Permalink }}">
   {{ end }}
   </div>
-  <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
+  {{ if $featured }}
+    <h2 class="color-white">{{ .Params.grid_item.featured_title | safeHTML | default "FEATURED TITLE" }}</h2>
+    <h3>{{ .Params.grid_item.featured_caption | safeHTML | default "FEATURED TITLE" }}</h3>
+    <a class="button fill white" href='{{ .URL }}'>Read the Story</a>
+    <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
+  
     <span class="card-footer-layer flex h_children_center hover-right">
       <h6 class="gridgrow-view strip-margin">View Case Study</h6>
       <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
@@ -111,6 +122,20 @@
                         54,23 "></polyline>
       </svg>
     </span>
+  {{ else }}
+    <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
+  
+    <span class="card-footer-layer flex h_children_center hover-right">
+      <h6 class="gridgrow-view strip-margin">View Case Study</h6>
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g>
+      <line fill="none" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+      </g>
+      <polyline fill="none" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                        54,23 "></polyline>
+      </svg>
+    </span>
+    {{ end }}
   </div>
   
   </div>
@@ -179,6 +204,35 @@ const filterItems = document.querySelectorAll('[data-item-filter]');
 
   }
   
+</script>
+{{ end }}
+{{ if eq $featured true }}
+<script type="text/javascript">
+console.log("featured items loaded");
+const gridItems = document.querySelectorAll(".gridgrow");
+const container = document.querySelector(".container");
+
+positionCaption();
+
+window.addEventListener("resize", () => {
+  positionCaption();
+});
+
+function positionCaption () {
+
+  gridItems.forEach(item => {
+    let gridCaption = item.querySelector(".excerpt-group");
+    let image = item.querySelector(".gridgrow-image");
+
+    console.log(image);
+    gridCaption.style.left = container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft) + "px";
+    gridCaption.style.position = "absolute";
+    image.style.top = 50 + "px";
+  });
+
+}
+
+
 </script>
 {{ end }}
 <script type="text/javascript">
@@ -363,7 +417,9 @@ function calcStart(item, clicked, reverse) {
       
       image.style.right = 0;
       ratio = image.naturalWidth / imageWrapper.offsetWidth;
-
+      image.style.height = imageHeight + "px";
+      image.style.width = imageWidth + "px";
+      
     } else {
       imageHeight = (image.naturalHeight / ratio) * .7;
       imageWidth = (image.naturalWidth / ratio) * .7;
@@ -375,20 +431,19 @@ function calcStart(item, clicked, reverse) {
       if (clicked === false) {
         image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
       }
+      if (!item.classList.contains("active")) {
+        console.log(imageWrapper.offsetHeight);
+        //console.log(gridgrowWidth);
+        image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
+        image.style.height = imageHeight + "px";
+        image.style.width = imageWidth + "px";
+        //console.log("height: " + imageHeight);
+      }
     }
     
     
 
-    if (!item.classList.contains("active")) {
-      console.log(imageWrapper.offsetHeight);
-      image.style.height = imageHeight + "px";
-      image.style.width = imageWidth + "px";
-
-      //console.log(gridgrowWidth);
-      image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
-      
-      //console.log("height: " + imageHeight);
-    }
+    
     //console.log("calcstart");
     //console.log(item);
     // I need to grab some starting values ON CLICK
@@ -757,7 +812,7 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
       delay: 0,
       complete: function() {
         calcStart(item, initialValue, endValue, reverse, clicked);
-        console.log("REVERSE COMPLETE");
+        //console.log("REVERSE COMPLETE");
       }
     });
     
@@ -808,7 +863,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
           workAjax.innerHTML = docArticle;
           //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
-          console.log(pageCritical);
+          //console.log(pageCritical);
           window.history.pushState("object or string", "Title", nextLink);
           // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
           
@@ -921,8 +976,8 @@ var runScriptTypes = [
 ]
 
 function runScripts (container, nextLink) {
-  console.log(container);
-  console.log("run SCRIPTS ---");
+  //console.log(container);
+  //console.log("run SCRIPTS ---");
   // get scripts tags from a node
   var scripts = container.querySelectorAll('script');
   var images = container.querySelectorAll('img');
@@ -935,14 +990,14 @@ function runScripts (container, nextLink) {
       let path = image.getAttribute("src");
 
       if (!new RegExp("^(?:/|.+://)").test(path)) {
-        console.log(path);
+        //console.log(path);
         path = nextLink + path;
         image.setAttribute("src", path);
       }
     });
 
     [].forEach.call(scripts, function (script) {
-      console.log(script);
+      //console.log(script);
     typeAttr = script.getAttribute('type');
     // only run script tags without the type attribute
     // or with a javascript mime attribute value
