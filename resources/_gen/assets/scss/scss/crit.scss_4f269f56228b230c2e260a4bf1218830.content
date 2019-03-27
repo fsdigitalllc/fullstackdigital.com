@@ -1382,6 +1382,51 @@ a {
   background: #ffffff;
   border-bottom: 1px solid #efefef; }
 
+.pageAnimating .logo-link {
+  display: block; }
+
+@-webkit-keyframes loading-header {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+.loading .logo-link .cls-1, .logo-link a.page-link:hover .cls-1 {
+  -webkit-animation: loading-header 0.5s ease-in-out infinite;
+  /* Safari 4+ */
+  -moz-animation: loading-header 0.5s ease-in-out infinite;
+  /* Fx 5+ */
+  -o-animation: loading-header 0.5s ease-in-out infinite;
+  /* Opera 12+ */
+  animation: loading-header 0.5s ease-in-out infinite;
+  /* IE 10+, Fx 29+ */
+  animation-direction: alternate;
+  animation-delay: 0s; }
+
+.loading .logo-link .cls-2, .logo-link a.page-link:hover .cls-2 {
+  -webkit-animation: loading-header 0.5s ease-in-out infinite;
+  /* Safari 4+ */
+  -moz-animation: loading-header 0.5s ease-in-out infinite;
+  /* Fx 5+ */
+  -o-animation: loading-header 0.5s ease-in-out infinite;
+  /* Opera 12+ */
+  animation: loading-header 0.5s ease-in-out infinite;
+  /* IE 10+, Fx 29+ */
+  animation-direction: alternate;
+  animation-delay: 0.15s; }
+
+.loading .logo-link .cls-3, .logo-link a.page-link:hover .cls-3 {
+  -webkit-animation: loading-header 0.5s ease-in-out infinite;
+  /* Safari 4+ */
+  -moz-animation: loading-header 0.5s ease-in-out infinite;
+  /* Fx 5+ */
+  -o-animation: loading-header 0.5s ease-in-out infinite;
+  /* Opera 12+ */
+  animation: loading-header 0.5s ease-in-out infinite;
+  /* IE 10+, Fx 29+ */
+  animation-direction: alternate;
+  animation-delay: 0.30s; }
+
 .masthead {
   /**animations**/ }
   .masthead .cls-1 {
@@ -1396,45 +1441,6 @@ a {
     opacity: 1; }
   .masthead .cls-3 {
     opacity: 1; }
-
-@-webkit-keyframes loading-header {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }
-  .masthead .loading .logo-link .cls-1, .masthead .logo-link a.page-link:hover .cls-1 {
-    -webkit-animation: loading-header 0.5s ease-in-out infinite;
-    /* Safari 4+ */
-    -moz-animation: loading-header 0.5s ease-in-out infinite;
-    /* Fx 5+ */
-    -o-animation: loading-header 0.5s ease-in-out infinite;
-    /* Opera 12+ */
-    animation: loading-header 0.5s ease-in-out infinite;
-    /* IE 10+, Fx 29+ */
-    animation-direction: alternate;
-    animation-delay: 0s; }
-  .masthead .loading .logo-link .cls-2, .masthead .logo-link a.page-link:hover .cls-2 {
-    -webkit-animation: loading-header 0.5s ease-in-out infinite;
-    /* Safari 4+ */
-    -moz-animation: loading-header 0.5s ease-in-out infinite;
-    /* Fx 5+ */
-    -o-animation: loading-header 0.5s ease-in-out infinite;
-    /* Opera 12+ */
-    animation: loading-header 0.5s ease-in-out infinite;
-    /* IE 10+, Fx 29+ */
-    animation-direction: alternate;
-    animation-delay: 0.15s; }
-  .masthead .loading .logo-link .cls-3, .masthead .logo-link a.page-link:hover .cls-3 {
-    -webkit-animation: loading-header 0.5s ease-in-out infinite;
-    /* Safari 4+ */
-    -moz-animation: loading-header 0.5s ease-in-out infinite;
-    /* Fx 5+ */
-    -o-animation: loading-header 0.5s ease-in-out infinite;
-    /* Opera 12+ */
-    animation: loading-header 0.5s ease-in-out infinite;
-    /* IE 10+, Fx 29+ */
-    animation-direction: alternate;
-    animation-delay: 0.30s; }
   .masthead .nav-list > *, .masthead .nav-list li.active:hover a {
     transition: opacity .3s ease-in; }
   .masthead .nav-list:hover > *, .masthead .nav-li2st:hover li.active a {
@@ -1559,6 +1565,9 @@ a {
   .featured-logos img {
     margin: auto;
     display: block; } }
+
+.pageAnimating .home .logo-link {
+  display: block; }
 
 .home .logo-link {
   display: none; }

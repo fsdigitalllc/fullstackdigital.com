@@ -568,6 +568,7 @@ function calcStart(item, clicked, reverse) {
       //calcEnd(initialValue);
       if (clicked && reverse === false) {
         document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+        document.querySelector("html").classList.add("pageAnimating", "loading");
 
         document.querySelector(".masthead").style.width = `calc(100% + ${(scrollbarWidth/2 + "px")})`;
         document.querySelector(".masthead").style.paddingRight = `${(scrollbarWidth/2 + "px")}`;
@@ -775,6 +776,7 @@ function animateItem(item, initialValue, endValue, reverse) {
               document.querySelector("main").style.marginLeft = "";
               document.querySelector(".masthead").style = "";
 
+              document.querySelector("html").classList.remove("pageAnimating", "loading");
               body.style.overflowY = "scroll";
               bodyScrollLock.enableBodyScroll(targetElement);
               //item.addEventListener("click");
@@ -876,7 +878,10 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
   //console.log(pageCritical);
 
   if (reverse) {
-    
+
+    //add back logo for animation
+    document.querySelector("html").classList.add("loading");
+
     workAjax
     .velocity({
       opacity: 0,
@@ -932,6 +937,10 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
       }, {
         delay: 400,
         duration: 400,
+        complete: function() {
+        document.querySelector("html").classList.remove("loading");
+          //console.log("REVERSE COMPLETE");
+        }
       });
       // setTimeout(function(){
       //   AOS.init();
