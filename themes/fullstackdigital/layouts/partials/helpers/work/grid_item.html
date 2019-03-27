@@ -106,7 +106,7 @@
     </div>
 
   <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
-  <div class="excerpt-group{{ if $featured }} padding-xl{{ end }}">
+  <div class="excerpt-group">
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
   {{ $imagesrc := resources.Get $assetpath }}
