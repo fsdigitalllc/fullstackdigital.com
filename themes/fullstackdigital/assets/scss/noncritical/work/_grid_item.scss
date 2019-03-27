@@ -86,9 +86,6 @@
 
 .work-container.row-1 {
   display: grid;
-  width: 100%;
-  position: relative;
-  grid-template-rows: 1fr minmax(80vh, 1fr);
 }
 .work-container.row-2, .work-container.row-3, .work-container.row-4 {
   display: grid;
@@ -105,29 +102,25 @@
 .work-row {
   .gridwrap {
     display: flex;
-    overflow: hidden;
   }
   .gridgrow {
     height: 80vh;
-    width: 100%;
-    position: absolute;
     // overflow: hidden;
   }
+  .gridwrap {
+    overflow: hidden;
+  }
   .gridgrow:nth-child(1) {
-    z-index: 99;
-    grid-area: 1/1;
+    z-index: 99
   }
   .gridgrow:nth-child(2) {
-    z-index: 98;
-    grid-area: 2/1;
+    z-index: 98
   }
   .gridgrow:nth-child(3) {
-    z-index: 97;
-    grid-area: 3/1;
+    z-index: 97
   }
-  .gridgrow:nth-child(4) {
-    z-index: 96;
-    grid-area: 4/1;
+  .gridgrow:nth-child(5) {
+    z-index: 96
   }
   .gridgrow .gridgrow-image-holder {
     height: 100%;
@@ -153,7 +146,6 @@
   }
   .gridgrow:hover {
     z-index: 100;
-    height: 90vh;
   }
   .gridgrow:hover .gridwrap {
     margin-left: 0px;
@@ -180,9 +172,9 @@
   h3 {
     color: #cccccc;
   }
-  // .gridgrow:hover {
-  //   overflow: visible;
-  // }
+  .gridgrow:hover {
+    overflow: visible;
+  }
   .gridgrow:hover {
     .button.fill, .button.icon {
       color: #000000;
@@ -194,8 +186,6 @@
     .gridwrap {
       padding-top: 4%;
       margin-top: -4%;
-      padding-bottom: 4%;
-      margin-bottom: -4%;
     }
   }
 }
