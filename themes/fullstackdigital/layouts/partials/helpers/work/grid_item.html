@@ -167,8 +167,8 @@
 {{ if eq $tabs true }}
 <script type="text/javascript">
 console.log("Tabs loaded----------");
-const filterBtns = document.querySelectorAll('[data-filter]');
-const filterItems = document.querySelectorAll('[data-item-filter]');
+let filterBtns = document.querySelectorAll('[data-filter]');
+let filterItems = document.querySelectorAll('[data-item-filter]');
   filterBtns.forEach(function(button, index) {
 
     let buttonAttr = button.getAttribute("data-filter");
@@ -217,8 +217,8 @@ const filterItems = document.querySelectorAll('[data-item-filter]');
 {{ if eq $featured true }}
 <script type="text/javascript">
 console.log("featured items loaded");
-const gridItems = document.querySelectorAll(".gridgrow");
-const container = document.querySelector(".container");
+let gridItems = document.querySelectorAll(".gridgrow");
+let container = document.querySelector(".container");
 
 positionCaption();
 
@@ -296,7 +296,7 @@ if (grid.classList.contains("row-1")) {
 } else {
   featured = false;
 }
-const targetElement = document.querySelector("body");
+let targetElement = document.querySelector("body");
 
 gridImageSize();
 
@@ -774,7 +774,7 @@ function animateItem(item, initialValue, endValue, reverse) {
               document.querySelector("html").style.marginLeft = "";
               document.querySelector("main").style.marginLeft = "";
               document.querySelector(".masthead").style = "";
-              
+
               body.style.overflowY = "scroll";
               bodyScrollLock.enableBodyScroll(targetElement);
               //item.addEventListener("click");
