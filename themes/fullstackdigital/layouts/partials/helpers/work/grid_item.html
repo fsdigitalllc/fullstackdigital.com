@@ -43,10 +43,9 @@
 
 {{ $query := (where $.global.Site.RegularPages "Section" "work") }}
 {{ if $featured }}
-  {{ $query = first 4 (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) }}
+  {{ $query = first 4 (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") }}
 {{ end }}
 {{ range $query }}
-
 
 {{ $tag := "" }}
 {{ if in .Path "market" }}
@@ -65,7 +64,10 @@
 {{ $image := .Resources.GetMatch $context.image }}
 {{ $logo := "" }}
 {{ $name := $context.client }}
-  {{ if or (eq .Params.grid_item.logo_color "color") (eq .Params.grid_item.logo_color true ) }}
+  {{ if $featured }}
+    {{ $prefix = "assets/images/clients/grey/" }}
+    {{ $asset_prefix = "images/clients/grey/" }}
+  {{ else if or (eq .Params.grid_item.logo_color "color") (eq .Params.grid_item.logo_color true ) }}
     {{ $prefix = "assets/images/clients/color/" }}
     {{ $asset_prefix = "images/clients/color/" }}
   {{ else if or (eq .Params.grid_item.logo_color "white") (eq .Params.grid_item.logo_color false ) }}
@@ -86,16 +88,21 @@
 {{ $assetpath := print $asset_prefix $logo }}
 <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow' data-item-filter="{{ $tag }}">
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
+  {{ if $featured }}
+  <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
+  {{ end }}
   <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
 
       {{/* <div class="gridgrow-image lazyload lazypreload" data-bg=''></div> */}}
-      <img class="gridgrow-image lazyload lazypreload" calc-size='' data-src='{{ $image.Permalink }}'>
+      <img class="gridgrow-image lazyload lazypreload {{ $name }}" calc-size='' data-src='{{ $image.Permalink }}'>
 
-      <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe">
-      </div>
+      {{ if eq $featured false }}
+      <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
+      {{ end }}
+      
     </div>
 
   <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
@@ -103,7 +110,7 @@
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
   {{ $imagesrc := resources.Get $assetpath }}
-  <img class="card-logo lazyload lazypreload" src="{{ $imagesrc.Permalink }}">
+  <img class="card-logo lazyload lazypreload {{ $name }}" src="{{ $imagesrc.Permalink }}">
   {{ end }}
   </div>
   {{ if $featured }}
@@ -140,6 +147,7 @@
   
   </div>
   </div>
+  
 </div>
 
 {{ end }}
@@ -227,7 +235,15 @@ function positionCaption () {
     console.log(image);
     gridCaption.style.left = container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft) + "px";
     gridCaption.style.position = "absolute";
-    image.style.top = 50 + "px";
+
+    if (image.classList.contains("ddn")) {
+      image.style.top = -50 + "px";
+    } else if (image.classList.contains("rigado")) {
+      image.style.top = 50 + "px";
+    } else {
+      image.style.top = 50 + "px";
+    }
+    
   });
 
 }
@@ -382,6 +398,15 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       calcStart(item, clicked, reverse);
       //animateClick(item, initialValue);
     });
+
+    //maybe animate the bottom half of the item on hover
+    // item.addEventListener("mouseover", () => {
+    //   item.velocity({
+    //     "overflow": "visible"
+    //   }, {
+    //     delay: 0,
+    //   });
+    // });
   });
 
   
@@ -400,9 +425,16 @@ function calcStart(item, clicked, reverse) {
     let ratio = image.naturalHeight / imageWrapper.offsetHeight;
     let imageHeight;
     let imageWidth;
-
+    let wipe = item.querySelector(".wipe");
+    let wipeParent = item.querySelector(".gridgrow-image-holder");
+    let wipeWidth;
+    let wipeHeight;
     
       if (featured) {
+
+      wipeWidth = item.offsetWidth;
+      wipeHeight = item.offsetHeight;
+
       imageHeight = (image.naturalHeight / ratio) * 1;
       imageWidth = (image.naturalWidth / ratio) * 1;
 
@@ -414,13 +446,24 @@ function calcStart(item, clicked, reverse) {
         imageHeight = (image.naturalHeight / ratio) * .9;
         imageWidth = (image.naturalWidth / ratio) * .9;
       }
-      
+      if (image.classList.contains("ddn")) {
+        imageHeight = (image.naturalHeight / ratio) * 1.2;
+        imageWidth = (image.naturalWidth / ratio) * 1.2;
+      } else if (image.classList.contains("rigado")) {
+        imageHeight = (image.naturalHeight / ratio) * 1.2;
+        imageWidth = (image.naturalWidth / ratio) * 1.2;
+        image.style.left = -50 + "px";
+      }
+
       image.style.right = 0;
       ratio = image.naturalWidth / imageWrapper.offsetWidth;
       image.style.height = imageHeight + "px";
       image.style.width = imageWidth + "px";
       
     } else {
+      wipeWidth = item.querySelector(".gridgrow-image-holder").offsetWidth;
+      wipeHeight = item.querySelector(".gridgrow-image-holder").offsetHeight;
+
       imageHeight = (image.naturalHeight / ratio) * .7;
       imageWidth = (image.naturalWidth / ratio) * .7;
       
@@ -442,8 +485,6 @@ function calcStart(item, clicked, reverse) {
     }
     
     
-
-    
     //console.log("calcstart");
     //console.log(item);
     // I need to grab some starting values ON CLICK
@@ -451,8 +492,7 @@ function calcStart(item, clicked, reverse) {
     let gridgrowWidth = item.offsetWidth;
     
     //console.log("RESIZING");
-    let wipe = item.querySelector(".wipe");
-    let wipeParent = item.querySelector(".gridgrow-image-holder");
+    
     let itemImage = item.querySelector(".gridgrow-image");
     let body = document.querySelector("body");
     let main = document.querySelector("main");
@@ -489,8 +529,8 @@ function calcStart(item, clicked, reverse) {
         gridContainerOffsetLeft: gridContainer.offsetLeft,
         heightSpacerHeight: heightSpacer.offsetHeight,
         wipe: {
-          width: wipeParent.offsetWidth,
-          height: wipeParent.offsetHeight,
+          width: wipeWidth,
+          height: wipeHeight,
           translateX: "0px",
           translateY: "0px",
           left: "0.1px",
@@ -561,7 +601,8 @@ let gridgrowWidth = item.offsetWidth;
       
       translateX = ((-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
       
-      wipeTranslateX = -(initialValue.item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX - initialValue.scrollbarWidth;
+      wipeTranslateX = (initialValue.scrollbarWidth/2);
+
     } else {
       translateX = (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2);
       wipeTranslateX = -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX + initialValue.scrollbarWidth;

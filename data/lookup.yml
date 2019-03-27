@@ -36,6 +36,12 @@ clients:
   - name: "awo"
     image: "awo.png"
     logo_link: false
+  - name: "fariastechnique"
+    image: "fariastechnique.svg"
+    logo_link: false
+  - name: "vastdata"
+    image: "vastdata.svg"
+    logo_link: false
 tags:
   brand:
   - "Development"

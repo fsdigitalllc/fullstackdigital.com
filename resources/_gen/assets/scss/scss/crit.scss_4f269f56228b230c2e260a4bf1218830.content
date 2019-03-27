@@ -1458,8 +1458,7 @@ a {
     justify-content: space-between;
     align-items: center;
     pointer-events: all;
-    border: none;
-    overflow-y: hidden; }
+    border: none; }
   .masthead .nav-list ul, .masthead .nav-list li {
     list-style: none; }
   .masthead .nav-list li .sub {
