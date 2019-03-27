@@ -568,6 +568,9 @@ function calcStart(item, clicked, reverse) {
       //calcEnd(initialValue);
       if (clicked && reverse === false) {
         document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+
+        document.querySelector(".masthead").style.width = `calc(100% + ${(scrollbarWidth/2 + "px")})`;
+        document.querySelector(".masthead").style.paddingRight = `${(scrollbarWidth/2 + "px")}`;
         main.style.marginLeft = "-" + (scrollbarWidth/2) + "px";
         body.style.overflowY = "hidden";
         bodyScrollLock.disableBodyScroll(targetElement);
@@ -770,6 +773,8 @@ function animateItem(item, initialValue, endValue, reverse) {
               
               document.querySelector("html").style.marginLeft = "";
               document.querySelector("main").style.marginLeft = "";
+              document.querySelector(".masthead").style = "";
+              
               body.style.overflowY = "scroll";
               bodyScrollLock.enableBodyScroll(targetElement);
               //item.addEventListener("click");
