@@ -26,6 +26,8 @@ clients:
     logo_link: false
   - name: "4dv"
     image: "4dv.svg"
+  - name: "besc"
+    image: "4dv.svg"
     logo_link: false
   - name: "usdrs"
     image: "usdrs.svg"
