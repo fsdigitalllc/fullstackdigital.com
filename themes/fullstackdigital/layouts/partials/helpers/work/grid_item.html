@@ -1,7 +1,10 @@
 {{ $size := .page.grid.columns | default "4" }}
 {{ $tabs := .page.grid.tabs | default true }}
 {{ $layout := .page.grid.layout | default "grid" }}
+{{ $category := .page.grid.category | default "brand" }}
+{{ $count := .page.grid.count | default "4" }}
 {{ $featured := false }}
+{{ $manuallySet := "" }}
 {{ if eq $layout "row" }}
   {{ $size = "1" }}
   {{ $featured = true }}
@@ -42,11 +45,38 @@
 <!-- <div class="gutter-guide"></div> -->
 
 {{ $query := (where $.global.Site.RegularPages "Section" "work") }}
-{{ if $featured }}
-  {{ $query = first 4 (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") }}
-{{ end }}
-{{ range $query }}
 
+{{ if $featured }}
+  {{ $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") }}
+  {{ $query = (where $.global.Site.RegularPages "Section" "work") }}
+{{ end }}
+
+
+{{ if eq $tabs false }}
+
+{{ $.global.Scratch.Set "manuallySet" "" }}
+{{ $.global.Scratch.Set "path" "" }}
+  {{ range .page.grid.items }}
+    {{ $theName := .name | string }}
+    {{ $theName = print $theName " " }}
+    {{ $.global.Scratch.Add "manuallySet" $theName }}
+  {{ end }}
+  {{ $manuallySet = $.global.Scratch.Get "manuallySet" }}
+  
+  {{ range (where $.global.Site.RegularPages "Section" "work" ) }}
+    
+    {{ if in $manuallySet .Params.name }}
+      {{ $.global.Scratch.Add "path" .Path }}
+    {{ end }}
+  {{ end }}
+  
+  {{ $thePath :=  $.global.Scratch.Get "path" }}
+
+{{ $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Path" "in" $thePath ) ".Params.grid_item.weight" "asc") }}
+
+{{ end }}
+
+{{ range $query }}
 {{ $tag := "" }}
 {{ if in .Path "market" }}
   {{ $tag = "market" }}
@@ -57,6 +87,7 @@
 {{ if in .Path "brand" }}
   {{ $tag = "brand" }}
 {{ end }}
+
 <!--way too much effort to grab the client logo for the grid item-->
 {{ $prefix := "assets/images/clients/" }}
 {{ $asset_prefix := "images/clients/" }}

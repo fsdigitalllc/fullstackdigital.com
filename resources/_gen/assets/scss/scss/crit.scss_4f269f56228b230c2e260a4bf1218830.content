@@ -1523,6 +1523,9 @@ a {
   margin-left: auto;
   margin-right: auto; }
 
+.featured-logos img {
+  height: 40px; }
+
 .featured-logos .ddn img {
   height: 40px; }
 
@@ -1543,6 +1546,12 @@ a {
 
 .featured-logos .code img {
   height: 40px; }
+
+.featured-logos .besc img {
+  height: 30px; }
+
+.featured-logos .usdrs img {
+  height: 30px; }
 
 @media screen and (max-width: 900px) {
   .featured-logos {
