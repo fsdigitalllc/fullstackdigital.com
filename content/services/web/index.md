@@ -69,9 +69,9 @@ sections:
       - name: "code"
       - name: "quantum"
       - name: "threefactor"
-      - name: "ddn"
+      - name: "fariastechnique"
   - template: "related_content"
-    subtitle: "Fullstack Branding Today"
+    subtitle: "Fullstack Web Today"
     title: "How we stay current in the world of digital branding."
     column_1:
       subtitle: "Design on Dribbble."

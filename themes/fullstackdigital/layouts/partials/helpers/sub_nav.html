@@ -1,0 +1,16 @@
+<nav class="sub">
+  <div class='container'>
+  <ul class='link-{{ with .page.count }}{{ . | default "4" }}{{ end }}'>
+    {{ range $index, $items := .page.items }}
+    {{ $anchor := print "#" .title }}
+    {{ with .link }}
+      {{ $anchor = . }}
+    {{ end }}
+      <a href="{{ $anchor }}"{{ if eq $index 0 }} class="active"{{ end }}>
+        {{ .icon | safeHTML }}
+        {{ .title }}
+      </a>
+    {{ end }}
+  </ul>
+</div>
+  </nav>
