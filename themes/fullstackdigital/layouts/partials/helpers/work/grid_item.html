@@ -48,23 +48,23 @@
 
 {{ if $featured }}
   {{ $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") }}
-  {{ $query = (where $.global.Site.RegularPages "Section" "work") }}
 {{ end }}
 
 
-{{ if eq $tabs false }}
+{{ if and (eq $featured false) (eq $tabs false) }}
 
 {{ $.global.Scratch.Set "manuallySet" "" }}
 {{ $.global.Scratch.Set "path" "" }}
+
   {{ range .page.grid.items }}
     {{ $theName := .name | string }}
     {{ $theName = print $theName " " }}
     {{ $.global.Scratch.Add "manuallySet" $theName }}
   {{ end }}
+
   {{ $manuallySet = $.global.Scratch.Get "manuallySet" }}
   
   {{ range (where $.global.Site.RegularPages "Section" "work" ) }}
-    
     {{ if in $manuallySet .Params.name }}
       {{ $.global.Scratch.Add "path" .Path }}
     {{ end }}

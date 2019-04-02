@@ -1516,6 +1516,55 @@ a {
 .night-header .nav-list .sub li a {
   color: #222; }
 
+nav.sub {
+  width: 100%;
+  position: relative;
+  border-top: none;
+  border-bottom: 1px solid #eee;
+  background: rgba(0, 0, 0, 0.015);
+  line-height: 1;
+  z-index: 1;
+  top: 0; }
+
+nav.sub .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+
+nav.sub svg {
+  margin: 0 auto;
+  margin-bottom: 15px; }
+
+nav.sub ul {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: space-between;
+  padding: 30px 20px; }
+
+nav.sub ul, nav.sub li {
+  list-style: none; }
+
+nav.sub a {
+  color: rgba(0, 0, 0, 0.85);
+  text-align: center;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+nav.sub a:hover, nav.sub a.inactive:hover, nav.sub a.active {
+  opacity: 1; }
+
+nav.sub a {
+  opacity: .3; }
+
+nav.sub .link-4 {
+  width: 450px; }
+
 .featured-logos {
   display: flex;
   justify-content: space-between;

@@ -1,0 +1,45 @@
+{{ define "main" }}
+
+{{ range $index, $sections := .Params.sections }}
+
+  <section data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
+
+{{ if eq .template "sub_nav" }}
+
+{{ partial "helpers/sub_nav.html" (dict "page" . "global" $ ) }}
+
+{{ end }}
+
+  {{ if eq .template "overview" }}
+      <div class="container flex break-tablet h_children_space-between">
+
+        <div class="flex col-5">
+          
+        </div>
+
+      <div data-aos="fade-left" class="flex wrap padding-m-top padding-m-bottom text-left col-6 maxwidth-s">
+
+
+      <h4 class="text-align-left subtitle">{{ .subtitle | safeHTML }}</h4>
+      <h3 class="text-align-left"><strong id="get-started">{{ .title | safeHTML }}</strong></h3>
+
+      </div>
+
+
+      </div>
+
+    {{ end }}
+
+    {{ if eq .template "approach" }}
+
+    {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
+
+    {{ end }}
+
+  
+
+  </section>
+  
+{{ end }}
+
+{{ end }}
