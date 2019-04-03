@@ -17,6 +17,9 @@
   background: #ffffff;
   color: #000000;
 }
+.button.fill.white::before {
+  background: #000000;
+}
 .button {
   padding: 12px 30px;
   font-size: 14px;
@@ -77,6 +80,10 @@
 .button.fill:hover {
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+.button.fill.white:hover {
+  color: #ffffff;
+  transition: all .2s ease;
 }
 .button.fill:hover::before {
   width: 60%;

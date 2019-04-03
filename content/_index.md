@@ -9,7 +9,7 @@ night_footer: true
 language: en
 sections:
   - template: "service_title"
-    classes: ""
+    classes: "padding-l"
     title: |
       We <span class="underline color-babyblue">make brands.</span><br>Mostly for the tech world.
     paragraph: |
@@ -39,7 +39,9 @@ sections:
         - name: "threefactor"
         - name: "ddn"
   - template: "service_offering"
+    classes: "padding-l"
   - template: "related_content"
+    classes: "padding-l"
     column_1:
       subtitle: "Fullstack blog and news: behind the scenes, labs, and perspectives."
       title: "What's new?"
