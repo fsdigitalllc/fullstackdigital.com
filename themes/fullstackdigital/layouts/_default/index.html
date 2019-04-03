@@ -15,28 +15,10 @@ logos:
 
 
 {{ range $index, $sections := .Params.sections }}
-  {{ $title_t := "" }}
-  {{ $related_t := "" }}
-  {{ $services_t := "" }}
-  {{ $content_related_t := "" }}
-  {{ $cta_t := "" }}
+
+  <section data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
 
   {{ if eq .template "service_title" }}
-    {{ $title_t = .template }}
-  {{ end }}
-  {{ if eq .template "related_work" }}
-    {{ $related_t = .template }}
-  {{ end }}
-  {{ if eq .template "related_content" }}
-    {{ $content_related_t = .template }}
-  {{ end }}
-  {{ if eq .template "service_offering" }}
-    {{ $services_t = .template }}
-  {{ end }}
-
-  <section data-index='{{ $index }}' class='template-{{ .template }}{{ if $title_t }} padding-l-top padding-xl-bottom {{ end }}{{ if $related_t }} padding-l-bottom{{ end }}{{ if $content_related_t }} padding-xl{{ end }}'>
-
-  {{ if $title_t }}
   <div class="container flex h_children_start">
     <div class="maxwidth-m text-left">      
     
@@ -58,17 +40,17 @@ logos:
   </div>
   {{ end }}
 
-  {{ if $related_t }}
+  {{ if eq .template "related_work" }}
     {{ partial "helpers/work/grid_item.html" (dict "page" . "global" $ ) }}
   {{ end }}
 
-  {{ if $services_t }}
+  {{ if eq .template "service_offering" }}
   
   {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
 
   {{ end }}
 
-  {{ if $content_related_t }}
+  {{ if eq .template "related_content" }}
   
   
   <div class="container grid-2 break-tablet h_children_start wrap">
