@@ -1,0 +1,62 @@
+<a href="#work-with-us" class="fullsize"></a>
+<div class="padding-xl background-deepblue">
+
+    <a href="#work-with-us" class="container toggle_inner maxwidth-xxs">
+    <h3 class="color-white">Work with us</h3>
+
+    <div class="arrow-div">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <g><line fill="none" stroke="#fff" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="4,2" x1="0" y1="32" x2="63" y2="32"></line></g>
+      <polyline fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32   54,23 "></polyline></svg>
+    </div>
+
+    </a>
+
+</div>
+
+<div class="cta overlay">
+
+  <button type="button" class="overlay-close">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+    <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+    <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+    </svg>
+  </button>
+
+    <div class="container">
+      <h2 class="padding-m-top mobile-maxwidth-l color-white">Get in touch</h2>
+      
+      {{ partial "helpers/forms/contact.html" (dict "page" . "global" $)}}
+    </div>
+</div>
+
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    expandContact();
+});
+
+function expandContact() {
+
+let section = document.querySelector(".cta-toggle");
+let overlay = document.querySelector(".overlay");
+
+let close = document.querySelector("button.overlay-close");
+
+  section.addEventListener("click", () => {
+    overlay.classList.add("open");
+    overlay.classList.remove("close");
+  }, true);
+
+  close.addEventListener("click", () => {
+    console.log(overlay.classList);
+    overlay.classList.remove("open");
+    overlay.classList.add("close");
+  }, false);
+
+}
+
+
+
+
+</script>
