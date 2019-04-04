@@ -2,7 +2,7 @@
 
 {{ range $index, $sections := .Params.sections }}
 
-  <section data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
+  <section{{ if .id }} id="{{ .id | safeHTML }}"{{ else }} id="{{ .template | safeHTML }}"{{ end }} data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
 
 {{ if eq .template "sub_nav" }}
 
@@ -11,31 +11,57 @@
 {{ end }}
 
   {{ if eq .template "overview" }}
-      <div class="container flex break-tablet h_children_space-between">
+  <div class="container flex h_children_start">
+    <div class="col-9">
 
-        <div class="flex col-5">
-          
-        </div>
+      {{ .icon | safeHTML }}
 
-      <div data-aos="fade-left" class="flex wrap padding-m-top padding-m-bottom text-left col-6 maxwidth-s">
+    <h2>{{ .title | safeHTML }}</h2>
+    <p class="big-paragraph margin-s-top">{{ .lead | safeHTML }}</p>
+    <p>{{ .paragraph | safeHTML }}</p>
+    </div>
+  </div>
 
+  {{ end }}
 
-      <h4 class="text-align-left subtitle">{{ .subtitle | safeHTML }}</h4>
-      <h3 class="text-align-left"><strong id="get-started">{{ .title | safeHTML }}</strong></h3>
-
+  {{ if eq .template "banner" }}
+  <div class="container-fullwidth flex h_children_center">
+      <div class="col-12">
+        <img class="fullwidth-img" src="{{ .image }}">
       </div>
-
-
-      </div>
-
-    {{ end }}
+    </div>
+  {{ end }}
 
     {{ if eq .template "approach" }}
-
+    <div class="container flex break-tablet template-service_process h_children_space-between padding-l-bottom">
+      <div class="col-6 maxwidth-s">
+        {{ .icon | safeHTML }}
+        {{ .html | safeHTML }}
+      </div>
+      <div class="col-4 perspecitive-col padding-l-top">
+        <div class="perspective-items">
+        <div data-aos="fade-up" data-aos-anchor="#service-offering" data-aos-offset="500" data-aos-easing="ease-out-cubic" duration="1000" class="perspective-item aos-init aos-animate">
+        {{ .perspective_items.layer1 | safeHTML }}
+        </div>
+        <div data-aos="fade-up" data-aos-anchor="#service-offering" data-aos-offset="700" duration="1000" class="perspective-item aos-init aos-animate">
+        {{ .perspective_items.layer2 | safeHTML }}
+        </div>
+        <div data-aos="fade-up" data-aos-offset="900" duration="1000" data-aos-anchor="#service-offering" class="perspective-item aos-init aos-animate">
+        <svg id="Layer_1" width="132" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <polygon fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="1,30 63,1 23,41   "></polygon>
+        <polygon fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="34,63 63,1 23,41   "></polygon>
+        </svg>
+        </div>
+        </div>
+      </div>
+    </div>
     {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
 
     {{ end }}
 
+    {{ if eq .template "expand-contact" }}
+        {{ partial "helpers/forms/expand-contact.html" (dict "page" . "global" $)}}
+    {{ end }}
   
 
   </section>
