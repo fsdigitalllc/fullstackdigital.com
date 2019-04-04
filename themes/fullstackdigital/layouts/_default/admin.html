@@ -1,0 +1,67 @@
+<style>
+    section {
+      margin-bottom: 32px;
+    }
+    section > div a {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr;
+      grid-row-gap: 25px;
+      grid-column-gap: 15px;
+      text-decoration: none;
+    }
+    section > div {
+      margin-bottom: 20px;
+    }
+    section > div a > div {
+      display: flex;
+      flex-direction: column;
+    }
+    .pages {
+      width: 800px;
+      max-width: 100%;
+    }
+    .title {
+      font-size: 18px;
+      line-height: 1.33;
+    }
+    .permalink, .description {
+      font-size: 14px;
+    }
+    .permalink {
+      color: #006621;
+      font-style: normal;
+    }
+    .description {
+      color: #545454;
+    }
+    
+    </style>
+<div class="pages">
+{{ range $.Site.Pages.GroupBy "Section" }}
+
+<section>
+  {{ $key := "Root" }}
+  {{ with .Key }}{{ $key = . }}{{ end }}
+<h1>{{ $key }}</h1>
+  {{ range .Pages.ByDate }}
+  
+  <div>
+      {{ $image := "/images/site/Icon-Black.jpg" }}
+      
+      {{ $imagesrc := resources.Get $image }}
+      {{ $imageresized := ($imagesrc.Resize "125x q75") }}
+    <a target="_blank" href="{{ .Permalink }}">
+      <img src="{{ $imageresized.Permalink }}">
+      <div>
+        <span class="title">{{ .Title }}</span>
+        <span class="permalink">{{ .Permalink }}</span>
+        <span class="description">{{ .Params.description }}</span>
+      </div>
+    </a>
+  </div>
+  {{ end }}
+
+</section>
+{{ end }}
+</div>
