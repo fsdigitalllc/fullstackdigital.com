@@ -9,7 +9,7 @@ layout: single
 description: page description
 date: 2018-07-03 04:00:00 +0000
 tags: []
-alias:
+aliases:
   - "/work/brand/"
 image: 
   - "/uploads/typeking-cover.png"
