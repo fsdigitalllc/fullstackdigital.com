@@ -14,7 +14,7 @@
           <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline>
           </svg>
         </a>
-        <p class="tiny margin-s-top copyright hide-tablet">© 2018 Fullstack Digital, LLC. All Rights Reserved.</p>
+        
     </div>
     <div class="col-5 flex break-desktop h_children_space-between">
   {{ range .Site.Data.navigation.footer }}
@@ -86,7 +86,6 @@
 
 
         {{ range $index, $subnav := where $.Site.Pages ".Params.name" $name }}
-        {{ $pageName }}
             {{ $pageName = lower .Params.name }}
             {{ if eq $pageName $name }}
                 {{ if eq $url "" }}
@@ -104,12 +103,14 @@
   {{ end }}
   {{ end }}
   {{- /* <!--create the sub nav --> */ -}}
+  
 
-    
   </div>
   {{ end }}
-  </div>
+  <p class="tiny copyright hide-tablet">© 2018 Fullstack Digital, LLC. All Rights Reserved.</p>
   <p class="tiny copyright display-tablet hide-desktop">© 2018 Fullstack Digital, LLC. All Rights Reserved.</p>
+  </div>
+  
   
   <!--https://gohugo.io/templates/lists/-->
   </section>
