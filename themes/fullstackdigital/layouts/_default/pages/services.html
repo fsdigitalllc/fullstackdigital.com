@@ -1,0 +1,49 @@
+{{ define "main" }}
+
+{{ range $index, $sections := .Params.sections }}
+
+  <section{{ if .id }} id="{{ .id | safeHTML }}"{{ else }} id="{{ .template | safeHTML }}"{{ end }} data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
+
+{{ if eq .template "sub_nav" }}
+
+{{ partial "helpers/sub_nav.html" (dict "page" . "global" $ ) }}
+
+{{ end }}
+
+  {{ if eq .template "overview" }}
+  <div class="container flex h_children_center">
+    <div class="col-9 text-center">
+
+      {{ .icon | safeHTML }}
+
+    <h2>{{ .title | safeHTML }}</h2>
+    <p class="big-paragraph margin-s-top">{{ .lead | safeHTML }}</p>
+    <p>{{ .paragraph | safeHTML }}</p>
+    </div>
+  </div>
+
+  {{ end }}
+
+  {{ if eq .template "banner" }}
+  <div class="container-fullwidth flex h_children_center">
+      <div class="col-12">
+        <img class="fullwidth-img" src="{{ .image }}">
+      </div>
+    </div>
+  {{ end }}
+
+    {{ if eq .template "approach" }}
+    {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
+
+    {{ end }}
+
+    {{ if eq .template "expand-contact" }}
+        {{ partial "helpers/forms/expand-contact.html" (dict "page" . "global" $ "form" .form )}}
+    {{ end }}
+  
+
+  </section>
+  
+{{ end }}
+
+{{ end }}

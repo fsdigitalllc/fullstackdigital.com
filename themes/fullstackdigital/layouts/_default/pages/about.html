@@ -60,7 +60,7 @@
     {{ end }}
 
     {{ if eq .template "expand-contact" }}
-        {{ partial "helpers/forms/expand-contact.html" (dict "page" . "global" $)}}
+        {{ partial "helpers/forms/expand-contact.html" (dict "page" . "global" $ "form" .form )}}
     {{ end }}
   
 
