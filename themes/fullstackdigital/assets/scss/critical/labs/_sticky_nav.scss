@@ -1,0 +1,30 @@
+.stickyNav {
+  position: sticky;
+  top: 100px;
+  height: 100%;
+}
+.stickyNav ul:first-child > li a {
+  font-weight: bold;
+  font-size: 18px;
+}
+.stickyNav {
+  ul > ul {
+    border-left: 2px solid #f1f3f5;
+    margin-left: 0;
+    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-top: 10px;
+    padding-left: 16px;
+    padding-left: 1rem;
+    list-style: none;
+  }
+  ul > ul a {
+    font-size: 16px;
+  }
+  ul, li {
+    list-style: none;
+  }
+  a {
+    color: #000000;
+  }
+}

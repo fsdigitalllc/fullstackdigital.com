@@ -1717,3 +1717,31 @@ nav.sub .link-4 {
   .work-hero .t-col-12, .height-spacer .t-col-12 {
     flex-basis: 100%;
     width: 100%; } }
+
+.stickyNav {
+  position: sticky;
+  top: 100px;
+  height: 100%; }
+
+.stickyNav ul:first-child > li a {
+  font-weight: bold;
+  font-size: 18px; }
+
+.stickyNav ul > ul {
+  border-left: 2px solid #f1f3f5;
+  margin-left: 0;
+  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  margin-top: 10px;
+  padding-left: 16px;
+  padding-left: 1rem;
+  list-style: none; }
+
+.stickyNav ul > ul a {
+  font-size: 16px; }
+
+.stickyNav ul, .stickyNav li {
+  list-style: none; }
+
+.stickyNav a {
+  color: #000000; }

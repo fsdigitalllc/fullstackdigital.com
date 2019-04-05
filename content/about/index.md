@@ -9,6 +9,9 @@ night_header: false
 night_footer: true
 layout: "pages/about"
 language: en
+aliases:
+- "/contact/"
+- "/contact-us/"
 sections:
 - template: "sub_nav"
   count: "4"
@@ -78,9 +81,9 @@ sections:
     <polygon fill="none" stroke="#000" stroke-width="2" stroke-miterlimit="10" points="26,49.042 54.963,49.042 54.963,11.042   1,11.042 1,49.042 14,49.042 14,59.486 "></polygon>
     <polyline fill="none" stroke="#000" stroke-width="2" stroke-miterlimit="10" points="57,41.042 62.963,41.042 62.963,3.042   9,3.042 9,9 "></polyline>
     </svg>
-- template: "expand-contact"
-  id: "work-with-us"
-  classes: "cta-toggle"
+- template: "cta"
+  id: "contact"
+  classes: "cta-left"
   subtitle: "Get Started"
   title: "From presentation design to new brand strategy, we’ve got you covered."
   form:

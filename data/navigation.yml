@@ -13,6 +13,7 @@ main:
     title: "Work"
   - name: "Contact"
     title: "Contact"
+    url: "/about/#contact"
 footer:
   - row: 1
     columns:

@@ -1,0 +1,49 @@
+{{ define "main" }}
+<section>
+  <div class="container flex h_children_space-between">
+
+    <div class="col-8">
+        {{ .Content }}
+    </div>
+
+    <div class="col-3 stickyNav">
+
+      <ul>
+
+
+      </ul>
+    </div>
+    
+  </div>
+</section>
+
+<script type="text/javascript">
+
+let headers = document.querySelectorAll("h2, h3");
+let stickyNav = document.querySelector(".stickyNav ul");
+let ulHtml = '';
+
+headers.forEach(function (header, index) {
+  let navLink = `<li><a href="#${header.getAttribute("id")}">${header.innerText}</a></li>`;
+
+  if (header.tagName == "H2" && index === 0) {
+    //let ul = document.createElement("ul");
+    // stickyNav.appendChild(ul);
+    ulHtml += `${navLink}<ul>`;
+  } else if (header.tagName == "H2") {
+    ulHtml += `</ul>${navLink}<ul>`;
+  } else if (header.tagName == "H3") {
+    ulHtml += `${navLink}`;
+    //ul.innerHTML += `${navLink}`;
+  }
+  
+  if (index === headers.length - 1) {
+    //console.log(ulHtml);
+    stickyNav.innerHTML = ulHtml;
+  }
+  
+
+});
+
+</script>
+{{ end }}
