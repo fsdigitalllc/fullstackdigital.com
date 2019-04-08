@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-gb"
-title = "DEV Fullstack Digital / Brand, Web, Market"
+title = "Fullstack Digital"
 theme = ["pancakes-dev", "fullstackdigital"]
 
 enableRobotsTXT = true
@@ -15,6 +15,7 @@ disableKinds = ["taxonomy","taxonomyTerm"]
 [params]
 disallow_search_engines = true # set robots.txt to disallow everything
 debug_enabled = false
+favcon = ""
 # add redirects/headers
 [outputs]
 home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]

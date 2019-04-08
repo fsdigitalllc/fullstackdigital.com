@@ -7,7 +7,7 @@ description: "Projects we’re working on."
 date: 2018-07-03 04:00:00 +0000
 tags: []
 layout: "pages/labs"
-image: "/uploads/typeking-cover.png"
+image: "/uploads/labs/leadgate-open-tab.png"
 sections:
 - template: "overview"
   class: "padding-l-top"

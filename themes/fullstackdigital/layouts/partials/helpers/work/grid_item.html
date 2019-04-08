@@ -76,7 +76,7 @@
 
 {{ end }}
 
-{{ range $query }}
+{{ range $index, $items := $query }}
 {{ $tag := "" }}
 {{ if in .Path "market" }}
   {{ $tag = "market" }}
@@ -128,6 +128,7 @@
 
 
       {{/* <div class="gridgrow-image lazyload lazypreload" data-bg=''></div> */}}
+
       <img class="gridgrow-image lazyload lazypreload {{ $name }}" calc-size='' data-src='{{ $image.Permalink }}'>
 
       {{ if eq $featured false }}
@@ -247,7 +248,7 @@ let filterItems = document.querySelectorAll('[data-item-filter]');
 {{ end }}
 {{ if eq $featured true }}
 <script type="text/javascript">
-console.log("featured items loaded");
+console.log("featured items loading...");
 let gridItems = document.querySelectorAll(".gridgrow");
 let container = document.querySelector(".container");
 
@@ -484,6 +485,13 @@ function calcStart(item, clicked, reverse) {
         imageHeight = (image.naturalHeight / ratio) * 1.2;
         imageWidth = (image.naturalWidth / ratio) * 1.2;
         image.style.left = -50 + "px";
+      }
+      if (window.innerWidth <= 520) {
+        imageHeight = (image.naturalHeight / ratio) * .9;
+        imageWidth = (image.naturalWidth / ratio) * .9;
+        
+        image.style.left = (item.offsetWidth / 2) - + (imageWidth / 2) + "px";
+        image.style.top = 20 + "px";
       }
 
       image.style.right = 0;

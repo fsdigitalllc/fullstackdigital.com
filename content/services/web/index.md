@@ -11,8 +11,9 @@ date: 2018-07-03 04:00:00 +0000
 tags: []
 aliases:
   - "/work/web/"
-image: 
-  - "/uploads/typeking-cover.png"
+meta:
+  og_image: "images/og_image.jpg"
+  description: "From SaaS to Wordpress development, Fullstack works with global teams during times of invention to build an innovative web presence through an open, coherent approach."
 sections:
   - template: "service_title"
     classes: ""

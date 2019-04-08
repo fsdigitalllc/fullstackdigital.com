@@ -3,8 +3,8 @@ title: About
 name: "about"
 date: 2019-03-01 19:51:34 +0000
 published: true
-description: 'Fullstack Digital is a business-focused digital agency in Los Angeles.
-Our team is made up of ''full-stack'' experts across multiple disciplines.'
+description: |
+  We're a U.S. based digital agency offering forward thinking companies & organizations the design, development and promotion they deserve, with a seamless experience.
 night_header: false
 night_footer: true
 layout: "pages/about"
