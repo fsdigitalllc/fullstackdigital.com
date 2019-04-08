@@ -56,9 +56,6 @@
             {{ if eq $url "" }}
                 {{ $url = .Permalink }}
             {{ end }}
-            {{ if eq $currentPage $url }}
-                {{ $active = true }}
-            {{ end }}
         {{ end }}
     {{ end }}
   
@@ -80,8 +77,10 @@
         {{ with .title }}
             {{ $title = . }}
         {{ end }}
-        {{ with .url }}
-            {{ $url = . }}
+        {{ if .url }}
+            {{ $url = .url }}
+        {{ else }}
+            {{ $url = "" }}
         {{ end }}
 
 
@@ -91,12 +90,9 @@
                 {{ if eq $url "" }}
                     {{ $url = .Permalink }}
                 {{ end }}
-                {{ if eq $currentPage $url }}
-                    {{ $active = true }}
-                {{ end }}
             {{ end }}
         {{ end }}
-        <li><a href ="{{ $url }}">{{ $title }}</a></li>
+        <li><a href ="{{ $url }}">{{ $title | humanize }}</a></li>
       
     {{ end }}
     </ul>

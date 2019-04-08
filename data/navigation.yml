@@ -31,8 +31,10 @@ footer:
         menu:
           - name: "news"
             title: "News"
+            url: "https://news.fullstackdigital.com/"
           - name: "blog"
             title: "Blog"
+            url: "https://blog.fullstackdigital.com"
           - name: "Labs"
             title: "labs"
       - title: "Connect"

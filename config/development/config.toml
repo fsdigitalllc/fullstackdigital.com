@@ -5,6 +5,7 @@ theme = ["pancakes-dev", "fullstackdigital"]
 
 enableRobotsTXT = true
 disableAliases = true
+disableKinds = ["taxonomy","taxonomyTerm"]
 
 [permalinks]
   pages = "/:section/:title/"

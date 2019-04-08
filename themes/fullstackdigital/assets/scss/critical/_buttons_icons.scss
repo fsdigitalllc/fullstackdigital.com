@@ -10,6 +10,17 @@
   margin-left: 20px;
   margin-right: -10px;
 }
+.hover-left svg {
+  margin-left: 0;
+  margin-right: 10px;
+  transition: margin-left 1s;
+  -webkit-transition: margin-left 1s,margin-right 1s;
+  transition: margin-left 1s,margin-right 1s;
+}
+.hover-left:hover svg {
+  margin-left: -10px;
+  margin-right: 20px;
+}
 .button.fill.deepblue {
   background: #0069f2;
 }
