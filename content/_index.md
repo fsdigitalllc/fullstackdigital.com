@@ -1,5 +1,5 @@
 ---
-title: Home
+title: "Fullstack Digital / Digital Agency / Strategy, Design, Development & Marketing"
 date: 2019-03-01 19:51:34 +0000
 published: true
 description: 'Fullstack Digital is a business-focused digital agency in Los Angeles.
@@ -7,6 +7,8 @@ Our team is made up of ''full-stack'' experts across multiple disciplines.'
 night_header: false
 night_footer: true
 language: en
+meta:
+  title: "Fullstack Digital / Digital Agency / Strategy, Design, Development & Marketing"
 sections:
   - template: "service_title"
     classes: "padding-l"

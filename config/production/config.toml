@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-gb"
-title = "Fullstack Digital / Brand, Web, Market"
+title = "Fullstack Digital"
 theme = ["pancakes-builder", "fullstackdigital"]
 
 ignorefiles = [ "admin", "docs" ]
@@ -14,7 +14,7 @@ disableKinds = ["taxonomy","taxonomyTerm"]
   work = "/:sections/:slug/"
 
 [params]
-disallow_search_engines = true # set robots.txt to disallow everything
+disallow_search_engines = false # set robots.txt to disallow everything
 debug_enabled = false
 # add redirects/headers
 [outputs]

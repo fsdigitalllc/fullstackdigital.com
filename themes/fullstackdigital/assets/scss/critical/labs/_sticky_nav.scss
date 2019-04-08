@@ -35,6 +35,9 @@
   a {
     color: #000000;
   }
+  a:active, a:focus {
+    color: #05f;
+  }
 }
 @media screen and (max-width: $screen-tablet) {
   .stickyNav {

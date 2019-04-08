@@ -22,9 +22,9 @@
 }
 .gridgrow.loaded {
   opacity: 1;
-  // animation-name: loading-grid; /* IE 10+, Fx 29+ */
-  // animation-duration: 0.8s;
-  // animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
+  animation-name: loading-grid; /* IE 10+, Fx 29+ */
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
 }
 
 .work-grid {
@@ -188,6 +188,60 @@
     .gridwrap {
       padding-top: 4%;
       margin-top: -4%;
+    }
+  }
+  @media screen and (max-width: $screen-desktop-s) {
+    .gridgrow {
+      height: 50vh;
+    }
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 22px;
+    }
+  }
+  @media screen and (max-width: $screen-tablet) {
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+    .gridgrow .card-footer {
+      width: 40%;
+    }
+    .gridwrap {
+      justify-content: space-between;
+    }
+    .gridgrow .excerpt-group {
+      max-width: 300px;
+    }
+  }
+  @media screen and (max-width: $screen-mobile-l) {
+    .gridgrow {
+      height: 80vh;
+    }
+    // .gridgrow .card-footer {
+    //   padding-top: 20%;
+    // }
+    .gridwrap {
+      flex-direction: column;
+    }
+    .gridgrow .card-footer {
+      width: 100%;
+    }
+    .gridgrow .excerpt-group {
+      max-width: 100%;
+    }
+    .card-footer {
+      order: 2;
+    }
+    .gridgrow .gridgrow-image-holder {
+      order: 1;
+    }
+    .gridgrow .gridgrow-image-holder {
+      width: 100%;
     }
   }
 }

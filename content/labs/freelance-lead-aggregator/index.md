@@ -8,6 +8,10 @@ date: 2019-04-07 04:00:00 +0000
 tags: ["Wordpress"]
 image: "/uploads/labs/leadgate-open-tab.png"
 excerpt: "Lead aggregator tool for freelancers/contractors."
+meta:
+  title: "Freelance Lead Generation Platform"
+  description: "Monitor the web for freelance work,  contracts, and new opportunities."
+  image: "/uploads/labs/leadgate-open-tab.png"
 grid_item:
   title: "Freelance Lead Generation"
   weight: 2

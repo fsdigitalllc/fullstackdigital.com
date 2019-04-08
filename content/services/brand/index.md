@@ -1,5 +1,5 @@
 ---
-title: 'Brand'
+title: 'Full Service Branding'
 name: "brand"
 night_header: false
 night_footer: true
@@ -11,8 +11,9 @@ date: 2018-07-03 04:00:00 +0000
 tags: []
 aliases:
   - "/work/brand/"
-image: 
-  - "/uploads/typeking-cover.png"
+meta:
+  og_image: "/images/og_image.png"
+  description: "From presentation design to new brand strategy, Fullstack works with global teams during times of invention to build innovative brands through an open, coherent approach."
 sections:
   - template: "service_title"
     classes: ""
@@ -62,12 +63,16 @@ sections:
     subtitle: "Fullstack Branding Work"
     title: "Not just projects, collaborations where we helped imagine the future."
     grid:
+      layout: "grid"
+      tabs: false
       columns: "2"
+      category: "brand"
+      count: "4"
       items:
-        - name: "dell"
-        - name: "quantum"
-        - name: "threefactor"
-        - name: "ddn"
+      - name: "code"
+      - name: "quantum"
+      - name: "threefactor"
+      - name: "fariastechnique"
   - template: "related_content"
     subtitle: "Fullstack Branding Today"
     title: "How we stay current in the world of digital branding."

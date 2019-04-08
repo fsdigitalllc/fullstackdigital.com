@@ -1,5 +1,5 @@
 ---
-title: 'Services'
+title: 'Brand, Web, and Marketing Services'
 name: "services"
 language: en
 published: true
@@ -7,7 +7,8 @@ description: Fullstack Services
 date: 2018-07-03 04:00:00 +0000
 tags: []
 layout: "pages/services"
-image: "/uploads/typeking-cover.png"
+meta:
+  description: "Work with one digital partner to brand, digitize, and market your business. A clean brand experience, created by multi-talented ‘full-stack’ creators, builders and strategists."
 sections:
 - template: "overview"
   classes: "break-tablet padding-l"
