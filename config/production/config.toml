@@ -3,9 +3,10 @@ languageCode = "en-gb"
 title = "Fullstack Digital / Brand, Web, Market"
 theme = ["pancakes-builder", "fullstackdigital"]
 
-ignorefiles = [ "admin" ]
+ignorefiles = [ "admin", "docs" ]
 enableRobotsTXT = true
 disableAliases = true
+disableKinds = ["taxonomy","taxonomyTerm"]
 
 [permalinks]
   pages = "/:section/:title/"
