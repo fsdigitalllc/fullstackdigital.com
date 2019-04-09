@@ -264,7 +264,7 @@ function positionCaption () {
     let gridCaption = item.querySelector(".excerpt-group");
     let image = item.querySelector(".gridgrow-image");
 
-    console.log(image);
+    //console.log(image);
     gridCaption.style.left = container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft) + "px";
     gridCaption.style.position = "absolute";
 
@@ -315,6 +315,7 @@ let grid = document.querySelector(".work-container");
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 let mobileScrollbar;
 let featured;
+let startPageLink = window.location.pathname;
 
 if (scrollbarWidth === 0) {
   console.log("no scrollbarwidth");
@@ -351,7 +352,7 @@ gridImages.forEach(function(image, imageLoaded = 0) {
   // console.log("loaded " + image);
   image.addEventListener('load', () => {
     // if (image.classList.contains("lazyloaded")) {
-      console.log(image);
+      //console.log(image);
       imageLoaded++;
       let item = image.parentElement.parentElement.parentElement;
       let link = item.querySelector("a");
@@ -366,7 +367,8 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       calcStart(item, clicked, reverse);
 
       if ( imageLoaded === gridImages.length ) {
-        //console.log("----- All Images Loaded Image Loaded.... run animate grid ");
+        // console.log("----- All Images Loaded Image Loaded.... run animate grid ");
+        // document.querySelector("body").classList.remove("loading");
         //console.log(imageLoaded);
         // Grid can be animated now since all initial values are set
         //animateGrid();
@@ -450,7 +452,7 @@ let pageUrl = window.location;
 function calcStart(item, clicked, reverse) {
 
     
-    console.log("setimagesize");
+    //console.log("setimagesize");
     let image = item.querySelector(".gridgrow-image");
     let imageWrapper = image.parentNode;
     let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
@@ -514,7 +516,7 @@ function calcStart(item, clicked, reverse) {
         image.style.left = (imageWrapper.offsetWidth - imageWidth) / 2 + "px";
       }
       if (!item.classList.contains("active")) {
-        console.log(imageWrapper.offsetHeight);
+        //console.log(imageWrapper.offsetHeight);
         //console.log(gridgrowWidth);
         image.style.top = (imageWrapper.offsetHeight - wrapperMargin - imageHeight) / 2 + "px";
         image.style.height = imageHeight + "px";
@@ -600,7 +602,7 @@ function calcStart(item, clicked, reverse) {
       }
         
       //console.log("START OFFSET LEFT:");
-      console.log("offset leftt:" + initialValue.containerOffsetLeft);
+      //console.log("offset leftt:" + initialValue.containerOffsetLeft);
       //console.log(initialValue.mobileScrollbar, item.offsetTop, itemImage.offsetTop, grid.offsetParent.offsetTop, initialValue.wrapperMarginTop);
       //console.log(itemImage.style.width);
       //animateClick(e, initialValue);
@@ -640,7 +642,7 @@ let gridgrowWidth = item.offsetWidth;
     let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
     let translateX, wipeTranslateX;
     if (featured) {
-      console.log("left: " + (-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
+      //console.log("left: " + (-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
       
       translateX = ((-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
       
@@ -703,11 +705,11 @@ let gridgrowWidth = item.offsetWidth;
       }
   }
   
-  console.log("startValue:");
-  console.log(initialValue);
+  //console.log("startValue:");
+  //console.log(initialValue);
   // console.log("endValue:");
-  console.log(endValue);
-  console.log("END LEFT: " + endValue);
+  //console.log(endValue);
+  //console.log("END LEFT: " + endValue);
 
   if (clicked) {
     animateItem(item, initialValue, endValue, reverse);
@@ -839,9 +841,10 @@ function animateItem(item, initialValue, endValue, reverse) {
                 delay: 600,
                 duration: 100,
                 complete: function() {
-                  workAjax.style.overflowY = "scroll";
+                  //workAjax.style.overflowY = "scroll";
                 }
               });
+              workAjax.style.overflowY = "scroll";
               //itemImage.style.width = endValue.item.width;
               reverseAnimation(item, initialValue, startValue, endValue);
               // window.addEventListener("resize", function(){
@@ -899,6 +902,8 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
       delay: 0,
       complete: function() {
         calcStart(item, initialValue, endValue, reverse, clicked);
+        console.log(initialValue);
+        console.log(endValue);
         //console.log("REVERSE COMPLETE");
       }
     });
@@ -935,7 +940,8 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
     });
 
     workAjax.innerHTML = "";
-    
+
+    window.history.pushState("object or string", "Title", startPageLink);
   } else {
     let nextLink = item.querySelector("a").getAttribute("href");
       
@@ -1002,7 +1008,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
 }
 
 function insertScript (script, callback) {
-  console.log(script);
+  //console.log(script);
   var s = document.createElement('script')
   s.type = 'text/javascript'
   if (script.src) {
@@ -1114,8 +1120,8 @@ function runScripts (container, nextLink) {
 }
 
 function redoAos(container) {
-  console.log("redoaos");
-  console.log(container);
+  // console.log("redoaos");
+  // console.log(container);
 // Find the item we want to animate on scroll
 let target = container.querySelector('[data-aos]');
 
