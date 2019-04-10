@@ -135,6 +135,10 @@
   .nav-list .sub li:hover {
     background: #efefef;
   }
+  .nav-list > li:last-child a {
+    color: #1BACFF;
+    font-weight: 900;
+  }
 }
 .night-header {
   .masthead {
