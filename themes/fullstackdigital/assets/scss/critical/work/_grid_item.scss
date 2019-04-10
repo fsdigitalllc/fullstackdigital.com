@@ -1,12 +1,29 @@
 .reverseAnimation {
   position: fixed;
-  top: 50px;
+  top: 10%;
   right: 50px;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
-  z-index:999999;
+  z-index: 999999;
+  background: transparent;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+.reverseAnimation svg line {
+  stroke: rgba(255, 255, 255, 0.6);
+}
+.reverseAnimation:hover {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+.reverseAnimation:hover svg line {
+  stroke: rgba(255, 255, 255, 0.3);
+}
+
 .gridgrow {
   opacity: 0;
 }
@@ -111,16 +128,16 @@
     overflow: hidden;
   }
   .gridgrow:nth-child(1) {
-    z-index: 99
+    z-index: 10
   }
   .gridgrow:nth-child(2) {
-    z-index: 98
+    z-index: 11
   }
   .gridgrow:nth-child(3) {
-    z-index: 97
+    z-index: 12
   }
   .gridgrow:nth-child(5) {
-    z-index: 96
+    z-index: 13
   }
   .gridgrow .gridgrow-image-holder {
     height: 100%;
@@ -450,6 +467,10 @@
   }
   .work-container.row-2 {
     grid-template-columns: 1fr;
+  }
+  .reverseAnimation {
+    width: 35px;
+    height: 35px;
   }
 }
 

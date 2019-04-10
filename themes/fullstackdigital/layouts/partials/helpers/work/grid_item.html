@@ -12,13 +12,13 @@
 {{ if eq $tabs true }}
 <div class="work-grid-tabs container padding-s-bottom">
   <div class="flex h_children_space-between">
-    <div class="brand active" data-filter="brand">
+    <div class="brand active" data-aos="fade" data-aos-delay="200" data-aos-duration="1400" data-filter="brand">
         <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
           <path stroke-width="2" stroke-miterlimit="10" d="M1,21c0,20,31,38,31,38s31-18,31-38  c0-8.285-6-16-15-16c-8.285,0-16,5.715-16,14c0-8.285-7.715-14-16-14C7,5,1,12.715,1,21z"></path>
           </svg>
         <span>Brand</span>
       </div>
-      <div class="web" data-filter="web">
+      <div class="web" data-aos="fade" data-aos-delay="400" data-aos-duration="1400" data-filter="web">
           <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
             <g>
             <rect x="1" y="10" stroke-width="2" stroke-miterlimit="10" width="62" height="41"></rect>
@@ -29,7 +29,7 @@
             </svg>
           <span>Web</span>
         </div>
-        <div class="market" data-filter="market">
+        <div class="market" data-aos="fade" data-aos-delay="600" data-aos-duration="1400" data-filter="market">
           <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
             <polygon stroke-width="2" stroke-miterlimit="10" points="26,49.042 54.963,49.042 54.963,11.042   1,11.042 1,49.042 14,49.042 14,59.486 "></polygon>
             <polyline stroke-width="2" stroke-miterlimit="10" points="57,41.042 62.963,41.042 62.963,3.042   9,3.042 9,9 "></polyline>
@@ -897,9 +897,12 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
   //   setFinalValues(item, initialValue, startValue, endValue);
   // });
 
-  let reverseBtn = document.createElement("div");
+  let reverseBtn = document.createElement("button");
   reverseBtn.classList.add("reverseAnimation");
-  reverseBtn.innerHTML = `<span>Close</span><i class="fa fa-window-close" aria-hidden="true"></i>`;
+  reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" height="auto" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+    <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+    <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+    </svg>`;
 
   //reverseBtn.appendChild(t);
   document.body.appendChild(reverseBtn);
