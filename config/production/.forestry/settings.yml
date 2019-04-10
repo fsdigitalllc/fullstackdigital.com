@@ -9,7 +9,7 @@ sections:
   label: Pages
   create: all
   match: "**/*.md"
-upload_dir: config/production/static/uploads
+upload_dir: content/uploads
 public_path: "/uploads"
 front_matter_path: ''
 use_front_matter_path: false
