@@ -15,9 +15,7 @@ sections:
   title: We <span class="underline color-babyblue">make brands.</span><br>Mostly for
     the tech world.
   paragraph: 'Fullstack works with B2B teams during times of invention to build innovative
-    brands through an open, coherent approach.
-
-'
+    brands through an open, coherent approach.'
   logos_color: black
   logos_link: false
   logos:
@@ -34,9 +32,7 @@ sections:
     &amp; personality. We <strong>create</strong> identities that weave company heritage
     into the logo &amp; beyond. We <strong>build</strong> strategies that navigate
     brands to success in the digital world. Above all, we <strong>keep</strong> team
-    mission, vision &amp; values at the core of everything we do.
-
-'
+    mission, vision &amp; values at the core of everything we do.'
 - template: related_work
   grid:
     layout: row
@@ -48,6 +44,7 @@ sections:
     - name: threefactor
     - name: ddn
 - template: service_offering
+  id: "services"
   classes: padding-l
 - template: related_content
   classes: padding-l

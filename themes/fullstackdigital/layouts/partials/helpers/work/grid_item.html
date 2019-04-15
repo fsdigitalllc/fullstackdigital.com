@@ -198,7 +198,7 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script> -->
 {{ if eq $tabs true }}
 <script type="text/javascript">
-console.log("Tabs loaded----------");
+//console.log("Tabs loaded----------");
 let filterBtns = document.querySelectorAll('[data-filter]');
 let filterItems = document.querySelectorAll('[data-item-filter]');
   filterBtns.forEach(function(button, index) {
@@ -248,7 +248,7 @@ let filterItems = document.querySelectorAll('[data-item-filter]');
 {{ end }}
 {{ if eq $featured true }}
 <script type="text/javascript">
-console.log("featured items loading...");
+//console.log("featured items loading...");
 let gridItems = document.querySelectorAll(".gridgrow");
 let container = document.querySelector(".container");
 
@@ -611,8 +611,8 @@ function calcStart(item, clicked, reverse) {
           left: parseFloat(itemImage.style.left),
           top: itemImage.offsetTop,
           backgroundPositionY: "60%",
-          duration: 400,
-          delay: 50,
+          duration: 600,
+          delay: 0,
           easing: "swing",
           z: itemImage.style.zIndex,
         },
@@ -702,8 +702,8 @@ let gridgrowWidth = item.offsetWidth;
         translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
         left: initialValue.mobileScrollbar,
         top: "0px",
-        duration: 500,
-        delay: 50,
+        duration: 600,
+        delay: 0,
         easing: "swing",
         z: 888
       },
@@ -715,7 +715,7 @@ let gridgrowWidth = item.offsetWidth;
         offsetLeft: wipeParent.offsetLeft,
         left: initialValue.item.left,
         top: "0px",
-        duration: 500,
+        duration: 600,
         delay: 50,
         easing: "swing",
         z: 999
@@ -769,7 +769,8 @@ function animateItem(item, initialValue, endValue, reverse) {
 
     startValue = endValue;
     endValue = initialValue;
-    item.classList.remove("active");
+    
+    //wipe.zIndex = 888;
     itemImage.style.visibility = "visible";
   } else {
 
@@ -961,6 +962,10 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
       display: "none",
     }, {
       duration: 0,
+      complete: function() {
+          //console.log("REVERSE COMPLETE");
+          item.classList.remove("active");
+        }
     });
 
     workAjax.innerHTML = "";

@@ -12,6 +12,7 @@
                 </svg>
             </a>
         </li>
+        {{ $linkTo := true }}
         {{ range .Site.Data.navigation.main }}
         {{- /* <!--here are the vars --> */ -}}
         
@@ -20,6 +21,7 @@
         {{ $sub := "" }}
         {{ $title := ""}}
         {{ $active := false }}
+        
         {{ $pageName := ""}}
         {{ $currentPage := $.Permalink }}
         
@@ -34,6 +36,8 @@
             {{ with .url }}
                 {{ $url = . }}
             {{ end }}
+
+            {{ $linkTo = .linkTo | default true }}
             
         {{ range $index, $nav := where $.Site.Pages ".Params.name" $name }}
             {{ $pageName = lower .Params.name }}
@@ -47,7 +51,7 @@
                     {{ end }}
                 {{ end }}
         {{ end }}
-        <li{{ if eq $active true }} class="active"{{ end }}><a href ="{{ $url }}">{{ $title }}</a>
+        <li{{ if eq $active true }} class="active"{{ end }}><a{{ if ne $linkTo false }} href ='{{ $url }}'{{ end }}>{{ $title }}</a>
         
         {{ if .sub }}
         

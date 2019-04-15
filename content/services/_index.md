@@ -6,6 +6,7 @@ published: true
 description: Fullstack Services
 date: 2018-07-03 04:00:00 +0000
 tags: []
+linkTo: false
 layout: "pages/services"
 meta:
   description: "Work with one digital partner to brand, digitize, and market your business. A clean brand experience, created by multi-talented ‘full-stack’ creators, builders and strategists."
@@ -13,7 +14,7 @@ sections:
 - template: "overview"
   classes: "break-tablet padding-l"
   title: |
-    We help B2B tech companies<br> go further, faster.
+    wWe help B2B tech companies<br> go further, faster.
   lead: |
     We help growth-focused tech companies with brand, web, and marketing activities.
 - template: "banner"

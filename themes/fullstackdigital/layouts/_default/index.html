@@ -16,7 +16,7 @@ logos:
 
 {{ range $index, $sections := .Params.sections }}
 
-  <section data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
+  <section{{ with .id }} id="{{ . }}"{{ end }} data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
 
   {{ if eq .template "service_title" }}
   <div class="container flex h_children_start">

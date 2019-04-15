@@ -81,6 +81,9 @@
     padding: 15px 0;
     text-decoration: none;    
   }
+  a:hover {
+    cursor: pointer;
+  }
   li.active a {
     opacity: 0.45;
   }
