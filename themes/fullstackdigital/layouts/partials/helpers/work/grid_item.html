@@ -368,6 +368,15 @@ gridImages.forEach(function(image, imageLoaded = 0) {
       calcStart(item, clicked, reverse);
 
       if ( imageLoaded === gridImages.length ) {
+        //console.log("remove html class");
+        document.querySelector("html").classList.remove("pageTransition");
+        document.querySelector("body").classList.remove("loading");
+        AOS.init({
+          offset: 0,
+          once: true,
+          delay: 0, // values from 0 to 3000, with step 50ms
+          duration: 400, // values from 0 to 3000, with step 50ms
+        });
         // console.log("----- All Images Loaded Image Loaded.... run animate grid ");
         // document.querySelector("body").classList.remove("loading");
         //console.log(imageLoaded);
