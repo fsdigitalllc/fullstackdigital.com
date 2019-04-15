@@ -163,7 +163,7 @@
     justify-content: center;
     height: 100%;
   }
-  .gridgrow:hover {
+  .gridgrow:hover, .gridgrow.active {
     z-index: 100;
   }
   .gridgrow:hover .gridwrap {
@@ -205,6 +205,11 @@
     .gridwrap {
       padding-top: 4%;
       margin-top: -4%;
+    }
+  }
+  .gridgrow.active {
+    .wipe {
+      z-index: 888;
     }
   }
   @media screen and (max-width: $screen-desktop-s) {
