@@ -4,8 +4,6 @@
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
 
-
-
 {{ $plugins_js := slice $ls_unveil $lazy_js $aos | resources.Concat "js/plugins.js" | minify | fingerprint }}
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
 <script>lazySizes.init();</script>
@@ -62,6 +60,6 @@
 </script>
 
 
-{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | minify }}
+{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | postCSS | minify }}
 
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>

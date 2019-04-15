@@ -2,9 +2,9 @@
 <style class="page_critical_css">
  {{ $critical_css := "" }}
 {{ if $.Site.IsServer }}
-  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS }}
+  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | postCSS }}
 {{ else }}
-  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | minify }}
+  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | postCSS | minify }}
 {{ end }}
 
 {{ (slice $critical_css | resources.Concat "style.scss").Content | safeCSS }}
