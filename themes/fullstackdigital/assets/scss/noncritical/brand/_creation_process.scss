@@ -2,58 +2,6 @@
   .col-3 {
     flex-basis: 28%;
   }
-  .perspecitive-col {
-    min-width: 320px;
-  }
-  .perspective-items {
-    position: relative;
-    padding: 50px;
-    perspective: 500px
-  }
-
-  .perspective-item {
-    padding: 60px 0 60px 0;
-    margin: -120px 0 -120px 0;
-    transform-origin: center center
-  }
-
-  .perspective-item:nth-child(1) {
-    background: #96e4ff;
-    transform: rotateX(50deg);
-    transition: transform .5s linear
-  }
-
-  .perspective-item:nth-child(1):hover {
-    transform: rotateX(45deg) translateZ(10px);
-    transition: transform .5s linear
-  }
-
-  .perspective-item:nth-child(2) {
-    background: #5ec5ff;
-    transform: rotateX(65deg);
-    transition: transform .5s linear
-  }
-
-  .perspective-item:nth-child(2):hover {
-    transform: rotateX(60deg) translateZ(10px);
-    transition: transform .5s linear
-  }
-
-  .perspective-item:nth-child(3) {
-    background: #0069f1;
-    transform: rotateX(80deg);
-    transition: transform .5s linear
-  }
-
-  .perspective-item:nth-child(3):hover {
-    transform: rotateX(75deg) translateZ(10px);
-    transition: transform .5s linear
-  }
-
-  .perspective-item svg {
-    display: block;
-    margin: auto
-  }
   .black-number {
     background: #000000;
     border-radius: 50%;
