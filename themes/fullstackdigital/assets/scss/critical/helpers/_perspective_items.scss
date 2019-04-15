@@ -1,0 +1,68 @@
+.perspecitive-col {
+  min-width: 320px;
+}
+.perspective-items {
+  position: relative;
+  padding: 50px;
+  perspective: 500px
+}
+
+.perspective-item {
+  padding: 60px 0 60px 0;
+  margin: -120px 0 -120px 0;
+  transform-origin: center center
+}
+/* @keyframes duration | timing-function | delay | 
+iteration-count | direction | fill-mode | play-state | name */
+.perspective-item:nth-child(1) {
+  background: #96e4ff;
+  transform: rotateX(40deg);
+  animation: 1.2s flip1 0s 1 forwards;
+  // transition: transform .6s linear
+}
+@-webkit-keyframes flip1 {
+  0%   { transform: rotateX(40deg); /* Google Chrome & Webkit Nightlies */}
+  100% { transform: rotateX(50deg); /* Google Chrome & Webkit Nightlies */ }
+}
+.perspective-item:nth-child(1):hover {
+  // transform: rotateX(45deg) translateZ(10px);
+  // transition: transform .6s linear;
+  animation: 1s flip1 0s 1 reverse;
+}
+
+.perspective-item:nth-child(2) {
+  background: #5ec5ff;
+  transform: rotateX(55deg);
+  animation: 1.8s flip2 0s 1 forwards;
+  transition: transform .5s linear;
+}
+@-webkit-keyframes flip2 {
+  0%   { transform: rotateX(55deg); /* Google Chrome & Webkit Nightlies */}
+  100% { transform: rotateX(65deg); /* Google Chrome & Webkit Nightlies */ }
+}
+.perspective-item:nth-child(2):hover {
+  // transform: rotateX(65deg) translateZ(10px);
+  // transition: transform .5s linear;
+  animation: 1s flip2 0s 1 reverse;
+}
+
+.perspective-item:nth-child(3) {
+  background: #0069f1;
+  transform: rotateX(70deg);
+  animation: 2.6s flip3 0s 1 forwards;
+  transition: transform .5s linear;
+}
+@-webkit-keyframes flip3 {
+  0%   { transform: rotateX(70deg); /* Google Chrome & Webkit Nightlies */}
+  100% { transform: rotateX(80deg); /* Google Chrome & Webkit Nightlies */ }
+}
+.perspective-item:nth-child(3):hover {
+  // transform: rotateX(75deg) translateZ(10px);
+  // transition: transform .5s linear;
+  animation: 1s flip3 0s 1 reverse;
+}
+
+.perspective-item svg {
+  display: block;
+  margin: auto
+}

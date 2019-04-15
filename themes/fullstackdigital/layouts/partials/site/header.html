@@ -59,12 +59,13 @@
         {{ $url = "" }}
         {{ $sub = "" }}
         {{ $title = ""}}
-        {{ $active = false }}
+        
         {{ $pageName = ""}}
         {{ $currentPage = $.Permalink }}
         
             <ul class="sub">
             {{ range .sub }}
+                {{ $active = false }}
                 {{ with .name }}
                     {{ $name = lower . }}
                     {{ $title = . }}

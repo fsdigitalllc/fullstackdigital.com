@@ -26,8 +26,7 @@ footer:
             title: "About"
           - name: "services"
             title: "Services"
-          - name: "Jobs"
-            title: "jobs"
+            url: "/#services"
       - title: "Latest"
         menu:
           - name: "news"
@@ -42,9 +41,10 @@ footer:
         menu:
           - name: "Dribbble"
             title: "Dribbble"
+            url: "https://dribbble.com/fullstackdigital"
           - name: "Twitter"
             title: "Twitter"
-          - name: "LinkedIn"
-            title: "LinkedIn"
+            url: "https://twitter.com/fullstackdigitl"
           - name: "Instagram"
             title: "Instagram"
+            url: "https://www.instagram.com/fullstack_digital/"
