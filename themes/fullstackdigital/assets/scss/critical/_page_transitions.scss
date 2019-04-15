@@ -1,0 +1,5 @@
+.pageAnimating main {
+  opacity: 0;
+  visibility: hidden;
+  animation: opacity 1s linear, visibility 1s linear,
+}

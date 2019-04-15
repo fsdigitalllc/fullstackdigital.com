@@ -2252,8 +2252,22 @@ nav.sub .link-4 {
     margin: auto;
     display: block; } }
 
-.pageAnimating .home .logo-link {
+.pageAnimating .home .logo-link, .pageTransition .home .logo-link {
   display: block; }
+
+.pageTransition main {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0s linear, visibility 0s linear;
+  -o-transition: opacity 0s linear, visibility 0s linear;
+  transition: opacity 0s linear, visibility 0s linear; }
+
+.pageTransition section {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0s linear, visibility 0s linear;
+  -o-transition: opacity 0s linear, visibility 0s linear;
+  transition: opacity 0s linear, visibility 0s linear; }
 
 .home .logo-link {
   display: none; }

@@ -21,12 +21,18 @@
 </script>
 
 <script type="text/javascript">
-    AOS.init({
-      offset: 0,
-      once: true,
-      delay: 0, // values from 0 to 3000, with step 50ms
-      duration: 400, // values from 0 to 3000, with step 50ms
-    });
+
+if (window.location.pathname === "/") {
+  animateOnLoad();
+} else {
+  AOS.init({
+    offset: 0,
+    once: true,
+    delay: 0, // values from 0 to 3000, with step 50ms
+    duration: 400, // values from 0 to 3000, with step 50ms
+  });
+}
+    
 
   function startPage() {
     console.log("startPage");

@@ -1,5 +1,15 @@
-.pageAnimating .home .logo-link {
+.pageAnimating .home .logo-link, .pageTransition .home .logo-link {
   display: block;
+}
+.pageTransition main {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0s linear, visibility 0s linear,
+}
+.pageTransition section {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0s linear, visibility 0s linear,
 }
 .home {
   .logo-link {
