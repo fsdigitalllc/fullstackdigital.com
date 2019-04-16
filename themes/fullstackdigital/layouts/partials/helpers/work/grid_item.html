@@ -1128,9 +1128,25 @@ function runScripts (container, nextLink) {
       let path = image.getAttribute("src");
 
       if (!new RegExp("^(?:/|.+://)").test(path)) {
-        //console.log(path);
+        console.log(path);
         path = nextLink + path;
         image.setAttribute("src", path);
+      }
+    });
+
+    var allSections = workAjax.querySelectorAll('section');
+    allSections.forEach(section => {
+      let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
+
+      if (m) {
+          console.log(`background image url`);
+          let newLink = window.location.origin + startPageLink;
+          console.log(newLink);
+          m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
+          m = m.replace(newLink, '', /["']?\)$/, '')
+          m = window.location.origin + nextLink + m;
+          console.log(`${m}`);
+          section.style.backgroundImage = "background-image: url(" + m + ")";
       }
     });
 
