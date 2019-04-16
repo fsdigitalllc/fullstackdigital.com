@@ -53,8 +53,7 @@ stacks:
   id: discovery
   class:
   css: 
-  - rule: "{background-color: #ffffff}"
-  - rule: "{background: url(images/q-mark.png)no-repeat right #ffffff;}"
+  - rule: "{background-image: url(images/q-mark.png); background-repeat: no-repeat;background-position-x: right; background-color: #ffffff;background-size: contain;}"
   - rule: ".invisible {opacity: 0;}"
     tablet:
     - rule: ".invisible {opacity: 1;}"
