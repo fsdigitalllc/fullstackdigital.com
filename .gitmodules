@@ -1,3 +1,4 @@
 [submodule "themes/pancakesBuilder"]
 	path = themes/pancakesBuilder
 	url = https://github.com/pancakes-builder/pancakesBuilder.git
+	branch = legacy
