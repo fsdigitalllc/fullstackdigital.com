@@ -1138,15 +1138,18 @@ function runScripts (container, nextLink) {
     allSections.forEach(section => {
       let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
 
-      if (m) {
-          console.log(`background image url`);
+      if (m === "none") {
+          //console.log(`background image url`);
+          //console.log(m);
+          m = "";
+      } else {
           let newLink = window.location.origin + startPageLink;
-          console.log(newLink);
           m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
           m = m.replace(newLink, '', /["']?\)$/, '')
           m = window.location.origin + nextLink + m;
           console.log(`${m}`);
-          section.style.backgroundImage = "background-image: url(" + m + ")";
+          //section.style.backgroundImage = "background-image: url(" + m + ")";
+          section.style.backgroundImage = "url('" + m + "')";
       }
     });
 
