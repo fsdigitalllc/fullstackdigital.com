@@ -2,3 +2,6 @@
 	path = themes/pancakesBuilder
 	url = https://github.com/pancakes-builder/pancakesBuilder.git
 	branch = legacy
+[submodule "themes/pancakesDashboard"]
+	path = themes/pancakesDashboard
+	url = https://github.com/pancakes-builder/pancakesDashboard.git
