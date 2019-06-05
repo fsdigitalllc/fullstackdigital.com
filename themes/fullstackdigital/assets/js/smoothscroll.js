@@ -93,8 +93,7 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
     }
     return;
   }
-
-
+  
   // function resolves position of a window and moves to exact amount of pixels
   // Resolved by calculating delta and timing function choosen by user
   function scroll() {
@@ -122,29 +121,14 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
   scroll();
 }
 
-// Scroll to section 1
-// document.querySelector('.js-btn1').addEventListener('click', () => {
-//   scrollIt(
-//     document.querySelector('.js-section1'),
-//     300,
-//     'easeOutQuad',
-//     () => console.log(`Just finished scrolling to ${window.pageYOffset}px`)
-//   );
-// });
-
 let links = document.querySelectorAll('a[href^="#"]');
 
-console.log(links);
 links.forEach(function (link) {
-
   let anchor = link.getAttribute("href");
   let scrollPosition = document.querySelector(anchor);
   
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log("clicked");
-      console.log(anchor);
-      console.log(scrollPosition);
       scrollIt(
         scrollPosition,
         300,
@@ -152,7 +136,4 @@ links.forEach(function (link) {
         () => console.log(`Just finished scrolling to ${window.pageYOffset}px`)
       );
     });
-  
 });
-
-
