@@ -6,178 +6,169 @@
 //   }
 // }
 
-// Using polyfill.io for polyfills
 (() => {
 
 
 // get all of the selectors we are working with.
-let ajaxContainer = document.querySelector(".work-ajax");
-
-// Spacer div that should remain in the dom. It checks the target link for header content and measures it's height
+let gridImages = document.querySelectorAll(".gridgrow-image");
+let workAjax = document.querySelector(".work-ajax");
 let heightSpacer = document.querySelector(".height-spacer");
-
-// The div width we will match on the next page. In this case our container on the next page is slightly smaller
-let widthSpacer = document.querySelector(".width-spacer");
-
-// Outer grid wrapper. Has padding.
 let gridContainer = document.querySelector(".container");
-
-// First wrapping parent of all grid items.
+let container = document.querySelector(".spacer");
 let grid = document.querySelector(".work-container");
+let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+let mobileScrollbar;
+let featured;
+let startPageLink = window.location.pathname;
 
-let gridItems = document.querySelectorAll(".gridgrow");
-let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
-
-let mobileScrollbar, featured, startPageLink = window.location.pathname;
-
-// from https://davidwalsh.name/detect-scrollbar-width
-let getScrollbarWidth = () => {
-  // Create the measurement node
-  var scrollDiv = document.createElement("div");
-  scrollDiv.className = "scrollbar-measure";
-  scrollDiv.style.overflowY = "scroll",
-  scrollDiv.innerHTML = `<div class="scrollbar-measure-inner"></div>`
-  document.body.appendChild(scrollDiv);
-  let scrollDivInner = document.querySelector(".scrollbar-measure-inner");
-  // Get the scrollbar width
-  var scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
-  console.warn("scrollbarwidth:", scrollbarWidth); // Mac:  15
-
-  // Delete the DIV 
-  document.body.removeChild(scrollDiv);
-  return scrollbarWidth;
+if (scrollbarWidth === 0) {
+  //console.log("no scrollbarwidth");
+  mobileScrollbar = 20;
+} else {
+  mobileScrollbar = 0;
 }
-// Can also use this to check scrollbar width:
-//let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-let scrollbarWidth = getScrollbarWidth();
 
-if (grid.classList.contains("type-1")) {
+if (grid.classList.contains("row-1")) {
   featured = true;
 } else {
   featured = false;
 }
+let targetElement = document.querySelector("body");
 
-// On click or if in viewport, populate a div with content that matches the target page.
-let setHeightSpacerContent = (item) => {
-  let logoImage = item.querySelector(".card-logo");
-  let spacerLogo = heightSpacer.querySelector(".client_logo");
-  let itemExcerpt = item.querySelector(".gridgrow-excerpt");
-  let spacerTitle = heightSpacer.querySelector(".page-title");
-  if (spacerLogo.src !== logoImage.src) {
-    spacerLogo.src = logoImage.src;
-  }
-  if (spacerTitle.innerText !== itemExcerpt.innerText) {
-    spacerTitle.innerText = itemExcerpt.innerText
-  }
-}
+gridImageSize();
 
-// Check if an item is in the browser view. Useful for featured grid and mobile.
-let isInViewport = (elem) => {
-let bounding = elem.getBoundingClientRect();
-  return (
-    bounding.top >= 0 &&
-    bounding.left >= 0 &&
-    bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-};
+function gridImageSize(){
 
-let createItem = (item) => {
-  item.classList.add("loaded");
-  if (isInViewport(item)) {
-    setHeightSpacerContent(item);
-  }
-  item.addEventListener("click", function(e){
+// FIX THIS BEHAVIOR: 
+// If grid image is expanded and window resized, the expanded image resizes. The initial values should resize, but not the currently active image.
+
+let gridgrowWidth;
+//BEN NOTE:
+// get count of all images
+// compare the count of all images to images loaded
+// run the next function when all loaded
+// just show loading indicator for the page untill the items finish.
+
+//console.log(gridImageCount);
+//console.log("count of images: " + gridImages.length);
+gridImages.forEach(function(image, imageLoaded = 0) {
+  // console.log(image);
+  // console.log("loaded " + image);
+  image.addEventListener('load', () => {
+    // if (image.classList.contains("lazyloaded")) {
+      //console.log(image);
+      imageLoaded++;
+      let item = image.parentElement.parentElement.parentElement;
+      let link = item.querySelector("a");
+      item.classList.add("loaded");
+
+      // resize the image as it loads
+      //setImageSize(image, item);
+      //console.log("resizing");
+      //animateGrid();
+      clicked = false;
+      reverse = false;
+      
+      calcStart(item, clicked, reverse);
+
+      if ( imageLoaded === gridImages.length ) {
+        //console.log("remove html class");
+        document.querySelector("html").classList.remove("pageTransition");
+        document.querySelector("body").classList.remove("loading");
+        AOS.init({
+          offset: 0,
+          once: true,
+          delay: 0, // values from 0 to 3000, with step 50ms
+          duration: 400, // values from 0 to 3000, with step 50ms
+        });
+        // console.log("----- All Images Loaded Image Loaded.... run animate grid ");
+        // document.querySelector("body").classList.remove("loading");
+        //console.log(imageLoaded);
+        // Grid can be animated now since all initial values are set
+        //animateGrid();
+      } else {
+        //console.log(`Not all images loaded yet -----${gridImages.length - imageLoaded} left to load.`);
+      }
+    // }
+    
+      window.addEventListener("resize", function(){
+      //console.log(ajaxRequest);
+        //setImageSize(image, item);
+        //console.log("resizing FORWARD");
+        //animateGrid();
+        clicked = false;
+        reverse = false;
+        calcStart(item, clicked, reverse);
+      });
+    window.addEventListener("scroll", function(){
+       itemViewport(item);
+    });
+    
+    function heightSpacerContent(item){
+      let logoImage = item.querySelector(".card-logo");
+      let spacerLogo = heightSpacer.querySelector(".client_logo");
+      let itemExcerpt = item.querySelector(".gridgrow-excerpt");
+      let spacerTitle = heightSpacer.querySelector(".page-title");
+      spacerLogo.src = logoImage.src;
+      spacerTitle.innerText = itemExcerpt.innerText;
+    }
+    
+    function itemViewport(item){
+      var isInViewport = function (elem) {
+      var bounding = elem.getBoundingClientRect();
+      return (
+          bounding.top >= 0 &&
+          bounding.left >= 0 &&
+          bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+          );
+      };
+
+      if (isInViewport(item)) {
+          // Do something...
+          //console.log("in viewport");
+          //console.log(item);
+          heightSpacerContent(item);
+      }
+    }
+
+    item.addEventListener("click", function(e){
     //console.log(ajaxRequest);
     item = e.currentTarget;
-    setHeightSpacerContent(item);
+    
+    heightSpacerContent(item);
     //console.log("clicked");
     e.preventDefault();
     
+
     clicked = true;
     reverse = false;
-
-    calcStart(item, clicked, reverse);
-    //animateClick(item, initialValue);
-  });
-  
-}
-let gridImagesLoaded = () => {
-// just show loading indicator for the page untill the items finish.
-
-//if there are filters, change the order images load in
-let loadImages = (activeBtn) => {
-
-  // If there are filters, check for the active panel, then lazy load those images first. Do not load other images until the tab is clicked.
-  if (activeBtn.type === "click") {
-    activeBtn = activeBtn.target;
-    Util.loadingAnimation(true);
-  } 
-  if (activeBtn) {
-    activeBtn = activeBtn.closest(`[data-filter]`).getAttribute("data-filter");
-    console.log("activeBtn", activeBtn)
-    gridImages = Array.from(document.querySelectorAll(`[data-item-filter="${activeBtn}"] .gridgrow-image`));
-    console.log("activeBtn", gridImages.length)
-  }
-  let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
-  let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
-
-  let images = lazyImages.diff(ignoreClasslist)
-  
-  gridImages = gridImages.concat(images);
-  console.log(gridImages)
-
-  gridImages.forEach(function(image, imageLoaded = 0) {
-    image.src = image.getAttribute("data-src");
-    image.addEventListener('load', () => {
-      // if (image.classList.contains("lazyloaded")) {
-      //console.log(image);
-      
-      imageLoaded++;
-      // Polyfill for closest needed
-      let item = image.closest(".gridgrow");
-      if (item) {
-        createItem(item)
-      }
-      console.log("loaded ", image);
-      if ( imageLoaded === gridImages.length ) {
-        console.log("length", gridImages.length)
-        // True/false to start or stop loading icon animation
-        //setTimeout(function(){Util.loadingAnimation(false);}, 51000);
-        Util.loadingAnimation(false);
-      }
-    });
-  });
-}
-let sortBtns = document.querySelectorAll("[data-filter]");
-if (sortBtns.length > 0) {
-  sortBtns.forEach((btn) => {
-    if (btn.classList.contains("active")) {
-      loadImages(btn);
-    }
+    let imageHeight;
+    let imageWidth;
     
-    btn.addEventListener("click", loadImages, false);
-  })
-} else {
-  loadImages(false);
-}
-}
-gridImagesLoaded();
+      calcStart(item, clicked, reverse);
+      //animateClick(item, initialValue);
+    });
 
-window.addEventListener("scroll", () => {
-  gridItems.forEach((item) => {
-    if (isInViewport(item)) {
-      // Do something...
-      //console.log("in viewport");
-      //console.log(item);
-      setHeightSpacerContent(item);
-    }
-  })
+    //maybe animate the bottom half of the item on hover
+    // item.addEventListener("mouseover", () => {
+    //   item.velocity({
+    //     "overflow": "visible"
+    //   }, {
+    //     delay: 0,
+    //   });
+    // });
+  });
+
+  
 });
+}
 
+let pageUrl = window.location;
 
 function calcStart(item, clicked, reverse) {
 
+    
   let image = item.querySelector(".gridgrow-image");
   let imageWrapper = image.parentNode;
   let wrapperMargin = parseFloat(getComputedStyle(imageWrapper).marginTop);
@@ -273,23 +264,25 @@ function calcStart(item, clicked, reverse) {
     //console.log("itemImage");
     //console.log(itemImage);
     let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
-    let containerPadding = parseFloat(getComputedStyle(widthSpacer).paddingLeft) + parseFloat(getComputedStyle(widthSpacer).paddingRight);
-    let containerWidth = parseFloat(widthSpacer.offsetWidth) - containerPadding;
+    let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
+    let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
     //console.log("containerWidth: " + containerWidth);
     
     let imgTop = 355;
 
+    let navHeight = document.querySelector(".masthead").offsetHeight;
     let initialValue = {
-        containerOffsetLeft: widthSpacer.offsetLeft + parseFloat(getComputedStyle(widthSpacer).paddingLeft),
+        containerOffsetLeft: container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft),
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         windowScrollX: window.scrollX,
         windowScrollY: window.scrollY,
         scrollbarWidth: scrollbarWidth,
+        mobileScrollbar: parseFloat(mobileScrollbar),
         navHeight: document.querySelector(".masthead").offsetHeight,
         gridContainerPadding: parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight),
-        containerPadding: parseFloat(getComputedStyle(widthSpacer).paddingLeft) + parseFloat(getComputedStyle(widthSpacer).paddingRight),
-        containerWidth: parseFloat(widthSpacer.offsetWidth) - containerPadding,
+        containerPadding: parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight),
+        containerWidth: parseFloat(container.offsetWidth) - containerPadding,
         wrapperMarginTop: parseFloat(getComputedStyle(wipeParent).marginTop),
         wrapperMarginLeft: -(parseFloat(getComputedStyle(wipeParent).marginLeft)),
         containerPaddingLeft: containerPadding / 2,
@@ -336,9 +329,9 @@ function calcStart(item, clicked, reverse) {
         document.querySelector(".masthead").style.paddingRight = `${(scrollbarWidth/2 + "px")}`;
         main.style.marginLeft = "-" + (scrollbarWidth/2) + "px";
         document.body.style.overflowY = "hidden";
-        bodyScrollLock.disableBodyScroll(document.body);
+        bodyScrollLock.disableBodyScroll(targetElement);
       }
-      //calcEnd(item, initialValue, clicked, reverse);
+      calcEnd(item, initialValue, clicked, reverse);
 };
 
 function calcEnd(item, initialValue, clicked, reverse) {
@@ -359,8 +352,8 @@ function calcEnd(item, initialValue, clicked, reverse) {
   //console.log("itemImage");
   //console.log(itemImage);
   let gridContainerPadding = parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight);
-  let containerPadding = parseFloat(getComputedStyle(widthSpacer).paddingLeft) + parseFloat(getComputedStyle(widthSpacer).paddingRight);
-  let containerWidth = parseFloat(widthSpacer.offsetWidth) - containerPadding;
+  let containerPadding = parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight);
+  let containerWidth = parseFloat(container.offsetWidth) - containerPadding;
   let translateX, wipeTranslateX;
   if (featured) {
     //console.log("left: " + (-initialValue.item.left - initialValue.item.offsetLeft + initialValue.containerOffsetLeft));
@@ -370,7 +363,7 @@ function calcEnd(item, initialValue, clicked, reverse) {
     wipeTranslateX = (initialValue.scrollbarWidth/2);
 
   } else {
-    translateX = (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + widthSpacer.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2);
+    translateX = (-initialValue.item.left - initialValue.gridContainerOffsetLeft) + (initialValue.wrapperMarginLeft - item.offsetLeft) + container.offsetLeft + initialValue.containerPaddingLeft - (initialValue.scrollbarWidth/2);
     wipeTranslateX = -(item.offsetLeft + item.offsetParent.offsetLeft) - initialValue.windowScrollX + initialValue.scrollbarWidth;
   }
 
@@ -378,16 +371,17 @@ function calcEnd(item, initialValue, clicked, reverse) {
 // the final velocity values. To reverse animation, 
 
   let endValue = {
-    containerOffsetLeft: widthSpacer.offsetLeft,
+    containerOffsetLeft: container.offsetLeft,
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight,
     windowScrollX: window.scrollX,
     windowScrollY: window.scrollY,
     scrollbarWidth: parseFloat(scrollbarWidth),
+    mobileScrollbar: parseFloat(mobileScrollbar),
     navHeight: document.querySelector(".masthead").offsetHeight,
     gridContainerPadding: parseFloat(getComputedStyle(gridContainer).paddingLeft)+ parseFloat(getComputedStyle(gridContainer).paddingRight),
-    containerPadding: parseFloat(getComputedStyle(widthSpacer).paddingLeft) + parseFloat(getComputedStyle(widthSpacer).paddingRight),
-    containerWidth: parseFloat(widthSpacer.offsetWidth) - containerPadding,
+    containerPadding: parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight),
+    containerWidth: parseFloat(container.offsetWidth) - containerPadding,
     wrapperMarginTop: parseFloat(getComputedStyle(wipeParent).marginTop),
     wrapperMarginLeft: -(parseFloat(getComputedStyle(wipeParent).marginLeft)),
     containerPaddingLeft: containerPadding / 2,
@@ -399,7 +393,7 @@ function calcEnd(item, initialValue, clicked, reverse) {
         height: (initialValue.windowHeight) + (initialValue.windowWidth * .2),
         translateX: wipeTranslateX,
         translateY: -((item.offsetTop + grid.offsetParent.offsetTop + initialValue.wrapperMarginTop) - initialValue.windowScrollY - initialValue.navHeight),
-        left: initialValue.scrollbarWidth,
+        left: initialValue.mobileScrollbar,
         top: "0px",
         duration: 600,
         delay: 0,
@@ -509,7 +503,7 @@ function animateItem(item, initialValue, endValue, reverse) {
             document.querySelector(".masthead").style = "";
             document.querySelector("html").classList.remove("pageAnimating", "loading");
             document.body.style.overflowY = "scroll";
-            bodyScrollLock.enableBodyScroll(document.body);
+            bodyScrollLock.enableBodyScroll(targetElement);
             //item.addEventListener("click");
             itemImage.style.zIndex = "";
             wipe.style.zIndex = "";
@@ -527,10 +521,10 @@ function animateItem(item, initialValue, endValue, reverse) {
               delay: 600,
               duration: 100,
               complete: function() {
-                //ajaxContainer.style.overflowY = "scroll";
+                //workAjax.style.overflowY = "scroll";
               }
             });
-            ajaxContainer.style.overflowY = "scroll";
+            workAjax.style.overflowY = "scroll";
             reverseAnimation(item, initialValue, startValue, endValue);
           }
         }
@@ -560,7 +554,7 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
   document.body.appendChild(reverseBtn);
   //detect back btn then hijack it
   window.onpopstate = function(event) {
-    window.history.pushState("object or string", "Title", window.location);
+    window.history.pushState("object or string", "Title", pageUrl);
     reverseClick();
   }
 
@@ -570,8 +564,8 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
     let element = document.querySelector(".reverseAnimation");
     element.parentNode.removeChild(element);
     clicked = true;
-    //ajaxContainer.scrollTop = 0;
-    ajaxContainer.velocity({scrollTop: "0px"}, {
+    //workAjax.scrollTop = 0;
+    workAjax.velocity({scrollTop: "0px"}, {
       duration: 300,
       delay: 0,
       complete: function() {
@@ -592,7 +586,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
     //add back logo for animation
     document.querySelector("html").classList.add("loading");
 
-    ajaxContainer
+    workAjax
     .velocity({
       opacity: 0,
       visibility: ["hidden", "visible"]
@@ -608,7 +602,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           item.classList.remove("active");
         }
     });
-    ajaxContainer.innerHTML = "";
+    workAjax.innerHTML = "";
     window.history.pushState("object or string", "Title", startPageLink);
 
   } else {
@@ -624,21 +618,21 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
       var doc = parser.parseFromString(html, "text/html");
       var docArticle = doc.querySelector('main').innerHTML;
       //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
-      ajaxContainer.innerHTML = docArticle;
+      workAjax.innerHTML = docArticle;
       //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
       //console.log(pageCritical);
       window.history.pushState("object or string", "Title", nextLink);
       // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
       
       //reload scripts that are in innerHTML https://ghinda.net/article/script-tags/
-      runScripts(ajaxContainer, nextLink);
-      redoAos(ajaxContainer)
+      runScripts(workAjax, nextLink);
+      redoAos(workAjax)
             
     })
     .catch((error) => {
         console.warn(error);
     });
-    ajaxContainer
+    workAjax
     .velocity({
       top: [initialValue.navHeight, 0],
       display: ["block", "none"]
@@ -669,7 +663,7 @@ function insertScript (script, callback) {
     s.textContent = script.innerText
   }
   // re-insert the script tag so it executes.
-  widthSpacer.appendChild(s)
+  container.appendChild(s)
   // clean-up
   script.parentNode.removeChild(script)
   // run the callback immediately for inline scripts
@@ -743,7 +737,7 @@ function runScripts (container, nextLink) {
       }
     });
 
-    var allSections = ajaxContainer.querySelectorAll('section');
+    var allSections = workAjax.querySelectorAll('section');
     allSections.forEach(section => {
       let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
 
