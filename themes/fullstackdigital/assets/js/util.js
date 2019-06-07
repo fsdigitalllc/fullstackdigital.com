@@ -19,7 +19,7 @@ Util.imagesLoaded = () => {
   let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
   
   let images = lazyImages.diff(ignoreClasslist)
-  console.log("image length", images)
+  //console.log("image length", images)
   if (lazyImages.length > 0) {
     
     images.forEach(function (image, imageLoaded = 0) {
@@ -69,6 +69,18 @@ Util.loadingAnimation = (direction = true) => {
     //document.body.classList.add("loading");
   }
 }
+
+
+// Check if an item is in the browser view. Useful for featured grid and mobile.
+Util.isInViewport = (elem) => {
+let bounding = elem.getBoundingClientRect();
+  return (
+    bounding.top >= 0 &&
+    bounding.left >= 0 &&
+    bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+};
 
 (() => {
   Util.loadingAnimation();
