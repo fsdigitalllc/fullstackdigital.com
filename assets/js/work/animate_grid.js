@@ -78,7 +78,7 @@ document.body.addEventListener("click", function(e){
     //console.log("clicked");
     clicked = true;
     reverse = false;
-    //calcStartValues(item, clicked, reverse);
+    //setItemStyles(item, clicked, reverse);
     
   }
   
@@ -86,6 +86,7 @@ document.body.addEventListener("click", function(e){
 });
 
 let getItem = (item) => {
+  //console.log("item,", item)
   if (item.classList.contains("gridgrow")) {
     let the = {
       widthSpacer: document.querySelector(".width-spacer"),
@@ -106,7 +107,8 @@ let createItem = (item) => {
   if (Util.isInViewport(item)) {
     setHeightSpacerContent(item);
   }
-  calcStartValues(item)
+  setItemStyles(item)
+  //setItemStyles(item)
   
   //console.table("item startValues:", );
 }
@@ -189,35 +191,32 @@ window.addEventListener("scroll", () => {
 
 window.addEventListener("resize", () => {
   gridItems.forEach((item) => {
-    calcStartValues(item)
-    console.log();
+    setItemStyles(item)
+    //console.log("resizing");
   })
 });
 
-function calcStartValues(item) {
+function setItemStyles(item) {
   let theItem = getItem(item);
+  let left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
   //console.log("theitem", theItem.image)
   // Item offset
-
-  theItem.image.style.left =
-      ((theItem.imageWrapper.offsetWidth - theItem.image.offsetWidth) / 2 + "px");
-
-  let sVal = {
-    width: theItem.image.offsetWidth,
-    offsetX: 
-      // Get each image to the edge of screen
-      item.offsetLeft 
-      + theItem.image.offsetLeft 
-      + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft)
-      + parseFloat(theItem.containerInner.offsetLeft)
-      - parseFloat(getComputedStyle(theItem.containerInner).paddingLeft)
-      + theItem.containerOuter.offsetLeft
-      - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft),
-      // 531
-      // End Values
-      offsetY:
-        0
+  if (!item.classList.contains("active")) {
+    // Normal item
+    theItem.image.style.width = sVal(item).width + "px";
+    theItem.image.style.left = left;   
+    theItem.image.style.transform = `translateX(0px)`
+  } else {
+    // Animated grid item
+    theItem.image.style.left = left;
+    theItem.image.style.width = eVal(item).width + "px";
+    theItem.image.style.transform = `translateX(${eVal(item).offsetX - sVal(item).offsetX}px)`
   }
+  
+}
+
+function eVal (item) {
+  let theItem = getItem(item);
   let eVal = {
     width: (
       theItem.widthSpacer.offsetWidth 
@@ -230,26 +229,77 @@ function calcStartValues(item) {
     + parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft),
     //+ ( (theItem.widthSpacer.offsetWidth - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft)) / 2 ),
     // End Values
-    offsetY:
-      0
+  }
+  return eVal;
+}
+
+function sVal (item) {
+  let theItem = getItem(item);
+  let sVal = {
+    //width: theItem.image.offsetWidth,
+    width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
+    offsetX: 
+      // Get each image to the edge of screen
+      item.offsetLeft 
+      + theItem.image.offsetLeft 
+      + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft)
+      + parseFloat(theItem.containerInner.offsetLeft)
+      - parseFloat(getComputedStyle(theItem.containerInner).paddingLeft)
+      + theItem.containerOuter.offsetLeft
+      - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft),
+      // 531
+      // End Values
   }
   return sVal;
-};
-
-function animateItem(item) {
-  theItem.image.velocity({
-    width: [eVal.width, sVal.width],
-    transform: [`translateX(${eVal.offsetX - sVal.offsetX}px) translateY(22px)`, `translateX(1px) translateY(1px)`]
-  }, {
-    delay: 30,
-    duration: 800
-  })
 }
-window.addEventListener("click", () => {
-  gridItems.forEach((item), () => {
-    animateItem(item)
+
+document.querySelector(".template-related_work").addEventListener("click", () => {
+  gridItems.forEach((item) => {
+    //animateItem(item, false)
+    //console.log("item click", item)
+    animateItem(item, false);
   })
 })
+document.querySelector("nav").addEventListener("click", () => {
+  gridItems.forEach((item) => {
+    //animateItem(item, false)
+    //console.log("item click", item)
+    animateItem(item, true);
+  })
+})
+
+function animateItem(item, direction) {
+  
+  let theItem = getItem(item);
+  //console.log("itemddf", theItem.image)
+  let startVal = sVal(item);
+  let endVal = eVal(item);
+  let startTranslateX = 1, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 1, endTranslateY = 2;
+  if (direction !== true) {
+    //Forward
+    console.log("-startval- ", startVal)
+    console.log("-endval- ", endVal)
+    item.classList.add("active");
+    
+  } else {
+    startVal = eVal(item);
+    endVal = sVal(item);
+    startTranslateX = endTranslateX, endTranslateX = 1, startTranslateY = endTranslateY, endTranslateY = 1;
+    console.log("+startval+ ", startVal)
+    console.log("+endval+ ", endVal)
+    item.classList.remove("active");
+  }
+  
+  
+  theItem.image.velocity({
+    width: [endVal.width, startVal.width],
+    transform: [`translateX(${endTranslateX}px) translateY(${endTranslateY}px)`, `translateX(${startTranslateX}px) translateY(${startTranslateY}px)`]
+  }, {
+    delay: 30,
+    duration: 4800
+  })
+}
+
 
 // if (clicked && reverse === false) {
 //   document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
@@ -277,32 +327,6 @@ function calcEnd(item, initialValue, clicked, reverse) {
   }
 }
 
-function animateItem(item, initialValue, endValue, reverse) {
-
-  itemImage = item.querySelector(".gridgrow-image");
-  let startValue;
-
-  if (reverse) {
-    startValue = endValue;
-    endValue = initialValue;
-    //wipe.zIndex = 888;
-    itemImage.style.visibility = "visible";
-
-  } else {
-    startValue = initialValue;
-    endValue = endValue;
-    itemImage.style.zIndex = 999;
-    wipe.style.zIndex = 888;
-    item.style.overflow = "visible";
-    item.querySelector(".gridwrap").style.overflow = "visible";
-    item.querySelector(".gridgrow-image-holder").style.overflow = "visible";
-
-  }
-  // Start ajax loading the content
-  ajaxWorkItem(item, initialValue, endValue, reverse);
-  // Start animation
-  velocityAnimate(item, initialValue, startValue, endValue, reverse);
-}
   function velocityAnimate(item, initialValue, startValue, endValue, reverse) {
 
     wipe.velocity({
@@ -416,7 +440,7 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
       duration: 300,
       delay: 0,
       complete: function() {
-        calcStartValues(item, initialValue, endValue, reverse, clicked);
+        setItemStyles(item, initialValue, endValue, reverse, clicked);
         //console.log(initialValue);
         //console.log(endValue);
         //console.log("REVERSE COMPLETE");
