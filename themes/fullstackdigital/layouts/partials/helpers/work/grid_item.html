@@ -10,6 +10,7 @@
   {{ $featured = true }}
 {{ end }}
 {{ if eq $tabs true }}
+<div class="container-m width-spacer" style="height: 10px;background-color: #000;border-left: 40px solid red;border-right: 40px solid red;"></div>
 <div class="work-grid-tabs container padding-s-bottom">
   <div class="flex h_children_space-between">
     <div class="brand active" data-aos="fade" data-aos-delay="200" data-aos-duration="1400" data-filter="brand">
@@ -126,7 +127,7 @@
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
-      <img class="gridgrow-image {{ $name }}" calc-size='' data-src='{{ $image.Permalink }}'>
+      <img class="gridgrow-image {{ $name }}" width="50%" data-src='{{ $image.Permalink }}'>
 
       {{ if eq $featured false }}
       <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
@@ -183,7 +184,7 @@
 </div>
 
 </div>
-<div class="container-m width-spacer"></div>
+
 <div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex h_children_space-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src=""><div class="flex tiny color-oil padding-s-top strip-padding-tablet h_children_space-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex v_c-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
 <div class="work-ajax"></div>
 
