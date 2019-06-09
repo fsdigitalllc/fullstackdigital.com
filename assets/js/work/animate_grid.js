@@ -92,7 +92,7 @@ let getItem = (item) => {
       widthSpacer: document.querySelector(".width-spacer"),
       heightSpacer: document.querySelector(".height-spacer"),
       containerInner: document.querySelector(".work-container"),
-      containerOuter: document.querySelector(".work-grid"),
+      containerOuter: document.querySelector(".work-outer"),
       image: item.querySelector(".gridgrow-image"),
       imageWrapper: item.querySelector(".gridgrow-image-holder"),
       wipe: item.querySelector(".wipe")
@@ -277,16 +277,12 @@ function animateItem(item, direction) {
   let startTranslateX = 1, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 1, endTranslateY = 2;
   if (direction !== true) {
     //Forward
-    console.log("-startval- ", startVal)
-    console.log("-endval- ", endVal)
     item.classList.add("active");
     
   } else {
     startVal = eVal(item);
     endVal = sVal(item);
     startTranslateX = endTranslateX, endTranslateX = 1, startTranslateY = endTranslateY, endTranslateY = 1;
-    console.log("+startval+ ", startVal)
-    console.log("+endval+ ", endVal)
     item.classList.remove("active");
   }
   
@@ -296,7 +292,7 @@ function animateItem(item, direction) {
     transform: [`translateX(${endTranslateX}px) translateY(${endTranslateY}px)`, `translateX(${startTranslateX}px) translateY(${startTranslateY}px)`]
   }, {
     delay: 30,
-    duration: 4800
+    duration: 400
   })
 }
 

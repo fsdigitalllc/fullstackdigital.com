@@ -1,5 +1,6 @@
 {{/* <!--load this JS asap--> */}}
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6%2CElement.prototype.closest%2Cfetch"></script>
+
 {{ $util := resources.Get "js/util.js" | minify }}
 <script type="text/javascript" src="{{ $util.Permalink }}"></script>
 
@@ -24,6 +25,6 @@
 </script>
 
 
-{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | postCSS | minify }}
+{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS | postCSS | minify }}
 
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>

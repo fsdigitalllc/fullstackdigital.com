@@ -10,7 +10,7 @@
   {{ $featured = true }}
 {{ end }}
 {{ if eq $tabs true }}
-<div class="container-m width-spacer" style="height: 10px;background-color: #000;border-left: 40px solid red;border-right: 40px solid red;"></div>
+
 <div class="work-grid-tabs container padding-s-bottom">
   <div class="flex h_children_space-between">
     <div class="brand active" data-aos="fade" data-aos-delay="200" data-aos-duration="1400" data-filter="brand">
@@ -41,7 +41,8 @@
 </div>
 
 {{ end }}
-<div class="container work-{{ $layout }}" id="loading_content" style="visibility: visible; display: block;">
+<div class="container-m width-spacer" style="height: 10px;background-color: #000;border-left: 40px solid red;border-right: 40px solid red;"></div>
+<div class="container work-{{ $layout }} work-outer" id="loading_content" style="visibility: visible; display: block;">
 <div class="work-container type-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
