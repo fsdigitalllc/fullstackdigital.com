@@ -196,10 +196,14 @@ window.addEventListener("resize", () => {
   })
 });
 
+let calcImageRatio = (item) => {
+  return item.image.naturalWidth / item.imageWrapper.offsetWidth;
+}
+
 function setItemStyles(item) {
   let theItem = getItem(item);
   let left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
-  let top = ((theItem.imageWrapper.offsetHeight - sVal(item).width) / 2 + "px");
+  let top = ((theItem.imageWrapper.offsetHeight - sVal(item).height) / 2 + "px");
   theItem.image.style.left = left;
   theItem.image.style.top = top;
   //console.log("theitem", theItem.image)
@@ -207,11 +211,12 @@ function setItemStyles(item) {
   if (!item.classList.contains("active")) {
     // Normal item
     theItem.image.style.width = sVal(item).width + "px";
-       
-    theItem.image.style.transform = `translateX(0px)`
+    theItem.image.style.height = sVal(item).height + "px";
+    //theItem.image.style.transform = `translateX(0px)`
   } else {
     // Animated grid item
     theItem.image.style.width = eVal(item).width + "px";
+    theItem.image.style.height = (eVal(item).height) + "px";
     theItem.image.style.transform = `translateX(${eVal(item).offsetX - sVal(item).offsetX}px)`
   }
   
@@ -220,6 +225,13 @@ function setItemStyles(item) {
 function eVal (item) {
   let theItem = getItem(item);
   let eVal = {
+    height: (
+      (theItem.widthSpacer.offsetWidth 
+      - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft) 
+      - parseFloat(getComputedStyle(theItem.widthSpacer).paddingRight))
+      / sVal(item).width
+      * sVal(item).height
+      ),
     width: (
       theItem.widthSpacer.offsetWidth 
       - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft) 
@@ -237,11 +249,14 @@ function eVal (item) {
   return eVal;
 }
 
+
 function sVal (item) {
   let theItem = getItem(item);
   let sVal = {
     //width: theItem.image.offsetWidth,
-    width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
+    height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
+    width: (theItem.image.naturalWidth / (calcImageRatio(theItem))) * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
+    //width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
     offsetX: 
       // Get each image to the edge of screen
       item.offsetLeft 
@@ -284,7 +299,7 @@ function animateItem(item, direction) {
   let startVal = sVal(item);
   let endVal = eVal(item);
   let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY;
-  //console.log("offset", startVal)
+  
 
   if (direction !== true) {
     //Forward
@@ -296,8 +311,10 @@ function animateItem(item, direction) {
     startTranslateX = endTranslateX, endTranslateX = 0, startTranslateY = endTranslateY, endTranslateY = 0;
     item.classList.remove("active");
   }
-  
+  console.log("startval", startVal, "endval", endVal, theItem)
+
   theItem.image.velocity({
+    height: [endVal.height, startVal.height],
     width: [endVal.width, startVal.width],
     transform: [`translateX(${endTranslateX}px) translateY(${endTranslateY}px)`, `translateX(${startTranslateX}px) translateY(${startTranslateY}px)`]
   }, {
