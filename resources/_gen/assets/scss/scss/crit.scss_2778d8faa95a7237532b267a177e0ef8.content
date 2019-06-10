@@ -2706,6 +2706,23 @@ nav.sub .link-4 {
   width: 100%;
   height: 100%; }
 
+.width-spacer {
+  border-bottom: 3px dashed #000000;
+  height: 3px; }
+
+.width-spacer:after {
+  content: "";
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-left: 4px solid red;
+  position: absolute;
+  width: 4px;
+  display: block;
+  height: 6px; }
+
 .work-container.row-2 {
   grid-template-columns: 1fr; }
 
