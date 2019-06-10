@@ -199,16 +199,18 @@ window.addEventListener("resize", () => {
 function setItemStyles(item) {
   let theItem = getItem(item);
   let left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
+  let top = ((theItem.imageWrapper.offsetHeight - sVal(item).width) / 2 + "px");
+  theItem.image.style.left = left;
+  theItem.image.style.top = top;
   //console.log("theitem", theItem.image)
   // Item offset
   if (!item.classList.contains("active")) {
     // Normal item
     theItem.image.style.width = sVal(item).width + "px";
-    theItem.image.style.left = left;   
+       
     theItem.image.style.transform = `translateX(0px)`
   } else {
     // Animated grid item
-    theItem.image.style.left = left;
     theItem.image.style.width = eVal(item).width + "px";
     theItem.image.style.transform = `translateX(${eVal(item).offsetX - sVal(item).offsetX}px)`
   }
@@ -229,6 +231,8 @@ function eVal (item) {
     + parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft),
     //+ ( (theItem.widthSpacer.offsetWidth - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft)) / 2 ),
     // End Values
+    offsetY:
+      window.scrollY + theItem.heightSpacer.offsetHeight,
   }
   return eVal;
 }
@@ -247,6 +251,11 @@ function sVal (item) {
       - parseFloat(getComputedStyle(theItem.containerInner).paddingLeft)
       + theItem.containerOuter.offsetLeft
       - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft),
+    offsetY:
+      item.offsetTop
+      + theItem.image.offsetTop 
+      + theItem.containerInner.offsetTop
+      + theItem.containerOuter.offsetTop
       // 531
       // End Values
   }
@@ -274,7 +283,9 @@ function animateItem(item, direction) {
   //console.log("itemddf", theItem.image)
   let startVal = sVal(item);
   let endVal = eVal(item);
-  let startTranslateX = 1, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 1, endTranslateY = 2;
+  let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY;
+  //console.log("offset", startVal)
+
   if (direction !== true) {
     //Forward
     item.classList.add("active");
@@ -282,17 +293,22 @@ function animateItem(item, direction) {
   } else {
     startVal = eVal(item);
     endVal = sVal(item);
-    startTranslateX = endTranslateX, endTranslateX = 1, startTranslateY = endTranslateY, endTranslateY = 1;
+    startTranslateX = endTranslateX, endTranslateX = 0, startTranslateY = endTranslateY, endTranslateY = 0;
     item.classList.remove("active");
   }
-  
   
   theItem.image.velocity({
     width: [endVal.width, startVal.width],
     transform: [`translateX(${endTranslateX}px) translateY(${endTranslateY}px)`, `translateX(${startTranslateX}px) translateY(${startTranslateY}px)`]
   }, {
-    delay: 30,
-    duration: 400
+    delay: 0,
+    easing: "ease-out",
+    duration: 475,
+    progress: function(elements, complete, remaining, start, tweenValue) {
+      if (complete ===  1) {
+        console.log("complete")
+      }
+    }
   })
 }
 
@@ -309,19 +325,19 @@ function animateItem(item, direction) {
 // }
 //calcEnd(item, initialValue, clicked, reverse);
 
-function calcEnd(item, initialValue, clicked, reverse) {
+// function calcEnd(item, initialValue, clicked, reverse) {
 
 
-  if (clicked) {
-    animateItem(item, initialValue, endValue, reverse);
-  }
+//   if (clicked) {
+//     animateItem(item, initialValue, endValue, reverse);
+//   }
   
-  if (item.classList.contains("active") && !clicked ) {
-    itemImage.style.width = endValue.item.width + "px";
-    itemImage.style.height = endValue.item.height + "px";
-    itemImage.style.transform = `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`;
-  }
-}
+//   if (item.classList.contains("active") && !clicked ) {
+//     itemImage.style.width = endValue.item.width + "px";
+//     itemImage.style.height = endValue.item.height + "px";
+//     itemImage.style.transform = `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`;
+//   }
+// }
 
   function velocityAnimate(item, initialValue, startValue, endValue, reverse) {
 
@@ -398,16 +414,6 @@ function calcEnd(item, initialValue, clicked, reverse) {
       }
     });
   }
-
-function setFinalValues(item, initialValue, startValue, endValue) {
-  if (item.classList.contains("active")) {
-    //console.log("setting final values...");
-    itemImage = item.querySelector(".gridgrow-image");
-    //console.log(itemImage);
-    itemImage.style.width = endValue.item.width;
-    itemImage.style.height = endValue.item.height;
-  }
-}
 
 function reverseAnimation(item, initialValue, startValue, endValue) {
   let reverseBtn = document.createElement("button");

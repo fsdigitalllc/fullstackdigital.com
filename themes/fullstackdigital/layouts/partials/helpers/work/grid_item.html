@@ -1,3 +1,4 @@
+<div class="container-m width-spacer"></div>
 {{ $size := .page.grid.columns | default "4" }}
 {{ $tabs := .page.grid.tabs | default true }}
 {{ $layout := .page.grid.layout | default "grid" }}
@@ -41,7 +42,7 @@
 </div>
 
 {{ end }}
-<div class="container-m width-spacer" style="height: 10px;background-color: #000;border-left: 40px solid red;border-right: 40px solid red;"></div>
+
 <div class="container work-{{ $layout }} work-outer" id="loading_content" style="visibility: visible; display: block;">
 <div class="work-container type-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
