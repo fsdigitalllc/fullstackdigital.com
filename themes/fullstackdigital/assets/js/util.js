@@ -19,7 +19,7 @@ Util.imagesLoaded = () => {
   let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
   
   let images = lazyImages.diff(ignoreClasslist)
-  //console.log("image length", images)
+  //console.log("image length", lazyImages)
   if (lazyImages.length > 0) {
     
     images.forEach(function (image, imageLoaded = 0) {

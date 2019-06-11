@@ -28,3 +28,5 @@
 {{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS | postCSS | minify }}
 
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>
+
+

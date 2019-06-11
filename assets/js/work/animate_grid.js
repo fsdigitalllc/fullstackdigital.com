@@ -24,8 +24,6 @@ let grid = document.querySelector(".work-container");
 let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 
-let featured, startPageLink = window.location.pathname;
-
 // from https://davidwalsh.name/detect-scrollbar-width
 let getScrollbarWidth = () => {
   // Create the measurement node
@@ -66,18 +64,23 @@ let setHeightSpacerContent = (item) => {
     spacerTitle.innerText = itemExcerpt.innerText
   }
 }
+document.body.addEventListener("mouseover", function(e){
+  //console.log(ajaxRequest);
+  item = e.target.closest(".gridgrow");
+  if (item) {
+    e.preventDefault();
+    setHeightSpacerContent(item);
+  }
+});
 
 document.body.addEventListener("click", function(e){
   //console.log(ajaxRequest);
   item = e.target.closest(".gridgrow");
   if (item) {
-    e.preventDefault();
-    console.log("clicked grid item", item)
-    
+    e.preventDefault();    
     setHeightSpacerContent(item);
+    animateItem(item, false);
     //console.log("clicked");
-    clicked = true;
-    reverse = false;
     //setItemStyles(item, clicked, reverse);
     
   }
@@ -95,7 +98,9 @@ let getItem = (item) => {
       containerOuter: document.querySelector(".work-outer"),
       image: item.querySelector(".gridgrow-image"),
       imageWrapper: item.querySelector(".gridgrow-image-holder"),
-      wipe: item.querySelector(".wipe")
+      wipe: item.querySelector(".wipe"),
+      link: item.querySelector(".gridgrow-link"),
+      nav: document.querySelector(".masthead")
     }
     return the;
   }
@@ -206,6 +211,8 @@ function setItemStyles(item) {
   let top = ((theItem.imageWrapper.offsetHeight - sVal(item).height) / 2 + "px");
   theItem.image.style.left = left;
   theItem.image.style.top = top;
+  theItem.wipe.style.left = 0;
+  theItem.wipe.style.top = 0;
   //console.log("theitem", theItem.image)
   // Item offset
   if (!item.classList.contains("active")) {
@@ -245,6 +252,17 @@ function eVal (item) {
     // End Values
     offsetY:
       window.scrollY + theItem.heightSpacer.offsetHeight,
+    bg: {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      x: -(item.offsetLeft + theItem.containerInner.offsetLeft + theItem.containerOuter.offsetLeft - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft) - scrollbarWidth),
+      y: (theItem.nav.offsetHeight - (item.offsetTop + theItem.containerInner.offsetTop + theItem.containerOuter.offsetTop)) + window.scrollY,
+    },
+    content: {
+      opacity: 1,
+      visibility: "visible",
+      top: theItem.nav.offsetHeight,
+    }
   }
   return eVal;
 }
@@ -270,27 +288,24 @@ function sVal (item) {
       item.offsetTop
       + theItem.image.offsetTop 
       + theItem.containerInner.offsetTop
-      + theItem.containerOuter.offsetTop
+      + theItem.containerOuter.offsetTop,
+      //- parseFloat(getComputedStyle(theItem.heightSpacer).paddingBottom),
+    bg: {
+      width: theItem.imageWrapper.offsetWidth,
+      height: theItem.imageWrapper.offsetHeight,
+      x: 0,
+      y: 0
+    },
+    content: {
+      opacity: 0,
+      visibility: "hidden",
+      top: theItem.nav.offsetHeight,
+    }
       // 531
       // End Values
   }
   return sVal;
 }
-
-document.querySelector(".template-related_work").addEventListener("click", () => {
-  gridItems.forEach((item) => {
-    //animateItem(item, false)
-    //console.log("item click", item)
-    animateItem(item, false);
-  })
-})
-document.querySelector("nav").addEventListener("click", () => {
-  gridItems.forEach((item) => {
-    //animateItem(item, false)
-    //console.log("item click", item)
-    animateItem(item, true);
-  })
-})
 
 function animateItem(item, direction) {
   
@@ -298,21 +313,36 @@ function animateItem(item, direction) {
   //console.log("itemddf", theItem.image)
   let startVal = sVal(item);
   let endVal = eVal(item);
-  let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY;
-  
+  let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
 
+  // Load content via ajax
+  ajaxLoad(item, direction);
   if (direction !== true) {
     //Forward
     item.classList.add("active");
+    bodyScrollLock.disableBodyScroll(document.body);
+    // Start logo loading animation
+    Util.loadingAnimation(true);
+    //document.querySelector('html').style.paddingRight = scrollbarWidth + "px";
     
   } else {
     startVal = eVal(item);
     endVal = sVal(item);
     startTranslateX = endTranslateX, endTranslateX = 0, startTranslateY = endTranslateY, endTranslateY = 0;
-    item.classList.remove("active");
+    // Start logo loading animation
+    Util.loadingAnimation(true);
+    timing = timing + 200;
   }
-  console.log("startval", startVal, "endval", endVal, theItem)
-
+  console.log("startval", startVal.bg, "endval", endVal.bg)
+  theItem.wipe.velocity({
+    width: [endVal.bg.width, startVal.bg.width],
+    height: [endVal.bg.height, startVal.bg.height],
+    transform: [`translateX(${endVal.bg.x}px) translateY(${endVal.bg.y}px)`, `translateX(${startVal.bg.x}px) translateY(${startVal.bg.y}px)`]
+  }, {
+    delay: 0,
+    easing: "ease-out",
+    duration: timing,
+  })
   theItem.image.velocity({
     height: [endVal.height, startVal.height],
     width: [endVal.width, startVal.width],
@@ -320,41 +350,104 @@ function animateItem(item, direction) {
   }, {
     delay: 0,
     easing: "ease-out",
-    duration: 475,
+    duration: timing,
     progress: function(elements, complete, remaining, start, tweenValue) {
       if (complete ===  1) {
-        console.log("complete")
+        //console.log("complete", ajaxContainer.querySelector(".work-hero-image"))
+        // ajaxContainer.querySelector(".work-hero-image").addEventListener("load", () => {
+        //   bodyScrollLock.enableBodyScroll(document.body);
+        //   Util.loadingAnimation(false);
+        // });
+        transitionComplete(item, direction, startVal, endVal);
+        if (direction !== true) {
+
+        }
       }
     }
   })
 }
 
-
-// if (clicked && reverse === false) {
-//   document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
-//   document.querySelector("html").classList.add("pageAnimating", "loading");
-
-//   document.querySelector(".masthead").style.width = `calc(100% + ${(scrollbarWidth/2 + "px")})`;
-//   document.querySelector(".masthead").style.paddingRight = `${(scrollbarWidth/2 + "px")}`;
-//   main.style.marginLeft = "-" + (scrollbarWidth/2) + "px";
-//   document.body.style.overflowY = "hidden";
-//   bodyScrollLock.disableBodyScroll(document.body);
-// }
-//calcEnd(item, initialValue, clicked, reverse);
-
-// function calcEnd(item, initialValue, clicked, reverse) {
-
-
-//   if (clicked) {
-//     animateItem(item, initialValue, endValue, reverse);
-//   }
+function transitionComplete (item, direction, startVal, endVal) {
+  bodyScrollLock.enableBodyScroll(document.body);
+  Util.loadingAnimation(false);
+  //console.log("complete", direction)
+  if (direction !== true) {
+    
+  } else {
+    item.classList.remove("active");
+  }
+  ajaxContainer.velocity({
+    opacity: [endVal.content.opacity, startVal.content.opacity],
+    visibility: [endVal.content.visibility, startVal.content.visibility],
+    display: ["block", "none"],
+    top: [endVal.content.top, startVal.content.top],
+  }, {
+    delay: 0,
+    easing: "ease-out",
+    duration: 200
+  })
   
-//   if (item.classList.contains("active") && !clicked ) {
-//     itemImage.style.width = endValue.item.width + "px";
-//     itemImage.style.height = endValue.item.height + "px";
-//     itemImage.style.transform = `translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`;
-//   }
-// }
+}
+
+var updateContent = function(stateObj) {
+  // Check to make sure that this state object is not null.
+  if (stateObj) {
+    document.title = stateObj.title;
+    document.querySelector("title").innerText = stateObj.title;
+    ajaxContainer.innerHTML = stateObj.html;
+    console.log("previosuTitle", stateObj.previousTitle)
+  }
+};
+
+function ajaxLoad (item, direction) {
+  let theItem = getItem(item);
+  
+  // Create a state object for the content to be toggled via ajax
+  let pageData = { 
+    title: document.querySelector('title').innerText,
+    html: '',
+  }
+  //Update page content based on the current state object
+  updateContent (pageData)
+  //Add the home or work page to the state object
+  window.history.pushState(pageData, pageData.title, window.location);
+
+  if (direction !== true) {
+    fetch(theItem.link /*, options */)
+    .then((response) => response.text())
+    .then((html) => {
+      let parser = new DOMParser();
+      // Parse the text
+      var ajaxHtml = parser.parseFromString(html, "text/html");
+      var ajaxContent = ajaxHtml.querySelector('main').innerHTML;
+      //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
+      //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
+      //console.log(pageCritical);
+      let pageData = {
+        previousTitle: document.querySelector('title').innerText,
+        title: ajaxHtml.querySelector('title').innerText,
+        html: ajaxContent
+      }
+      updateContent (pageData)
+      window.history.pushState(pageData, pageData.title, theItem.link);
+      //console.log("html loaded")
+
+      window.onpopstate = function(event) {
+        if (event.state) {
+          console.log("event title", event.state)
+          updateContent(event.state)
+        }
+          animateItem(item, true);
+      }
+
+    }).then(() => {
+      return true;
+    });
+  } else {
+    
+  }
+}
+
 
   function velocityAnimate(item, initialValue, startValue, endValue, reverse) {
 
@@ -443,10 +536,10 @@ function reverseAnimation(item, initialValue, startValue, endValue) {
   //reverseBtn.appendChild(t);
   document.body.appendChild(reverseBtn);
   //detect back btn then hijack it
-  window.onpopstate = function(event) {
-    window.history.pushState("object or string", "Title", window.location);
-    reverseClick();
-  }
+  // window.onpopstate = function(event) {
+  //   window.history.pushState("object or string", "Title", window.location);
+  //   reverseClick();
+  // }
 
   function reverseClick(e) {
     reverse = true;
@@ -492,8 +585,6 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
           item.classList.remove("active");
         }
     });
-    ajaxContainer.innerHTML = "";
-    window.history.pushState("object or string", "Title", startPageLink);
 
   } else {
     let nextLink = item.querySelector("a").getAttribute("href");    
@@ -502,17 +593,6 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
     fetch(nextLink /*, options */)
     .then((response) => response.text())
     .then((html) => {
-      let parser = new DOMParser();
-
-      // Parse the text
-      var doc = parser.parseFromString(html, "text/html");
-      var docArticle = doc.querySelector('main').innerHTML;
-      //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
-      ajaxContainer.innerHTML = docArticle;
-      //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
-      //console.log(pageCritical);
-      window.history.pushState("object or string", "Title", nextLink);
-      // just using this for testing. Need to trigger aos after page content loads. Need the CSS from this page to be called.
       
       //reload scripts that are in innerHTML https://ghinda.net/article/script-tags/
       runScripts(ajaxContainer, nextLink);
@@ -525,7 +605,7 @@ function ajaxWorkItem (item, initialValue, endValue, reverse) {
     ajaxContainer
     .velocity({
       top: [initialValue.navHeight, 0],
-      display: ["block", "none"]
+      display: ["block", "none"],
     })
     .velocity({
       opacity: [1, 0],

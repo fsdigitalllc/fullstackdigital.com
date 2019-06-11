@@ -2436,11 +2436,12 @@ nav.sub .link-4 {
 .work-grid .gridgrow:hover, .work-grid .gridgrow:hover a {
   cursor: pointer; }
 
-.work-grid .gridgrow:hover .gridwrap {
+.work-grid .gridgrow:hover .gridwrap, .work-grid .gridgrow.active .gridwrap {
   padding: 4%;
   margin: -4%; }
 
 .work-grid .gridwrap {
+  overflow: hidden;
   -webkit-box-shadow: 0px 0px 1px 1px #efefef;
           box-shadow: 0px 0px 1px 1px #efefef; }
 
@@ -2496,7 +2497,11 @@ nav.sub .link-4 {
   display: flex; }
 
 .work-row .gridgrow {
-  height: 80vh; }
+  height: 80vh;
+  overflow: hidden; }
+
+.work-row .gridwrap {
+  overflow: hidden; }
 
 .work-row .gridgrow:nth-child(1) {
   z-index: 10; }
@@ -2742,6 +2747,39 @@ nav.sub .link-4 {
   overflow: visible;
   position: relative; }
 
+.active .gridwrap, .active .gridgrow-image-holder {
+  overflow: visible; }
+
+.active .gridgrow-image {
+  z-index: 61; }
+
+.active .wipe {
+  z-index: 60; }
+
+.gridgrow-image-holder {
+  margin-left: -4%;
+  margin-right: -4%;
+  overflow: hidden;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.gridgrow-image {
+  color: #fff;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: 55;
+  margin-bottom: 0;
+  max-width: none; }
+
 .gridgrow .background-light {
   color: #000000;
   background-color: #ffffff; }
@@ -2779,32 +2817,10 @@ nav.sub .link-4 {
   transition: padding 1s cubic-bezier(0.4, 0, 0.2, 1), margin 1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1), -webkit-box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative; }
 
-.gridgrow .gridgrow-image-holder {
-  margin-left: -4%;
-  margin-right: -4%;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
-
 .gridgrow .wipe {
   width: 100%;
   height: 100%;
   position: absolute; }
-
-.gridgrow .gridgrow-image {
-  color: #fff;
-  display: block;
-  position: absolute;
-  z-index: 55;
-  margin-bottom: 0;
-  max-width: none; }
 
 .gridgrow .gridgrow-image-holder {
   height: calc(100% * 0.7 + 4%);
