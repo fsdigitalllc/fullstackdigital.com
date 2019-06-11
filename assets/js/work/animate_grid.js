@@ -320,10 +320,17 @@ function animateItem(item, direction) {
   if (direction !== true) {
     //Forward
     item.classList.add("active");
+
+    // Offset the scrollbar on animating
+    document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+    document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+    
+    //lock scrolling ability
+    document.body.style.overflowY = "hidden";
     bodyScrollLock.disableBodyScroll(document.body);
+
     // Start logo loading animation
     Util.loadingAnimation(true);
-    //document.querySelector('html').style.paddingRight = scrollbarWidth + "px";
     
   } else {
     startVal = eVal(item);
@@ -353,28 +360,23 @@ function animateItem(item, direction) {
     duration: timing,
     progress: function(elements, complete, remaining, start, tweenValue) {
       if (complete ===  1) {
-        //console.log("complete", ajaxContainer.querySelector(".work-hero-image"))
-        // ajaxContainer.querySelector(".work-hero-image").addEventListener("load", () => {
-        //   bodyScrollLock.enableBodyScroll(document.body);
-        //   Util.loadingAnimation(false);
-        // });
         transitionComplete(item, direction, startVal, endVal);
-        if (direction !== true) {
-
-        }
       }
     }
   })
 }
 
 function transitionComplete (item, direction, startVal, endVal) {
-  bodyScrollLock.enableBodyScroll(document.body);
+  
   Util.loadingAnimation(false);
-  //console.log("complete", direction)
   if (direction !== true) {
-    
+    ajaxContainer.style.overflowY = "scroll"
   } else {
     item.classList.remove("active");
+    document.querySelector("html").style.marginLeft = "";
+    document.querySelector("main").style.marginLeft = "";
+    document.body.style.overflowY = "scroll";
+    bodyScrollLock.enableBodyScroll(document.body);
   }
   ajaxContainer.velocity({
     opacity: [endVal.content.opacity, startVal.content.opacity],
