@@ -42,8 +42,8 @@ let getScrollbarWidth = () => {
   return scrollbarWidth;
 }
 // Can also use this to check scrollbar width:
-//let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-let scrollbarWidth = getScrollbarWidth();
+let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+//let scrollbarWidth = getScrollbarWidth();
 
 if (grid.classList.contains("type-1")) {
   featured = true;
@@ -370,6 +370,20 @@ function transitionComplete (item, direction, startVal, endVal) {
   
   Util.loadingAnimation(false);
   if (direction !== true) {
+
+    let reverseBtn = document.createElement("button");
+    reverseBtn.classList.add("reverseAnimation");
+    reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+      <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+      <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+      </svg>`;
+
+      reverseBtn.addEventListener('click', (e) => {
+        reverseBtn.parentNode.removeChild(reverseBtn)
+        animateItem(item, true);
+      });
+      
+    document.body.appendChild(reverseBtn);
     ajaxContainer.style.overflowY = "scroll"
   } else {
     item.classList.remove("active");
@@ -431,6 +445,8 @@ function ajaxLoad (item, direction) {
         html: ajaxContent
       }
       updateContent (pageData)
+      runScripts(ajaxContainer, theItem.link);
+      redoAos(ajaxContainer);
       window.history.pushState(pageData, pageData.title, theItem.link);
       //console.log("html loaded")
 
@@ -441,185 +457,13 @@ function ajaxLoad (item, direction) {
         }
           animateItem(item, true);
       }
+      
 
     }).then(() => {
       return true;
     });
   } else {
     
-  }
-}
-
-
-  function velocityAnimate(item, initialValue, startValue, endValue, reverse) {
-
-    wipe.velocity({
-      width: [endValue.wipe.width, startValue.wipe.width],
-      height: [endValue.wipe.height, startValue.wipe.height],
-      transform: [`translateX(${endValue.wipe.translateX}px) translateY(${endValue.wipe.translateY}px)`, `translateX(${startValue.wipe.translateX}px) translateY(${startValue.wipe.translateY}px)`],
-      //transform: [endValue.scale, startValue.scale],
-      left: [endValue.wipe.left, startValue.wipe.left],
-      top: [endValue.wipe.top, startValue.wipe.top],
-    }, 
-    {
-      delay: startValue.wipe.delay,
-      duration: startValue.wipe.duration,
-      easing: startValue.wipe.easing,
-      /* Velocity's default options */
-    });
-
-    itemImage
-    .velocity({
-      transform: [`translateX(${endValue.item.translateX}px) translateY(${endValue.item.translateY}px)`, `translateX(${startValue.item.translateX}px) translateY(${startValue.item.translateY}px)`],
-      //left: [`-${itemOffsetLeft}px`, `${itemOffsetLeft}px`],
-      //top: [endValue.item.top, startValue.item.top],
-      bottom: [endValue.item.bottom, startValue.item.bottom],
-      "background-position-y": [endValue.item.backgroundPositionY, startValue.item.backgroundPositionY],
-      width: [endValue.item.width, startValue.item.width],
-      height: [endValue.item.height, startValue.item.height]
-    }, 
-    {
-      duration: startValue.item.duration,
-      delay: startValue.item.delay,
-      easing: startValue.item.easing,
-      queue: "",
-      loop: false,
-      mobileHA: true,
-      /* Velocity's default options */
-      progress: function(elements, complete, remaining, start, tweenValue) {
-        //console.log(complete);
-        if (complete === 1) {
-          if (reverse) {
-            item.style.overflow = "";
-            item.querySelector(".gridwrap").style.overflow = "";
-            item.querySelector(".gridgrow-image-holder").style.overflow = "";
-            document.querySelector("html").style.marginLeft = "";
-            document.querySelector("main").style.marginLeft = "";
-            document.querySelector(".masthead").style = "";
-            document.querySelector("html").classList.remove("pageAnimating", "loading");
-            document.body.style.overflowY = "scroll";
-            bodyScrollLock.enableBodyScroll(document.body);
-            //item.addEventListener("click");
-            itemImage.style.zIndex = "";
-            wipe.style.zIndex = "";
-            item.querySelector(".gridgrow-image").velocity({
-              visibility: ["visible", "hidden"],
-            }, {
-              delay: 0,
-              duration: 0,
-            });
-          } else {
-            item.classList.add("active");
-            item.querySelector(".gridgrow-image").velocity({
-              visibility: ["hidden", "visible"],
-            }, {
-              delay: 600,
-              duration: 100,
-              complete: function() {
-                //ajaxContainer.style.overflowY = "scroll";
-              }
-            });
-            ajaxContainer.style.overflowY = "scroll";
-            reverseAnimation(item, initialValue, startValue, endValue);
-          }
-        }
-      }
-    });
-  }
-
-function reverseAnimation(item, initialValue, startValue, endValue) {
-  let reverseBtn = document.createElement("button");
-  reverseBtn.classList.add("reverseAnimation");
-  reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-    <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
-    <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
-    </svg>`;
-
-  //reverseBtn.appendChild(t);
-  document.body.appendChild(reverseBtn);
-  //detect back btn then hijack it
-  // window.onpopstate = function(event) {
-  //   window.history.pushState("object or string", "Title", window.location);
-  //   reverseClick();
-  // }
-
-  function reverseClick(e) {
-    reverse = true;
-    windowScrollY = 0;
-    let element = document.querySelector(".reverseAnimation");
-    element.parentNode.removeChild(element);
-    clicked = true;
-    //ajaxContainer.scrollTop = 0;
-    ajaxContainer.velocity({scrollTop: "0px"}, {
-      duration: 300,
-      delay: 0,
-      complete: function() {
-        setItemStyles(item, initialValue, endValue, reverse, clicked);
-        //console.log(initialValue);
-        //console.log(endValue);
-        //console.log("REVERSE COMPLETE");
-      }
-    });
-  }
-  reverseBtn.addEventListener("click", reverseClick, false);      
-}
-
-function ajaxWorkItem (item, initialValue, endValue, reverse) {
-  let pageCritical = document.querySelector(".page_critical_css");
-  //console.log(pageCritical);
-  if (reverse) {
-    //add back logo for animation
-    document.querySelector("html").classList.add("loading");
-
-    ajaxContainer
-    .velocity({
-      opacity: 0,
-      visibility: ["hidden", "visible"]
-    }, {
-      duration: 400,
-    })
-    .velocity({
-      display: "none",
-    }, {
-      duration: 0,
-      complete: function() {
-          //console.log("REVERSE COMPLETE");
-          item.classList.remove("active");
-        }
-    });
-
-  } else {
-    let nextLink = item.querySelector("a").getAttribute("href");    
-    //https://stackoverflow.com/questions/36631762/returning-html-with-fetch
-    // AJAX CALL
-    fetch(nextLink /*, options */)
-    .then((response) => response.text())
-    .then((html) => {
-      
-      //reload scripts that are in innerHTML https://ghinda.net/article/script-tags/
-      runScripts(ajaxContainer, nextLink);
-      redoAos(ajaxContainer)
-            
-    })
-    .catch((error) => {
-        console.warn(error);
-    });
-    ajaxContainer
-    .velocity({
-      top: [initialValue.navHeight, 0],
-      display: ["block", "none"],
-    })
-    .velocity({
-      opacity: [1, 0],
-      visibility: ["visible", "hidden"]
-    }, {
-      delay: 400,
-      duration: 400,
-      complete: function() {
-      document.querySelector("html").classList.remove("loading");
-        //console.log("REVERSE COMPLETE");
-      }
-    });
   }
 }
 
@@ -718,10 +562,10 @@ function runScripts (container, nextLink) {
           //console.log(m);
           m = "";
       } else {
-          let newLink = window.location.origin + startPageLink;
+          let newLink = window.location.origin + window.location.pathname;
           m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
           m = m.replace(newLink, '', /["']?\)$/, '')
-          m = window.location.origin + nextLink + m;
+          m = nextLink + m;
           console.log(`${m}`);
           //section.style.backgroundImage = "background-image: url(" + m + ")";
           section.style.backgroundImage = "url('" + m + "')";
