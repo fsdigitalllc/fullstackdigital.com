@@ -1,6 +1,6 @@
 if (!Util) {
 
-function Util () {};
+var Util = function () {};
 
 Array.prototype.diff = function(arr2) {
   var ret = [];
@@ -15,10 +15,10 @@ Array.prototype.diff = function(arr2) {
 };
 
 Util.imagesLoaded = () => {
-  let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
-  let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
+  var lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
+  var ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
   
-  let images = lazyImages.diff(ignoreClasslist)
+  var images = lazyImages.diff(ignoreClasslist)
   //console.log("image length", lazyImages)
   if (lazyImages.length > 0) {
     
@@ -73,7 +73,7 @@ Util.loadingAnimation = (direction = true) => {
 
 // Check if an item is in the browser view. Useful for featured grid and mobile.
 Util.isInViewport = (elem) => {
-let bounding = elem.getBoundingClientRect();
+var bounding = elem.getBoundingClientRect();
   return (
     bounding.top >= 0 &&
     bounding.left >= 0 &&
@@ -106,9 +106,9 @@ Util.replaceHistory = (data, title, location) => {
 
   window.addEventListener("load", () => {
     //console.log("first load");
-    let title = document.querySelector('title').innerText;
-    let data = null;
-    let link = window.location;
+    var title = document.querySelector('title').innerText;
+    var data = null;
+    var link = window.location;
     Util.replaceHistory(data, title, link);
   });
   

@@ -1,39 +1,39 @@
-(() => {
+(function (){
 
 // get all of the selectors we are working with.
-let ajaxContainer = document.querySelector(".work-ajax");
+var ajaxContainer = document.querySelector(".work-ajax");
 
 // Spacer div that should remain in the dom. It checks the target link for header content and measures it's height
-let heightSpacer = document.querySelector(".height-spacer");
+var heightSpacer = document.querySelector(".height-spacer");
 
 // The div width we will match on the next page. In this case our container on the next page is slightly smaller
-let widthSpacer = document.querySelector(".width-spacer");
+var widthSpacer = document.querySelector(".width-spacer");
 
 // First wrapping parent of all grid items.
-let grid = document.querySelector(".work-container");
-let gridItems = document.querySelectorAll(".gridgrow");
-let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
+var grid = document.querySelector(".work-container");
+var gridItems = document.querySelectorAll(".gridgrow");
+var gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 
 // from https://davidwalsh.name/detect-scrollbar-width
-// let getScrollbarWidth = () => {
+// var getScrollbarWidth = () => {
 //   // Create the measurement node
 //   var scrollDiv = document.createElement("div");
 //   scrollDiv.className = "scrollbar-measure";
 //   scrollDiv.style.overflowY = "scroll",
 //   scrollDiv.innerHTML = `<div class="scrollbar-measure-inner"></div>`
 //   document.body.appendChild(scrollDiv);
-//   let scrollDivInner = document.querySelector(".scrollbar-measure-inner");
+//   var scrollDivInner = document.querySelector(".scrollbar-measure-inner");
 //   // Get the scrollbar width
 //   var scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
 //   //console.warn("scrollbarwidth:", scrollbarWidth); // Mac:  15
 
-//   // Delete the DIV 
+//   // Devare the DIV 
 //   document.body.removeChild(scrollDiv);
 //   return scrollbarWidth;
 // }
 // Can also use this to check scrollbar width:
-let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-//let scrollbarWidth = getScrollbarWidth();
+var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+//var scrollbarWidth = getScrollbarWidth();
 console.log("scrollbarwidth", scrollbarWidth)
 if (grid.classList.contains("type-1")) {
   featured = true;
@@ -42,11 +42,11 @@ if (grid.classList.contains("type-1")) {
 }
 
 // On click or if in viewport, populate a div with content that matches the target page.
-let setHeightSpacerContent = (item) => {
-  let logoImage = item.querySelector(".card-logo");
-  let spacerLogo = heightSpacer.querySelector(".client_logo");
-  let itemExcerpt = item.querySelector(".gridgrow-excerpt");
-  let spacerTitle = heightSpacer.querySelector(".page-title");
+var setHeightSpacerContent = (item) => {
+  var logoImage = item.querySelector(".card-logo");
+  var spacerLogo = heightSpacer.querySelector(".client_logo");
+  var itemExcerpt = item.querySelector(".gridgrow-excerpt");
+  var spacerTitle = heightSpacer.querySelector(".page-title");
   if (spacerLogo.src !== logoImage.src) {
     spacerLogo.src = logoImage.src;
   }
@@ -78,10 +78,10 @@ document.body.addEventListener("click", function(e){
   //animateClick(item, initialValue);
 });
 
-let getItem = (item) => {
+var getItem = (item) => {
   //console.log("item,", item)
   if (item.classList.contains("gridgrow")) {
-    let the = {
+    var the = {
       widthSpacer: document.querySelector(".width-spacer"),
       heightSpacer: document.querySelector(".height-spacer"),
       containerInner: document.querySelector(".work-container"),
@@ -98,7 +98,7 @@ let getItem = (item) => {
 //console.log("getitem", getItem(document.querySelector(".gridgrow")).widthSpacer)
 
 // Set image width, height, top, left
-let createItem = (item) => {
+var createItem = (item) => {
   if (Util.isInViewport(item)) {
     setHeightSpacerContent(item);
   }
@@ -108,11 +108,11 @@ let createItem = (item) => {
   //console.table("item startValues:", );
 }
 
-let gridImagesLoaded = () => {
+var gridImagesLoaded = () => {
 // just show loading indicator for the page untill the items finish.
 
 //if there are filters, change the order images load in
-let loadImages = (activeBtn) => {
+var loadImages = (activeBtn) => {
 
   // If there are filters, check for the active panel, then lazy load those images first. Do not load other images until the tab is clicked.
   if (activeBtn.type === "click") {
@@ -125,10 +125,10 @@ let loadImages = (activeBtn) => {
     gridImages = Array.from(document.querySelectorAll(`[data-item-filter="${activeBtn}"] .gridgrow-image`));
     //console.log("activeBtn", gridImages.length)
   }
-  let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
-  let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
-
-  let images = lazyImages.diff(ignoreClasslist)
+  var lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
+  var ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
+  console.log("ignoreclasslist", ignoreClasslist)
+  var images = lazyImages.diff(ignoreClasslist)
   
   gridImages = gridImages.concat(images);
   //console.log(gridImages)
@@ -141,7 +141,7 @@ let loadImages = (activeBtn) => {
       
       imageLoaded++;
       // Polyfill for closest needed
-      let item = image.closest(".gridgrow");
+      var item = image.closest(".gridgrow");
       if (item) {
         item.classList.add("loaded");
         createItem(item)
@@ -158,7 +158,7 @@ let loadImages = (activeBtn) => {
 }
 
   // If the page has a filter, load images that are in the active view and differ loading other images until the filter is pressed.
-  let sortBtns = document.querySelectorAll("[data-filter]");
+  var sortBtns = document.querySelectorAll("[data-filter]");
   if (sortBtns.length > 0) {
     sortBtns.forEach((btn) => {
       if (btn.classList.contains("active")) {
@@ -191,14 +191,14 @@ window.addEventListener("resize", () => {
   })
 });
 
-let calcImageRatio = (item) => {
+var calcImageRatio = (item) => {
   return item.image.naturalWidth / item.imageWrapper.offsetWidth;
 }
 
 function setItemStyles(item) {
-  let theItem = getItem(item);
-  let left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
-  let top = ((theItem.imageWrapper.offsetHeight - sVal(item).height) / 2 + "px");
+  var theItem = getItem(item);
+  var left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
+  var top = ((theItem.imageWrapper.offsetHeight - sVal(item).height) / 2 + "px");
   theItem.image.style.left = left;
   theItem.image.style.top = top;
   theItem.wipe.style.left = 0;
@@ -220,8 +220,8 @@ function setItemStyles(item) {
 }
 
 function eVal (item) {
-  let theItem = getItem(item);
-  let eVal = {
+  var theItem = getItem(item);
+  var eVal = {
     height: (
       (theItem.widthSpacer.offsetWidth 
       - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft) 
@@ -259,8 +259,8 @@ function eVal (item) {
 
 
 function sVal (item) {
-  let theItem = getItem(item);
-  let sVal = {
+  var theItem = getItem(item);
+  var sVal = {
     //width: theItem.image.offsetWidth,
     height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
     width: (theItem.image.naturalWidth / (calcImageRatio(theItem))) * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
@@ -299,11 +299,11 @@ function sVal (item) {
 
 function animateItem(item, direction) {
   
-  let theItem = getItem(item);
+  var theItem = getItem(item);
   //console.log("itemddf", theItem.image)
-  let startVal = sVal(item);
-  let endVal = eVal(item);
-  let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
+  var startVal = sVal(item);
+  var endVal = eVal(item);
+  var startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
 
   // Load content via ajax
   ajaxLoad(item, direction);
@@ -358,15 +358,15 @@ function animateItem(item, direction) {
     delay: 0,
     easing: "ease-out",
     duration: timing,
-    progress: function(elements, complete, remaining, start, tweenValue) {
-      if (complete ===  1) {
-        transitionComplete(item, direction, startVal, endVal);
+    progress: function(elements, compvare, remaining, start, tweenValue) {
+      if (compvare ===  1) {
+        transitionCompvare(item, direction, startVal, endVal);
       }
     }
   })
 }
 
-function transitionComplete (item, direction, startVal, endVal) {
+function transitionCompvare (item, direction, startVal, endVal) {
   
   Util.loadingAnimation(false);
   if (direction !== true) {
@@ -380,7 +380,7 @@ function transitionComplete (item, direction, startVal, endVal) {
       easing: "ease-out",
       duration: 200
     })
-    let reverseBtn = document.createElement("button");
+    var reverseBtn = document.createElement("button");
     reverseBtn.classList.add("reverseAnimation");
     reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
       <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
@@ -419,20 +419,20 @@ function triggerReverse (item) {
 }
 
 function ajaxLoad (item, direction) {
-  let theItem = getItem(item);
+  var theItem = getItem(item);
   
   if (direction !== true) {
     fetch(theItem.link /*, options */)
     .then((response) => response.text())
     .then((html) => {
-      let parser = new DOMParser();
+      var parser = new DOMParser();
       // Parse the text
       var ajaxHtml = parser.parseFromString(html, "text/html");
       var ajaxContent = ajaxHtml.querySelector('main').innerHTML;
       //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
       //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
       //console.log(pageCritical);
-      let pageData = {
+      var pageData = {
         title: ajaxHtml.querySelector('title').innerText,
         html: ajaxContent
       }
@@ -444,9 +444,9 @@ function ajaxLoad (item, direction) {
       //console.log("html loaded")
 
       
-    let title = ajaxHtml.querySelector('title').innerText;
-    let data = null;
-    let link = theItem.link;
+    var title = ajaxHtml.querySelector('title').innerText;
+    var data = null;
+    var link = theItem.link;
     //history.replaceState(data, title, link);
     Util.pushHistory(data, title, link);
 
@@ -542,7 +542,7 @@ function runScripts (container, nextLink) {
     images.forEach(image => {
       
       //image.src = nextLink + image.src;
-      let path = image.getAttribute("src");
+      var path = image.getAttribute("src");
 
       if (!new RegExp("^(?:/|.+://)").test(path)) {
         //console.log(path);
@@ -553,14 +553,14 @@ function runScripts (container, nextLink) {
 
     var allSections = ajaxContainer.querySelectorAll('section');
     allSections.forEach(section => {
-      let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
+      var m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
 
       if (m === "none") {
           //console.log(`background image url`);
           //console.log(m);
           m = "";
       } else {
-          let newLink = window.location.origin + window.location.pathname;
+          var newLink = window.location.origin + window.location.pathname;
           m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
           m = m.replace(newLink, '', /["']?\)$/, '')
           m = nextLink + m;
@@ -589,9 +589,9 @@ function runScripts (container, nextLink) {
 
 function redoAos(container) {
 // Find the item we want to animate on scroll
-let target = container.querySelector('[data-aos]');
+var target = container.querySelector('[data-aos]');
 var targetActiveClass = 'aos-animate';
-let elements = container.querySelectorAll('[data-aos]');
+var elements = container.querySelectorAll('[data-aos]');
 // Call this function when it enters/leaves the viewport
 var callback = function(entries, observer) { 
   entries.forEach(entry => {
