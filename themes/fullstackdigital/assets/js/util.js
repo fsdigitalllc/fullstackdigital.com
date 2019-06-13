@@ -82,6 +82,12 @@ let bounding = elem.getBoundingClientRect();
     );
 };
 
+Util.pushHistory = (data, title, location) => {
+  console.log("push history", data, title, location)
+// Create a state object for the content to be toggled via ajax
+  window.history.pushState(data, title, location);
+};
+
 (() => {
   Util.loadingAnimation();
   
@@ -92,5 +98,26 @@ let bounding = elem.getBoundingClientRect();
           e.target.style.backgroundImage = 'url(' + bg + ')';
       }
   });
+
+  window.addEventListener("load", () => {
+    console.log("first load");
+    let title = document.querySelector('title').innerText;
+    let data = null;
+    let link = window.location;
+    Util.pushHistory(data, title, link);
+  });
+  //Update page content based on the current state object
+  //updateContent (pageData)
+  //Add the home or work page to the state object
+  
+  
+  window.onpopstate = function(event) {
+    console.log("popstate")
+    if (event.state) {
+      console.log("event title", event.state)
+      //updateContent(event.state)
+    }
+      //animateItem(item, true);
+  }
 })();
 }

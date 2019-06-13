@@ -1,14 +1,4 @@
-// Alternative to DOMContentLoaded event
-// document.onreadystatechange = function () {
-//   if (document.readyState === 'interactive') {
-//     ajaxGrid();
-//     console.log("DOMContentLoaded... Starting Ajax Grid");
-//   }
-// }
-
-// Using polyfill.io for polyfills
 (() => {
-
 
 // get all of the selectors we are working with.
 let ajaxContainer = document.querySelector(".work-ajax");
@@ -25,22 +15,22 @@ let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 
 // from https://davidwalsh.name/detect-scrollbar-width
-let getScrollbarWidth = () => {
-  // Create the measurement node
-  var scrollDiv = document.createElement("div");
-  scrollDiv.className = "scrollbar-measure";
-  scrollDiv.style.overflowY = "scroll",
-  scrollDiv.innerHTML = `<div class="scrollbar-measure-inner"></div>`
-  document.body.appendChild(scrollDiv);
-  let scrollDivInner = document.querySelector(".scrollbar-measure-inner");
-  // Get the scrollbar width
-  var scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
-  //console.warn("scrollbarwidth:", scrollbarWidth); // Mac:  15
+// let getScrollbarWidth = () => {
+//   // Create the measurement node
+//   var scrollDiv = document.createElement("div");
+//   scrollDiv.className = "scrollbar-measure";
+//   scrollDiv.style.overflowY = "scroll",
+//   scrollDiv.innerHTML = `<div class="scrollbar-measure-inner"></div>`
+//   document.body.appendChild(scrollDiv);
+//   let scrollDivInner = document.querySelector(".scrollbar-measure-inner");
+//   // Get the scrollbar width
+//   var scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
+//   //console.warn("scrollbarwidth:", scrollbarWidth); // Mac:  15
 
-  // Delete the DIV 
-  document.body.removeChild(scrollDiv);
-  return scrollbarWidth;
-}
+//   // Delete the DIV 
+//   document.body.removeChild(scrollDiv);
+//   return scrollbarWidth;
+// }
 // Can also use this to check scrollbar width:
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 //let scrollbarWidth = getScrollbarWidth();
@@ -418,16 +408,6 @@ var updateContent = function(stateObj) {
 function ajaxLoad (item, direction) {
   let theItem = getItem(item);
   
-  // Create a state object for the content to be toggled via ajax
-  let pageData = { 
-    title: document.querySelector('title').innerText,
-    html: '',
-  }
-  //Update page content based on the current state object
-  updateContent (pageData)
-  //Add the home or work page to the state object
-  window.history.pushState(pageData, pageData.title, window.location);
-
   if (direction !== true) {
     fetch(theItem.link /*, options */)
     .then((response) => response.text())
@@ -440,14 +420,13 @@ function ajaxLoad (item, direction) {
       //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
       //console.log(pageCritical);
       let pageData = {
-        previousTitle: document.querySelector('title').innerText,
         title: ajaxHtml.querySelector('title').innerText,
         html: ajaxContent
       }
       updateContent (pageData)
       runScripts(ajaxContainer, theItem.link);
       redoAos(ajaxContainer);
-      window.history.pushState(pageData, pageData.title, theItem.link);
+      //window.history.pushState(pageData, pageData.title, theItem.link);
       //console.log("html loaded")
 
       window.onpopstate = function(event) {
@@ -457,8 +436,12 @@ function ajaxLoad (item, direction) {
         }
           animateItem(item, true);
       }
-      
+    let title = ajaxHtml.querySelector('title').innerText;
+    let data = null;
+    let link = theItem.link;
+    Util.pushHistory(data, title, link);
 
+    
     }).then(() => {
       return true;
     });
