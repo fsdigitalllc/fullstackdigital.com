@@ -389,7 +389,7 @@ function transitionComplete (item, direction, startVal, endVal) {
 
       reverseBtn.addEventListener('click', (e) => {
         reverseBtn.parentNode.removeChild(reverseBtn)
-        animateItem(item, true);
+        triggerReverse(item);
       });
       
     document.body.appendChild(reverseBtn);
@@ -414,6 +414,11 @@ var updateContent = function(stateObj) {
   }
 };
 
+function triggerReverse (item) {
+  //animateItem(item, true);
+  history.back();
+}
+
 function ajaxLoad (item, direction) {
   let theItem = getItem(item);
   
@@ -435,22 +440,23 @@ function ajaxLoad (item, direction) {
       updateContent (pageData)
       runScripts(ajaxContainer, theItem.link);
       redoAos(ajaxContainer);
+      
       //window.history.pushState(pageData, pageData.title, theItem.link);
       //console.log("html loaded")
 
-      // window.onpopstate = function(event) {
-      //   if (event.state) {
-      //     console.log("event title", event.state)
-      //     updateContent(event.state)
-      //   }
-      //     animateItem(item, true);
-      // }
-    // let title = ajaxHtml.querySelector('title').innerText;
-    // let data = null;
-    // let link = theItem.link;
-    // history.replaceState(data, title, link);
-    //Util.pushHistory(data, title, link);
+      
+    let title = ajaxHtml.querySelector('title').innerText;
+    let data = null;
+    let link = theItem.link;
+    //history.replaceState(data, title, link);
+    Util.pushHistory(data, title, link);
 
+    window.onpopstate = function(event) {
+      if (event.state) {
+        updateContent(event.state)
+      }
+        animateItem(item, true);
+    }
     
     }).then(() => {
       return true;

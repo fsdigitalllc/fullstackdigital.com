@@ -87,6 +87,11 @@ Util.pushHistory = (data, title, location) => {
 // Create a state object for the content to be toggled via ajax
   window.history.pushState(data, title, location);
 };
+Util.replaceHistory = (data, title, location) => {
+  console.log("replace history", data, title, location)
+// Create a state object for the content to be toggled via ajax
+  window.history.replaceState(data, title, location);
+};
 
 (() => {
   Util.loadingAnimation();
@@ -104,20 +109,21 @@ Util.pushHistory = (data, title, location) => {
     let title = document.querySelector('title').innerText;
     let data = null;
     let link = window.location;
-    Util.pushHistory(data, title, link);
+    Util.replaceHistory(data, title, link);
   });
+  
   //Update page content based on the current state object
   //updateContent (pageData)
   //Add the home or work page to the state object
   
   
-  window.onpopstate = function(event) {
-    console.log("popstate")
-    if (event.state) {
-      console.log("event title", event.state)
-      //updateContent(event.state)
-    }
-      //animateItem(item, true);
-  }
+  // window.onpopstate = function(event) {
+  //   console.log("popstate")
+  //   if (event.state) {
+  //     console.log("event title", event.state)
+  //     //updateContent(event.state)
+  //   }
+  //     //animateItem(item, true);
+  // }
 })();
 }
