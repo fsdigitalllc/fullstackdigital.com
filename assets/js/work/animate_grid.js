@@ -329,6 +329,16 @@ function animateItem(item, direction) {
     // Start logo loading animation
     Util.loadingAnimation(true);
     timing = timing + 200;
+    ajaxContainer.velocity({
+      opacity: [endVal.content.opacity, startVal.content.opacity],
+      visibility: [endVal.content.visibility, startVal.content.visibility],
+      display: ["block", "none"],
+      top: [endVal.content.top, startVal.content.top],
+    }, {
+      delay: 0,
+      easing: "ease-out",
+      duration: 200
+    })
   }
   console.log("startval", startVal.bg, "endval", endVal.bg)
   theItem.wipe.velocity({
@@ -360,7 +370,16 @@ function transitionComplete (item, direction, startVal, endVal) {
   
   Util.loadingAnimation(false);
   if (direction !== true) {
-
+    ajaxContainer.velocity({
+      opacity: [endVal.content.opacity, startVal.content.opacity],
+      visibility: [endVal.content.visibility, startVal.content.visibility],
+      display: ["block", "none"],
+      top: [endVal.content.top, startVal.content.top],
+    }, {
+      delay: 0,
+      easing: "ease-out",
+      duration: 200
+    })
     let reverseBtn = document.createElement("button");
     reverseBtn.classList.add("reverseAnimation");
     reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
@@ -382,16 +401,6 @@ function transitionComplete (item, direction, startVal, endVal) {
     document.body.style.overflowY = "scroll";
     bodyScrollLock.enableBodyScroll(document.body);
   }
-  ajaxContainer.velocity({
-    opacity: [endVal.content.opacity, startVal.content.opacity],
-    visibility: [endVal.content.visibility, startVal.content.visibility],
-    display: ["block", "none"],
-    top: [endVal.content.top, startVal.content.top],
-  }, {
-    delay: 0,
-    easing: "ease-out",
-    duration: 200
-  })
   
 }
 
@@ -429,17 +438,18 @@ function ajaxLoad (item, direction) {
       //window.history.pushState(pageData, pageData.title, theItem.link);
       //console.log("html loaded")
 
-      window.onpopstate = function(event) {
-        if (event.state) {
-          console.log("event title", event.state)
-          updateContent(event.state)
-        }
-          animateItem(item, true);
-      }
-    let title = ajaxHtml.querySelector('title').innerText;
-    let data = null;
-    let link = theItem.link;
-    Util.pushHistory(data, title, link);
+      // window.onpopstate = function(event) {
+      //   if (event.state) {
+      //     console.log("event title", event.state)
+      //     updateContent(event.state)
+      //   }
+      //     animateItem(item, true);
+      // }
+    // let title = ajaxHtml.querySelector('title').innerText;
+    // let data = null;
+    // let link = theItem.link;
+    // history.replaceState(data, title, link);
+    //Util.pushHistory(data, title, link);
 
     
     }).then(() => {
