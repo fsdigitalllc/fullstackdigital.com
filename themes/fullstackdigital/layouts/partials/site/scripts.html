@@ -10,8 +10,12 @@
 
 {{ $plugins_js := slice $ls_unveil $lazy_js | resources.Concat "js/plugins.js" | minify | fingerprint }}
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-<script>lazySizes.init();</script>
+<script>
+lazySizes.init();
+AOS.init();
+</script>
 <style>
+  
   /*[data-aos]{opacity: 1 !important; transform: translate3d(0,0,0) !important;}*/
 </style>
 
