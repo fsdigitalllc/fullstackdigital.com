@@ -34,7 +34,7 @@ let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 // Can also use this to check scrollbar width:
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 //let scrollbarWidth = getScrollbarWidth();
-
+console.log("scrollbarwidth", scrollbarWidth)
 if (grid.classList.contains("type-1")) {
   featured = true;
 } else {
@@ -245,7 +245,7 @@ function eVal (item) {
     bg: {
       width: window.innerWidth,
       height: window.innerHeight,
-      x: -(item.offsetLeft + theItem.containerInner.offsetLeft + theItem.containerOuter.offsetLeft - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft) - scrollbarWidth),
+      x: -(item.offsetLeft + theItem.containerInner.offsetLeft + theItem.containerOuter.offsetLeft - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft) - scrollbarWidth + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft)),
       y: (theItem.nav.offsetHeight - (item.offsetTop + theItem.containerInner.offsetTop + theItem.containerOuter.offsetTop)) + window.scrollY,
     },
     content: {
@@ -340,7 +340,7 @@ function animateItem(item, direction) {
       duration: 200
     })
   }
-  console.log("startval", startVal.bg, "endval", endVal.bg)
+  //console.log("startval", startVal.bg, "endval", endVal.bg)
   theItem.wipe.velocity({
     width: [endVal.bg.width, startVal.bg.width],
     height: [endVal.bg.height, startVal.bg.height],
@@ -410,7 +410,6 @@ var updateContent = function(stateObj) {
     document.title = stateObj.title;
     document.querySelector("title").innerText = stateObj.title;
     ajaxContainer.innerHTML = stateObj.html;
-    console.log("previosuTitle", stateObj.previousTitle)
   }
 };
 
