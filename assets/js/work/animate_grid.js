@@ -304,7 +304,7 @@ function animateItem(item, direction) {
   var startVal = sVal(item);
   var endVal = eVal(item);
   var startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
-
+  var bgTime = timing;
   // Load content via ajax
   ajaxLoad(item, direction);
   if (direction !== true) {
@@ -321,6 +321,7 @@ function animateItem(item, direction) {
 
     // Start logo loading animation
     Util.loadingAnimation(true);
+    bgTime = bgTime - 200;
     
   } else {
     startVal = eVal(item);
@@ -329,6 +330,7 @@ function animateItem(item, direction) {
     // Start logo loading animation
     Util.loadingAnimation(true);
     timing = timing + 200;
+    bgTime = timing;
     ajaxContainer.velocity({
       opacity: [endVal.content.opacity, startVal.content.opacity],
       visibility: [endVal.content.visibility, startVal.content.visibility],
@@ -341,6 +343,7 @@ function animateItem(item, direction) {
     })
   }
   //console.log("startval", startVal.bg, "endval", endVal.bg)
+  
   theItem.wipe.velocity({
     width: [endVal.bg.width, startVal.bg.width],
     height: [endVal.bg.height, startVal.bg.height],
@@ -348,7 +351,7 @@ function animateItem(item, direction) {
   }, {
     delay: 0,
     easing: "ease-out",
-    duration: timing,
+    duration: bgTime,
   })
   theItem.image.velocity({
     height: [endVal.height, startVal.height],
@@ -358,15 +361,15 @@ function animateItem(item, direction) {
     delay: 0,
     easing: "ease-out",
     duration: timing,
-    progress: function(elements, compvare, remaining, start, tweenValue) {
-      if (compvare ===  1) {
-        transitionCompvare(item, direction, startVal, endVal);
+    progress: function(elements, complete, remaining, start, tweenValue) {
+      if (complete ===  1) {
+        transitionComplete(item, direction, startVal, endVal);
       }
     }
   })
 }
 
-function transitionCompvare (item, direction, startVal, endVal) {
+function transitionComplete (item, direction, startVal, endVal) {
   
   Util.loadingAnimation(false);
   if (direction !== true) {
