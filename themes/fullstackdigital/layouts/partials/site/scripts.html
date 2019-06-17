@@ -1,13 +1,21 @@
 {{/* <!--load this JS asap--> */}}
+<!--<script src="https://polyfill.io/v3/polyfill.min.js?features=es6%2CElement.prototype.closest%2Cfetch%2CArray.prototype.%40%40iterator"></script>-->
+
+{{ $util := resources.Get "js/util.js" | minify }}
+<script type="text/javascript" src="{{ $util.Permalink }}"></script>
 
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
-{{ $aos := resources.Get "js/plugins/aos.min.js" }}
 
-{{ $plugins_js := slice $ls_unveil $lazy_js $aos | resources.Concat "js/plugins.js" | minify | fingerprint }}
+
+{{ $plugins_js := slice $ls_unveil $lazy_js | resources.Concat "js/plugins.js" | minify | fingerprint }}
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-<script>lazySizes.init();</script>
+<script>
+lazySizes.init();
+AOS.init();
+</script>
 <style>
+  
   /*[data-aos]{opacity: 1 !important; transform: translate3d(0,0,0) !important;}*/
 </style>
 
@@ -20,52 +28,9 @@
   ])
 </script>
 
-<script type="text/javascript">
 
-if (window.location.pathname === "/") {
-  animateOnLoad();
-} else {
-  AOS.init({
-    offset: 0,
-    once: true,
-    delay: 0, // values from 0 to 3000, with step 50ms
-    duration: 400, // values from 0 to 3000, with step 50ms
-  });
-}
-    
-
-  function startPage() {
-    //console.log("startPage");
-    let lazyImages = document.querySelectorAll("img");
-  
-    lazyImages.forEach(function (image) {
-      image.classList.add("lazyload", "lazypreload");
-    });
-    //add simple support for background images:
-    document.addEventListener('lazybeforeunveil', function(e){
-        var bg = e.target.getAttribute('data-bg');
-        if(bg){
-            e.target.style.backgroundImage = 'url(' + bg + ')';
-        }
-    });
-  }
-
-  //document.addEventListener('DOMContentLoaded', startPage);
-
-  // do some stuff if ajax clicked
-  let gridAjaxItems = document.querySelectorAll(".gridgrow");
-
-  if (gridAjaxItems) {
-    gridAjaxItems.forEach(function(item, index) {
-      item.addEventListener("click", function(e){
-        //setTimeout(startPage, 3000);
-          
-      });
-    });
-  }
-</script>
-
-
-{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.noncritical.scss" . | toCSS | postCSS | minify }}
+{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS | postCSS | minify }}
 
 <link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>
+
+

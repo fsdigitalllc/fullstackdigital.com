@@ -4,7 +4,7 @@ name: "quantum"
 night_header: false
 night_footer: true
 language: en
-published: true
+published: false
 slug: "quantum-brand-design"
 layout: pancakes
 description: "Quantum approached the Fullstack team for creative support, and we couldn’t help but notice how a responsive brand framework could elevate their design to reach their perception in the market: a proven industry leader."
