@@ -1559,7 +1559,7 @@ pre > code {
   display: grid;
   display: -ms-grid; }
 
-.grid-2, .grid-3, .grid-4, .grid-5 {
+.type-2, .type-3, .type-4, .type-5 {
   display: -ms-grid;
   display: grid;
   grid-gap: 40px;
@@ -1567,7 +1567,7 @@ pre > code {
   grid-template-columns: 1fr; }
 
 @media screen and (min-width: 1024px) {
-  .grid-2 {
+  .type-2 {
     -ms-grid-columns: 1fr 1fr;
     grid-template-columns: 1fr 1fr; } }
 
@@ -2436,7 +2436,7 @@ nav.sub .link-4 {
 .work-grid .gridgrow:hover, .work-grid .gridgrow:hover a {
   cursor: pointer; }
 
-.work-grid .gridgrow:hover .gridwrap {
+.work-grid .gridgrow:hover .gridwrap, .work-grid .gridgrow.active .gridwrap {
   padding: 4%;
   margin: -4%; }
 
@@ -2497,7 +2497,8 @@ nav.sub .link-4 {
   display: flex; }
 
 .work-row .gridgrow {
-  height: 80vh; }
+  height: 80vh;
+  overflow: hidden; }
 
 .work-row .gridwrap {
   overflow: hidden; }
@@ -2710,6 +2711,23 @@ nav.sub .link-4 {
   width: 100%;
   height: 100%; }
 
+.width-spacer {
+  border-bottom: 3px dashed #000000;
+  height: 3px; }
+
+.width-spacer:after {
+  content: "";
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-left: 4px solid red;
+  position: absolute;
+  width: 4px;
+  display: block;
+  height: 6px; }
+
 .work-container.row-2 {
   grid-template-columns: 1fr; }
 
@@ -2728,6 +2746,39 @@ nav.sub .link-4 {
   height: 500px;
   overflow: visible;
   position: relative; }
+
+.active .gridwrap, .active .gridgrow-image-holder {
+  overflow: visible; }
+
+.active .gridgrow-image {
+  z-index: 61; }
+
+.active .wipe {
+  z-index: 60; }
+
+.gridgrow-image-holder {
+  margin-left: -4%;
+  margin-right: -4%;
+  overflow: hidden;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.gridgrow-image {
+  color: #fff;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: 55;
+  margin-bottom: 0;
+  max-width: none; }
 
 .gridgrow .background-light {
   color: #000000;
@@ -2766,34 +2817,10 @@ nav.sub .link-4 {
   transition: padding 1s cubic-bezier(0.4, 0, 0.2, 1), margin 1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1), -webkit-box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative; }
 
-.gridgrow .gridgrow-image-holder {
-  margin-left: -4%;
-  margin-right: -4%;
-  overflow: hidden;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
-
 .gridgrow .wipe {
   width: 100%;
   height: 100%;
   position: absolute; }
-
-.gridgrow .gridgrow-image {
-  color: #fff;
-  display: block;
-  position: absolute;
-  overflow: hidden;
-  z-index: 55;
-  margin-bottom: 0;
-  max-width: none; }
 
 .gridgrow .gridgrow-image-holder {
   height: calc(100% * 0.7 + 4%);

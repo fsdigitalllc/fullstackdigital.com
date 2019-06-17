@@ -1,3 +1,4 @@
+<div class="container-m width-spacer"></div>
 {{ $size := .page.grid.columns | default "4" }}
 {{ $tabs := .page.grid.tabs | default true }}
 {{ $layout := .page.grid.layout | default "grid" }}
@@ -10,6 +11,7 @@
   {{ $featured = true }}
 {{ end }}
 {{ if eq $tabs true }}
+
 <div class="work-grid-tabs container padding-s-bottom">
   <div class="flex h_children_space-between">
     <div class="brand active" data-aos="fade" data-aos-delay="200" data-aos-duration="1400" data-filter="brand">
@@ -40,8 +42,9 @@
 </div>
 
 {{ end }}
-<div class="container work-{{ $layout }}" id="loading_content" style="visibility: visible; display: block;">
-<div class="work-container row-{{ $size }}">
+
+<div class="container work-{{ $layout }} work-outer" id="loading_content" style="visibility: visible; display: block;">
+<div class="work-container type-{{ $size }}">
 <!-- <div class="gutter-guide"></div> -->
 
 {{ $query := (where $.global.Site.RegularPages "Section" "work") }}
@@ -126,10 +129,7 @@
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
-
-      {{/* <div class="gridgrow-image lazyload lazypreload" data-bg=''></div> */}}
-
-      <img class="gridgrow-image lazyload lazypreload {{ $name }}" calc-size='' data-src='{{ $image.Permalink }}'>
+      <img class="gridgrow-image {{ $name }}" width="50%" data-src='{{ $image.Permalink }}'>
 
       {{ if eq $featured false }}
       <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
@@ -186,8 +186,8 @@
 </div>
 
 </div>
-<div class="container-m spacer"></div>
-<div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex h_children_space-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src=""><div class="flex tiny color-oil padding-s-top strip-padding-tablet h_children_space-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex v_c-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
+
+<div class="height-spacer padding-m-bottom"><div id="project-summary" class="container padding-m-top padding-m-bottom flex h_children_space-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src=""><div class="flex tiny color-oil padding-s-top strip-padding-tablet h_children_space-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex v_c-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
 <div class="work-ajax"></div>
 
 {{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
@@ -206,4 +206,12 @@
 {{ end }}
 
 {{ $animate_grid := resources.Get "js/work/animate_grid.js" }}
-<script type="text/javascript" src="{{ $animate_grid.Permalink }}"></script>
+{{ $util := resources.Get "js/util.js" }}
+
+<script type="text/javascript">
+  fetchInject([
+    '{{ $animate_grid.Permalink }}'
+  ], fetchInject([
+    '{{ $util.Permalink }}'
+  ]))
+</script>
