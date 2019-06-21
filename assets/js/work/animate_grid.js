@@ -297,8 +297,8 @@ function sVal (item) {
     bg: {
       width: theItem.wipe.parentNode.offsetWidth,
       height: theItem.wipe.parentNode.offsetHeight,
-      x: 0,
-      y: 0
+      x: 0.1,
+      y: 0.1
     },
     content: {
       opacity: 0,
