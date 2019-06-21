@@ -2478,10 +2478,10 @@ nav.sub .link-4 {
       -ms-flex-align: center;
           align-items: center; }
 
-.work-container.row-1 {
+.work-container.type-1 {
   display: grid; }
 
-.work-container.row-2, .work-container.row-3, .work-container.row-4 {
+.work-container.type-2, .work-container.row-3, .work-container.row-4 {
   display: grid;
   grid-column-gap: 30px;
   grid-row-gap: 30px; }
@@ -2494,7 +2494,8 @@ nav.sub .link-4 {
 .work-row .gridwrap {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  z-index: 20; }
 
 .work-row .gridgrow {
   height: 80vh;
@@ -2728,10 +2729,7 @@ nav.sub .link-4 {
   display: block;
   height: 6px; }
 
-.work-container.row-2 {
-  grid-template-columns: 1fr; }
-
-.work-container.row-2 {
+.work-container.type-2 {
   grid-template-columns: 1fr 1fr; }
 
 .work-container.row-3 {
@@ -2877,7 +2875,7 @@ nav.sub .link-4 {
   .gridgrow .card-footer {
     padding-left: 40px;
     padding-right: 40px; }
-  .work-container.row-2 {
+  .work-container.type-2 {
     grid-template-columns: 1fr; }
   .reverseAnimation {
     width: 35px;

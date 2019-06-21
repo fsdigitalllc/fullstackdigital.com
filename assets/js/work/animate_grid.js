@@ -295,8 +295,8 @@ function sVal (item) {
       // + theItem.containerOuter.offsetTop,
       //- parseFloat(getComputedStyle(theItem.heightSpacer).paddingBottom),
     bg: {
-      width: theItem.imageWrapper.offsetWidth,
-      height: theItem.imageWrapper.offsetHeight,
+      width: theItem.wipe.parentNode.offsetWidth,
+      height: theItem.wipe.parentNode.offsetHeight,
       x: 0,
       y: 0
     },

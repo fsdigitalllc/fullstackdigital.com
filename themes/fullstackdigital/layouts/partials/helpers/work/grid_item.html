@@ -122,9 +122,7 @@
 {{ $assetpath := print $asset_prefix $logo }}
 <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow' data-item-filter="{{ $tag }}">
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
-  {{ if $featured }}
-  <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
-  {{ end }}
+  
   <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
@@ -179,7 +177,9 @@
   
   </div>
   </div>
-  
+  {{ if $featured }}
+  <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
+  {{ end }}
 </div>
 
 {{ end }}
