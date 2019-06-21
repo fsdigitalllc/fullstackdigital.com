@@ -214,6 +214,9 @@
     .wipe {
       z-index: 888;
     }
+    .gridgrow-image, .gridgrow-image-holder, .gridwrap {
+      z-index: 899;
+    }
   }
   @media screen and (max-width: $screen-desktop-s) {
     .gridgrow {
