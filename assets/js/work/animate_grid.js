@@ -198,7 +198,7 @@ var calcImageRatio = (item) => {
 function setItemStyles(item) {
   var theItem = getItem(item);
   var left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
-  var top = ((theItem.imageWrapper.offsetHeight - sVal(item).height) / 2 + "px");
+  var top = ((theItem.imageWrapper.offsetHeight - parseFloat(getComputedStyle(theItem.imageWrapper).marginTop) - sVal(item).height) / 2 + "px");
   theItem.image.style.left = left;
   theItem.image.style.top = top;
   theItem.wipe.style.left = 0;
@@ -241,7 +241,7 @@ function eVal (item) {
     //+ ( (theItem.widthSpacer.offsetWidth - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft)) / 2 ),
     // End Values
     offsetY:
-      window.scrollY + theItem.heightSpacer.offsetHeight,
+      theItem.heightSpacer.offsetHeight,
     bg: {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -267,18 +267,28 @@ function sVal (item) {
     //width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
     offsetX: 
       // Get each image to the edge of screen
-      item.offsetLeft 
-      + theItem.image.offsetLeft 
-      + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft)
-      + parseFloat(theItem.containerInner.offsetLeft)
-      - parseFloat(getComputedStyle(theItem.containerInner).paddingLeft)
-      + theItem.containerOuter.offsetLeft
-      - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft),
+      item.getBoundingClientRect().x 
+      // only for featured
+      //////+ theItem.imageWrapper.getBoundingClientRect().x 
+      //item.offsetLeft 
+      + parseFloat(theItem.image.style.left)
+      // only for featured
+      + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft),
+      // + parseFloat(theItem.containerInner.offsetLeft)
+      // - parseFloat(getComputedStyle(theItem.containerInner).paddingLeft)
+      // + theItem.containerOuter.offsetLeft
+      // - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft),
     offsetY:
-      item.offsetTop
-      + theItem.image.offsetTop 
-      + theItem.containerInner.offsetTop
-      + theItem.containerOuter.offsetTop,
+      item.getBoundingClientRect().y 
+      + parseFloat(theItem.image.style.top)
+      // This is a negative value
+      + parseFloat(getComputedStyle(document.querySelector(".gridgrow-image-holder")).marginTop) 
+      - parseFloat(getComputedStyle(document.querySelector(".gridwrap")).marginTop) 
+      - theItem.nav.offsetHeight,
+      // item.offsetTop
+      // + theItem.image.offsetTop 
+      // + theItem.containerInner.offsetTop
+      // + theItem.containerOuter.offsetTop,
       //- parseFloat(getComputedStyle(theItem.heightSpacer).paddingBottom),
     bg: {
       width: theItem.imageWrapper.offsetWidth,
@@ -294,6 +304,7 @@ function sVal (item) {
       // 531
       // End Values
   }
+  
   return sVal;
 }
 
@@ -342,7 +353,7 @@ function animateItem(item, direction) {
       duration: 200
     })
   }
-  //console.log("startval", startVal.bg, "endval", endVal.bg)
+  console.log("startval", startVal, "endval", endVal)
   
   theItem.wipe.velocity({
     width: [endVal.bg.width, startVal.bg.width],
