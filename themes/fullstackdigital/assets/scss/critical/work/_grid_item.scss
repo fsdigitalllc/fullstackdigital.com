@@ -1,3 +1,5 @@
+// Work-row = featured
+// Work-grid = normal grid view
 .reverseAnimation {
   position: fixed;
   top: 10%;
@@ -101,10 +103,10 @@
   }
 }
 
-.work-container.row-1 {
+.work-container.type-1 {
   display: grid;
 }
-.work-container.row-2, .work-container.row-3, .work-container.row-4 {
+.work-container.type-2, .work-container.row-3, .work-container.row-4 {
   display: grid;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
@@ -119,6 +121,7 @@
 .work-row {
   .gridwrap {
     display: flex;
+    z-index: 20;
   }
   .gridgrow {
     height: 80vh;
@@ -351,10 +354,7 @@
 }
 
 //.work-ajax::-webkit-scrollbar {display:none;}
-.work-container.row-2 {
-  grid-template-columns: 1fr;
-}
-.work-container.row-2 {
+.work-container.type-2 {
   grid-template-columns: 1fr 1fr;
 }
 .work-container.row-3 {
@@ -500,7 +500,7 @@
     padding-left: 40px;
     padding-right: 40px;
   }
-  .work-container.row-2 {
+  .work-container.type-2 {
     grid-template-columns: 1fr;
   }
   .reverseAnimation {
