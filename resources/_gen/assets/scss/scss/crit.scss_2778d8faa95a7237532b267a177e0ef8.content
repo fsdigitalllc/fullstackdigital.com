@@ -2600,6 +2600,9 @@ nav.sub .link-4 {
 .work-row .gridgrow.active .wipe {
   z-index: 888; }
 
+.work-row .gridgrow.active .gridgrow-image, .work-row .gridgrow.active .gridgrow-image-holder, .work-row .gridgrow.active .gridwrap {
+  z-index: 899; }
+
 @media screen and (max-width: 1200px) {
   .work-row .gridgrow {
     height: 50vh; }
