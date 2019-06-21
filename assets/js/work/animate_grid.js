@@ -1,6 +1,10 @@
 (function (){
 
 // get all of the selectors we are working with.
+let ajaxContainerCreate = document.createElement("DIV");
+ajaxContainerCreate.className = "work-ajax";
+document.querySelector("body").appendChild(ajaxContainerCreate);''
+//ocument.querySelector("main").innerHTML = document.querySelector("main").innerHTML + `<div class="work-ajax"></div>`;
 var ajaxContainer = document.querySelector(".work-ajax");
 
 // Spacer div that should remain in the dom. It checks the target link for header content and measures it's height
