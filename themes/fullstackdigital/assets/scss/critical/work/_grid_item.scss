@@ -66,6 +66,7 @@
   .gridgrow:hover, .gridgrow:hover a {
     cursor: pointer;
   }
+  // REMOVE FOR TESTING
   .gridgrow:hover .gridwrap, .gridgrow.active .gridwrap {
     padding: 4%;
     margin: -4%;
@@ -205,10 +206,11 @@
     .button.fill::before {
       width: 60%;
     }
-    .gridwrap {
-      padding-top: 4%;
-      margin-top: -4%;
-    }
+    // REMOVE FOR TESTING
+    // .gridwrap {
+    //   padding-top: 4%;
+    //   margin-top: -4%;
+    // }
   }
   .gridgrow.active {
     overflow: visible;

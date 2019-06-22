@@ -90,6 +90,7 @@ var getItem = (item) => {
       heightSpacer: document.querySelector(".height-spacer"),
       containerInner: document.querySelector(".work-container"),
       containerOuter: document.querySelector(".work-outer"),
+      cardFooter: item.querySelector(".card-footer"),
       image: item.querySelector(".gridgrow-image"),
       imageWrapper: item.querySelector(".gridgrow-image-holder"),
       wipe: item.querySelector(".wipe"),
@@ -271,22 +272,13 @@ function sVal (item) {
     //width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
     offsetX: 
       // Get each image to the edge of screen
-      item.getBoundingClientRect().x 
-      // only for featured
-      //////+ theItem.imageWrapper.getBoundingClientRect().x 
-      //item.offsetLeft 
-      + parseFloat(theItem.image.style.left)
-      // only for featured
-      + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft),
-      // + parseFloat(theItem.containerInner.offsetLeft)
-      // - parseFloat(getComputedStyle(theItem.containerInner).paddingLeft)
-      // + theItem.containerOuter.offsetLeft
-      // - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft),
+      theItem.image.parentNode.getBoundingClientRect().x
+      + parseFloat(theItem.image.style.left),
     offsetY:
-      item.getBoundingClientRect().y 
+      theItem.image.parentNode.getBoundingClientRect().y 
       + parseFloat(theItem.image.style.top)
       // This is a negative value
-      + parseFloat(getComputedStyle(document.querySelector(".gridgrow-image-holder")).marginTop) 
+      //+ parseFloat(getComputedStyle(document.querySelector(".gridgrow-image-holder")).marginTop) 
       - parseFloat(getComputedStyle(document.querySelector(".gridwrap")).marginTop) 
       - theItem.nav.offsetHeight,
       // item.offsetTop
@@ -337,6 +329,12 @@ function animateItem(item, direction) {
     // Start logo loading animation
     Util.loadingAnimation(true);
     bgTime = bgTime - 200;
+
+    theItem.cardFooter.velocity({
+      opacity: [0,1]
+    }, {
+      duraction: 0
+    })
     
   } else {
     startVal = eVal(item);
@@ -377,6 +375,14 @@ function animateItem(item, direction) {
     easing: "ease-out",
     duration: timing,
     progress: function(elements, complete, remaining, start, tweenValue) {
+      
+      // if (direction !== false) {
+      //   theItem.cardFooter.velocity({
+      //     opacity: [1, 0]
+      //   }, {
+      //     duration: timing + 100
+      //   })
+      // }
       if (complete ===  1) {
         transitionComplete(item, direction, startVal, endVal);
       }

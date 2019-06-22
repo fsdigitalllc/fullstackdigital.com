@@ -2593,10 +2593,6 @@ nav.sub .link-4 {
 .work-row .gridgrow:hover .button.fill::before {
   width: 60%; }
 
-.work-row .gridgrow:hover .gridwrap {
-  padding-top: 4%;
-  margin-top: -4%; }
-
 .work-row .gridgrow.active {
   overflow: visible; }
 
