@@ -329,13 +329,8 @@ function animateItem(item, direction) {
     // Start logo loading animation
     Util.loadingAnimation(true);
     bgTime = bgTime - 200;
-    //theItem.cardFooter.style.visibility = "hidden";
     theItem.cardFooter.classList.add("gridgrow-fade-out");
-    // theItem.cardFooter.velocity({
-    //   opacity: [0, 1]
-    // }, {
-    //   duraction: 0
-    // })
+    animateGridgrow();
     
   } else {
     startVal = eVal(item);
@@ -345,7 +340,24 @@ function animateItem(item, direction) {
     Util.loadingAnimation(true);
     timing = timing + 200;
     bgTime = timing;
+    let velocityTime = (ajaxContainer.scrollTop * 0.1);
+    if (velocityTime < 200) {
+      velocityTime = 200;
+    }
+
     ajaxContainer.velocity({
+      scrollTop: 0,
+    }, {
+      delay: 0,
+      easing: "ease-out",
+      duration: velocityTime,
+      progress: function(elements, complete, remaining, start, tweenValue) {
+        if (complete ===  1) {
+          animateGridgrow();
+        }
+      }
+    })
+    .velocity({
       opacity: [endVal.content.opacity, startVal.content.opacity],
       visibility: [endVal.content.visibility, startVal.content.visibility],
       display: ["block", "none"],
@@ -356,37 +368,38 @@ function animateItem(item, direction) {
       duration: 200
     })
   }
-  console.log("startval", startVal, "endval", endVal)
+  //console.log("startval", startVal, "endval", endVal)
   
-  theItem.wipe.velocity({
-    width: [endVal.bg.width, startVal.bg.width],
-    height: [endVal.bg.height, startVal.bg.height],
-    transform: [`translateX(${endVal.bg.x}px) translateY(${endVal.bg.y}px)`, `translateX(${startVal.bg.x}px) translateY(${startVal.bg.y}px)`]
-  }, {
-    delay: 0,
-    easing: "ease-out",
-    duration: bgTime,
-  })
-  theItem.image.velocity({
-    height: [endVal.height, startVal.height],
-    width: [endVal.width, startVal.width],
-    transform: [`translateX(${endTranslateX}px) translateY(${endTranslateY}px)`, `translateX(${startTranslateX}px) translateY(${startTranslateY}px)`]
-  }, {
-    delay: 0,
-    easing: "ease-out",
-    duration: timing,
-    progress: function(elements, complete, remaining, start, tweenValue) {
-      if (complete > 0.5 && direction !== false) {
-        //theItem.cardFooter.style.visibility = "visible";
-        theItem.cardFooter.classList.remove("gridgrow-fade-out");
-        theItem.cardFooter.classList.add("gridgrow-fade-in");
+  function animateGridgrow () {
+    theItem.wipe.velocity({
+      width: [endVal.bg.width, startVal.bg.width],
+      height: [endVal.bg.height, startVal.bg.height],
+      transform: [`translateX(${endVal.bg.x}px) translateY(${endVal.bg.y}px)`, `translateX(${startVal.bg.x}px) translateY(${startVal.bg.y}px)`]
+    }, {
+      delay: 0,
+      easing: "ease-out",
+      duration: bgTime,
+    })
+    theItem.image.velocity({
+      height: [endVal.height, startVal.height],
+      width: [endVal.width, startVal.width],
+      transform: [`translateX(${endTranslateX}px) translateY(${endTranslateY}px)`, `translateX(${startTranslateX}px) translateY(${startTranslateY}px)`]
+    }, {
+      delay: 0,
+      easing: "ease-out",
+      duration: timing,
+      progress: function(elements, complete, remaining, start, tweenValue) {
+        if (complete > 0.5 && direction !== false) {
+          theItem.cardFooter.classList.remove("gridgrow-fade-out");
+          theItem.cardFooter.classList.add("gridgrow-fade-in");
+        }
+        if (complete ===  1) {
+          transitionComplete(item, direction, startVal, endVal);
+        }
       }
-      if (complete ===  1) {
-        transitionComplete(item, direction, startVal, endVal);
-        
-      }
-    }
-  })
+    })
+  }
+  
 }
 
 function transitionComplete (item, direction, startVal, endVal) {
