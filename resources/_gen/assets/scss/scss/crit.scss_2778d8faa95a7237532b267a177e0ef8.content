@@ -2556,6 +2556,16 @@ nav.sub .link-4 {
 .work-row .gridgrow:hover, .work-row .gridgrow.active {
   z-index: 100; }
 
+.work-row .gridgrow.active .card-footer {
+  opacity: 1;
+  -webkit-animation: opacity 1s;
+          animation: opacity 1s; }
+
+.work-row .gridgrow.active .card-footer.gridgrow-fade-out {
+  opacity: 0;
+  -webkit-animation: opacity 1s;
+          animation: opacity 1s; }
+
 .work-row .gridgrow:hover .gridwrap {
   margin-left: 0px;
   margin-right: 0px;

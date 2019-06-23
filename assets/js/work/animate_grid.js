@@ -329,9 +329,10 @@ function animateItem(item, direction) {
     // Start logo loading animation
     Util.loadingAnimation(true);
     bgTime = bgTime - 200;
-    //theItem.cardFooter.style.opacity = 0;
+    //theItem.cardFooter.style.visibility = "hidden";
+    theItem.cardFooter.classList.add("gridgrow-fade-out");
     // theItem.cardFooter.velocity({
-    //   opacity: [0,1]
+    //   opacity: [0, 1]
     // }, {
     //   duraction: 0
     // })
@@ -375,16 +376,13 @@ function animateItem(item, direction) {
     easing: "ease-out",
     duration: timing,
     progress: function(elements, complete, remaining, start, tweenValue) {
-      theItem.cardFooter.style.opacity = 1;  
-      // if (direction !== false) {
-      //   theItem.cardFooter.velocity({
-      //     opacity: 1
-      //   }, {
-      //     duration: timing + 100
-      //   })
-      // }
+      if (complete > 0.5 && direction !== false) {
+        //theItem.cardFooter.style.visibility = "visible";
+        theItem.cardFooter.classList.remove("gridgrow-fade-out");
+      }
       if (complete ===  1) {
         transitionComplete(item, direction, startVal, endVal);
+        
       }
     }
   })
