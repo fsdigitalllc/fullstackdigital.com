@@ -170,18 +170,22 @@
   .gridgrow:hover, .gridgrow.active {
     z-index: 100;
   }
-  .gridgrow.active .card-footer {
+  .gridgrow .card-footer.gridgrow-fade-in {
     opacity: 1;
-    animation: opacity 1s;
+    animation: gridgrow-fade-in .5s;
   }
-  .gridgrow.active .card-footer.gridgrow-fade-out {
+  .gridgrow .card-footer.gridgrow-fade-out {
     opacity: 0;
-    animation: opacity 1s;
+    animation: gridgrow-fade-out .5s;
   }
-  // @keyframes gridgrow-fade-out {
-  //   from {opacity: 1;}
-  //   to {opacity: 0;}
-  // }
+  @keyframes gridgrow-fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  @keyframes gridgrow-fade-out {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
   .gridgrow:hover .gridwrap {
     margin-left: 0px;
     margin-right: 0px;
