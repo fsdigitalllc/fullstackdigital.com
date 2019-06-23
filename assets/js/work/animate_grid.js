@@ -379,6 +379,7 @@ function animateItem(item, direction) {
       if (complete > 0.5 && direction !== false) {
         //theItem.cardFooter.style.visibility = "visible";
         theItem.cardFooter.classList.remove("gridgrow-fade-out");
+        theItem.cardFooter.classList.add("gridgrow-fade-in");
       }
       if (complete ===  1) {
         transitionComplete(item, direction, startVal, endVal);

@@ -2556,15 +2556,39 @@ nav.sub .link-4 {
 .work-row .gridgrow:hover, .work-row .gridgrow.active {
   z-index: 100; }
 
-.work-row .gridgrow.active .card-footer {
+.work-row .gridgrow .card-footer.gridgrow-fade-in {
   opacity: 1;
-  -webkit-animation: opacity 1s;
-          animation: opacity 1s; }
+  -webkit-animation: gridgrow-fade-in .5s;
+          animation: gridgrow-fade-in .5s; }
 
-.work-row .gridgrow.active .card-footer.gridgrow-fade-out {
+.work-row .gridgrow .card-footer.gridgrow-fade-out {
   opacity: 0;
-  -webkit-animation: opacity 1s;
-          animation: opacity 1s; }
+  -webkit-animation: gridgrow-fade-out .5s;
+          animation: gridgrow-fade-out .5s; }
+
+@-webkit-keyframes gridgrow-fade-in {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes gridgrow-fade-in {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@-webkit-keyframes gridgrow-fade-out {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@keyframes gridgrow-fade-out {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
 
 .work-row .gridgrow:hover .gridwrap {
   margin-left: 0px;
