@@ -1,3 +1,5 @@
+// Work-row = featured
+// Work-grid = normal grid view
 .reverseAnimation {
   position: fixed;
   top: 10%;
@@ -64,6 +66,7 @@
   .gridgrow:hover, .gridgrow:hover a {
     cursor: pointer;
   }
+  // REMOVE FOR TESTING
   .gridgrow:hover .gridwrap, .gridgrow.active .gridwrap {
     padding: 4%;
     margin: -4%;
@@ -101,10 +104,10 @@
   }
 }
 
-.work-container.row-1 {
+.work-container.type-1 {
   display: grid;
 }
-.work-container.row-2, .work-container.row-3, .work-container.row-4 {
+.work-container.type-2, .work-container.row-3, .work-container.row-4 {
   display: grid;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
@@ -119,6 +122,7 @@
 .work-row {
   .gridwrap {
     display: flex;
+    z-index: 20;
   }
   .gridgrow {
     height: 80vh;
@@ -202,14 +206,22 @@
     .button.fill::before {
       width: 60%;
     }
-    .gridwrap {
-      padding-top: 4%;
-      margin-top: -4%;
-    }
+    // REMOVE FOR TESTING
+    // .gridwrap {
+    //   padding-top: 4%;
+    //   margin-top: -4%;
+    // }
+  }
+  .gridgrow.active {
+    overflow: visible;
   }
   .gridgrow.active {
     .wipe {
       z-index: 888;
+    }
+    .gridgrow-image, .gridgrow-image-holder, .gridwrap {
+      z-index: 899;
+      overflow: visible;
     }
   }
   @media screen and (max-width: $screen-desktop-s) {
@@ -351,10 +363,7 @@
 }
 
 //.work-ajax::-webkit-scrollbar {display:none;}
-.work-container.row-2 {
-  grid-template-columns: 1fr;
-}
-.work-container.row-2 {
+.work-container.type-2 {
   grid-template-columns: 1fr 1fr;
 }
 .work-container.row-3 {
@@ -500,7 +509,7 @@
     padding-left: 40px;
     padding-right: 40px;
   }
-  .work-container.row-2 {
+  .work-container.type-2 {
     grid-template-columns: 1fr;
   }
   .reverseAnimation {
