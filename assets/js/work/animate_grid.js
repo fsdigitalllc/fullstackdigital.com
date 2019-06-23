@@ -329,12 +329,12 @@ function animateItem(item, direction) {
     // Start logo loading animation
     Util.loadingAnimation(true);
     bgTime = bgTime - 200;
-
-    theItem.cardFooter.velocity({
-      opacity: [0,1]
-    }, {
-      duraction: 0
-    })
+    //theItem.cardFooter.style.opacity = 0;
+    // theItem.cardFooter.velocity({
+    //   opacity: [0,1]
+    // }, {
+    //   duraction: 0
+    // })
     
   } else {
     startVal = eVal(item);
@@ -375,10 +375,10 @@ function animateItem(item, direction) {
     easing: "ease-out",
     duration: timing,
     progress: function(elements, complete, remaining, start, tweenValue) {
-      
+      theItem.cardFooter.style.opacity = 1;  
       // if (direction !== false) {
       //   theItem.cardFooter.velocity({
-      //     opacity: [1, 0]
+      //     opacity: 1
       //   }, {
       //     duration: timing + 100
       //   })
