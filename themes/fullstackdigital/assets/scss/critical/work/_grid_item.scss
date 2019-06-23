@@ -170,6 +170,18 @@
   .gridgrow:hover, .gridgrow.active {
     z-index: 100;
   }
+  .gridgrow.active .card-footer {
+    opacity: 1;
+    animation: opacity 1s;
+  }
+  .gridgrow.active .card-footer.gridgrow-fade-out {
+    opacity: 0;
+    animation: opacity 1s;
+  }
+  // @keyframes gridgrow-fade-out {
+  //   from {opacity: 1;}
+  //   to {opacity: 0;}
+  // }
   .gridgrow:hover .gridwrap {
     margin-left: 0px;
     margin-right: 0px;
