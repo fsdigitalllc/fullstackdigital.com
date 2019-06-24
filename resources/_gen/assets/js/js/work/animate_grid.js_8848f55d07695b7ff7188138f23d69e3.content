@@ -3,32 +3,35 @@
 // get all of the selectors we are working with.
 let ajaxContainerCreate = document.createElement("DIV");
 ajaxContainerCreate.className = "work-ajax";
+ajaxContainerCreate.setAttribute("loaded", false)
 document.querySelector("body").appendChild(ajaxContainerCreate);''
 //ocument.querySelector("main").innerHTML = document.querySelector("main").innerHTML + `<div class="work-ajax"></div>`;
-var ajaxContainer = document.querySelector(".work-ajax");
+let ajaxContainer = document.querySelector(".work-ajax");
+
+let ajaxLoadEvent = new Event('ajaxLoaded');
 
 // Spacer div that should remain in the dom. It checks the target link for header content and measures it's height
-var heightSpacer = document.querySelector(".height-spacer");
+let heightSpacer = document.querySelector(".height-spacer");
 
 // The div width we will match on the next page. In this case our container on the next page is slightly smaller
-var widthSpacer = document.querySelector(".width-spacer");
+let widthSpacer = document.querySelector(".width-spacer");
 
 // First wrapping parent of all grid items.
-var grid = document.querySelector(".work-container");
-var gridItems = document.querySelectorAll(".gridgrow");
-var gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
+let grid = document.querySelector(".work-container");
+let gridItems = document.querySelectorAll(".gridgrow");
+let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 
 // from https://davidwalsh.name/detect-scrollbar-width
-// var getScrollbarWidth = () => {
+// let getScrollbarWidth = () => {
 //   // Create the measurement node
-//   var scrollDiv = document.createElement("div");
+//   let scrollDiv = document.createElement("div");
 //   scrollDiv.className = "scrollbar-measure";
 //   scrollDiv.style.overflowY = "scroll",
 //   scrollDiv.innerHTML = `<div class="scrollbar-measure-inner"></div>`
 //   document.body.appendChild(scrollDiv);
-//   var scrollDivInner = document.querySelector(".scrollbar-measure-inner");
+//   let scrollDivInner = document.querySelector(".scrollbar-measure-inner");
 //   // Get the scrollbar width
-//   var scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
+//   let scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
 //   //console.warn("scrollbarwidth:", scrollbarWidth); // Mac:  15
 
 //   // Devare the DIV 
@@ -36,8 +39,8 @@ var gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 //   return scrollbarWidth;
 // }
 // Can also use this to check scrollbar width:
-var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-//var scrollbarWidth = getScrollbarWidth();
+let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+//let scrollbarWidth = getScrollbarWidth();
 //console.log("scrollbarwidth", scrollbarWidth)
 if (grid.classList.contains("type-1")) {
   featured = true;
@@ -46,11 +49,11 @@ if (grid.classList.contains("type-1")) {
 }
 
 // On click or if in viewport, populate a div with content that matches the target page.
-var setHeightSpacerContent = (item) => {
-  var logoImage = item.querySelector(".card-logo");
-  var spacerLogo = heightSpacer.querySelector(".client_logo");
-  var itemExcerpt = item.querySelector(".gridgrow-excerpt");
-  var spacerTitle = heightSpacer.querySelector(".page-title");
+let setHeightSpacerContent = (item) => {
+  let logoImage = item.querySelector(".card-logo");
+  let spacerLogo = heightSpacer.querySelector(".client_logo");
+  let itemExcerpt = item.querySelector(".gridgrow-excerpt");
+  let spacerTitle = heightSpacer.querySelector(".page-title");
   if (spacerLogo.src !== logoImage.src) {
     spacerLogo.src = logoImage.src;
   }
@@ -82,10 +85,10 @@ document.body.addEventListener("click", function(e){
   //animateClick(item, initialValue);
 });
 
-var getItem = (item) => {
+let getItem = (item) => {
   //console.log("item,", item)
   if (item.classList.contains("gridgrow")) {
-    var the = {
+    let the = {
       widthSpacer: document.querySelector(".width-spacer"),
       heightSpacer: document.querySelector(".height-spacer"),
       containerInner: document.querySelector(".work-container"),
@@ -103,7 +106,7 @@ var getItem = (item) => {
 //console.log("getitem", getItem(document.querySelector(".gridgrow")).widthSpacer)
 
 // Set image width, height, top, left
-var createItem = (item) => {
+let createItem = (item) => {
   if (Util.isInViewport(item)) {
     setHeightSpacerContent(item);
   }
@@ -113,11 +116,11 @@ var createItem = (item) => {
   //console.table("item startValues:", );
 }
 
-var gridImagesLoaded = () => {
+let gridImagesLoaded = () => {
 // just show loading indicator for the page untill the items finish.
 
 //if there are filters, change the order images load in
-var loadImages = (activeBtn) => {
+let loadImages = (activeBtn) => {
 
   // If there are filters, check for the active panel, then lazy load those images first. Do not load other images until the tab is clicked.
   if (activeBtn.type === "click") {
@@ -130,10 +133,10 @@ var loadImages = (activeBtn) => {
     gridImages = Array.from(document.querySelectorAll(`[data-item-filter="${activeBtn}"] .gridgrow-image`));
     //console.log("activeBtn", gridImages.length)
   }
-  var lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
-  var ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
+  let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
+  let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
   console.log("ignoreclasslist", ignoreClasslist)
-  var images = lazyImages.diff(ignoreClasslist)
+  let images = lazyImages.diff(ignoreClasslist)
   
   gridImages = gridImages.concat(images);
   //console.log(gridImages)
@@ -146,7 +149,7 @@ var loadImages = (activeBtn) => {
       
       imageLoaded++;
       // Polyfill for closest needed
-      var item = image.closest(".gridgrow");
+      let item = image.closest(".gridgrow");
       if (item) {
         item.classList.add("loaded");
         createItem(item)
@@ -163,7 +166,7 @@ var loadImages = (activeBtn) => {
 }
 
   // If the page has a filter, load images that are in the active view and differ loading other images until the filter is pressed.
-  var sortBtns = document.querySelectorAll("[data-filter]");
+  let sortBtns = document.querySelectorAll("[data-filter]");
   if (sortBtns.length > 0) {
     sortBtns.forEach((btn) => {
       if (btn.classList.contains("active")) {
@@ -196,16 +199,16 @@ window.addEventListener("resize", () => {
   })
 });
 
-var calcImageRatio = (item) => {
+let calcImageRatio = (item) => {
   return item.image.naturalWidth / item.imageWrapper.offsetWidth;
 }
 
 function setItemStyles(item) {
-  var theItem = getItem(item);
+  let theItem = getItem(item);
 
   // Mobile tweaks
-  var calcTop = 0;
-  var calcLeft = 0;
+  let calcTop = 0;
+  let calcLeft = 0;
 
   if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
     calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
@@ -215,12 +218,12 @@ function setItemStyles(item) {
     calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
   }
   
-  var left = ((
+  let left = ((
     theItem.imageWrapper.offsetWidth 
     - sVal(item).width) / 2 
     + theItem.image.parentNode.offsetWidth * calcLeft
     + "px");
-  var top = ((
+  let top = ((
     theItem.imageWrapper.offsetHeight 
     - parseFloat(getComputedStyle(theItem.imageWrapper).marginTop) 
     - sVal(item).height) / 2 
@@ -247,8 +250,8 @@ function setItemStyles(item) {
 }
 
 function eVal (item) {
-  var theItem = getItem(item);
-  var eVal = {
+  let theItem = getItem(item);
+  let eVal = {
     height: (
       (theItem.widthSpacer.offsetWidth 
       - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft) 
@@ -279,6 +282,7 @@ function eVal (item) {
       opacity: 1,
       visibility: "visible",
       top: theItem.nav.offsetHeight,
+      display: "block"
     }
   }
   return eVal;
@@ -286,13 +290,13 @@ function eVal (item) {
 
 
 function sVal (item) {
-  var theItem = getItem(item);
+  let theItem = getItem(item);
 
-  var calcWidth = (parseFloat(theItem.image.getAttribute("width")) / 100 );
+  let calcWidth = (parseFloat(theItem.image.getAttribute("width")) / 100 );
   if (window.innerWidth < 720) {
     calcWidth = (parseFloat(theItem.image.getAttribute("m-width")) / 100 );
   }
-  var sVal = {
+  let sVal = {
     //width: theItem.image.offsetWidth,
     height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * calcWidth,
     width: (theItem.image.naturalWidth / (calcImageRatio(theItem))) * calcWidth,
@@ -316,6 +320,7 @@ function sVal (item) {
       opacity: 0,
       visibility: "hidden",
       top: theItem.nav.offsetHeight,
+      display: "none"
     }
       // 531
       // End Values
@@ -326,15 +331,15 @@ function sVal (item) {
 
 function animateItem(item, direction) {
   
-  var theItem = getItem(item);
+  let theItem = getItem(item);
   //console.log("itemddf", theItem.image)
-  var startVal = sVal(item);
-  var endVal = eVal(item);
-  var startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
-  var bgTime = timing;
+  let startVal = sVal(item);
+  let endVal = eVal(item);
+  let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
+  let bgTime = timing;
   // Load content via ajax
-  ajaxLoad(item, direction);
-  if (direction !== true) {
+  
+  if (direction === false) {
     //Forward
     item.classList.add("active");
 
@@ -350,7 +355,7 @@ function animateItem(item, direction) {
     Util.loadingAnimation(true);
     bgTime = bgTime - 200;
     theItem.cardFooter.classList.add("gridgrow-fade-out");
-    animateGridgrow();
+    animateGridgrow(item, direction);
     
   } else {
     startVal = eVal(item);
@@ -373,14 +378,14 @@ function animateItem(item, direction) {
       duration: velocityTime,
       progress: function(elements, complete, remaining, start, tweenValue) {
         if (complete ===  1) {
-          animateGridgrow();
+          animateGridgrow(item, direction);
         }
       }
     })
     .velocity({
       opacity: [endVal.content.opacity, startVal.content.opacity],
       visibility: [endVal.content.visibility, startVal.content.visibility],
-      display: ["block", "none"],
+      display: [endVal.content.display, startVal.content.display],
       top: [endVal.content.top, startVal.content.top],
     }, {
       delay: 0,
@@ -390,7 +395,8 @@ function animateItem(item, direction) {
   }
   //console.log("startval", startVal, "endval", endVal)
   
-  function animateGridgrow () {
+  function animateGridgrow (item, direction) {
+    
     theItem.wipe.velocity({
       width: [endVal.bg.width, startVal.bg.width],
       height: [endVal.bg.height, startVal.bg.height],
@@ -409,21 +415,30 @@ function animateItem(item, direction) {
       easing: "ease-out",
       duration: timing,
       progress: function(elements, complete, remaining, start, tweenValue) {
-          
-        if (complete > 0.5 && direction !== false) {
+        
+        if (complete > 0.5 && direction === true) {
           theItem.cardFooter.classList.remove("gridgrow-fade-out");
           theItem.cardFooter.classList.add("gridgrow-fade-in");
           ajaxContainer.innerHTML = "";
-        }
-
-        if (complete ===  1) {
+        } 
+        
+        if (complete ===  1 && direction === true) {
           transitionComplete(item, direction, startVal, endVal);
+          item.classList.remove("active");
         }
 
       }
     })
   }
-  
+  let ajaxLoadedCallback = () => {
+    console.log("ajaxloaded");
+    setTimeout(function() {
+      transitionComplete(item, direction, startVal, endVal);
+    }, 500)
+    
+  }
+  document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
+  ajaxLoad(item, direction);
 }
 
 // ** this function triggers after the velocity animation completes.
@@ -433,20 +448,24 @@ function transitionComplete (item, direction, startVal, endVal) {
   if (direction !== true) {
 
     // Wait on some action to trigger this
-    
+    console.log("animation..", direction)
     let startAjaxContent = () => {
       setTimeout(function() {
-        ajaxContainer.velocity({
-          opacity: [endVal.content.opacity, startVal.content.opacity],
-          visibility: [endVal.content.visibility, startVal.content.visibility],
-          display: ["block", "none"],
-          top: [endVal.content.top, startVal.content.top],
-        }, {
-          delay: 0,
-          easing: "ease-out",
-          duration: 200
-        })
-        var reverseBtn = document.createElement("button");
+        // ajaxContainer.velocity({
+        //   // opacity: [endVal.content.opacity, startVal.content.opacity],
+        //   // visibility: [endVal.content.visibility, startVal.content.visibility],
+        //   // display: ["block", "none"],
+        //   top: [endVal.content.top, startVal.content.top],
+        // }, {
+        //   delay: 0,
+        //   easing: "ease-out",
+        //   duration: 200
+        // })
+        ajaxContainer.classList.remove("am-out");
+        ajaxContainer.classList.add("am-in");
+        ajaxContainer.style.top = endVal.content.top + "px";
+        
+        let reverseBtn = document.createElement("button");
         reverseBtn.classList.add("reverseAnimation");
         reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
@@ -466,16 +485,20 @@ function transitionComplete (item, direction, startVal, endVal) {
     ajaxContainer.querySelector(".work-hero-image").addEventListener("load", startAjaxContent(), false );
     
   } else {
-    item.classList.remove("active");
+    //item.classList.remove("active");
+    ajaxContainer.classList.remove("am-in");
+    ajaxContainer.classList.add("am-out");
     document.querySelector("html").style.marginLeft = "";
     document.querySelector("main").style.marginLeft = "";
     document.body.style.overflowY = "scroll";
     bodyScrollLock.enableBodyScroll(document.body);
+    ajaxContainer.setAttribute("loaded", false);
+    ajaxContainer.style = "";
   }
   
 }
 
-var updateContent = function(stateObj) {
+let updateContent = function(stateObj) {
   // Check to make sure that this state object is not null.
   if (stateObj) {
     document.title = stateObj.title;
@@ -490,20 +513,20 @@ function triggerReverse (item) {
 }
 
 function ajaxLoad (item, direction) {
-  var theItem = getItem(item);
+  let theItem = getItem(item);
   
   if (direction !== true) {
     fetch(theItem.link /*, options */)
     .then((response) => response.text())
     .then((html) => {
-      var parser = new DOMParser();
+      let parser = new DOMParser();
       // Parse the text
-      var ajaxHtml = parser.parseFromString(html, "text/html");
-      var ajaxContent = ajaxHtml.querySelector('main').innerHTML;
-      //var pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
+      let ajaxHtml = parser.parseFromString(html, "text/html");
+      let ajaxContent = ajaxHtml.querySelector('main').innerHTML;
+      //let pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
       //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
       //console.log(pageCritical);
-      var pageData = {
+      let pageData = {
         title: ajaxHtml.querySelector('title').innerText,
         html: ajaxContent
       }
@@ -515,9 +538,9 @@ function ajaxLoad (item, direction) {
       //console.log("html loaded")
 
       
-      var title = ajaxHtml.querySelector('title').innerText;
-      var data = null;
-      var link = theItem.link;
+      let title = ajaxHtml.querySelector('title').innerText;
+      let data = null;
+      let link = theItem.link;
       //history.replaceState(data, title, link);
       Util.pushHistory(data, title, link);
 
@@ -535,31 +558,45 @@ function ajaxLoad (item, direction) {
 }
 
 function insertScript (script, callback) {
-  //console.log(script);
-  var s = document.createElement('script')
-  s.type = 'text/javascript'
-  if (script.src) {
-    s.onload = callback
-    s.onerror = callback
-    s.src = script.src
-  } else {
-    s.textContent = script.innerText
+  console.log(script);
+
+  if (script.tagName === "SCRIPT") {
+    let s = document.createElement('script')
+    s.type = 'text/javascript'
+    if (script.src) {
+      s.onload = callback
+      s.onerror = callback
+      s.src = script.src
+    } else {
+      s.textContent = script.innerText
+    }
+    // re-insert the script tag so it executes.
+    widthSpacer.appendChild(s)
+    // clean-up
+    script.parentNode.removeChild(script)
+    // run the callback immediately for inline scripts
+    if (!script.src) {
+      callback()
+    }
+  } else if (script.tagName === "IMG") {
+    script.addEventListener("load", () => {
+      callback()
+    })
   }
-  // re-insert the script tag so it executes.
-  widthSpacer.appendChild(s)
-  // clean-up
-  script.parentNode.removeChild(script)
-  // run the callback immediately for inline scripts
-  if (!script.src) {
-    callback()
-  }
+
+  
 }
   
 // trigger DOMContentLoaded
 function scriptsDone () {
-  var DOMContentLoadedEvent = document.createEvent('Event')
+  
+  let DOMContentLoadedEvent = document.createEvent('Event')
   DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true)
   document.dispatchEvent(DOMContentLoadedEvent)
+  document.dispatchEvent(ajaxLoadEvent);
+  console.log("TRIGGER DOM CONTENT LOADED");
+
+  
 }
   
   // runs an array of async functions in sequential order
@@ -580,7 +617,7 @@ function seq (arr, callback, index) {
 }
 
 // https://html.spec.whatwg.org/multipage/scripting.html
-var runScriptTypes = [
+let runScriptTypes = [
   'application/javascript',
   'application/ecmascript',
   'application/x-ecmascript',
@@ -603,15 +640,15 @@ function runScripts (container, nextLink) {
   //console.log(container);
   //console.log("run SCRIPTS ---");
   // get scripts tags from a node
-  var scripts = container.querySelectorAll('script');
-  var images = container.querySelectorAll('img');
-  var runList = [];
-  var typeAttr;
+  let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
+  let images = container.querySelectorAll('img');
+  let runList = [];
+  let typeAttr;
 
-    images.forEach(image => {
+    images.forEach((image) => {
       
       //image.src = nextLink + image.src;
-      var path = image.getAttribute("src");
+      let path = image.getAttribute("src");
 
       if (!new RegExp("^(?:/|.+://)").test(path)) {
         //console.log(path);
@@ -620,16 +657,16 @@ function runScripts (container, nextLink) {
       }
     });
 
-    var allSections = ajaxContainer.querySelectorAll('section');
+    let allSections = ajaxContainer.querySelectorAll('section');
     allSections.forEach(section => {
-      var m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
+      let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
 
       if (m === "none") {
           //console.log(`background image url`);
           //console.log(m);
           m = "";
       } else {
-          var newLink = window.location.origin + window.location.pathname;
+          let newLink = window.location.origin + window.location.pathname;
           m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
           m = m.replace(newLink, '', /["']?\)$/, '')
           m = nextLink + m;
@@ -640,16 +677,25 @@ function runScripts (container, nextLink) {
     });
 
     [].forEach.call(scripts, function (script) {
-      //console.log(script);
+    // Get scripts and critical images, then trigger domcontentloaded event to fade in the ajaxcontainer
+    //console.log(script);
     typeAttr = script.getAttribute('type');
     // only run script tags without the type attribute
     // or with a javascript mime attribute value
-    if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
+    if (script.tagName === "SCRIPT") {
+      if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
+        runList.push(function (callback) {
+          
+          insertScript(script, callback)
+        })
+      }
+    }
+    if (script.tagName === "IMG") {
       runList.push(function (callback) {
-        
         insertScript(script, callback)
       })
     }
+    
   })
   // insert the script tags sequentially
   // to preserve execution order
@@ -659,11 +705,11 @@ function runScripts (container, nextLink) {
 
 function redoAos(container) {
 // Find the item we want to animate on scroll
-var target = container.querySelector('[data-aos]');
-var targetActiveClass = 'aos-animate';
-var elements = container.querySelectorAll('[data-aos]');
+let target = container.querySelector('[data-aos]');
+let targetActiveClass = 'aos-animate';
+let elements = container.querySelectorAll('[data-aos]');
 // Call this function when it enters/leaves the viewport
-var callback = function(entries, observer) { 
+let callback = function(entries, observer) { 
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add(targetActiveClass);
@@ -674,7 +720,7 @@ var callback = function(entries, observer) {
 };
 
 // Create our observer
-var observer = new IntersectionObserver(callback, {threshold: 0});
+let observer = new IntersectionObserver(callback, {threshold: 0});
   elements.forEach(element => {
     observer.observe(element);
   });
