@@ -413,6 +413,7 @@ function animateItem(item, direction) {
         if (complete > 0.5 && direction !== false) {
           theItem.cardFooter.classList.remove("gridgrow-fade-out");
           theItem.cardFooter.classList.add("gridgrow-fade-in");
+          ajaxContainer.innerHTML = "";
         }
 
         if (complete ===  1) {
