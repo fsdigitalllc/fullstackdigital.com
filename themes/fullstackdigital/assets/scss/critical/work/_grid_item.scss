@@ -360,6 +360,40 @@
   width: 100%;
   height: 100%;
 }
+.work-ajax.am-in {
+  opacity: 1;
+  display: block;
+  visibility: visible;
+  animation: am-in .5s;
+}
+.work-ajax.am-out {
+  opacity: 0;
+  animation: am-out .5s;
+}
+@keyframes am-in {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+}
+@keyframes gridgrow-fade-out {
+  from {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
 .width-spacer {
   border-bottom: 3px dashed #000000;
   height: 3px;
