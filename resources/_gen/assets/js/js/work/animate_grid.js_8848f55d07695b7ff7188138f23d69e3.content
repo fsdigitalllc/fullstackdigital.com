@@ -38,12 +38,12 @@ var gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 // Can also use this to check scrollbar width:
 var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 //var scrollbarWidth = getScrollbarWidth();
-console.log("scrollbarwidth", scrollbarWidth)
-if (grid.classList.contains("type-1")) {
-  featured = true;
-} else {
-  featured = false;
-}
+//console.log("scrollbarwidth", scrollbarWidth)
+// if (grid.classList.contains("type-1")) {
+//   featured = true;
+// } else {
+//   featured = false;
+// }
 
 // On click or if in viewport, populate a div with content that matches the target page.
 var setHeightSpacerContent = (item) => {
@@ -202,8 +202,26 @@ var calcImageRatio = (item) => {
 
 function setItemStyles(item) {
   var theItem = getItem(item);
-  var left = ((theItem.imageWrapper.offsetWidth - sVal(item).width) / 2 + "px");
-  var top = ((theItem.imageWrapper.offsetHeight - parseFloat(getComputedStyle(theItem.imageWrapper).marginTop) - sVal(item).height) / 2 + "px");
+
+  // Mobile tweaks
+  var calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100)
+  var calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
+    if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
+      calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
+      calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
+    };
+  
+  var left = ((
+    theItem.imageWrapper.offsetWidth 
+    - sVal(item).width) / 2 
+    + theItem.image.parentNode.offsetWidth * calcLeft
+    + "px");
+  var top = ((
+    theItem.imageWrapper.offsetHeight 
+    - parseFloat(getComputedStyle(theItem.imageWrapper).marginTop) 
+    - sVal(item).height) / 2 
+    + theItem.image.parentNode.offsetHeight * calcTop
+    + "px");
   theItem.image.style.left = left;
   theItem.image.style.top = top;
   theItem.wipe.style.left = 0;
@@ -265,10 +283,15 @@ function eVal (item) {
 
 function sVal (item) {
   var theItem = getItem(item);
+
+  var calcWidth = (parseFloat(theItem.image.getAttribute("width")) / 100 );
+  if (window.innerWidth < 720) {
+    calcWidth = (parseFloat(theItem.image.getAttribute("m-width")) / 100 );
+  }
   var sVal = {
     //width: theItem.image.offsetWidth,
-    height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
-    width: (theItem.image.naturalWidth / (calcImageRatio(theItem))) * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
+    height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * calcWidth,
+    width: (theItem.image.naturalWidth / (calcImageRatio(theItem))) * calcWidth,
     //width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
     offsetX: 
       // Get each image to the edge of screen
@@ -277,15 +300,8 @@ function sVal (item) {
     offsetY:
       theItem.image.parentNode.getBoundingClientRect().y 
       + parseFloat(theItem.image.style.top)
-      // This is a negative value
-      //+ parseFloat(getComputedStyle(document.querySelector(".gridgrow-image-holder")).marginTop) 
       - parseFloat(getComputedStyle(document.querySelector(".gridwrap")).marginTop) 
       - theItem.nav.offsetHeight,
-      // item.offsetTop
-      // + theItem.image.offsetTop 
-      // + theItem.containerInner.offsetTop
-      // + theItem.containerOuter.offsetTop,
-      //- parseFloat(getComputedStyle(theItem.heightSpacer).paddingBottom),
     bg: {
       width: theItem.wipe.parentNode.offsetWidth,
       height: theItem.wipe.parentNode.offsetHeight,
@@ -402,6 +418,7 @@ function animateItem(item, direction) {
   
 }
 
+// ** this function triggers after the velocity animation completes.
 function transitionComplete (item, direction, startVal, endVal) {
   
   Util.loadingAnimation(false);

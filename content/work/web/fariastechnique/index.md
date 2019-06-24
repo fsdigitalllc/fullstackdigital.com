@@ -25,6 +25,9 @@ grid_item:
     As a long term partner, we’ve helped Dr. Joaquin Farias create a subscription-based online video platform for dystonia patients.
   weight: 2
   logo_color: true
+  featured_width: "120%"
+  featured_top: "10%"
+  featured_left: "-5%"
 stacks:
 - template: section-row-blocks
   id: overview

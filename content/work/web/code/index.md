@@ -26,6 +26,9 @@ grid_item:
     We were {code}’s digital team from their days at EMC through their merger with Dell Technologies.
   weight: 1
   logo_color: true
+  featured_width: "120%"
+  featured_top: "10%"
+  featured_left: "5%"
 stacks:
 - template: section-row-blocks
   id: overview

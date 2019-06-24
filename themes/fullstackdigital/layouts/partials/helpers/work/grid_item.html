@@ -127,7 +127,7 @@
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
-      <img class="gridgrow-image {{ $name }}" width='{{ .Params.grid_item.normal_width | default "50%" }}' data-src='{{ $image.Permalink }}'>
+      <img class="gridgrow-image {{ $name }}" {{ if $featured }}left='{{ .Params.grid_item.featured_left | default "0%" }}'{{ end }} {{ if $featured }}top='{{ .Params.grid_item.featured_top | default "10%" }}'{{ end }} {{ if $featured }}m-top='{{ .Params.grid_item.featured_m_top | default "0%" }}'{{ end }} {{ if $featured }}m-left='{{ .Params.grid_item.featured_m_left | default "0%" }}'{{ end }} {{ if $featured }}m-width='{{ .Params.grid_item.featured_m_width | default "80%" }}'{{ end }} width='{{ if $featured }}{{ .Params.grid_item.featured_width | default "120%" }}{{ else }}{{ .Params.grid_item.normal_width | default "50%" }}{{ end }}' data-src='{{ $image.Permalink }}'>
 
       {{ if eq $featured false }}
       <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
