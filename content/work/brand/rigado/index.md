@@ -25,6 +25,9 @@ grid_item:
     We helped Rigado evolve their brand from a seed funded startup to an invaluable enterprise solution and now a global company.
   weight: 3
   logo_color: "color"
+  featured_width: "135%"
+  featured_top: "2%"
+  featured_left: "6%"
 stacks:
 - template: section-row-blocks
   id: overview

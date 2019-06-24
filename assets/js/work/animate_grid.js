@@ -39,11 +39,11 @@ var gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 //var scrollbarWidth = getScrollbarWidth();
 //console.log("scrollbarwidth", scrollbarWidth)
-// if (grid.classList.contains("type-1")) {
-//   featured = true;
-// } else {
-//   featured = false;
-// }
+if (grid.classList.contains("type-1")) {
+  featured = true;
+} else {
+  featured = false;
+}
 
 // On click or if in viewport, populate a div with content that matches the target page.
 var setHeightSpacerContent = (item) => {
@@ -204,12 +204,16 @@ function setItemStyles(item) {
   var theItem = getItem(item);
 
   // Mobile tweaks
-  var calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100)
-  var calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
-    if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
-      calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
-      calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
-    };
+  var calcTop = 0;
+  var calcLeft = 0;
+
+  if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
+    calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
+    calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
+  } else if (theItem.image.getAttribute("top")) {
+    calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100)
+    calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
+  }
   
   var left = ((
     theItem.imageWrapper.offsetWidth 
@@ -405,13 +409,16 @@ function animateItem(item, direction) {
       easing: "ease-out",
       duration: timing,
       progress: function(elements, complete, remaining, start, tweenValue) {
+          
         if (complete > 0.5 && direction !== false) {
           theItem.cardFooter.classList.remove("gridgrow-fade-out");
           theItem.cardFooter.classList.add("gridgrow-fade-in");
         }
+
         if (complete ===  1) {
           transitionComplete(item, direction, startVal, endVal);
         }
+
       }
     })
   }
@@ -423,30 +430,40 @@ function transitionComplete (item, direction, startVal, endVal) {
   
   Util.loadingAnimation(false);
   if (direction !== true) {
-    ajaxContainer.velocity({
-      opacity: [endVal.content.opacity, startVal.content.opacity],
-      visibility: [endVal.content.visibility, startVal.content.visibility],
-      display: ["block", "none"],
-      top: [endVal.content.top, startVal.content.top],
-    }, {
-      delay: 0,
-      easing: "ease-out",
-      duration: 200
-    })
-    var reverseBtn = document.createElement("button");
-    reverseBtn.classList.add("reverseAnimation");
-    reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-      <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
-      <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
-      </svg>`;
 
-      reverseBtn.addEventListener('click', (e) => {
-        reverseBtn.parentNode.removeChild(reverseBtn)
-        triggerReverse(item);
-      });
+    // Wait on some action to trigger this
+    
+    let startAjaxContent = () => {
+      setTimeout(function() {
+        ajaxContainer.velocity({
+          opacity: [endVal.content.opacity, startVal.content.opacity],
+          visibility: [endVal.content.visibility, startVal.content.visibility],
+          display: ["block", "none"],
+          top: [endVal.content.top, startVal.content.top],
+        }, {
+          delay: 0,
+          easing: "ease-out",
+          duration: 200
+        })
+        var reverseBtn = document.createElement("button");
+        reverseBtn.classList.add("reverseAnimation");
+        reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+          <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+          </svg>`;
+    
+          reverseBtn.addEventListener('click', (e) => {
+            reverseBtn.parentNode.removeChild(reverseBtn)
+            triggerReverse(item);
+          });
+          
+        document.body.appendChild(reverseBtn);
+        ajaxContainer.style.overflowY = "scroll"
+      }, 50);
       
-    document.body.appendChild(reverseBtn);
-    ajaxContainer.style.overflowY = "scroll"
+    }
+    ajaxContainer.querySelector(".work-hero-image").addEventListener("load", startAjaxContent(), false );
+    
   } else {
     item.classList.remove("active");
     document.querySelector("html").style.marginLeft = "";
@@ -497,24 +514,22 @@ function ajaxLoad (item, direction) {
       //console.log("html loaded")
 
       
-    var title = ajaxHtml.querySelector('title').innerText;
-    var data = null;
-    var link = theItem.link;
-    //history.replaceState(data, title, link);
-    Util.pushHistory(data, title, link);
+      var title = ajaxHtml.querySelector('title').innerText;
+      var data = null;
+      var link = theItem.link;
+      //history.replaceState(data, title, link);
+      Util.pushHistory(data, title, link);
 
-    window.onpopstate = function(event) {
-      if (event.state) {
-        updateContent(event.state)
+      window.onpopstate = function(event) {
+        if (event.state) {
+          updateContent(event.state)
+        }
+          animateItem(item, true);
       }
-        animateItem(item, true);
-    }
     
     }).then(() => {
       return true;
     });
-  } else {
-    
   }
 }
 
@@ -638,6 +653,7 @@ function runScripts (container, nextLink) {
   // insert the script tags sequentially
   // to preserve execution order
   seq(runList, scriptsDone);
+  
 }
 
 function redoAos(container) {
