@@ -476,7 +476,7 @@ function transitionComplete (item, direction, startVal, endVal) {
             triggerReverse(item);
           });
           
-        document.body.appendChild(reverseBtn);
+        ajaxContainer.appendChild(reverseBtn);
         ajaxContainer.style.overflowY = "scroll"
       }, 50);
       
@@ -589,9 +589,9 @@ function insertScript (script, callback) {
 // trigger DOMContentLoaded
 function scriptsDone () {
   
-  let DOMContentLoadedEvent = document.createEvent('Event');
-  DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
-  document.dispatchEvent(DOMContentLoadedEvent);
+  // let DOMContentLoadedEvent = document.createEvent('Event');
+  // DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+  // document.dispatchEvent(DOMContentLoadedEvent);
   document.dispatchEvent(ajaxLoadEvent);
   console.log("TRIGGER DOM CONTENT LOADED");
 }
@@ -638,7 +638,7 @@ function runScripts (container, nextLink) {
   //console.log(container);
   console.log("run SCRIPTS ---");
   // get scripts tags from a node
-  let scripts = container.querySelectorAll('script');
+  let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
   let images = container.querySelectorAll('img');
   let runList = [];
   let typeAttr;
