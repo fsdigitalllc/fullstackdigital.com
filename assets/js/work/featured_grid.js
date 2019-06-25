@@ -4,12 +4,16 @@ let container = document.querySelector(".container");
 
 positionCaption();
 
+let startWindowHeight = window.innerHeight;
 window.addEventListener("resize", () => {
   positionCaption();
+  // if (window.innerHeight === startWindowHeight) {
+  //   positionCaption();
+  // }
 });
 
 function positionCaption () {
-
+  console.log("reposition caption")
   gridItems.forEach(item => {
     let gridCaption = item.querySelector(".excerpt-group");
     let image = item.querySelector(".gridgrow-image");

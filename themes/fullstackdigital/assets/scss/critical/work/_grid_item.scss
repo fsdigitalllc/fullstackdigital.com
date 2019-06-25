@@ -270,7 +270,7 @@
   }
   @media screen and (max-width: $screen-mobile-l) {
     .gridgrow {
-      height: 80vh;
+      height: 90vh;
     }
     // .gridgrow .card-footer {
     //   padding-top: 20%;
@@ -292,6 +292,7 @@
     }
     .gridgrow .gridgrow-image-holder {
       width: 100%;
+      max-height: 280px;
     }
   }
 }

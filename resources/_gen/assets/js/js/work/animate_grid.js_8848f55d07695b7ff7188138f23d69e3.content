@@ -181,13 +181,17 @@ function setItemStyles(item) {
 
   if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
     calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
-    calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
-  } 
-  if (theItem.image.getAttribute("top")) {
+    
+  } else if (theItem.image.getAttribute("top")) {
     calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100);
-  } if (theItem.image.getAttribute("left")) {
+  } 
+  if (theItem.image.getAttribute("m-left") && window.innerWidth < 720) {
+    calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
+  } else if (theItem.image.getAttribute("left")) {
     calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
   }
+  
+  
   
   let left = ((
     theItem.image.parentNode.offsetWidth 
@@ -370,7 +374,10 @@ function animateItem(item, direction) {
   //console.log("startval", startVal, "endval", endVal)
   
   function animateGridgrow (item, direction) {
-    
+
+    ajaxContainer.setAttribute("loaded", true);
+    let extraDelay = 150;
+
     theItem.wipe.velocity({
       width: [endVal.bg.width, startVal.bg.width],
       height: [endVal.bg.height, startVal.bg.height],
@@ -396,6 +403,14 @@ function animateItem(item, direction) {
           ajaxContainer.innerHTML = "";
         } 
         
+        if (direction === false) {
+          extraDelay = extraDelay + (bgTime * (1 - complete));
+          //extraDelay = ((1 - complete) * 1000);
+          console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
+          if (complete === 1) {
+            console.log("LOADED")
+          }
+        }
         if (complete ===  1 && direction === true) {
           transitionComplete(item, direction, startVal, endVal);
           item.classList.remove("active");
@@ -404,8 +419,12 @@ function animateItem(item, direction) {
       }
     })
     let ajaxLoadedCallback = () => {
-      //console.log("ajaxloaded");
-      transitionComplete(item, direction, startVal, endVal);
+      //console.log("complete");
+      if (ajaxContainer.getAttribute("loaded", true)) {
+        //extraDelay = extraDelay;
+      }
+        transitionComplete(item, direction, startVal, endVal, extraDelay);
+      
     }
     document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
     ajaxLoad(item, direction);
@@ -414,13 +433,13 @@ function animateItem(item, direction) {
 }
 
 // ** this function triggers after the velocity animation completes.
-function transitionComplete (item, direction, startVal, endVal) {
+function transitionComplete (item, direction, startVal, endVal, extraDelay) {
   
   //Util.loadingAnimation(false);
   if (direction !== true) {
 
     // Wait on some action to trigger this
-    //console.log("animation..", direction)
+    console.log("exgtra delay..", extraDelay)
     ajaxContainer.querySelector(".client_logo").addEventListener("load", () => {
       setTimeout(function() {
         ajaxContainer.classList.remove("am-out");
@@ -441,7 +460,7 @@ function transitionComplete (item, direction, startVal, endVal) {
           
         ajaxContainer.appendChild(reverseBtn);
         ajaxContainer.style.overflowY = "scroll"
-      }, 150);
+      }, extraDelay);
       Util.loadingAnimation("stop");
     });
     

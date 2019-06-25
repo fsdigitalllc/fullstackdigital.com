@@ -28,7 +28,9 @@ grid_item:
   logo_color: true
   featured_width: "140%"
   featured_top: "10%"
-  featured_left: "8%"
+  featured_m_top: "10%"
+  featured_left: "0%"
+  featured_m_left: "0%"
 stacks:
 - template: section-row-blocks
   id: overview
