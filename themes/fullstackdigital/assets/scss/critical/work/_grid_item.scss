@@ -1,3 +1,5 @@
+// Work-row = featured
+// Work-grid = normal grid view
 .reverseAnimation {
   position: fixed;
   top: 10%;
@@ -64,7 +66,8 @@
   .gridgrow:hover, .gridgrow:hover a {
     cursor: pointer;
   }
-  .gridgrow:hover .gridwrap {
+  // REMOVE FOR TESTING
+  .gridgrow:hover .gridwrap, .gridgrow.active .gridwrap {
     padding: 4%;
     margin: -4%;
   }
@@ -101,10 +104,10 @@
   }
 }
 
-.work-container.row-1 {
+.work-container.type-1 {
   display: grid;
 }
-.work-container.row-2, .work-container.row-3, .work-container.row-4 {
+.work-container.type-2, .work-container.row-3, .work-container.row-4 {
   display: grid;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
@@ -119,10 +122,11 @@
 .work-row {
   .gridwrap {
     display: flex;
+    z-index: 20;
   }
   .gridgrow {
     height: 80vh;
-    // overflow: hidden;
+    overflow: hidden;
   }
   .gridwrap {
     overflow: hidden;
@@ -166,6 +170,22 @@
   .gridgrow:hover, .gridgrow.active {
     z-index: 100;
   }
+  .gridgrow .card-footer.gridgrow-fade-in {
+    opacity: 1;
+    animation: gridgrow-fade-in .5s;
+  }
+  .gridgrow .card-footer.gridgrow-fade-out {
+    opacity: 0;
+    animation: gridgrow-fade-out .5s;
+  }
+  @keyframes gridgrow-fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  @keyframes gridgrow-fade-out {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
   .gridgrow:hover .gridwrap {
     margin-left: 0px;
     margin-right: 0px;
@@ -202,14 +222,22 @@
     .button.fill::before {
       width: 60%;
     }
-    .gridwrap {
-      padding-top: 4%;
-      margin-top: -4%;
-    }
+    // REMOVE FOR TESTING
+    // .gridwrap {
+    //   padding-top: 4%;
+    //   margin-top: -4%;
+    // }
+  }
+  .gridgrow.active {
+    overflow: visible;
   }
   .gridgrow.active {
     .wipe {
       z-index: 888;
+    }
+    .gridgrow-image, .gridgrow-image-holder, .gridwrap {
+      z-index: 899;
+      overflow: visible;
     }
   }
   @media screen and (max-width: $screen-desktop-s) {
@@ -332,11 +360,60 @@
   width: 100%;
   height: 100%;
 }
-//.work-ajax::-webkit-scrollbar {display:none;}
-.work-container.row-2 {
-  grid-template-columns: 1fr;
+.work-ajax.am-in {
+  opacity: 1;
+  display: block;
+  visibility: visible;
+  animation: am-in .5s;
 }
-.work-container.row-2 {
+.work-ajax.am-out {
+  opacity: 0;
+  animation: am-out .5s;
+}
+@keyframes am-in {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+}
+@keyframes gridgrow-fade-out {
+  from {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
+.width-spacer {
+  border-bottom: 3px dashed #000000;
+  height: 3px;
+}
+.width-spacer:after {
+  content: "";
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-left: 4px solid red;
+  position: absolute;
+  width: 4px;
+  display: block;
+  height: 6px;
+}
+
+//.work-ajax::-webkit-scrollbar {display:none;}
+.work-container.type-2 {
   grid-template-columns: 1fr 1fr;
 }
 .work-container.row-3 {
@@ -351,6 +428,35 @@
   height: 500px;
   overflow: visible;
   position: relative;
+}
+.active {
+  .gridwrap, .gridgrow-image-holder {
+    overflow: visible;
+  }
+  .gridgrow-image {
+    z-index: 61;
+  }
+  .wipe {
+    z-index: 60;
+  }
+}
+.gridgrow-image-holder {
+  margin-left: -4%;
+  margin-right: -4%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+.gridgrow-image {
+  color: #fff;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: 55;
+  margin-bottom: 0;
+  max-width: none;
 }
 .gridgrow {
   .background-light {
@@ -391,28 +497,11 @@
     transition: padding 1s cubic-bezier(.4,0,.2,1),margin 1s cubic-bezier(.4,0,.2,1),box-shadow 1s cubic-bezier(.4,0,.2,1);
     position: relative;
   }
-  .gridgrow-image-holder {
-    margin-left: -4%;
-    margin-right: -4%;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;  
-  }
+  
   .wipe {
     width: 100%;
     height: 100%;
     position: absolute;
-  }
-  .gridgrow-image {
-    color: #fff;
-    display: block;
-    position: absolute;
-    overflow: hidden;
-    z-index: 55;
-    margin-bottom: 0;
-    max-width: none;
   }
 
   .gridgrow-image-holder {
@@ -470,7 +559,7 @@
     padding-left: 40px;
     padding-right: 40px;
   }
-  .work-container.row-2 {
+  .work-container.type-2 {
     grid-template-columns: 1fr;
   }
   .reverseAnimation {
@@ -487,6 +576,8 @@
   .gridgrow .excerpt-group {
     grid-column-gap: 10px;
   }
+
+  
 }
 @media screen and (max-width: $screen-mobile-m) {
   .gridgrow .gridgrow-excerpt {
