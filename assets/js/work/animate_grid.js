@@ -3,8 +3,8 @@
 // get all of the selectors we are working with.
 let ajaxContainerCreate = document.createElement("DIV");
 ajaxContainerCreate.className = "work-ajax";
-ajaxContainerCreate.setAttribute("loaded", false)
-document.querySelector("body").appendChild(ajaxContainerCreate);''
+ajaxContainerCreate.setAttribute("loaded", false);
+document.querySelector("body").appendChild(ajaxContainerCreate);
 //ocument.querySelector("main").innerHTML = document.querySelector("main").innerHTML + `<div class="work-ajax"></div>`;
 let ajaxContainer = document.querySelector(".work-ajax");
 
@@ -589,13 +589,11 @@ function insertScript (script, callback) {
 // trigger DOMContentLoaded
 function scriptsDone () {
   
-  let DOMContentLoadedEvent = document.createEvent('Event')
-  DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true)
-  document.dispatchEvent(DOMContentLoadedEvent)
+  let DOMContentLoadedEvent = document.createEvent('Event');
+  DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+  document.dispatchEvent(DOMContentLoadedEvent);
   document.dispatchEvent(ajaxLoadEvent);
   console.log("TRIGGER DOM CONTENT LOADED");
-
-  
 }
   
   // runs an array of async functions in sequential order
@@ -637,7 +635,7 @@ let runScriptTypes = [
 
 function runScripts (container, nextLink) {
   //console.log(container);
-  //console.log("run SCRIPTS ---");
+  console.log("run SCRIPTS ---");
   // get scripts tags from a node
   let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
   let images = container.querySelectorAll('img');
