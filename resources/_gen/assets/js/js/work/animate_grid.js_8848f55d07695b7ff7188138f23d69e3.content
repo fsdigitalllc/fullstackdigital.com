@@ -513,7 +513,7 @@ function ajaxLoad (item, direction) {
 }
 
 function insertScript (script, callback) {
-  console.log(script);
+  console.log("insertscript", script);
 
   if (script.tagName === "SCRIPT") {
     let s = document.createElement('script')
@@ -534,10 +534,8 @@ function insertScript (script, callback) {
       callback()
     }
   } else if (script.tagName === "IMG") {
-    script.addEventListener("load", () => {
       console.log("image loaded...", script)
       callback()
-    })
   }
 
   
@@ -597,22 +595,8 @@ function runScripts (container, nextLink) {
   // get scripts tags from a node
   let scripts = container.querySelectorAll('script, .work-hero-image');
   console.log("run SCRIPTS ---", scripts);
-  let images = container.querySelectorAll('img');
   let runList = [];
   let typeAttr;
-
-    images.forEach((image) => {
-      
-      //image.src = nextLink + image.src;
-      let path = image.getAttribute("src");
-
-      // if (!new RegExp("^(?:/|.+://)").test(path)) {
-        
-      //   path = nextLink + path;
-      //   console.log(path);
-      //   image.setAttribute("src", path);
-      // }
-    });
 
     let allSections = ajaxContainer.querySelectorAll('section');
     allSections.forEach(section => {
@@ -641,6 +625,7 @@ function runScripts (container, nextLink) {
     // or with a javascript mime attribute value
     if (script.tagName === "SCRIPT") {
       if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
+        console.log("run SCRIPTS ---", script);
         runList.push(function (callback) {
           insertScript(script, callback)
         })
