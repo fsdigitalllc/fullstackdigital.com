@@ -639,7 +639,7 @@ function runScripts (container, nextLink) {
   //console.log(container);
   
   // get scripts tags from a node
-  let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
+  let scripts = container.querySelectorAll('script, .work-hero-image');
   console.log("run SCRIPTS ---", scripts);
   let images = container.querySelectorAll('img');
   let runList = [];
