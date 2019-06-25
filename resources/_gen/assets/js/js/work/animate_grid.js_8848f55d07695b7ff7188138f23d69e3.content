@@ -431,9 +431,7 @@ function animateItem(item, direction) {
     })
     let ajaxLoadedCallback = () => {
       console.log("ajaxloaded");
-      setTimeout(function() {
         transitionComplete(item, direction, startVal, endVal);
-      }, 500)
       
     }
     document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
