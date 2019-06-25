@@ -207,12 +207,21 @@
 
 {{ $animate_grid := resources.Get "js/work/animate_grid.js" | fingerprint }}
 
+
+{{- $.Scratch.Set "is_css" true -}}
+{{- $.Scratch.Set "is_critical" false -}}
+{{ $css := partial "components/component_generator.html" . | safeCSS }}
+{{ $pb_css := $css | resources.FromString "scss/pb_noncritical.scss" | resources.ToCSS | resources.Minify }}
+{{ $string := print $css }}
+
 {{ $util := resources.Get "js/util.js" | fingerprint }}
 
 <script type="text/javascript">
   fetchInject([
     '{{ $animate_grid.Permalink }}'
   ], fetchInject([
-    '{{ $util.Permalink }}'
+    '{{ $util.Permalink }}',
+    '{{ $pb_css.Permalink }}',
+
   ]))
 </script>
