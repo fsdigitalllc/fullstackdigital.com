@@ -26,6 +26,7 @@ grid_item:
   weight: 4
   logo_color: "color"
   normal_width: "45%"
+  featured_m_top: "18%"
 stacks:
 - template: section-row-blocks
   id: overview

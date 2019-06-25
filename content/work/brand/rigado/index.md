@@ -28,6 +28,7 @@ grid_item:
   featured_width: "135%"
   featured_top: "2%"
   featured_left: "6%"
+  featured_m_top: "10%"
 stacks:
 - template: section-row-blocks
   id: overview
