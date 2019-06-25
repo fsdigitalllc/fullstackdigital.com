@@ -58,9 +58,10 @@ let setHeightSpacerContent = (item) => {
     spacerLogo.src = logoImage.src;
   }
   if (spacerTitle.innerText !== itemExcerpt.innerText) {
-    spacerTitle.innerText = itemExcerpt.innerText
+    spacerTitle.innerText = itemExcerpt.innerText;
   }
-}
+};
+
 document.body.addEventListener("mouseover", function(e){
   //console.log(ajaxRequest);
   item = e.target.closest(".gridgrow");
@@ -74,12 +75,11 @@ document.body.addEventListener("click", function(e){
   //console.log(ajaxRequest);
   item = e.target.closest(".gridgrow");
   if (item) {
-    e.preventDefault();    
+    e.preventDefault();
     setHeightSpacerContent(item);
     animateItem(item, false);
     //console.log("clicked");
     //setItemStyles(item, clicked, reverse);
-    
   }
   
   //animateClick(item, initialValue);
@@ -603,6 +603,7 @@ function seq (arr, callback, index) {
     index = 0
   }
 
+
   arr[index](function () {
     index++
     if (index === arr.length) {
@@ -647,11 +648,12 @@ function runScripts (container, nextLink) {
       //image.src = nextLink + image.src;
       let path = image.getAttribute("src");
 
-      if (!new RegExp("^(?:/|.+://)").test(path)) {
-        //console.log(path);
-        path = nextLink + path;
-        image.setAttribute("src", path);
-      }
+      // if (!new RegExp("^(?:/|.+://)").test(path)) {
+        
+      //   path = nextLink + path;
+      //   console.log(path);
+      //   image.setAttribute("src", path);
+      // }
     });
 
     let allSections = ajaxContainer.querySelectorAll('section');
@@ -682,7 +684,6 @@ function runScripts (container, nextLink) {
     if (script.tagName === "SCRIPT") {
       if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
         runList.push(function (callback) {
-          
           insertScript(script, callback)
         })
       }
@@ -690,6 +691,7 @@ function runScripts (container, nextLink) {
     if (script.tagName === "IMG") {
       runList.push(function (callback) {
         insertScript(script, callback)
+        console.log("img", script)
       })
     }
     
