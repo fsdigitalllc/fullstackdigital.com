@@ -579,6 +579,7 @@ function insertScript (script, callback) {
     }
   } else if (script.tagName === "IMG") {
     script.addEventListener("load", () => {
+      console.log("image loaded...", script)
       callback()
     })
   }
@@ -589,9 +590,9 @@ function insertScript (script, callback) {
 // trigger DOMContentLoaded
 function scriptsDone () {
   
-  // let DOMContentLoadedEvent = document.createEvent('Event');
-  // DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
-  // document.dispatchEvent(DOMContentLoadedEvent);
+  let DOMContentLoadedEvent = document.createEvent('Event');
+  DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+  document.dispatchEvent(DOMContentLoadedEvent);
   document.dispatchEvent(ajaxLoadEvent);
   console.log("TRIGGER DOM CONTENT LOADED");
 }
