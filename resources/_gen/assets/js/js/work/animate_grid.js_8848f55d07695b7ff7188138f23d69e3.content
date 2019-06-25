@@ -637,9 +637,10 @@ let runScriptTypes = [
 
 function runScripts (container, nextLink) {
   //console.log(container);
-  console.log("run SCRIPTS ---");
+  
   // get scripts tags from a node
   let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
+  console.log("run SCRIPTS ---", scripts);
   let images = container.querySelectorAll('img');
   let runList = [];
   let typeAttr;
