@@ -460,8 +460,8 @@ function transitionComplete (item, direction, startVal, endVal, extraDelay) {
           
         ajaxContainer.appendChild(reverseBtn);
         ajaxContainer.style.overflowY = "scroll"
+        Util.loadingAnimation("stop");
       }, extraDelay);
-      Util.loadingAnimation("stop");
     });
     
 
