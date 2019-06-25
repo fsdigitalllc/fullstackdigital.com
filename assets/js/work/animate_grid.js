@@ -182,18 +182,20 @@ function setItemStyles(item) {
   if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
     calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
     calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
-  } else if (theItem.image.getAttribute("top")) {
-    calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100)
+  } 
+  if (theItem.image.getAttribute("top")) {
+    calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100);
+  } if (theItem.image.getAttribute("left")) {
     calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
   }
   
   let left = ((
-    theItem.imageWrapper.offsetWidth 
+    theItem.image.parentNode.offsetWidth 
     - sVal(item).width) / 2 
     + theItem.image.parentNode.offsetWidth * calcLeft
     + "px");
   let top = ((
-    theItem.imageWrapper.offsetHeight 
+    theItem.image.parentNode.offsetHeight 
     - parseFloat(getComputedStyle(theItem.imageWrapper).marginTop) 
     - sVal(item).height) / 2 
     + theItem.image.parentNode.offsetHeight * calcTop
@@ -262,9 +264,12 @@ function sVal (item) {
   let theItem = getItem(item);
 
   let calcWidth = (parseFloat(theItem.image.getAttribute("width")) / 100 );
-  if (window.innerWidth < 720) {
-    calcWidth = (parseFloat(theItem.image.getAttribute("m-width")) / 100 );
+  if (theItem.image.getAttribute("m-width")) {
+    if (window.innerWidth < 720) {
+      calcWidth = (parseFloat(theItem.image.getAttribute("m-width")) / 100 );
+    }
   }
+  
   let sVal = {
     //width: theItem.image.offsetWidth,
     height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * calcWidth,
