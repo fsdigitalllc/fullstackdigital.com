@@ -421,28 +421,32 @@ function transitionComplete (item, direction, startVal, endVal) {
 
     // Wait on some action to trigger this
     //console.log("animation..", direction)
-    setTimeout(function() {
-      ajaxContainer.classList.remove("am-out");
-      ajaxContainer.classList.add("am-in");
-      ajaxContainer.style.top = endVal.content.top + "px";
-      
-      let reverseBtn = document.createElement("button");
-      reverseBtn.classList.add("reverseAnimation");
-      reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-        <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
-        <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
-        </svg>`;
-  
-        reverseBtn.addEventListener('click', (e) => {
-          reverseBtn.parentNode.removeChild(reverseBtn)
-          triggerReverse(item);
-        });
+    ajaxContainer.querySelector(".client_logo").addEventListener("load", () => {
+      setTimeout(function() {
+        ajaxContainer.classList.remove("am-out");
+        ajaxContainer.classList.add("am-in");
+        ajaxContainer.style.top = endVal.content.top + "px";
         
-      ajaxContainer.appendChild(reverseBtn);
-      ajaxContainer.style.overflowY = "scroll"
-    }, 150);
+        let reverseBtn = document.createElement("button");
+        reverseBtn.classList.add("reverseAnimation");
+        reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+          <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+          </svg>`;
+    
+          reverseBtn.addEventListener('click', (e) => {
+            reverseBtn.parentNode.removeChild(reverseBtn)
+            triggerReverse(item);
+          });
+          
+        ajaxContainer.appendChild(reverseBtn);
+        ajaxContainer.style.overflowY = "scroll"
+      }, 150);
+      Util.loadingAnimation("stop");
+    });
+    
 
-    Util.loadingAnimation("stop");
+    
   } else {
     //item.classList.remove("active");
     ajaxContainer.classList.remove("am-in");
@@ -483,9 +487,6 @@ function ajaxLoad (item, direction) {
       // Parse the text
       let ajaxHtml = parser.parseFromString(html, "text/html");
       let ajaxContent = ajaxHtml.querySelector('main').innerHTML;
-      //let pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
-      //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
-      //console.log(pageCritical);
       let pageData = {
         title: ajaxHtml.querySelector('title').innerText,
         html: ajaxContent
@@ -501,6 +502,8 @@ function ajaxLoad (item, direction) {
       let title = ajaxHtml.querySelector('title').innerText;
       let data = null;
       let link = theItem.link;
+      
+      //ajaxHtml.querySelector(".work-hero-image").src = theItem.image.src;
       //history.replaceState(data, title, link);
       Util.pushHistory(data, title, link);
 
@@ -539,8 +542,7 @@ function insertScript (script, callback) {
       callback()
     }
   } else if (script.tagName === "IMG") {
-      console.log("image loaded...", script)
-      callback()
+        callback();
   }
 
   
@@ -598,7 +600,7 @@ function runScripts (container, nextLink) {
   //console.log(container);
   
   // get scripts tags from a node
-  let scripts = container.querySelectorAll('script, .work-hero-image');
+  let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
   console.log("run SCRIPTS ---", scripts);
   let runList = [];
   let typeAttr;
