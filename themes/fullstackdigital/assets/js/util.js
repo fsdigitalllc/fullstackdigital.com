@@ -50,7 +50,7 @@ Util.imagesLoaded = () => {
     
 }
 Util.loadingAnimation = (direction = true) => {
-  //console.log("loading..direction:", direction)
+  console.log("loading..direction:", direction)
   if (direction === false) {
     setTimeout(function(){
       document.querySelector("html").classList.remove("pageTransition", "loading");
@@ -67,6 +67,14 @@ Util.loadingAnimation = (direction = true) => {
     document.querySelector("html").classList.add("loading");
     Util.imagesLoaded();
     //document.body.classList.add("loading");
+  } 
+  if (direction === "start") {
+    document.querySelector("html").classList.add("loading", "start");
+  }
+  if (direction === "stop") {
+    setTimeout(function(){
+      document.querySelector("html").classList.remove("loading", "start");
+    }, 1000)
   }
 }
 

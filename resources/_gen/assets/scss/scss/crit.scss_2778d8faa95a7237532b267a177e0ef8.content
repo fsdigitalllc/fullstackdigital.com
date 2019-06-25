@@ -2269,6 +2269,9 @@ nav.sub .link-4 {
   -o-transition: opacity 0s linear, visibility 0s linear;
   transition: opacity 0s linear, visibility 0s linear; }
 
+.loading.start .home .logo-link {
+  display: block; }
+
 .home .logo-link {
   display: none; }
 

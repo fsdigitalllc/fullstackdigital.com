@@ -20,33 +20,8 @@ let widthSpacer = document.querySelector(".width-spacer");
 let grid = document.querySelector(".work-container");
 let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
-
-// from https://davidwalsh.name/detect-scrollbar-width
-// let getScrollbarWidth = () => {
-//   // Create the measurement node
-//   let scrollDiv = document.createElement("div");
-//   scrollDiv.className = "scrollbar-measure";
-//   scrollDiv.style.overflowY = "scroll",
-//   scrollDiv.innerHTML = `<div class="scrollbar-measure-inner"></div>`
-//   document.body.appendChild(scrollDiv);
-//   let scrollDivInner = document.querySelector(".scrollbar-measure-inner");
-//   // Get the scrollbar width
-//   let scrollbarWidth = scrollDiv.offsetWidth - scrollDivInner.offsetWidth;
-//   //console.warn("scrollbarwidth:", scrollbarWidth); // Mac:  15
-
-//   // Devare the DIV 
-//   document.body.removeChild(scrollDiv);
-//   return scrollbarWidth;
-// }
-// Can also use this to check scrollbar width:
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-//let scrollbarWidth = getScrollbarWidth();
-//console.log("scrollbarwidth", scrollbarWidth)
-if (grid.classList.contains("type-1")) {
-  featured = true;
-} else {
-  featured = false;
-}
+
 
 // On click or if in viewport, populate a div with content that matches the target page.
 let setHeightSpacerContent = (item) => {
@@ -63,7 +38,6 @@ let setHeightSpacerContent = (item) => {
 };
 
 document.body.addEventListener("mouseover", function(e){
-  //console.log(ajaxRequest);
   item = e.target.closest(".gridgrow");
   if (item) {
     e.preventDefault();
@@ -72,17 +46,12 @@ document.body.addEventListener("mouseover", function(e){
 });
 
 document.body.addEventListener("click", function(e){
-  //console.log(ajaxRequest);
   item = e.target.closest(".gridgrow");
   if (item) {
     e.preventDefault();
     setHeightSpacerContent(item);
     animateItem(item, false);
-    //console.log("clicked");
-    //setItemStyles(item, clicked, reverse);
   }
-  
-  //animateClick(item, initialValue);
 });
 
 let getItem = (item) => {
@@ -352,7 +321,7 @@ function animateItem(item, direction) {
     bodyScrollLock.disableBodyScroll(document.body);
 
     // Start logo loading animation
-    Util.loadingAnimation(true);
+    Util.loadingAnimation("start");
     bgTime = bgTime - 200;
     theItem.cardFooter.classList.add("gridgrow-fade-out");
     animateGridgrow(item, direction);
@@ -362,7 +331,7 @@ function animateItem(item, direction) {
     endVal = sVal(item);
     startTranslateX = endTranslateX, endTranslateX = 0, startTranslateY = endTranslateY, endTranslateY = 0;
     // Start logo loading animation
-    Util.loadingAnimation(true);
+    //Util.loadingAnimation(true);
     timing = timing + 200;
     bgTime = timing;
     let velocityTime = (ajaxContainer.scrollTop * 0.1);
@@ -430,9 +399,8 @@ function animateItem(item, direction) {
       }
     })
     let ajaxLoadedCallback = () => {
-      console.log("ajaxloaded");
-        transitionComplete(item, direction, startVal, endVal);
-      
+      //console.log("ajaxloaded");
+      transitionComplete(item, direction, startVal, endVal);
     }
     document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
     ajaxLoad(item, direction);
@@ -443,46 +411,33 @@ function animateItem(item, direction) {
 // ** this function triggers after the velocity animation completes.
 function transitionComplete (item, direction, startVal, endVal) {
   
-  Util.loadingAnimation(false);
+  //Util.loadingAnimation(false);
   if (direction !== true) {
 
     // Wait on some action to trigger this
-    console.log("animation..", direction)
-    let startAjaxContent = () => {
-      setTimeout(function() {
-        // ajaxContainer.velocity({
-        //   // opacity: [endVal.content.opacity, startVal.content.opacity],
-        //   // visibility: [endVal.content.visibility, startVal.content.visibility],
-        //   // display: ["block", "none"],
-        //   top: [endVal.content.top, startVal.content.top],
-        // }, {
-        //   delay: 0,
-        //   easing: "ease-out",
-        //   duration: 200
-        // })
-        ajaxContainer.classList.remove("am-out");
-        ajaxContainer.classList.add("am-in");
-        ajaxContainer.style.top = endVal.content.top + "px";
-        
-        let reverseBtn = document.createElement("button");
-        reverseBtn.classList.add("reverseAnimation");
-        reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-          <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
-          <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
-          </svg>`;
-    
-          reverseBtn.addEventListener('click', (e) => {
-            reverseBtn.parentNode.removeChild(reverseBtn)
-            triggerReverse(item);
-          });
-          
-        ajaxContainer.appendChild(reverseBtn);
-        ajaxContainer.style.overflowY = "scroll"
-      }, 50);
+    //console.log("animation..", direction)
+    setTimeout(function() {
+      ajaxContainer.classList.remove("am-out");
+      ajaxContainer.classList.add("am-in");
+      ajaxContainer.style.top = endVal.content.top + "px";
       
-    }
-    ajaxContainer.querySelector(".work-hero-image").addEventListener("load", startAjaxContent(), false );
-    
+      let reverseBtn = document.createElement("button");
+      reverseBtn.classList.add("reverseAnimation");
+      reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+        <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+        <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+        </svg>`;
+  
+        reverseBtn.addEventListener('click', (e) => {
+          reverseBtn.parentNode.removeChild(reverseBtn)
+          triggerReverse(item);
+        });
+        
+      ajaxContainer.appendChild(reverseBtn);
+      ajaxContainer.style.overflowY = "scroll"
+    }, 150);
+
+    Util.loadingAnimation("stop");
   } else {
     //item.classList.remove("active");
     ajaxContainer.classList.remove("am-in");
@@ -493,6 +448,7 @@ function transitionComplete (item, direction, startVal, endVal) {
     bodyScrollLock.enableBodyScroll(document.body);
     ajaxContainer.setAttribute("loaded", false);
     ajaxContainer.style = "";
+    Util.loadingAnimation("stop");
   }
   
 }
