@@ -17,7 +17,6 @@ let heightSpacer = document.querySelector(".height-spacer");
 let widthSpacer = document.querySelector(".width-spacer");
 
 // First wrapping parent of all grid items.
-let grid = document.querySelector(".work-container");
 let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -179,10 +178,10 @@ function setItemStyles(item) {
   let calcTop = 0;
   let calcLeft = 0;
 
-  if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
+  if (theItem.image.getAttribute("m-top") && window.innerWidth <= 720) {
     calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
     
-  } else if (theItem.image.getAttribute("top")) {
+  } else if (theItem.image.getAttribute("top") && window.innerWidth > 720) {
     calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100);
   } 
   if (theItem.image.getAttribute("m-left") && window.innerWidth < 720) {
@@ -190,7 +189,6 @@ function setItemStyles(item) {
   } else if (theItem.image.getAttribute("left")) {
     calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
   }
-  
   
   
   let left = ((
@@ -406,10 +404,10 @@ function animateItem(item, direction) {
         if (direction === false) {
           extraDelay = extraDelay + (bgTime * (1 - complete));
           //extraDelay = ((1 - complete) * 1000);
-          console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
-          if (complete === 1) {
-            console.log("LOADED")
-          }
+          // console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
+          // if (complete === 1) {
+          //   console.log("LOADED")
+          // }
         }
         if (complete ===  1 && direction === true) {
           transitionComplete(item, direction, startVal, endVal);
@@ -419,11 +417,12 @@ function animateItem(item, direction) {
       }
     })
     let ajaxLoadedCallback = () => {
-      //console.log("complete");
+      console.log("AJAX CALLBACK");
       if (ajaxContainer.getAttribute("loaded", true)) {
         //extraDelay = extraDelay;
       }
-        transitionComplete(item, direction, startVal, endVal, extraDelay);
+      transitionComplete(item, direction, startVal, endVal, extraDelay);
+      document.removeEventListener("ajaxLoaded", ajaxLoadedCallback, false);
       
     }
     document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
@@ -438,9 +437,9 @@ function transitionComplete (item, direction, startVal, endVal, extraDelay) {
   //Util.loadingAnimation(false);
   if (direction !== true) {
 
-    // Wait on some action to trigger this
-    console.log("exgtra delay..", extraDelay)
     ajaxContainer.querySelector(".client_logo").addEventListener("load", () => {
+      //this function is repeating after subsequent loads
+      //console.log("transition complete", direction)
       setTimeout(function() {
         ajaxContainer.classList.remove("am-out");
         ajaxContainer.classList.add("am-in");
@@ -452,13 +451,11 @@ function transitionComplete (item, direction, startVal, endVal, extraDelay) {
           <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
           <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
           </svg>`;
-    
-          reverseBtn.addEventListener('click', (e) => {
-            reverseBtn.parentNode.removeChild(reverseBtn)
-            triggerReverse(item);
-          });
-          
         ajaxContainer.appendChild(reverseBtn);
+        reverseBtn.addEventListener('click', (e) => {
+          reverseBtn.parentNode.removeChild(reverseBtn)
+          triggerReverse(item);
+        });
         ajaxContainer.style.overflowY = "scroll"
         Util.loadingAnimation("stop");
       }, extraDelay);
@@ -486,6 +483,8 @@ let updateContent = function(stateObj) {
   if (stateObj) {
     document.title = stateObj.title;
     document.querySelector("title").innerText = stateObj.title;
+
+    // Loads ajax content into the container
     ajaxContainer.innerHTML = stateObj.html;
   }
 };
