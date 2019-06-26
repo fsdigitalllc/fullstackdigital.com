@@ -340,7 +340,7 @@ function animateItem(item, direction) {
     // Start logo loading animation
     //Util.loadingAnimation(true);
     timing = timing + 200;
-    bgTime = timing;
+    bgTime = timing + 150;
     let velocityTime = (ajaxContainer.scrollTop * 0.1);
     if (velocityTime < 200) {
       velocityTime = 200;
@@ -402,7 +402,8 @@ function animateItem(item, direction) {
         } 
         
         if (direction === false) {
-          extraDelay = extraDelay + (bgTime * (1 - complete));
+          console.log("timinig", timing)
+          extraDelay = extraDelay + (timing * (1 - complete));
           //extraDelay = ((1 - complete) * 1000);
           // console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
           // if (complete === 1) {
