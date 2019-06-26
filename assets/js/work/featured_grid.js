@@ -1,7 +1,7 @@
 //console.log("featured items loading...");
 let gridItems = document.querySelectorAll(".gridgrow");
 let container = document.querySelector(".container");
-
+document.body.setAttribute("reverseTiming", 200);
 positionCaption();
 
 let startWindowHeight = window.innerHeight;
