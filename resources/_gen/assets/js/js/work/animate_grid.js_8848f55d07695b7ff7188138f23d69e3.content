@@ -103,7 +103,7 @@ let loadImages = (activeBtn) => {
   }
   let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
   let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
-  console.log("ignoreclasslist", ignoreClasslist)
+  //console.log("ignoreclasslist", ignoreClasslist)
   let images = lazyImages.diff(ignoreClasslist)
   
   gridImages = gridImages.concat(images);
@@ -374,7 +374,7 @@ function animateItem(item, direction) {
   function animateGridgrow (item, direction) {
 
     ajaxContainer.setAttribute("loaded", true);
-    let extraDelay = 150;
+    let extraDelay = timing;
 
     theItem.wipe.velocity({
       width: [endVal.bg.width, startVal.bg.width],
@@ -402,7 +402,7 @@ function animateItem(item, direction) {
         } 
         
         if (direction === false) {
-          console.log("timinig", timing)
+          //console.log("timinig", timing)
           extraDelay = extraDelay + (timing * (1 - complete));
           //extraDelay = ((1 - complete) * 1000);
           // console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
@@ -418,7 +418,7 @@ function animateItem(item, direction) {
       }
     })
     let ajaxLoadedCallback = () => {
-      console.log("AJAX CALLBACK");
+      console.log("ajax extra delay", extraDelay, direction);
       if (ajaxContainer.getAttribute("loaded", true)) {
         //extraDelay = extraDelay;
       }
@@ -464,7 +464,7 @@ function transitionComplete (item, direction, startVal, endVal, extraDelay) {
     
 
     
-  } else {
+  } else if (direction === true) {
     //item.classList.remove("active");
     ajaxContainer.classList.remove("am-in");
     ajaxContainer.classList.add("am-out");
@@ -540,7 +540,7 @@ function ajaxLoad (item, direction) {
 }
 
 function insertScript (script, callback) {
-  console.log("insertscript", script);
+  //console.log("insertscript", script);
 
   if (script.tagName === "SCRIPT") {
     let s = document.createElement('script')
@@ -574,7 +574,7 @@ function scriptsDone () {
   DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
   document.dispatchEvent(DOMContentLoadedEvent);
   document.dispatchEvent(ajaxLoadEvent);
-  console.log("TRIGGER DOM CONTENT LOADED");
+  //console.log("TRIGGER DOM CONTENT LOADED");
 }
   
   // runs an array of async functions in sequential order
@@ -620,7 +620,7 @@ function runScripts (container, nextLink) {
   
   // get scripts tags from a node
   let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
-  console.log("run SCRIPTS ---", scripts);
+  //console.log("run SCRIPTS ---", scripts);
   let runList = [];
   let typeAttr;
 
@@ -651,7 +651,7 @@ function runScripts (container, nextLink) {
     // or with a javascript mime attribute value
     if (script.tagName === "SCRIPT") {
       if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
-        console.log("run SCRIPTS ---", script);
+        //console.log("run SCRIPTS ---", script);
         runList.push(function (callback) {
           insertScript(script, callback)
         })
@@ -660,7 +660,7 @@ function runScripts (container, nextLink) {
     if (script.tagName === "IMG") {
       runList.push(function (callback) {
         insertScript(script, callback)
-        console.log("img", script)
+        //console.log("img", script)
       })
     }
     
