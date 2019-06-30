@@ -17,7 +17,6 @@ let heightSpacer = document.querySelector(".height-spacer");
 let widthSpacer = document.querySelector(".width-spacer");
 
 // First wrapping parent of all grid items.
-let grid = document.querySelector(".work-container");
 let gridItems = document.querySelectorAll(".gridgrow");
 let gridImages = Array.from(document.querySelectorAll(".gridgrow-image"));
 let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -104,7 +103,7 @@ let loadImages = (activeBtn) => {
   }
   let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
   let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
-  console.log("ignoreclasslist", ignoreClasslist)
+  //console.log("ignoreclasslist", ignoreClasslist)
   let images = lazyImages.diff(ignoreClasslist)
   
   gridImages = gridImages.concat(images);
@@ -179,21 +178,26 @@ function setItemStyles(item) {
   let calcTop = 0;
   let calcLeft = 0;
 
-  if (theItem.image.getAttribute("m-top") && window.innerWidth < 720) {
+  if (theItem.image.getAttribute("m-top") && window.innerWidth <= 720) {
     calcTop = (parseFloat(theItem.image.getAttribute("m-top")) / 100);
+    
+  } else if (theItem.image.getAttribute("top") && window.innerWidth > 720) {
+    calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100);
+  } 
+  if (theItem.image.getAttribute("m-left") && window.innerWidth < 720) {
     calcLeft = (parseFloat(theItem.image.getAttribute("m-left")) / 100);
-  } else if (theItem.image.getAttribute("top")) {
-    calcTop = (parseFloat(theItem.image.getAttribute("top")) / 100)
+  } else if (theItem.image.getAttribute("left")) {
     calcLeft = (parseFloat(theItem.image.getAttribute("left")) / 100);
   }
   
+  
   let left = ((
-    theItem.imageWrapper.offsetWidth 
+    theItem.image.parentNode.offsetWidth 
     - sVal(item).width) / 2 
     + theItem.image.parentNode.offsetWidth * calcLeft
     + "px");
   let top = ((
-    theItem.imageWrapper.offsetHeight 
+    theItem.image.parentNode.offsetHeight 
     - parseFloat(getComputedStyle(theItem.imageWrapper).marginTop) 
     - sVal(item).height) / 2 
     + theItem.image.parentNode.offsetHeight * calcTop
@@ -262,9 +266,12 @@ function sVal (item) {
   let theItem = getItem(item);
 
   let calcWidth = (parseFloat(theItem.image.getAttribute("width")) / 100 );
-  if (window.innerWidth < 720) {
-    calcWidth = (parseFloat(theItem.image.getAttribute("m-width")) / 100 );
+  if (theItem.image.getAttribute("m-width")) {
+    if (window.innerWidth < 720) {
+      calcWidth = (parseFloat(theItem.image.getAttribute("m-width")) / 100 );
+    }
   }
+  
   let sVal = {
     //width: theItem.image.offsetWidth,
     height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * calcWidth,
@@ -307,18 +314,20 @@ function animateItem(item, direction) {
   let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
   let bgTime = timing;
   // Load content via ajax
+  console.log("DIRECTION", direction)
   
   if (direction === false) {
-    //Forward
+
+    console.log("lock scroll")
+    //lock scrolling ability
+    document.body.style.overflowY = "hidden";
+    bodyScrollLock.disableBodyScroll(document.body);
+    //Forward 
     item.classList.add("active");
 
     // Offset the scrollbar on animating
     document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
     document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
-    
-    //lock scrolling ability
-    document.body.style.overflowY = "hidden";
-    bodyScrollLock.disableBodyScroll(document.body);
 
     // Start logo loading animation
     Util.loadingAnimation("start");
@@ -333,7 +342,7 @@ function animateItem(item, direction) {
     // Start logo loading animation
     //Util.loadingAnimation(true);
     timing = timing + 200;
-    bgTime = timing;
+    bgTime = timing + 150;
     let velocityTime = (ajaxContainer.scrollTop * 0.1);
     if (velocityTime < 200) {
       velocityTime = 200;
@@ -365,7 +374,10 @@ function animateItem(item, direction) {
   //console.log("startval", startVal, "endval", endVal)
   
   function animateGridgrow (item, direction) {
-    
+
+    ajaxContainer.setAttribute("loaded", true);
+    let extraDelay = timing;
+
     theItem.wipe.velocity({
       width: [endVal.bg.width, startVal.bg.width],
       height: [endVal.bg.height, startVal.bg.height],
@@ -391,6 +403,15 @@ function animateItem(item, direction) {
           ajaxContainer.innerHTML = "";
         } 
         
+        if (direction === false) {
+          //console.log("timinig", timing, (1-complete))
+          extraDelay = timing * (1 - complete);
+          //extraDelay = ((1 - complete) * 1000);
+          // console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
+          // if (complete === 1) {
+          //   console.log("LOADED")
+          // }
+        }
         if (complete ===  1 && direction === true) {
           transitionComplete(item, direction, startVal, endVal);
           item.classList.remove("active");
@@ -398,47 +419,59 @@ function animateItem(item, direction) {
 
       }
     })
-    let ajaxLoadedCallback = () => {
-      //console.log("ajaxloaded");
-      transitionComplete(item, direction, startVal, endVal);
+
+    if (direction === false) {
+      let ajaxLoadedCallback = () => {
+        console.log("ajax extra delay", extraDelay, direction);
+        if (ajaxContainer.getAttribute("loaded", true)) {
+          //extraDelay = extraDelay;
+        }
+        transitionComplete(item, direction, startVal, endVal, extraDelay);
+        document.removeEventListener("ajaxLoaded", ajaxLoadedCallback, false);
+        
+      }
+      document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
+      ajaxLoad(item, direction);
     }
-    document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
-    ajaxLoad(item, direction);
+    
   }
   
 }
 
-// ** this function triggers after the velocity animation completes.
-function transitionComplete (item, direction, startVal, endVal) {
+// ** this function triggers after  the velocity animation completes.
+function transitionComplete (item, direction, startVal, endVal, extraDelay) {
   
+  console.log("transitionCompleteDirection", direction)
   //Util.loadingAnimation(false);
-  if (direction !== true) {
+  if (direction === false) {
 
-    // Wait on some action to trigger this
-    //console.log("animation..", direction)
-    setTimeout(function() {
-      ajaxContainer.classList.remove("am-out");
-      ajaxContainer.classList.add("am-in");
-      ajaxContainer.style.top = endVal.content.top + "px";
-      
-      let reverseBtn = document.createElement("button");
-      reverseBtn.classList.add("reverseAnimation");
-      reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-        <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
-        <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
-        </svg>`;
-  
+    ajaxContainer.querySelector(".client_logo").addEventListener("load", () => {
+      //this function is repeating after subsequent loads
+      //console.log("transition complete", direction)
+      setTimeout(function() {
+        ajaxContainer.classList.remove("am-out");
+        ajaxContainer.classList.add("am-in");
+        ajaxContainer.style.top = endVal.content.top + "px";
+        
+        let reverseBtn = document.createElement("button");
+        reverseBtn.classList.add("reverseAnimation");
+        reverseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <line x1="64" y1="64" x2="0" y2="0" stroke="#fff" stroke-width="4"></line>
+          <line x1="64" y1="0" x2="0" y2="64" stroke="#fff" stroke-width="4"></line>
+          </svg>`;
+        ajaxContainer.appendChild(reverseBtn);
         reverseBtn.addEventListener('click', (e) => {
           reverseBtn.parentNode.removeChild(reverseBtn)
           triggerReverse(item);
         });
-        
-      ajaxContainer.appendChild(reverseBtn);
-      ajaxContainer.style.overflowY = "scroll"
-    }, 150);
+        ajaxContainer.style.overflowY = "scroll"
+        Util.loadingAnimation("stop");
+      }, extraDelay);
+    });
+    
 
-    Util.loadingAnimation("stop");
-  } else {
+    
+  } else if (direction === true) {
     //item.classList.remove("active");
     ajaxContainer.classList.remove("am-in");
     ajaxContainer.classList.add("am-out");
@@ -458,6 +491,8 @@ let updateContent = function(stateObj) {
   if (stateObj) {
     document.title = stateObj.title;
     document.querySelector("title").innerText = stateObj.title;
+
+    // Loads ajax content into the container
     ajaxContainer.innerHTML = stateObj.html;
   }
 };
@@ -478,9 +513,6 @@ function ajaxLoad (item, direction) {
       // Parse the text
       let ajaxHtml = parser.parseFromString(html, "text/html");
       let ajaxContent = ajaxHtml.querySelector('main').innerHTML;
-      //let pbCritical = doc.querySelector('.pb_criticalCSS').innerHTML;
-      //pageCritical.innerHTML = pageCritical.innerHTML + pbCritical;
-      //console.log(pageCritical);
       let pageData = {
         title: ajaxHtml.querySelector('title').innerText,
         html: ajaxContent
@@ -496,6 +528,8 @@ function ajaxLoad (item, direction) {
       let title = ajaxHtml.querySelector('title').innerText;
       let data = null;
       let link = theItem.link;
+      
+      //ajaxHtml.querySelector(".work-hero-image").src = theItem.image.src;
       //history.replaceState(data, title, link);
       Util.pushHistory(data, title, link);
 
@@ -513,7 +547,7 @@ function ajaxLoad (item, direction) {
 }
 
 function insertScript (script, callback) {
-  console.log(script);
+  //console.log("insertscript", script);
 
   if (script.tagName === "SCRIPT") {
     let s = document.createElement('script')
@@ -534,10 +568,7 @@ function insertScript (script, callback) {
       callback()
     }
   } else if (script.tagName === "IMG") {
-    script.addEventListener("load", () => {
-      console.log("image loaded...", script)
-      callback()
-    })
+        callback();
   }
 
   
@@ -550,7 +581,7 @@ function scriptsDone () {
   DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
   document.dispatchEvent(DOMContentLoadedEvent);
   document.dispatchEvent(ajaxLoadEvent);
-  console.log("TRIGGER DOM CONTENT LOADED");
+  //console.log("TRIGGER DOM CONTENT LOADED");
 }
   
   // runs an array of async functions in sequential order
@@ -595,24 +626,10 @@ function runScripts (container, nextLink) {
   //console.log(container);
   
   // get scripts tags from a node
-  let scripts = container.querySelectorAll('script, .work-hero-image');
-  console.log("run SCRIPTS ---", scripts);
-  let images = container.querySelectorAll('img');
+  let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
+  //console.log("run SCRIPTS ---", scripts);
   let runList = [];
   let typeAttr;
-
-    images.forEach((image) => {
-      
-      //image.src = nextLink + image.src;
-      let path = image.getAttribute("src");
-
-      // if (!new RegExp("^(?:/|.+://)").test(path)) {
-        
-      //   path = nextLink + path;
-      //   console.log(path);
-      //   image.setAttribute("src", path);
-      // }
-    });
 
     let allSections = ajaxContainer.querySelectorAll('section');
     allSections.forEach(section => {
@@ -641,6 +658,7 @@ function runScripts (container, nextLink) {
     // or with a javascript mime attribute value
     if (script.tagName === "SCRIPT") {
       if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
+        //console.log("run SCRIPTS ---", script);
         runList.push(function (callback) {
           insertScript(script, callback)
         })
@@ -649,7 +667,7 @@ function runScripts (container, nextLink) {
     if (script.tagName === "IMG") {
       runList.push(function (callback) {
         insertScript(script, callback)
-        console.log("img", script)
+        //console.log("img", script)
       })
     }
     

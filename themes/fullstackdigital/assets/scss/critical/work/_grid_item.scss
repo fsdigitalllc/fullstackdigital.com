@@ -249,17 +249,16 @@
     }
     h3 {
       font-size: 22px;
+      max-width: 360px;
     }
   }
   @media screen and (max-width: $screen-tablet) {
     h2 {
-      font-size: 28px;
+      font-size: 24px;
     }
     h3 {
-      font-size: 20px;
-    }
-    .gridgrow .card-footer {
-      width: 40%;
+      font-size: 16px;
+      max-width: 280px;
     }
     .gridwrap {
       justify-content: space-between;
@@ -270,11 +269,15 @@
   }
   @media screen and (max-width: $screen-mobile-l) {
     .gridgrow {
-      height: 80vh;
+      height: 90vh;
     }
-    // .gridgrow .card-footer {
-    //   padding-top: 20%;
-    // }
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 22px;
+      max-width: 100%;
+    }
     .gridwrap {
       flex-direction: column;
     }
@@ -292,6 +295,15 @@
     }
     .gridgrow .gridgrow-image-holder {
       width: 100%;
+      max-height: 280px;
+    }
+  }
+  @media screen and (max-width: $screen-mobile-l) {
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 22px;
     }
   }
 }
@@ -360,6 +372,9 @@
   width: 100%;
   height: 100%;
 }
+.work-ajax[loaded="false"] {
+  display: none;
+}
 .work-ajax.am-in {
   opacity: 1;
   display: block;
@@ -368,6 +383,7 @@
 }
 .work-ajax.am-out {
   opacity: 0;
+  display: none;
   animation: am-out .5s;
 }
 @keyframes am-in {
@@ -394,25 +410,6 @@
     display: none;
   }
 }
-// .width-spacer {
-//   border-bottom: 3px dashed #000000;
-//   height: 3px;
-// }
-// .width-spacer:after {
-//   content: "";
-//   left: 50%;
-//   top: 50%;
-//   -webkit-transform: translate(-50%, -50%);
-//   -ms-transform: translate(-50%, -50%);
-//   transform: translate(-50%, -50%);
-//   border-left: 4px solid red;
-//   position: absolute;
-//   width: 4px;
-//   display: block;
-//   height: 6px;
-// }
-
-//.work-ajax::-webkit-scrollbar {display:none;}
 .work-container.type-2 {
   grid-template-columns: 1fr 1fr;
 }
@@ -576,11 +573,19 @@
   .gridgrow .excerpt-group {
     grid-column-gap: 10px;
   }
-
+  .work-row .gridgrow .gridgrow-image-holder {
+    max-height: 100%;
+  }
   
 }
 @media screen and (max-width: $screen-mobile-m) {
   .gridgrow .gridgrow-excerpt {
     font-size: 14px;
+  }
+  .work-row .gridgrow .gridgrow-image-holder {
+    max-height: 50%;
+  }
+  .work-row .gridgrow .card-footer {
+    max-height: 50%;
   }
 }
