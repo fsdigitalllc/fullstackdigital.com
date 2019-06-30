@@ -314,18 +314,20 @@ function animateItem(item, direction) {
   let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
   let bgTime = timing;
   // Load content via ajax
+  console.log("DIRECTION", direction)
   
   if (direction === false) {
+
+    console.log("lock scroll")
+    //lock scrolling ability
+    document.body.style.overflowY = "hidden";
+    bodyScrollLock.disableBodyScroll(document.body);
     //Forward
     item.classList.add("active");
 
     // Offset the scrollbar on animating
     document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
     document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
-    
-    //lock scrolling ability
-    document.body.style.overflowY = "hidden";
-    bodyScrollLock.disableBodyScroll(document.body);
 
     // Start logo loading animation
     Util.loadingAnimation("start");
@@ -417,26 +419,31 @@ function animateItem(item, direction) {
 
       }
     })
-    let ajaxLoadedCallback = () => {
-      console.log("ajax extra delay", extraDelay, direction);
-      if (ajaxContainer.getAttribute("loaded", true)) {
-        //extraDelay = extraDelay;
+
+    if (direction === false) {
+      let ajaxLoadedCallback = () => {
+        console.log("ajax extra delay", extraDelay, direction);
+        if (ajaxContainer.getAttribute("loaded", true)) {
+          //extraDelay = extraDelay;
+        }
+        transitionComplete(item, direction, startVal, endVal, extraDelay);
+        document.removeEventListener("ajaxLoaded", ajaxLoadedCallback, false);
+        
       }
-      transitionComplete(item, direction, startVal, endVal, extraDelay);
-      document.removeEventListener("ajaxLoaded", ajaxLoadedCallback, false);
-      
+      document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
+      ajaxLoad(item, direction);
     }
-    document.addEventListener("ajaxLoaded", ajaxLoadedCallback, false);
-    ajaxLoad(item, direction);
+    
   }
   
 }
 
-// ** this function triggers after the velocity animation completes.
+// ** this function triggers after  the velocity animation completes.
 function transitionComplete (item, direction, startVal, endVal, extraDelay) {
   
+  console.log("transitionCompleteDirection", direction)
   //Util.loadingAnimation(false);
-  if (direction !== true) {
+  if (direction === false) {
 
     ajaxContainer.querySelector(".client_logo").addEventListener("load", () => {
       //this function is repeating after subsequent loads
