@@ -322,7 +322,7 @@ function animateItem(item, direction) {
     //lock scrolling ability
     document.body.style.overflowY = "hidden";
     bodyScrollLock.disableBodyScroll(document.body);
-    //Forward
+    //Forward 
     item.classList.add("active");
 
     // Offset the scrollbar on animating
@@ -404,8 +404,8 @@ function animateItem(item, direction) {
         } 
         
         if (direction === false) {
-          //console.log("timinig", timing)
-          extraDelay = extraDelay + (timing * (1 - complete));
+          //console.log("timinig", timing, (1-complete))
+          extraDelay = timing * (1 - complete);
           //extraDelay = ((1 - complete) * 1000);
           // console.log("animation extradelay", extraDelay, "bgTime", bgTime, "complete", complete)
           // if (complete === 1) {
