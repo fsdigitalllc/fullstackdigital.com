@@ -50,7 +50,7 @@ Util.imagesLoaded = () => {
     
 }
 Util.loadingAnimation = (direction = true) => {
-  console.log("loading..direction:", direction)
+  //console.log("loading..direction:", direction)
   if (direction === false) {
     setTimeout(function(){
       document.querySelector("html").classList.remove("pageTransition", "loading");
