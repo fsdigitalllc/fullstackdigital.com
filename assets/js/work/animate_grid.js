@@ -246,9 +246,9 @@ function eVal (item) {
     offsetY:
       theItem.heightSpacer.offsetHeight,
     bg: {
-      width: window.innerWidth,
+      width: window.innerWidth + scrollbarWidth,
       height: window.innerHeight,
-      x: -(item.offsetLeft + theItem.containerInner.offsetLeft + theItem.containerOuter.offsetLeft - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft) - scrollbarWidth + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft)),
+      x: -(item.offsetLeft + theItem.containerInner.offsetLeft + theItem.containerOuter.offsetLeft - parseFloat(getComputedStyle(theItem.containerOuter).paddingLeft) + (scrollbarWidth/2) + parseFloat(getComputedStyle(theItem.imageWrapper).marginLeft)),
       y: (theItem.nav.offsetHeight - (item.offsetTop + theItem.containerInner.offsetTop + theItem.containerOuter.offsetTop)) + window.scrollY,
     },
     content: {
@@ -326,8 +326,11 @@ function animateItem(item, direction) {
     item.classList.add("active");
 
     // Offset the scrollbar on animating
-    document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
-    document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+    //document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+    //document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+    document.querySelector("body").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
+    document.querySelector(".masthead").style.paddingRight = (scrollbarWidth/2) + "px";
+    document.querySelector(".masthead").style.width = `calc(100% + ${scrollbarWidth/2}px)`;
 
     // Start logo loading animation
     Util.loadingAnimation("start");
@@ -476,7 +479,8 @@ function transitionComplete (item, direction, startVal, endVal, extraDelay) {
     ajaxContainer.classList.remove("am-in");
     ajaxContainer.classList.add("am-out");
     document.querySelector("html").style.marginLeft = "";
-    document.querySelector("main").style.marginLeft = "";
+    document.querySelector("body").style.marginLeft = "";
+    document.querySelector(".masthead").style.width = ``;
     document.body.style.overflowY = "scroll";
     bodyScrollLock.enableBodyScroll(document.body);
     ajaxContainer.setAttribute("loaded", false);
