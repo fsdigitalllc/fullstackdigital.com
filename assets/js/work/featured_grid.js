@@ -25,14 +25,6 @@ function positionCaption (extraSpace) {
     //console.log(image);
     gridCaption.style.left = container.offsetLeft + extra + parseFloat(getComputedStyle(container).paddingLeft) + "px";
     gridCaption.style.position = "absolute";
-
-    if (image.classList.contains("ddn")) {
-      image.style.top = -50 + "px";
-    } else if (image.classList.contains("rigado")) {
-      image.style.top = 50 + "px";
-    } else {
-      image.style.top = 50 + "px";
-    }
     
   });
 
