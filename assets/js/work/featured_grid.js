@@ -12,14 +12,18 @@ window.addEventListener("resize", () => {
   // }
 });
 
-function positionCaption () {
+function positionCaption (extraSpace) {
   console.log("reposition caption")
+  let extra = 0;
+  if (extraSpace) {
+    extra = extraSpace;
+  }
   gridItems.forEach(item => {
     let gridCaption = item.querySelector(".excerpt-group");
     let image = item.querySelector(".gridgrow-image");
 
     //console.log(image);
-    gridCaption.style.left = container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft) + "px";
+    gridCaption.style.left = container.offsetLeft + extra + parseFloat(getComputedStyle(container).paddingLeft) + "px";
     gridCaption.style.position = "absolute";
 
     if (image.classList.contains("ddn")) {
