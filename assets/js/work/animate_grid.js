@@ -422,8 +422,6 @@
           } else if (complete === 1 && direction === true) {
             transitionComplete(item, direction, startVal, endVal, 0);
           }
-          
-  
         }
       })
   

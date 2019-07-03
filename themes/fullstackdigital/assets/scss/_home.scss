@@ -21,6 +21,7 @@
   .template-related_content .grid-2 {
     grid-template-columns: .3fr .7fr;
     grid-gap: 120px;
+    display: grid;
   }
   .template-related_content {
     background: #000000;
