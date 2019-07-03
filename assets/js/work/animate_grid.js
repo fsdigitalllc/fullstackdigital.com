@@ -417,14 +417,10 @@
           
           extraDelay = bgTime * (1 - complete);
           //console.log("bgtime", extraDelay)
-          if (isFeatured(item) && direction === true) {
-            
-            if (complete >= 0.5) {
-              console.log("true", complete)
-              transitionComplete(item, direction, startVal, endVal, extraDelay);
-            }
-          } else if (complete ===  1 && direction === true) {
-            transitionComplete(item, direction, startVal, endVal, bgTime);
+          if (isFeatured(item) && complete ===  1 && direction === true) {
+            transitionComplete(item, direction, startVal, endVal, extraDelay);
+          } else if (complete === 1 && direction === true) {
+            transitionComplete(item, direction, startVal, endVal, 0);
           }
           
   
