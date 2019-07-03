@@ -507,7 +507,7 @@
   }
 
   .card-logo-holder {
-    max-width: 150px;
+    max-width: 130px;
     display: flex;
     position: relative;
     box-sizing: border-box;
@@ -522,6 +522,17 @@
     position: relative;
     margin: 0;
     box-sizing: border-box;
+  }
+
+  // Item specific corrections to logos
+  .card-logo.ddn {
+    max-height: 49px;
+  }
+  .card-logo.awo {
+    max-height: 55px;
+  }
+  .card-logo.threefactor {
+    max-height: 49px;
   }
 
   .card-footer-layer {

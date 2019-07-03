@@ -1,6 +1,6 @@
 ---
-title: 'Revitalizing a Brand Through Design'
-name: "4dv"
+title: 'Reaching High-Value Clients Around The World In One Place'
+name: "leadgate"
 night_header: false
 night_footer: true
 language: en
