@@ -1,5 +1,31 @@
-(function(){let main=document.querySelector("main");let tabLinks=document.querySelectorAll(".tabs__controls");tabLinks.forEach((tabLink)=>{tabLink.addEventListener("click",checkMode,false);});let toggles=document.querySelectorAll("#metaToggle .btns__btn");let radios=document.querySelectorAll("#metaToggle input");toggles.forEach((toggle)=>{toggle.addEventListener("click",switchChecked,false);function switchChecked(e){let thisRadio=e.target.parentElement.querySelector("input");radios.forEach((radio)=>{if(radio===thisRadio){radio.checked=true;}else{radio.checked=false;}});checkMode();}});window.addEventListener("DOMContentLoaded",function(){checkMode();});function checkMode(){console.log("run checked mode");radios.forEach((radio)=>{if(radio.checked===true){main.classList.add("mode-"+radio.name);if(radio.name==="google"){mode="google";getLinks(mode);}else if(radio.name==="social"){mode="social";getLinks(mode);}}else{main.classList.remove("mode-"+radio.name);}});}
-function ajaxGetContent(linkSrc,link,mode){fetch(linkSrc).then((response)=>response.text()).then((html)=>{let parser=new DOMParser();var doc=parser.parseFromString(html,"text/html");var head=doc.querySelector('head');(function(){let pageTitle=head.querySelector("title");let metaTitle=head.querySelector('[name="title"]').innerHTML;let metas=head.querySelectorAll("meta");metas.forEach(function(meta,index){let name=meta.getAttribute("name");let property=meta.getAttribute("property");let content=meta.getAttribute("content");if(name&&content){getMetaContentByProperty(name,content,link);}else if(property&&content){getMetaContentByProperty(property,content,link);}});})();function getMetaContentByName(name,content){}
-function getMetaContentByProperty(property,content,link){if(property.match(/image/)){setPreviewImage(content);}
-function setPreviewImage(){link.querySelector(".metaBgImage").style.backgroundImage=`url('${content}')`;}}}).catch((error)=>{console.warn(error);});}
-function getLinks(mode){console.log("mode",mode);let openTab=document.querySelector(".tabs__panel--selected");let links=openTab.querySelectorAll("a");links.forEach(function(link,index){let linkSrc=link.href;ajaxGetContent(linkSrc,link,mode);});}})();
+(function(){const main=document.querySelector("main");let radios=document.querySelectorAll("#metaToggle input");let parseXML=async()=>{let sitemap=document.querySelector('#sitemap').value;sitemap=window.location.origin+sitemap;const response=await fetch(sitemap)
+const text=await response.text();let parser=new DOMParser();let content=parser.parseFromString(text,"text/xml");let pages=content.querySelectorAll("loc");evaluateXML(pages);}
+document.querySelector('#sitemap').addEventListener("keyup",()=>{if(event.key==="Enter"){parseXML();}},false);function evaluateXML(links){if(links.length>0){createSections(links);}else{return false;}}
+function createSections(links){let groups=getGroups(links);let listSidebar=document.querySelector('.groups');let listContent=document.querySelector('.sections');groups.forEach(group=>{listSidebar.innerHTML+=`<li>${group}</li>`;listContent.innerHTML+=`
+      <ul class="list" aria-label='${group}'>
+        <li>
+          <h2>${group}</h2>
+        </li>
+        <ul class='section-items'>
+        
+        </ul>
+      </ul>`;});links.forEach((link)=>{console.log(link)
+link=link.innerHTML;let getMeta=async(src)=>{const response=await fetch(src);const html=await response.text();let parser=new DOMParser();let doc=parser.parseFromString(html,"text/html");let head=doc.querySelector('head');let title=head.querySelector("title");if(title){title=title.innerText;}
+let metas=head.querySelectorAll("meta");let description,twitterImage;Array.from(metas).forEach(meta=>{if(head.querySelector('[name="title"]')){title=head.querySelector('[name="title"]').content;}
+if(head.querySelector('[name="description"]')){description=head.querySelector('[name="description"]').content;}
+twitterImage=head.querySelector('[property="twitter:image"]').content;console.log(meta);});console.log(twitterImage);let thisGroup=getGroup(link)[0];let section=document.querySelector(`[aria-label='${thisGroup}'] .section-items`);section.innerHTML+=`
+          <li>
+          Twitter Image: ${twitterImage}<br>
+            <a href="${link}" target="_blank" class="link-wrapper">
+              ${title}
+              
+            </a>
+            <p>${description}</p>
+          </li>`;}
+getMeta(link);});}
+function getGroups(links){let groups=[];links.forEach(link=>{link=link.innerHTML;let group=getGroup(link)[0];if(groups.indexOf(group)===-1){groups.push(group)}});return groups;}
+function getGroup(link){let location=window.location.origin;location=location.replace(window.location.protocol,'');link=link.replace(location,'');let sections=link.split("/");let cleanSection=[];sections.forEach(section=>{if(section!==""){cleanSection.push(section);}});return cleanSection;}
+function ajaxGetContent(linkSrc,mode,linkHTML){fetch(linkSrc).then((response)=>response.text()).then((html)=>{let parser=new DOMParser();var doc=parser.parseFromString(html,"text/html");var head=doc.querySelector('head');let pageTitle=head.querySelector("title");let metas=head.querySelectorAll("meta");if(!pageTitle){pageTitle="No Title Set!";}
+linkHTML.innerText=pageTitle.innerText;metas.forEach(function(meta,index){let name=meta.getAttribute("name");let property=meta.getAttribute("property");let content=meta.getAttribute("content");if(name&&content){getMetaContentByProperty(name,content);}else if(property&&content){getMetaContentByProperty(property,content);}});function getMetaContentByProperty(property,content){if(property.match(/image/)){setPreviewImage(content);}
+function setPreviewImage(){}}}).catch((error)=>{console.warn(error);});}
+window.addEventListener("DOMContentLoaded",function(){parseXML();});})();
