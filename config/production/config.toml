@@ -1,7 +1,7 @@
 baseURL = "/"
 languageCode = "en-gb"
 title = "Fullstack Digital"
-theme = ["pancakesBuilder", "fullstackdigital"]
+theme = ["pancakesBuilder-dev", "fullstackdigital"]
 
 ignorefiles = [ "admin", "docs" ]
 enableRobotsTXT = true
