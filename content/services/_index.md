@@ -14,7 +14,7 @@ sections:
 - template: "overview"
   classes: "break-tablet padding-l"
   title: |
-    wWe help B2B tech companies<br> go further, faster.
+    We help B2B tech companies<br> go further, faster.
   lead: |
     We help growth-focused tech companies with brand, web, and marketing activities.
 - template: "banner"
