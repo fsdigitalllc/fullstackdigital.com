@@ -5,6 +5,6 @@
 [submodule "themes/pancakesDashboard"]
 	path = themes/pancakesDashboard
 	url = https://github.com/pancakes-builder/pancakesDashboard.git
-[submodule "themes/pancakesDocs"]
-	path = themes/pancakesDocs
-	url = git@github.com-bbozzay:pancakes-builder/pancakesDocs.git
+[submodule "themes/--force"]
+	path = themes/--force
+	url = https://github.com/pancakes-builder/pancakesDocs.git
