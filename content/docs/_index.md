@@ -6,6 +6,4 @@ published: true
 description: "Docs to help manage the site"
 date: 2019-07-03 04:00:00 +0000
 tags: []
-layout: "pages/labs"
-image: "/uploads/labs/leadgate-open-tab.png"
 ---
