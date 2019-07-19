@@ -1,7 +1,3 @@
-//console.log("featured items loading...");
-let gridItems = document.querySelectorAll(".gridgrow");
-let container = document.querySelector(".container");
-document.body.setAttribute("reverseTiming", 200);
 positionCaption();
 
 let startWindowHeight = window.innerHeight;
@@ -12,22 +8,25 @@ window.addEventListener("resize", () => {
   // }
 });
 
-function positionCaption () {
-  console.log("reposition caption")
+function positionCaption (extraSpace) {
+  //console.log("featured items loading...");
+  let gridItems = document.querySelectorAll(".gridgrow");
+  let container = document.querySelector(".container");
+  document.body.setAttribute("reverseTiming", 200);
+  let extra = 0;
+  if (extraSpace) {
+    extra = extraSpace;
+  }
   gridItems.forEach(item => {
     let gridCaption = item.querySelector(".excerpt-group");
-    let image = item.querySelector(".gridgrow-image");
+    let space = container.offsetLeft + extra + parseFloat(getComputedStyle(container).paddingLeft) + "px";
 
     //console.log(image);
-    gridCaption.style.left = container.offsetLeft + parseFloat(getComputedStyle(container).paddingLeft) + "px";
+    gridCaption.style.left = space;
     gridCaption.style.position = "absolute";
 
-    if (image.classList.contains("ddn")) {
-      image.style.top = -50 + "px";
-    } else if (image.classList.contains("rigado")) {
-      image.style.top = 50 + "px";
-    } else {
-      image.style.top = 50 + "px";
+    if (window.innerWidth <= 520) {
+      gridCaption.style.right = space;
     }
     
   });

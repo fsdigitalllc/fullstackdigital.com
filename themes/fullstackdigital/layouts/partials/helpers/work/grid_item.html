@@ -120,7 +120,7 @@
 
 {{ $path := print $prefix $logo }}
 {{ $assetpath := print $asset_prefix $logo }}
-<div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow' data-item-filter="{{ $tag }}">
+<div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow {{ $name }}' data-item-filter="{{ $tag }}">
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
   
   <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
@@ -164,13 +164,7 @@
   
     <span class="card-footer-layer flex h_children_center hover-right">
       <h6 class="gridgrow-view strip-margin">View Case Study</h6>
-      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-      <g>
-      <line fill="none" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
-      </g>
-      <polyline fill="none" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
-                        54,23 "></polyline>
-      </svg>
+      <svg class="color-black" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g><path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M0 32H63z"></path></g><path fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" d="M54 41l9-9-9-9"></path></svg>
     </span>
     {{ end }}
   </div>

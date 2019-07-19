@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 {{- $title := .Site.Title -}}
+{{ $robots := "all" }}
 {{- if .Title -}}
   {{- $title = print .Title " | " .Site.Title -}}
 {{- end -}}
@@ -15,6 +16,9 @@
 {{- end -}}
 {{- with .Params.meta -}}
   {{- $meta = . -}}
+  {{ with .robots }}
+    {{ $robots = . }}
+  {{ end }}
   {{- with .title -}}
     {{- $meta_title = . -}}
   {{- end -}}
@@ -66,3 +70,6 @@
 <meta property="twitter:title" content="{{ $meta_title | safeHTML }}">
 <meta property="twitter:description" content="{{ $meta_description | safeHTML }}">
 <meta property="twitter:image" content="{{ $meta_image }}">
+
+<!-- Robots -->
+<meta name="robots" content="{{ $robots }}" />
