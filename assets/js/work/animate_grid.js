@@ -510,6 +510,7 @@
   function triggerReverse (item) {
     //animateItem(item, true);
     history.back();
+    
   }
   
   function ajaxLoad (item, direction) {
@@ -548,6 +549,7 @@
             updateContent(event.state)
           }
             animateItem(item, true);
+            document.title = document.querySelector("meta[name='title']").content;
         }
       
       }).then(() => {
