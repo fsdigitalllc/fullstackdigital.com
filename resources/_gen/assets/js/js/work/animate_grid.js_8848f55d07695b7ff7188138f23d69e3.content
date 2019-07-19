@@ -4,9 +4,7 @@
   let ajaxContainerCreate = document.createElement("DIV");
   ajaxContainerCreate.className = "work-ajax";
   ajaxContainerCreate.setAttribute("loaded", false);
-  document.querySelector("body").appendChild(ajaxContainerCreate);
-  //ocument.querySelector("main").innerHTML = document.querySelector("main").innerHTML + `<div class="work-ajax"></div>`;
-  let ajaxContainer = document.querySelector(".work-ajax");
+  document.querySelector("body").appendChild(ajaxContainerCreate);let ajaxContainer = document.querySelector(".work-ajax");
   
   let ajaxLoadEvent = new Event('ajaxLoaded');
   
@@ -54,7 +52,6 @@
   });
   
   let getItem = (item) => {
-    //console.log("item,", item)
     if (item.classList.contains("gridgrow")) {
       let the = {
         widthSpacer: document.querySelector(".width-spacer"),
@@ -71,17 +68,13 @@
       return the;
     }
   }
-  //console.log("getitem", getItem(document.querySelector(".gridgrow")).widthSpacer)
-  
+
   // Set image width, height, top, left
   let createItem = (item) => {
     if (Util.isInViewport(item)) {
       setHeightSpacerContent(item);
     }
     setItemStyles(item)
-    //setItemStyles(item)
-    
-    //console.table("item startValues:", );
   }
   
   let gridImagesLoaded = () => {
@@ -97,36 +90,27 @@
     } 
     if (activeBtn) {
       activeBtn = activeBtn.closest(`[data-filter]`).getAttribute("data-filter");
-      //console.log("activeBtn", activeBtn)
       gridImages = Array.from(document.querySelectorAll(`[data-item-filter="${activeBtn}"] .gridgrow-image`));
-      //console.log("activeBtn", gridImages.length)
     }
     let lazyImages = Array.from(document.querySelectorAll("img[data-src]"));
     let ignoreClasslist = Array.from(document.querySelectorAll(".gridgrow-image"));
-    //console.log("ignoreclasslist", ignoreClasslist)
     let images = lazyImages.diff(ignoreClasslist)
     
     gridImages = gridImages.concat(images);
-    //console.log(gridImages)
   
     gridImages.forEach(function(image, imageLoaded = 0) {
       image.src = image.getAttribute("data-src");
       image.addEventListener('load', () => {
-        // if (image.classList.contains("lazyloaded")) {
-        //console.log(image);
-        
         imageLoaded++;
+
         // Polyfill for closest needed
         let item = image.closest(".gridgrow");
         if (item) {
           item.classList.add("loaded");
           createItem(item)
         }
-        //console.log("loaded ", image);
+
         if ( imageLoaded === gridImages.length ) {
-          //console.log("length", gridImages.length)
-          // True/false to start or stop loading icon animation
-          //setTimeout(function(){Util.loadingAnimation(false);}, 51000);
           Util.loadingAnimation(false);
         }
       });
@@ -152,9 +136,6 @@
   window.addEventListener("scroll", () => {
     gridItems.forEach((item) => {
       if (Util.isInViewport(item)) {
-        // Do something...
-        //console.log("in viewport");
-        //console.log(item);
         setHeightSpacerContent(item);
       }
     })
@@ -162,8 +143,7 @@
   
   window.addEventListener("resize", () => {
     gridItems.forEach((item) => {
-      setItemStyles(item)
-      //console.log("resizing");
+      setItemStyles(item);
     })
   });
   
@@ -206,13 +186,12 @@
     theItem.image.style.top = top;
     theItem.wipe.style.left = 0;
     theItem.wipe.style.top = 0;
-    //console.log("theitem", theItem.image)
+
     // Item offset
     if (!item.classList.contains("active")) {
       // Normal item
       theItem.image.style.width = sVal(item).width + "px";
       theItem.image.style.height = sVal(item).height + "px";
-      //theItem.image.style.transform = `translateX(0px)`
     } else {
       // Animated grid item
       theItem.image.style.width = eVal(item).width + "px";
@@ -241,7 +220,6 @@
       // Get each image to the edge of screen
       theItem.widthSpacer.offsetLeft
       + parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft),
-      //+ ( (theItem.widthSpacer.offsetWidth - parseFloat(getComputedStyle(theItem.widthSpacer).paddingLeft)) / 2 ),
       // End Values
       offsetY:
         theItem.heightSpacer.offsetHeight,
@@ -273,10 +251,8 @@
     }
     
     let sVal = {
-      //width: theItem.image.offsetWidth,
       height: (theItem.image.naturalHeight / (calcImageRatio(theItem))) * calcWidth,
       width: (theItem.image.naturalWidth / (calcImageRatio(theItem))) * calcWidth,
-      //width: theItem.imageWrapper.offsetWidth * (parseFloat(theItem.image.getAttribute("width")) / 100 ),
       offsetX: 
         // Get each image to the edge of screen
         theItem.image.parentNode.getBoundingClientRect().x
@@ -298,7 +274,6 @@
         top: theItem.nav.offsetHeight,
         display: "none"
       }
-        // 531
         // End Values
     }
     
@@ -308,26 +283,21 @@
   function animateItem(item, direction) {
     
     let theItem = getItem(item);
-    //console.log("itemddf", theItem.image)
     let startVal = sVal(item);
     let endVal = eVal(item);
     let startTranslateX = 0, endTranslateX = endVal.offsetX - startVal.offsetX, startTranslateY = 0, endTranslateY = endVal.offsetY - startVal.offsetY, timing = 475;
     let bgTime = timing;
     // Load content via ajax
-    console.log("DIRECTION", direction)
     
     if (direction === false) {
-  
-      console.log("lock scroll")
       //lock scrolling ability
       document.body.style.overflowY = "hidden";
       bodyScrollLock.disableBodyScroll(document.body);
+
       //Forward 
       item.classList.add("active");
   
       // Offset the scrollbar on animating
-      //document.querySelector("html").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
-      //document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
       document.querySelector("body").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
       document.querySelector("main").style.marginLeft = "-" + (scrollbarWidth/2) + "px";
       document.querySelector(".masthead").style.paddingRight = (scrollbarWidth/2) + "px";
@@ -347,8 +317,8 @@
       startVal = eVal(item);
       endVal = sVal(item);
       startTranslateX = endTranslateX, endTranslateX = 0, startTranslateY = endTranslateY, endTranslateY = 0;
+      
       // Start logo loading animation
-      //Util.loadingAnimation(true);
       timing = timing + 200;
       bgTime = timing + 150;
       let velocityTime = (ajaxContainer.scrollTop * 0.1);
@@ -379,7 +349,6 @@
         duration: 200
       })
     }
-    //console.log("startval", startVal, "endval", endVal)
     
     function animateGridgrow (item, direction) {
   
@@ -416,7 +385,6 @@
           } 
           
           extraDelay = bgTime * (1 - complete);
-          //console.log("bgtime", extraDelay)
           if (isFeatured(item) && complete ===  1 && direction === true) {
             transitionComplete(item, direction, startVal, endVal, extraDelay);
           } else if (complete === 1 && direction === true) {
@@ -427,7 +395,6 @@
   
       if (direction === false) {
         let ajaxLoadedCallback = () => {
-          //console.log("ajax extra delay", extraDelay, direction);
           transitionComplete(item, direction, startVal, endVal, extraDelay);
           document.removeEventListener("ajaxLoaded", ajaxLoadedCallback, false);
           
@@ -440,16 +407,12 @@
     
   }
   
-  // ** this function triggers after  the velocity animation completes.
+  // This function triggers after  the velocity animation completes.
   function transitionComplete (item, direction, startVal, endVal, extraDelay) {
     
-    console.log("transitionCompleteDirection", direction)
-    //Util.loadingAnimation(false);
     if (direction === false) {
-      console.log("forward", extraDelay)
       ajaxContainer.querySelector(".client_logo").addEventListener("load", () => {
         //this function is repeating after subsequent loads
-        //console.log("transition complete", direction)
         setTimeout(function() {
           ajaxContainer.classList.remove("am-out");
           ajaxContainer.classList.add("am-in");
@@ -474,10 +437,8 @@
   
       
     } else if (direction === true) {
-      console.log("extra delay", extraDelay)
       setTimeout(function() {
         item.classList.remove("active");
-        //item.classList.remove("active");
         ajaxContainer.classList.remove("am-in");
         ajaxContainer.classList.add("am-out");
         document.querySelector("main").style = "";
@@ -497,6 +458,7 @@
   }
   
   let updateContent = function(stateObj) {
+
     // Check to make sure that this state object is not null.
     if (stateObj) {
       document.title = stateObj.title;
@@ -508,7 +470,6 @@
   };
   
   function triggerReverse (item) {
-    //animateItem(item, true);
     history.back();
     
   }
@@ -521,6 +482,7 @@
       .then((response) => response.text())
       .then((html) => {
         let parser = new DOMParser();
+
         // Parse the text
         let ajaxHtml = parser.parseFromString(html, "text/html");
         let ajaxContent = ajaxHtml.querySelector('main').innerHTML;
@@ -531,17 +493,11 @@
         updateContent (pageData)
         runScripts(ajaxContainer, theItem.link);
         redoAos(ajaxContainer);
-        
-        //window.history.pushState(pageData, pageData.title, theItem.link);
-        //console.log("html loaded")
   
-        
         let title = ajaxHtml.querySelector('title').innerText;
         let data = null;
         let link = theItem.link;
-        
-        //ajaxHtml.querySelector(".work-hero-image").src = theItem.image.src;
-        //history.replaceState(data, title, link);
+
         Util.pushHistory(data, title, link);
   
         window.onpopstate = function(event) {
@@ -559,7 +515,6 @@
   }
   
   function insertScript (script, callback) {
-    //console.log("insertscript", script);
   
     if (script.tagName === "SCRIPT") {
       let s = document.createElement('script')
@@ -582,18 +537,15 @@
     } else if (script.tagName === "IMG") {
           callback();
     }
-  
-    
   }
     
-  // trigger DOMContentLoaded
+  // trigger DOMContentLoaded and ajaxLoadEvent
+  // this will inform velocity.animate of the endVal timing for forward animation
   function scriptsDone () {
-    
     let DOMContentLoadedEvent = document.createEvent('Event');
     DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
     document.dispatchEvent(DOMContentLoadedEvent);
     document.dispatchEvent(ajaxLoadEvent);
-    //console.log("TRIGGER DOM CONTENT LOADED");
   }
     
     // runs an array of async functions in sequential order
@@ -602,7 +554,6 @@
     if (typeof index === 'undefined') {
       index = 0
     }
-  
   
     arr[index](function () {
       index++
@@ -635,11 +586,9 @@
   ]
   
   function runScripts (container, nextLink) {
-    //console.log(container);
     
     // get scripts tags from a node
     let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
-    //console.log("run SCRIPTS ---", scripts);
     let runList = [];
     let typeAttr;
   
@@ -648,29 +597,23 @@
         let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
   
         if (m === "none") {
-            //console.log(`background image url`);
-            //console.log(m);
             m = "";
         } else {
             let newLink = window.location.origin + window.location.pathname;
             m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
             m = m.replace(newLink, '', /["']?\)$/, '')
             m = nextLink + m;
-            console.log(`${m}`);
-            //section.style.backgroundImage = "background-image: url(" + m + ")";
             section.style.backgroundImage = "url('" + m + "')";
         }
       });
   
       [].forEach.call(scripts, function (script) {
       // Get scripts and critical images, then trigger domcontentloaded event to fade in the ajaxcontainer
-      //console.log(script);
       typeAttr = script.getAttribute('type');
       // only run script tags without the type attribute
       // or with a javascript mime attribute value
       if (script.tagName === "SCRIPT") {
         if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
-          //console.log("run SCRIPTS ---", script);
           runList.push(function (callback) {
             insertScript(script, callback)
           })
@@ -678,8 +621,7 @@
       }
       if (script.tagName === "IMG") {
         runList.push(function (callback) {
-          insertScript(script, callback)
-          //console.log("img", script)
+          insertScript(script, callback);
         })
       }
       
