@@ -3,7 +3,7 @@
   grid-template-columns: 250px 1fr;
   grid-gap: 2em;
   grid-gap: var(--space-lg);
-  padding: var(--space-md) 0; }
+  padding: var(--space-md); }
 
 .pancakesDashboard section {
   margin-bottom: 32px; }
