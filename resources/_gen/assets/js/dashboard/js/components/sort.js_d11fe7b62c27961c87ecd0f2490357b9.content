@@ -15,9 +15,14 @@ function setCount(){let countDiv=document.querySelector('.count');countDiv.inner
 function getCount(){let all=document.querySelectorAll(".the_item");let visible=[];all.forEach(item=>{let display=getComputedStyle(item).display;if(display!=="none"){visible.push(item);}});return visible.length;}
 function getAttributes(item){let attrs=[].slice.call(item.attributes);return attrs;}
 function checkAttribute(name,attr,value){if(name.includes(attr)&&name&&value!=="false"){return true;}else{return false;}}
-let changeContent=(items,mode)=>{document.body.setAttribute('data-mode',mode);items.forEach((item,index)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;let value=attr.value;let metaPrefix=`meta-${mode}`;if(name.includes(metaPrefix)){if(checkAttribute(name,"image",value)){item.querySelector(".meta_image").style.backgroundImage=`url('${value}')`;}
-if(checkAttribute(name,"title",value)){item.querySelector(".meta_title").innerText=value;}
+let changeContent=(items,mode)=>{document.body.setAttribute('data-mode',mode);console.log("mode",mode);items.forEach((item,index)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;let value=attr.value;let metaPrefix=`meta-${mode}`;let stringLength=value.length;if(name.includes(metaPrefix)){if(checkAttribute(name,"image",value)){item.querySelector(".meta_image").style.backgroundImage=`url('${value}')`;}
+if(checkAttribute(name,"title",value)){item.querySelector(".meta_title").innerText=value;if(mode==="google"){if(stringLength>65){value=value.substring(0,65);value=value+"...";}}
+if(mode==="facebook"){if(stringLength>40){value=value.substring(0,40);value=value+"...";}}
+if(mode==="twitter"){if(stringLength>40){value=value.substring(0,40);value=value+"...";}}}
 if(checkAttribute(name,"url",value)){item.querySelector(".meta_url").innerText=value;}
-if(checkAttribute(name,"description",value)){item.querySelector(".meta_description").innerText=value;}}});});sortValue();}
+if(checkAttribute(name,"description",value)){if(mode==="google"){if(stringLength>300){value=value.substring(0,300);value=value+"...";}}
+if(mode==="facebook"){if(stringLength>110){value=value.substring(0,110);value=value+"...";}}
+if(mode==="twitter"){if(stringLength>200){value=value.substring(0,200);value=value+"...";}}
+item.querySelector(".meta_description").innerText=value;}}});});sortValue();}
 function toggleMode(e){let toggleBtns=document.querySelector('[data-toggle]');let toggleValues=toggleBtns.querySelectorAll('input');let theItems=document.querySelectorAll('.the_item');toggleValues.forEach((input,index)=>{let val=input.value;let mode=val;if(input.checked){changeContent(theItems,mode);}});}
 sortValue();toggleMode();}
