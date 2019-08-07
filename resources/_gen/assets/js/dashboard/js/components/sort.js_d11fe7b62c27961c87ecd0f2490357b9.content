@@ -1,1 +1,21 @@
-var options={valueNames:['page-title']};var hackerList=new List('hacker-list',options);
+function startSort(){console.log("startsort...")
+setCount();var elem=document.querySelector('#sortableContent');var qsRegex;var searchBtn=document.querySelector('#searchInputX');let buttonFilters={};let buttonFilter;var iso=new Isotope(elem,{layoutMode:'vertical',itemSelector:'.the_item',getSortData:{title:'[meta-normal-title]',group:function(elem){return elem.getAttribute('meta-all-group');}},filter:function(elem){qsRegex=new RegExp(searchBtn.value,'gi');var searchResult=searchBtn?elem.innerText.match(qsRegex):true;var q=true;var p={};var target='';for(var prop in buttonFilters){target=prop.toString();let targetItem=elem.getAttribute(target);if(target!==null&&target!==undefined){buttonFilters[prop].forEach((val,index)=>{if(targetItem===val){p[target]=true;}
+else if(val==="all"){p[target]=true;}
+else if(val==="true"&&targetItem!=="false"){p[target]=true;}else if(p[target]!==true){p[target]=false;}});}
+for(var v in p){if(p[v]===false){q=false;}}}
+return searchResult&&q;}});iso.on('arrangeComplete',function(){setCount()});let sortValue=(e)=>{console.log("sorting...")
+let sortBtns=document.querySelectorAll('[data-sort-value]');let sortValue,filterValue;sortBtns.forEach(sortBtn=>{if(sortBtn.classList.contains("active")){sortValue=sortBtn.getAttribute('data-sort-value');}});iso.arrange({sortBy:sortValue});let filterGroups=document.querySelectorAll('[data-key]');filterGroups.forEach((group,index)=>{let filterBtns=group.querySelectorAll('[data-filter-value]');let filterTarget=group.getAttribute('data-key');let checkedValues=[];filterBtns.forEach(filterBtn=>{if(filterBtn.checked===true){let attr=filterBtn.getAttribute('data-filter-value');checkedValues.push(attr);}
+buttonFilters[filterTarget]=checkedValues;});});iso.arrange();}
+document.addEventListener("click",function(e){if(e.target.closest('[data-sort-value]')){e.target.closest('[data-sort-value]').classList.toggle("active");}
+if(e.target.closest('[data-filter-value="*"]')){let setChecked=e.target.closest('[data-filter-value="*"]').parentNode.querySelectorAll('input[type="checkbox"]');if(e.target.closest('[data-filter-value="*"]').checked===true){toggleChecked(true);}else{toggleChecked(false);}
+function toggleChecked(state){setChecked.forEach(check=>{if(state===true){check.setAttribute('checked',"");}else{check.removeAttribute('checked')}});}}
+if(e.target.closest('[data-toggle] input')){toggleMode();}},false);document.addEventListener("keyup",sortValue,false);function getMode(){return sortableContent.getAttribute('data-mode');}
+function setCount(){let countDiv=document.querySelector('.count');countDiv.innerText=getCount();}
+function getCount(){let all=document.querySelectorAll(".the_item");let visible=[];all.forEach(item=>{let display=getComputedStyle(item).display;if(display==="block"){visible.push(item);}});return visible.length;}
+function getAttributes(item){let attrs=[].slice.call(item.attributes);return attrs;}
+function checkAttribute(name,attr,value){if(name.includes(attr)&&name&&value!=="false"){return true;}else{return false;}}
+let changeContent=(items,mode)=>{document.body.setAttribute('data-mode',mode);console.log("mode",mode);items.forEach((item,index)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;let value=attr.value;let metaPrefix=`meta-${mode}`;if(name.includes(metaPrefix)){if(checkAttribute(name,"image",value)){item.querySelector(".meta_image").src=value;}
+if(checkAttribute(name,"title",value)){item.querySelector(".meta_title").innerText=value;}
+if(checkAttribute(name,"description",value)){item.querySelector(".meta_description").innerText=value;}}});});sortValue();}
+function toggleMode(e){let toggleBtns=document.querySelector('[data-toggle]');let toggleValues=toggleBtns.querySelectorAll('input');let theItems=document.querySelectorAll('.the_item');toggleValues.forEach((input,index)=>{let val=input.value;let mode=val;if(input.checked){changeContent(theItems,mode);}});}
+sortValue();toggleMode();}
