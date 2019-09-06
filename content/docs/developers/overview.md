@@ -9,6 +9,8 @@ Dev Guidelines
 
 Built with [gohugo.io](gohugo.io).
 
+[BROKEN LINK CHECK](/does/not/exist/);
+
 ## Dev
 * Static site generator: GoHugo
 * Netify: continuous deployment

@@ -1,62 +1,95 @@
 const titleText=document.querySelector('head title').innerText;function startSort(){console.log("startsort...")
 setCount();function getMode(){let toggleBtns=document.querySelector('[data-toggle]');let toggleValues=toggleBtns.querySelectorAll('input');let newMode;toggleValues.forEach((input,index)=>{let val=input.value;let mode=val;if(input.checked){newMode=mode;}});return newMode;}
-console.log("getmode",getMode())
-var elem=document.querySelector('#sortableContent');const dynamicBar=document.querySelector(".pb__filter_bar");const dynamicSortBar=document.querySelector(".pb__sort_bar");var qsRegex;var searchBtn=document.querySelector('#searchInputX');let filters={};let buttonFilters={};var iso=new Isotope(elem,{layoutMode:'vertical',itemSelector:'.the_item',getSortData:{title:function(elem){let sortKey="meta-"+getMode()+"-title";return elem.getAttribute(sortKey);},group:function(elem){let sortKey="meta-"+getMode()+"-group";return elem.getAttribute(sortKey);}},filter:function(elem){qsRegex=new RegExp(searchBtn.value,'gi');var searchResult=searchBtn?elem.innerText.match(qsRegex):true;var q=true;var p={};var target='';for(var prop in buttonFilters){target=prop.toString();let targetItem=elem.getAttribute(target);if(target!==null&&target!==undefined){buttonFilters[prop].forEach((val,index)=>{if(targetItem===val){p[target]=true;}
+var elem=document.querySelector('#sortableContent');const dynamicBar=document.querySelector(".pb__filter_bar");const dynamicSortBar=document.querySelector(".pb__sort_bar");var qsRegex;var searchBtn=document.querySelector('#searchInputX');let filters={};let buttonFilters={};var iso=new Isotope(elem,{layoutMode:'vertical',itemSelector:'.the_item',getSortData:{title_content:function(elem){let sortKey="meta-"+getMode()+"-title-content";return elem.getAttribute(sortKey);},group:function(elem){let sortKey="meta-"+getMode()+"-group";return elem.getAttribute(sortKey);},broken_links_count:function(elem){let sortKey="meta-list-broken-links-count";let convertToNumber=parseInt(elem.getAttribute(sortKey))
+console.log("SORTING BY LINKS",convertToNumber)
+return convertToNumber;},},filter:function(elem){console.log("filtering....");qsRegex=new RegExp(searchBtn.value,'gi');var searchResult=searchBtn?elem.innerText.match(qsRegex):true;var q=true;var p={};var target='';for(var prop in buttonFilters){target=prop.toString();let targetItem=elem.getAttribute(target);if(target!==null&&target!==undefined){buttonFilters[prop].forEach((val,index)=>{if(targetItem===val){p[target]=true;}
 else if(val==="true"&&targetItem!=="false"){p[target]=true;}else if(p[target]!==true){p[target]=false;}});}
 for(var v in p){if(p[v]===false){q=false;}}}
-return searchResult&&q;}});iso.on('arrangeComplete',function(){setCount();});let sortValue=(e)=>{buttonFilters={};console.log("sorting...")
-let sortBtns=document.querySelectorAll('[data-sort-value]');let sortValue,filterValue;sortBtns.forEach(sortBtn=>{if(sortBtn.classList.contains("active")){sortValue=sortBtn.getAttribute('data-sort-value');}});let sortKey;if(sortValue){sortKey=sortValue.replace(`meta-${getMode()}-`,"");}
+return searchResult&&q;}});iso.on('arrangeComplete',function(){setCount();});let sortValue=(e)=>{buttonFilters={};let sortBtns=document.querySelectorAll('[data-sort-value]');let sortValue,filterValue,sortDirection=false;sortBtns.forEach(sortBtn=>{if(sortBtn.classList.contains("active")){sortValue=sortBtn.getAttribute('data-sort-value');sortDirection=sortBtn.getAttribute('data-sort-asc');if(sortDirection==="false"){sortDirection=false;}else if(sortDirection==="true"){sortDirection=true;}}});let sortKey;if(sortValue){sortKey=sortValue.replace(`meta-${getMode()}-`,"");sortKey=sortKey.replace(/-/g,"_");}
 let filterGroups=document.querySelectorAll('[data-key]');filterGroups.forEach((group,index)=>{let filterBtns=group.querySelectorAll('[data-filter-value]');let filterTarget=group.getAttribute('data-key');let checkedValues=[];filterBtns.forEach(filterBtn=>{if(filterBtn.checked===true){let attr=filterBtn.getAttribute('data-filter-value');checkedValues.push(attr);}
-buttonFilters[filterTarget]=checkedValues;});});iso.arrange({sortBy:sortKey});iso.arrange();}
-document.addEventListener("click",function(e){let sortBtns=document.querySelectorAll('[data-sort-value]');if(e.target.closest('[data-sort-value]')){sortBtns.forEach(sortBtn=>{sortBtn.classList.remove("active");})
+buttonFilters[filterTarget]=checkedValues;});});console.log("arrange...",sortDirection)
+iso.arrange({sortBy:sortKey,sortAscending:sortDirection});iso.arrange();}
+function toggleRadio(target){let nearestRadios=target.closest(".btns--radio").querySelectorAll('[type="radio"]');console.log("all radios",nearestRadios)
+nearestRadios.forEach(r=>{console.log("target",target,r.value,target.closest('[input]'))
+r.checked=false;if(r.value===target.value){r.checked=true;}})}
+function getSortDirection(){let direction=document.querySelector("#sortableContent").getAttribute("data-sort-asc");console.log("direction",direction)
+if(direction===true){return true;}else{return false;}}
+document.addEventListener("click",function(e){let sortBtns=document.querySelectorAll('[data-sort-value]');if(e.target.closest('[data-sort-value]')){let sortBtn=e.target.closest('[data-sort-value]');if(!sortBtn.classList.contains("active")){}else{if(sortBtn.getAttribute("data-sort-asc")==="false"){sortBtn.setAttribute("data-sort-asc",true);document.querySelector("#sortableContent").setAttribute("data-sort-asc",true);}else{sortBtn.setAttribute("data-sort-asc",false);document.querySelector("#sortableContent").setAttribute("data-sort-asc",false);}}
+sortBtns.forEach(sortBtn=>{sortBtn.classList.remove("active");})
 e.target.closest('[data-sort-value]').classList.toggle("active");}
 if(e.target.closest('[pb-function="checkbox-select-all"]')){let setChecked=e.target.closest('[pb-function="checkbox-select-all"]').parentNode.querySelectorAll('input[type="checkbox"]');if(e.target.closest('[pb-function="checkbox-select-all"]').checked===true){toggleChecked(true);}else{toggleChecked(false);}
 function toggleChecked(state){setChecked.forEach(check=>{if(state===true){check.setAttribute('checked',"");}else{check.removeAttribute('checked')}});}}
-if(e.target.closest('[data-toggle] input')){toggleMode();}
-sortValue();},false);document.addEventListener("keyup",sortValue,false);function setCount(){let countDiv=document.querySelector('.count');countDiv.innerText=getCount();let filters=document.querySelectorAll("[data-key]");filters.forEach(filter=>{let filterSelector=filter.getAttribute("data-key");let filterItems=filter.querySelectorAll("[data-filter-value]");filterItems.forEach(item=>{let filterKey=item.getAttribute("data-filter-value");let label=item.parentNode.querySelector("label");let labelSpan,span;let labelCount=getCount(filterSelector,filterKey);if(label.querySelector("span")===null){labelSpan=document.createElement("span");span=label.appendChild(labelSpan)}
-if(label&&span!==null&&span!==undefined){console.log(span,filterKey,labelCount)
-span.innerText=labelCount;}})})
-document.querySelector("head title").innerText=titleText+" ("+getCount()+") ";}
+if(e.target.closest('[data-toggle] label')){console.log("toggle mode")
+let t=e.target.closest('[data-toggle] label');let targetRadio=t.getAttribute("for");let targetQuery=t.parentNode.querySelector(`[value="${targetRadio}"]`)
+toggleRadio(targetQuery)
+toggleMode();}
+if(e.target.closest('[data-post-processing]')){let showFilter=e.target.getAttribute('data-post-processing');showFilter=document.querySelector(`[data-key="${showFilter}"`);checkBrokenLinks(document.querySelectorAll(".the_item"),showFilter);}
+sortValue();},false);document.addEventListener("keyup",sortValue,false);function setCount(){let countDiv=document.querySelector('.count');let allDiv=document.querySelector(".all_count");let brokenLinkCounterDiv=document.querySelector(".broken-link-count");let issuesDiv=document.querySelector(".issues-count");issuesDiv.innerText=getCount("issues",undefined);countDiv.innerText=getCount();allDiv.innerText=getCount(undefined,"a")
+brokenLinkCounterDiv.innerText=getCount(undefined,"broken_count");let filters=document.querySelectorAll("[data-key]");filters.forEach(filter=>{let filterSelector=filter.getAttribute("data-key");let filterItems=filter.querySelectorAll("[data-filter-value]");filterItems.forEach(item=>{let filterKey=item.getAttribute("data-filter-value");let label=item.parentNode.querySelector("label");let labelSpan,span;let labelCount=getCount(filterSelector,filterKey);console.log("PPPP",span,filterKey,labelCount)
+if(label.querySelector("span")===null){labelSpan=document.createElement("span");span=label.appendChild(labelSpan);span.className="thisCount";}
+span=label.querySelector(".thisCount");if(span!==null&&span!==undefined){if(labelCount!==0){span.innerText=" ("+labelCount+") ";}else{span.innerText="";}
+if(filter.parentNode.classList.contains("pb__selected_issues")){if(labelCount===0){filter.style.display="none";}else{filter.style.display="";}}}});});document.querySelector("head title").innerText=titleText+" ("+getCount("issues",undefined)+") issues found";}
 function getAttributes(item){let attrs=[].slice.call(item.attributes);return attrs;}
 function checkAttribute(name,attr,value){if(name.includes(attr)&&name&&value!=="false"){return true;}else{return false;}}
 let changeContent=(items,mode)=>{document.body.setAttribute('data-mode',mode);items.forEach((item,index)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;let value=attr.value;let metaPrefix=`meta-${mode}`;let stringLength=value.length;if(name.includes(metaPrefix)){if(checkAttribute(name,"image",value)){item.querySelector(".meta_image").style.backgroundImage=`url('${value}')`;}
-if(checkAttribute(name,"title",value)){item.querySelector(".meta_title").innerText=value;if(mode==="google"){if(stringLength>65){value=value.substring(0,65);value=value+"...";}}
+if(checkAttribute(name,"title",value)){if(mode==="google"){if(stringLength>65){value=value.substring(0,65);value=value+"...";}}
 if(mode==="facebook"){if(stringLength>40){value=value.substring(0,40);value=value+"...";}}
-if(mode==="twitter"){if(stringLength>40){value=value.substring(0,40);value=value+"...";}}}
-if(checkAttribute(name,"url",value)){item.querySelector(".meta_url").innerText=value;}
-if(checkAttribute(name,"relativeLinks",value)){item.querySelector(".meta_relative_urls").innerText=value;}
-if(checkAttribute(name,"description",value)){if(mode==="google"){if(stringLength>300){value=value.substring(0,300);value=value+"...";}}
+if(mode==="twitter"){if(stringLength>40){value=value.substring(0,40);value=value+"...";}}
+item.querySelector(".meta_title").innerText=value;}
+if(checkAttribute(name,"url",value)){if(mode==="list"){value=value.replace(window.origin,"");}
+item.querySelector(".meta_url_text").innerText=value;}
+if(checkAttribute(name,"broken-links-count",value)){item.querySelector(".broken_links_count").innerText=value;}
+if(checkAttribute(name,"description-content",value)){if(mode==="google"){if(stringLength>300){value=value.substring(0,300);value=value+"...";}}
 if(mode==="facebook"){if(stringLength>110){value=value.substring(0,110);value=value+"...";}}
 if(mode==="twitter"){if(stringLength>200){value=value.substring(0,200);value=value+"...";}}
-item.querySelector(".meta_description").innerText=value;}}});});sortValue();}
+item.querySelector(".meta_description").innerText=value;}
+if(checkAttribute(name,"group",value)){item.querySelector(".meta_group").innerText=value;}
+if(checkAttribute(name,"list-url",value)){item.querySelector(".meta_link").href=value;}}});});sortValue();}
 let changeFilters=(items,mode)=>{filters={};getKeyName();function getKeyName(){items.forEach((item,i)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;let keyName=name.replace("meta-","");let metaPrefix=`meta-${mode}`;if(name.includes(metaPrefix)){filters[keyName]=[];}});});}
-items.forEach((item,i)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;newName=name.replace("meta-","");let value=attr.value;let metaPrefix=`meta-${mode}`;let stringLength=value.length;if(name.includes(metaPrefix)){if(filters[newName].indexOf(value)==-1){filters[newName].push(value);}}});});changeBar(filters);console.log("filters",filters);}
-function listUniqueValues(arr){var counts={};for(var i=0;i<arr.length;i++){counts[arr[i]]=1+(counts[arr[i]]||0);}
-return counts;}
+items.forEach((item,i)=>{let attrs=getAttributes(item);attrs.forEach((attr,index)=>{let name=attr.name;newName=name.replace("meta-","");let value=attr.value;let metaPrefix=`meta-${mode}`;let stringLength=value.length;if(name.includes(metaPrefix)){filters[newName].push(value);if(filters[newName].indexOf(value)==-1){}}});});changeBar(filters);console.log("filters",filters);}
+function listUniqueValues(arr,type){var values={};for(var i=0;i<arr.length;i++){values[arr[i]]=1+(values[arr[i]]||0);}
+if(type===values||type===undefined){return values;}else{return i;}}
+function hasIssue(fieldValues,name,returnType){let issues=[undefined,null,false,"false","undefined","null","tooBig","hasBrokenLinks"];let is;let label;let friendlyGroup=friendlyLabel(name);fieldValues.forEach(possibleValue=>{issues.forEach(function(issue){if(possibleValue===issue){is=issue;if(issue===undefined||issue==="undefined"){label=`Missing ${friendlyGroup} tag`;}
+if(issue===null||issue==="null"||issue===false||issue==="false"){label=`${friendlyGroup} missing`;}
+if(issue==="tooBig"){label=`${friendlyGroup} is too long`;}
+if(issue==="hasBrokenLinks"){label=`Page has broken links`}}});});if(is){if(returnType==="label"){return label;}else{return is;}}else{return false;}}
+function isSortable(fieldValues,name){let is;fieldValues.forEach(possibleValue=>{if(isNaN(possibleValue)===false){is=`Missing Links`;}else if(name.includes("title-content")){is=`Title`;}else if(name.includes("group")){is=`Group`;}});if(is){return is;}else{return false;}}
+function isFilter(fieldValues,name){let is=[];for(var key in fieldValues){if(name.includes("robots")){is.push(key);}}
+if(is.length>0){return is;}else{return false;}}
+function checkBrokenLinks(links,showFilter){Util.pbLoadingAnimation(true);let activeItems=[];links.forEach(a=>{if(a.style.display!=="none"){activeItems.push(a);}})
+activeItems.forEach((item,itemIndex)=>{let fillDiv=item.querySelector(".meta_relative_links");let link=item.href;let getMeta=async(src)=>{const response=await fetch(src);const html=await response.text();let parser=new DOMParser();let doc=parser.parseFromString(html,"text/html");let urlSelectors=doc.querySelectorAll('a');let relUrls=[];urlSelectors.forEach(a=>{if(a.href.includes(window.origin)){relUrls.push(a);}});let notFound=[];relUrls.forEach((l,index)=>{function getStatus(){let url=l.href;fetch(url).then(res=>{if(res.ok){}else{if(notFound.indexOf(url)===-1){notFound.push(url);}
+item.setAttribute("meta-list-broken-links","hasBrokenLinks");item.setAttribute("meta-list-broken-links-count",notFound.length);brokenLinks[urlToId(item.getAttribute("meta-list-url"))]=notFound;}
+if(index===relUrls.length-1){}});}
+getLinkStatus();function getLinkStatus(){return Promise.all([getStatus()]);}
+getLinkStatus().then((response)=>{if(index===relUrls.length-1&&activeItems.length-1===itemIndex){setTimeout(function(){iso.updateSortData();sortValue()
+toggleMode();Util.pbLoadingAnimation(false);},1000)}})});}
+getMeta(link);});}
 function changeBar(obj){dynamicSortBar.innerHTML=`
-    <div class='pb__sortable_group btns'></div>`;dynamicBar.innerHTML=`
-    <div class='pb__filter_group'></div>`;for(var key in obj){let dataFilterValue;let values=obj[key];if(values.length>0){console.log("changeBar",obj)
-console.log("unique values",listUniqueValues(obj[key]))
-if(values.indexOf("false")!=-1){dataFilterValue=false;createFilter(key,values,dataFilterValue);}
-else if(values.length<=4){dataFilterValue="key";createFilter(key,values,dataFilterValue);}
-else{dataFilterValue=key;createFilter(key,values,dataFilterValue);}}}
-function createFilter(groupName,groupValues,dataFilterValue){let groupKey="meta-"+groupName;let issuesList=document.querySelector(".pb__issues");issuesList.innerHTML="";let filterGroup=document.querySelector(".pb__filter_group")
-let sortGroup=document.querySelector(".pb__sortable_group");let filterLabel=document.createElement("label");filterLabel.className="pb__filter_title";let filterDiv=document.createElement("div");let fGroup=filterGroup.appendChild(filterDiv);filterGroup.appendChild(filterLabel);let sortLabel=document.createElement("label");let sortDiv=document.createElement("div");let sGroup=filterGroup.appendChild(sortDiv);if(dataFilterValue===false){fGroup.setAttribute('data-key',groupKey);createFilterHTML("issues",`Missing ${groupName}`,false);}else if(dataFilterValue==="key"){fGroup.setAttribute('data-key',groupKey);filterLabel.innerText=groupKey;groupValues.forEach(val=>{createFilterHTML("checkbox",`${val}`,val);});}else{sGroup.setAttribute('data-sort-group',groupKey);createFilterHTML("text",`${groupName}`,groupKey);}
-function createFilterHTML(type,label,value){let valDiv,sortDiv;if(type==="radio"){valDiv=`
-          <div>
-          <input type="radio" name="radioButton-${groupName}" data-filter-value="${value}">
-          <label for="radioButton-${groupName}">${label}</label>
-          </div>`;filterDiv.innerHTML+=valDiv;}else if(type==="issues"){valDiv=`
-          <div>
-          <input type="checkbox" name="checkbox-${groupName}" data-filter-value="${value}">
-          <label for="checkbox-${groupName}">${label} </label>
-          </div>`;issuesList.innerHTML+=valDiv;}else if(type==="checkbox"){valDiv=`
-          <div>
-          <input type="checkbox" name="checkbox-${groupName}" data-filter-value="${value}">
-          <label for="checkbox-${groupName}">${label}</label>
-          </div>`;filterDiv.innerHTML+=valDiv;}else if(type==="select"){if(!thisGroup.querySelector("select")){let selectDiv=document.createElement("select");thisGroup.appendChild(selectDiv);}
-thisGroup=thisGroup.querySelector("select");valDiv=`
-              <option value="${value}">${label}</option>`;sortDiv.innerHTML+=valDiv;}else if(type==="text"){let sortName=value.replace(`meta-${getMode()}-`,"");valDiv=`
-          <div class="btn" data-sort-value="${value}">${sortName}</div>`;sortGroup.innerHTML+=valDiv;}}}}
+    <ul class="radio-list radio-list--custom">
+      <li class="pb__sortable_group">
+        
+      </li>
+    </ul>`;dynamicBar.innerHTML=`
+    <div class='pb__filter_group'></div>`;for(var key in obj){let values=obj[key];let uniqueCount=listUniqueValues(obj[key],"count");if(values.length>0){if(hasIssue(values,key)){formFilter(key,hasIssue(values,key),"issue",hasIssue(values,key,"label"));}
+if(isSortable(values,key)){formFilter(key,isSortable(values,key),"sort")}
+if(isFilter(listUniqueValues(obj[key]),key)){values=isFilter(listUniqueValues(obj[key]),key)
+formFilter(key,values,"filter")}}}
+function doesNotExist(parent,selector){let is;if(parent.querySelector(selector)===null||parent.querySelector(selector)===undefined){is=true;}
+if(is===true){return true;}else{return false;}}
+function formFilter(groupName,values,typeClass,friendlyName){let lookupKey="meta-"+groupName;let groupKey="meta-"+groupName;let issuesDiv=document.querySelector(".pb__selected_issues");let filterDiv=document.querySelector(".pb__filter_group")
+let sortDiv=document.querySelector(".pb__sortable_group");if(typeClass==="issue"){bar=issuesDiv;}else if(typeClass==="filter"){bar=filterDiv;}else if(typeClass==="sort"){bar=sortDiv;lookupKey="meta-"+groupName;}
+let groupHTML;if(!bar.querySelector(`[data-key="${groupKey}"]`)){let div=document.createElement("div");groupHTML=bar.appendChild(div);groupHTML.setAttribute('data-key',groupKey);if(typeClass==="filter"){let label=document.createElement("label");groupHTML.appendChild(label);label.innerText=friendlyLabel(groupName,"string");}}
+let groupSelector=bar.querySelector(`[data-key="${groupKey}"]`);function createSingleFilter(value){let innerDiv;let dataValueSelector=`[data-${typeClass}-value="${value}"]`;if(doesNotExist(groupSelector,dataValueSelector)){if(typeClass==="issue"&&!groupSelector.querySelector(`[data-filter-value='${value}']`)){innerDiv=`<div>
+            <input type="checkbox" name="checkbox-${groupName}" data-filter-value="${value}">
+            <label for="checkbox-${groupName}">${friendlyName} <span class="thisCount"></span></label>
+            </div>`;groupSelector.innerHTML+=innerDiv;}else if(typeClass==="filter"&&!groupSelector.querySelector(`[data-filter-value='${value}']`)){innerDiv=`<div>
+            <input type="checkbox" name="checkbox-${groupName}" data-filter-value="${value}">
+            <label for="checkbox-${groupName}">${value} <span class="thisCount"></span></label>
+            </div>`;groupSelector.innerHTML+=innerDiv;}else if(typeClass==="sort"){innerDiv=`<div class="btn-sort" data-sort-asc="true" data-${typeClass}-value="${lookupKey}">${value}</div>`;groupSelector.innerHTML+=innerDiv;}}}
+if(Array.isArray(values)){values.forEach(value=>{createSingleFilter(value);});}else{createSingleFilter(values);}}}
+function friendlyLabel(name,type){let reName=new RegExp("-content|-limit",'gi');let friendly=name.replace(reName,"");let prefix="";if(getMode()==="facebook"){}else if(getMode()==="google"){}else if(getMode()==="twitter"){}
+if(type==="string"){friendly=friendly.replace((getMode()+"-"),"")
+if(name.includes("robots")){friendly+=" value";}}else{friendly=`<span class="meta_prefix prefix_${getMode()}">`+prefix+friendly+'</span>';}
+return friendly;}
 function toggleMode(e){let toggleBtns=document.querySelector('[data-toggle]');let toggleValues=toggleBtns.querySelectorAll('input');let theItems=document.querySelectorAll('.the_item');toggleValues.forEach((input,index)=>{let val=input.value;let mode=val;if(input.checked){changeContent(theItems,mode);changeFilters(theItems,mode);}});}
 sortValue();toggleMode();}
