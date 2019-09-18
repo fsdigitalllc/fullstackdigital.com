@@ -32,7 +32,7 @@ logos:
   <div class="container flex h_children_start wrap">
     <div data-aos="fade" data-aos="fade" data-aos-delay="800" data-aos-duration="1600" class="col-12 featured-logos margin-s-top margin-s-bottom{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
       
-      {{ partial "helpers/logos.html" (dict "page" . "global" $ ) }}
+      {{ partial "helpers/get_logos.html" (dict "page" . "global" $ ) }}
     </div>
     <div class="col-12">
       <a data-aos="fade" data-aos-offset="-200" data-aos-delay="1000" data-aos-duration="1600" class="button fill deepblue" href="/about/#contact">Work with us</a>
@@ -41,12 +41,12 @@ logos:
   {{ end }}
 
   {{ if eq .template "related_work" }}
-    {{ partial "helpers/work/grid_item.html" (dict "page" . "global" $ ) }}
+    {{ partial "components/ajax_work_grid.html" (dict "page" . "global" $ ) }}
   {{ end }}
 
   {{ if eq .template "service_offering" }}
   
-  {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
+  {{ partial "components/services_chart.html" (dict "page" . "global" $ ) }}
 
   {{ end }}
 

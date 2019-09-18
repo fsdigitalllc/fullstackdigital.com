@@ -567,7 +567,7 @@ stacks:
         html: <h4 class="color-oil text-center strip-margin-bottom"><strong>{code} Website</strong></h4>
       - template: element-code
         html: |
-          <p class="color-oil text-center"><a class="color-oil strip-underline hover-right" target="_blank" href="/work/code-open-source/">Learn more about how we re-imagined<br>the open source web experience <svg class="color-oil abs" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g>
+          <p class="color-oil text-center"><a class="color-oil strip-underline hover-right" target="_blank" href="/work/web/code-open-source/">Learn more about how we re-imagined<br>the open source web experience <svg class="color-oil abs" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line></g><polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline>
           </svg></a></p>
     - template: block-column-builder

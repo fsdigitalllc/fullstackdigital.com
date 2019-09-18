@@ -80,9 +80,9 @@ In order to connect your Mobilize account, you'll need to generate an API key.
 ### Demo
 
 
-This plugin was created as part of a [web presence overhaul](/work/code-open-source/) performed on behalf of [{code}](https://thecodeteam.com) Open Source at Dell Technologies. Although it was just a small piece of the overall project, it provided seamless automation for a previously tedious process.
+This plugin was created as part of a [web presence overhaul](/work/web/code-open-source/) performed on behalf of {code} Open Source at Dell Technologies. Although it was just a small piece of the overall project, it provided seamless automation for a previously tedious process.
 
-[You can view a live demo on the Code Catalyst page.](https://thecodeteam.com/code-catalyst/)
+<!-- [You can view a live demo on the Code Catalyst page.](https://thecodeteam.com/code-catalyst/) -->
 
 ## Listing Community Members
 
@@ -282,4 +282,4 @@ Mobilize profile fields are synchronized with custom fields in WordPress. A comb
 
 ## Custom Design & Functionality
 
-For design and development services, [contact us](/contact/).
+For design and development services, [contact us](/about#contact).

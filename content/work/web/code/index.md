@@ -562,7 +562,7 @@ stacks:
   background_color: "#000000"
   background_image:
   scripts:
-  - src: "js/work/cards.js"
+  - src: "js/components/cards.js"
   rows:
   - template: include-row
     class: h_c-center v_c-center wrap padding-m-bottom

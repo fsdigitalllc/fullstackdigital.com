@@ -36,9 +36,9 @@ Github to Wordpress is a plugin that imports and synchronizes [Github](https://g
 ### Demo
 
 
-This plugin was created as part of a [web presence overhaul](/work/code-open-source/) performed on behalf of [{code}](https://thecodeteam.com) Open Source at Dell Technologies. Although it was just a small piece of the overall project, it provided seamless automation for a previously tedious process.
+This plugin was created as part of a [web presence overhaul](/work/web/code-open-source/) performed on behalf of {code} Open Source at Dell Technologies. Although it was just a small piece of the overall project, it provided seamless automation for a previously tedious process.
 
-[You can view a live demo on the Community Projects page.](https://thecodeteam.com/all-projects/)
+<!-- [You can view a live demo on the Community Projects page.](https://thecodeteam.com/all-projects/) -->
 
 
 ### Download / Early Access
@@ -346,4 +346,4 @@ Show content if a field does not have a value:
 
 ## Custom Design & Functionality
 
-For design and development services, [contact us](/contact/).
+For design and development services, [contact us](/about#contact).

@@ -1,0 +1,70 @@
+footer {
+
+  &.night {
+    // Logo svg color
+    .fcls-1 {
+      fill: #fff
+    }
+    li {
+      a {
+        color: #ffffff;
+      }
+    }
+  }
+  // Logo color
+  .fcls-1 {
+    fill: #000
+  }
+  .copyright {
+    color: #cccccc;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  li {
+    a {
+      color: $oil;
+      font-weight: 400;
+    }
+  }
+
+  ul > li {
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .row {
+    &:first-of-type {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media screen and (max-width: $screen-laptop) {
+    section > div {
+      padding-bottom: 40px;
+    }
+    section div:last-of-type > .row {
+      padding-bottom: 40px;
+      margin-bottom: 0px;
+    }
+    section div:last-of-type > .row:last-child {
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+    }
+  }
+  
+  @media screen and (max-width: $screen-mobile-l) {
+    // ul li:not(:first-child) {
+    //   display: none;
+    // }
+    .row:first-of-type {
+      margin-top: 40px;
+    }
+    .copyright {
+      text-align: center;
+    }
+  }
+}

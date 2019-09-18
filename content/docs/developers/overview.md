@@ -7,9 +7,7 @@ meta:
 
 Dev Guidelines
 
-Built with [gohugo.io](gohugo.io).
-
-[BROKEN LINK CHECK](/does/not/exist/);
+Built with [gohugo.io](http://gohugo.io).
 
 ## Dev
 * Static site generator: GoHugo
