@@ -342,19 +342,19 @@ stacks:
       elements:
       - template: element-code
         html: |
-          <img src="images/twitter-cards.png">
+          <img src="/images/twitter-cards.png">
           <div class="card-block-text"><h6 class="text-center color-oil">Social</h6><div class="text-center color-oil"><p>Twitter Cards promoted &amp; organically tweeted out along with the dedicated hashtag #IKnowDDN.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/info.png">
+          <img src="/images/info.png">
           <div class="card-block-text"><h6 class="text-center color-oil">Infographic</h6><div class="text-center color-oil"><p>Designed to bring the DDN story to life while providing readers with engagement.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/gaming.jpg">
+          <img src="/images/gaming.jpg">
           <div class="card-block-text"><h6 class="text-center color-oil">Gaming</h6><div class="text-center color-oil"><p>We enticed passing conference traffic with the chance to win a drone giving them two ways to enter: writing down any 3 of the 12 “did you know facts” and/or taking a selfie with DDN equipment and emailing it in. Writing the facts down ensured individuals had learned something new, while snapping a selfie that could be tweeted and retweeted expanded our network of impressions. Individuals doubled their chances if they did both.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/city-themed-freebie.jpg">
+          <img src="/images/city-themed-freebie.jpg">
           <div class="card-block-text"><h6 class="text-center color-oil">Visual City Themed Freebie</h6><div class="text-center color-oil"><p>With the conference located in New Orleans that year, we decided on beaded light up shot glasses as a low cost, branded item ‘tchotchke’ that would also draw attention as booth visitors walked the conference floor and city at night with their DDN branded shot glasses around their necks.</p></div></div>
     - template: block-column-builder
       size: '6'
@@ -366,19 +366,19 @@ stacks:
           <div class="card-block-text"><h6 class="text-center color-oil">Video</h6><div class="text-center color-oil"><p>Animated video created to promote facts, drive traffic, raise web ranking, and advertising.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/web.png">
+          <img src="/images/web.png">
           <div class="card-block-text"><h6 class="text-center color-oil">Web & Email</h6><div class="text-center color-oil"><p>Destination for web traffic – the company’s hub for all things DDN, as well as a point for meeting registration and competition announcements.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/heat-map.png">
+          <img src="/images/heat-map.png">
           <div class="card-block-text"><h6 class="text-center color-oil">Heat Map</h6><div class="text-center color-oil"><p>We created a booth conference map on the back of the Infographic to show conference attendees which existing partners and customers currently use DDN. In no uncertain terms, the heat map clearly showed the sheer dominance of DDN in the HPC industry.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/giveaway.jpg">
+          <img src="/images/giveaway.jpg">
           <div class="card-block-text"><h6 class="text-center color-oil">Relevant Big Giveaway</h6><div class="text-center color-oil"><p>With drones gaining interest and traction in 2014, booth traffic were highly motivated to win the drone draw.</p></div></div>
       - template: element-code
         html: |
-          <img src="images/branded-shirts.jpg">
+          <img src="/images/branded-shirts.jpg">
           <div class="card-block-text"><h6 class="text-center color-oil">Branded Shirts</h6><div class="text-center color-oil"><p>While standard for company employees to wear logo’d shirts, we also took this opportunity to reinforce the message and offer booth traffic another way to look for facts, which also led to more sales discussions.</p></div></div>
 - template: section-row-blocks
   id: strategy

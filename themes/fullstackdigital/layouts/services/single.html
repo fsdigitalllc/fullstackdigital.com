@@ -57,7 +57,7 @@ logos:
   <div class="container flex h_children_center">
     <div data-aos="fade-zoom-in" class="col-12 featured-logos margin-s-top{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
       
-      {{ partial "helpers/logos.html" (dict "page" . "global" $ ) }}
+      {{ partial "helpers/get_logos.html" (dict "page" . "global" $ ) }}
     </div>
   </div>
   {{ end }}
@@ -212,7 +212,7 @@ logos:
   
 
     
-    {{ partial "helpers/work/grid_item.html" (dict "page" . "global" $ ) }}
+    {{ partial "components/ajax_work_grid.html" (dict "page" . "global" $ ) }}
 
   {{ end }}
 
@@ -237,7 +237,7 @@ logos:
       <div class="text-align-left color-oil">
         <div class="grid-image-overlay">
           {{ range .column_1.images }}
-            {{ partial "helpers/image.html" (dict "page" . "global" $ ) }}
+            {{ partial "helpers/get_image.html" (dict "page" . "global" $ ) }}
           {{ end }}
         </div>
       </div>
@@ -297,7 +297,7 @@ logos:
 
 
       {{ with .form }}
-        {{ partial "helpers/forms/contact.html" (dict "page" . "global" $)}}
+        {{ partial "components/netlify_form.html" (dict "page" . "global" $)}}
       {{ end }}
       </div>
 

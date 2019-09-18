@@ -6,7 +6,7 @@
 
 {{ if eq .template "sub_nav" }}
 
-{{ partial "helpers/sub_nav.html" (dict "page" . "global" $ ) }}
+{{ partial "components/sub_nav.html" (dict "page" . "global" $ ) }}
 
 {{ end }}
 
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
+    {{ partial "components/services_chart.html" (dict "page" . "global" $ ) }}
 
     {{ end }}
 
@@ -73,7 +73,7 @@
     <h3 class="text-align-left"><strong id="get-started">{{ .title | safeHTML }}</strong></h3>
 
     {{ with .form }}
-      {{ partial "helpers/forms/contact.html" (dict "page" . "global" $)}}
+      {{ partial "components/netlify_form.html" (dict "page" . "global" $)}}
     {{ end }}
 
     </div>

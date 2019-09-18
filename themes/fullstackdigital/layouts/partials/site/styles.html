@@ -1,23 +1,6 @@
-
-<!--<script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.forEach%2Cfetch%2CgetComputedStyle%2Cdocument.querySelector%2CXMLHttpRequest%2CArray.from"></script>-->
-
+<!--load this stuff first-->
 {{ $fetchinject := resources.Get "js/plugins/fetch-inject.js" }}
-
 <script type="text/javascript" src="{{ $fetchinject.Permalink }}" media="screen"></script>
 
-{{ $aos := resources.Get "js/plugins/aos.min.js" }}
-<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
-
-
-<style class="page_critical_css">
- {{ $critical_css := "" }}
-{{ if $.Site.IsServer }}
-  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | postCSS }}
-{{ else }}
-  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | postCSS | minify }}
-{{ end }}
-
-{{ (slice $critical_css | resources.Concat "style.scss").Content | safeCSS }}
-
-
-</style>
+{{ $main_css := resources.Get "scss/main.scss" | toCSS | postCSS | minify }}
+<link rel='stylesheet' href='{{ $main_css.Permalink }}'/>

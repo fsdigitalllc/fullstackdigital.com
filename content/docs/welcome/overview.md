@@ -7,9 +7,9 @@ meta:
 
 Fullstackdigital.com is Fullstack Digital, LLC's corporate website.
 
-Built with [gohugo.io](gohugo.io).
+Built with [gohugo.io](http://gohugo.io).
 ### Content management
-Content management is handled via [forestry.io](forestry.io), which is a CMS for static sites.
+Content management is handled via [forestry.io](http://forestry.io), which is a CMS for static sites.
 
 ## Dev
 * Static site generator: GoHugo
