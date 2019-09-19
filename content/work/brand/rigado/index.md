@@ -32,12 +32,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#9B3D20"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder

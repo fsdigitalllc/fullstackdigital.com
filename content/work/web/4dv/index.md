@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#0782c3"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -44,11 +44,11 @@ stacks:
           Fullstack provides Brand & Web services for Business & Engineering Systems, a data engineering company that develops integrated Big Data Solutions based in Virginia. As BESC moved from specialized consumer business to B2B, Fullstack was tasked with refreshing the 15 year old brand, its products, tone of voice, and complete web presence. The end result was all-out stunning, and well received by the BESC team, it’s partners, and network of customers. See it live at 4dvanalytics.com.
 - template: section-row-blocks
   id: overview
-  class: padding-xl-top padding-xl-bottom v_c-center
+  class: padding-xl-top padding-xl-bottom v_children_center
   background_color: "#ffffff"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container-l
     cols:
     - template: block-column-builder
