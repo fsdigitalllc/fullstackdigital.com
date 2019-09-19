@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#ff5645"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -44,11 +44,11 @@ stacks:
           Fullstack Digital partnered with the Arms Wide Open Childhood Cancer Foundation, a registered 501(c)(3) organization, to build an all-new, one of a kind fee-free crowdfunding website geared specifically towards donations & campaigns for child cancer patients. Fullstack built the site with a custom design featuring the first multi-step crowdfunding experience on Wordpress, social media login, sharing and tracking integration, and a single page custom dashboard.
 - template: section-row-blocks
   id: overview
-  class: padding-xl-top padding-xl-bottom v_c-center
+  class: padding-xl-top padding-xl-bottom v_children_center
   background_color: "#ffffff"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container-l
     cols:
     - template: block-column-builder

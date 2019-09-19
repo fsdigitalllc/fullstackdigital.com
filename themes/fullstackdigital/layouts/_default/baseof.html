@@ -9,7 +9,6 @@
         {{ end }}
 
         {{ block "site/styles" . }}{{ partial "site/styles.html" . }}{{ end }}
-        {{- block "critical" . }}{{ end -}}
 
 
     </head>
@@ -24,10 +23,6 @@
         </main>
 
         {{ block "footer" . }}{{ partial "site/footer.html" . }}{{ end }}
-
-        {{ if eq .Params.layout "pancakes" }}
-        {{ partial "site/pancakes/scripts.html" . | safeHTML }}
-        {{ end }}
 
         {{ block "site/scripts" . }}{{ partial "site/scripts.html" . }}{{ end }}
 

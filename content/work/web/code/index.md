@@ -34,12 +34,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#b7285a"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -61,12 +61,12 @@ stacks:
         title: "The {code} team, first launched as the open source division of EMC, began branding work with Fullstack in 2016 when EMC & Dell Computers agreed to merge as the newly formed DellEMC. Starting in 2018, {code} rebranded once again, to encompass all open source under Dell Technologies. The {code} initiative had reached success as future Dell Technologies customers interacted through the {code} community and its platforms. As an open source division, it's flagship website was put together over time, as one off projects. With 2017's rebrand, the website needed to be redesigned and rebuilt as one cohesive property."
 - template: section-row-blocks
   id: discovery
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#000000"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -90,12 +90,12 @@ stacks:
         image: "images/code-old-structure.png"
 - template: section-row-blocks
   id: strategy
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#0f0f0f"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -124,12 +124,12 @@ stacks:
         image: "images/new-web-structure.png"
 - template: section-row-blocks
   id: experience
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#ffffff"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -150,7 +150,7 @@ stacks:
         tag: p
         title: "To ensure the presentation and arrangement of all elements on the site would be as simple & open as possible, a clear navigation and layout system was needed to simplify the browsing experience and direct users towards what they needed."
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom
+    class: h_children_space-between v_c-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -179,7 +179,7 @@ stacks:
       - template: element-image
         image: "images/primary-nav.png"
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom
+    class: h_children_space-between v_c-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -199,7 +199,7 @@ stacks:
       - template: element-image
         image: "images/secondary-nav.png"
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom
+    class: h_children_space-between v_c-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -234,7 +234,7 @@ stacks:
       - template: element-image
         image: "images/Individual-page-template.png"
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom
+    class: h_children_space-between v_c-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -252,7 +252,7 @@ stacks:
         cover: "images/overview-poster.jpg"
         src: "https://res.cloudinary.com/dzttfmzl7/video/upload/v1532534940/Static/Overview_Temp.mp4"
   - template: include-row
-    class: h_c-space-between v_c-start wrap
+    class: h_children_space-between v_c-start wrap
     size: container
     cols:
     - template: block-column-builder
@@ -271,7 +271,7 @@ stacks:
         src: "https://res.cloudinary.com/dzttfmzl7/video/upload/v1532539011/Static/Individual_Temp_Updated_V3.mp4"
 - template: section-row-blocks
   id: design
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#f0f0f0"
   background_image:
   css_rule: |
@@ -282,7 +282,7 @@ stacks:
   - rule: ".col-6:last-child {padding-left: 10px;}"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -303,7 +303,7 @@ stacks:
         tag: p
         title: "We worked with the {code} team to elevate its already unique illustrations, continuing the use of its biggest advocate across the site. Rex, also known as REX-Ray ({code}'s main open source project) was used throughout the site as an organic illustrative character."
   - template: include-row
-    class: h_c-start v_c-start
+    class: h_children_start v_c-start
     size: container
     cols:
     - template: block-column-builder
@@ -316,7 +316,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Home Variant 1</span><br>Header "The {code} Vision"</p>
   - template: include-row
-    class: h_c-center v_c-start padding-m-bottom
+    class: h_children_center v_c-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -327,7 +327,7 @@ stacks:
       - template: element-image
         image: "images/code_Home-Page-Banner_2018.png"
   - template: include-row
-    class: h_c-start v_c-start
+    class: h_children_start v_c-start
     size: container
     cols:
     - template: block-column-builder
@@ -340,7 +340,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Home Variant 2</span><br>Header "Perception vs. Reality"</p>
   - template: include-row
-    class: h_c-center v_c-start padding-m-bottom
+    class: h_children_center v_c-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -351,7 +351,7 @@ stacks:
       - template: element-image
         image: "images/99-EMC_Home-Page-Banner-2018-V2-07.png"
   - template: include-row
-    class: h_c-space-between v_c-start
+    class: h_children_space-between v_c-start
     size: container
     cols:
     - template: block-column-builder
@@ -373,7 +373,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Webinars</span><br>Header "Learning Together"</p>
   - template: include-row
-    class: h_c-center v_c-start padding-m-bottom
+    class: h_children_center v_c-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -391,7 +391,7 @@ stacks:
       - template: element-image
         image: "images/webinars-banner.png"
   - template: include-row
-    class: h_c-space-between v_c-start
+    class: h_children_space-between v_c-start
     size: container
     cols:
     - template: block-column-builder
@@ -413,7 +413,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Brand</span><br>Header "Branding Responsibly"</p>
   - template: include-row
-    class: h_c-center v_c-start padding-m-bottom
+    class: h_children_center v_c-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -431,7 +431,7 @@ stacks:
       - template: element-image
         image: "images/code-Banner_Brand.png"
   - template: include-row
-    class: h_c-space-between v_c-start
+    class: h_children_space-between v_c-start
     size: container
     cols:
     - template: block-column-builder
@@ -453,7 +453,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Newsletter Archive</span><br>Header "Looking Back"</p>
   - template: include-row
-    class: h_c-center v_c-start padding-m-bottom
+    class: h_children_center v_c-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -471,7 +471,7 @@ stacks:
       - template: element-image
         image: "images/archive-banner.png"
   - template: include-row
-    class: h_c-space-between v_c-start
+    class: h_children_space-between v_c-start
     size: container
     cols:
     - template: block-column-builder
@@ -484,7 +484,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Adapted to Individual Events</span><br>Headers</p>
   - template: include-row
-    class: h_c-center v_c-start padding-m-bottom wrap
+    class: h_children_center v_c-start padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -516,7 +516,7 @@ stacks:
       - template: element-image
         image: "images/prague-event.png"
   - template: include-row
-    class: h_c-center v_c-start
+    class: h_children_center v_c-start
     cols:
     - template: block-column-builder
       size: '12'
@@ -528,7 +528,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Adapted to Mobile</span><br>Headers</p>
   - template: include-row
-    class: h_c-center v_c-start wrap drag-slider
+    class: h_children_center v_c-start wrap drag-slider
     css:
     - rule: ".drag-slider .elements-wrapper {overflow: visible;}"
     - rule: ".drag-slider .carousel-cell {height: 280px;margin-right: 15px;width: 33.33%;}"
@@ -558,14 +558,14 @@ stacks:
         - image: "images/99_EMC_Web_Banner_Events_Mobile.png"
 - template: section-row-blocks
   id: development
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#000000"
   background_image:
   scripts:
   - src: "js/components/cards.js"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -587,7 +587,7 @@ stacks:
         tag: p
         title: "Even for a site as simple as {code}, managing all this content can be overwhelming and tedious. We developed custom solutions across the site to help automate and streamline content that frequently needed updating, allowing the site to work on its own."
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom cards
+    class: h_children_space-between v_c-start wrap padding-m-bottom cards
     size: container
     css:
     - rule: ".card-block-text {padding: 10% 16%;}"
@@ -626,11 +626,11 @@ stacks:
           <div class="card-block-text"><img class="card-logo-img margin-s-bottom" src="/images/Mobilize-logo-white.png"><h6 class="text-center color-white"><span style="font-weight: 800">Auto Import, Display, and Sync Community Members</span></h6><div class="text-center color-white"><p>We developed a custom plugin to integrate Mobilize.io to Wordpress, allowing the {code} team to easily import their community members, display them by group across the site, and automatically create landing pages for each member that is stored on Mobilize.io.</p></div></div>
 - template: section-row-blocks
   id: search
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#0f0f0f"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -654,7 +654,7 @@ stacks:
         title: |
           With the new site came an all new name, domain, and most importantly, new business goals. "{code} by DellEMC" became the {code} team", "codedellemc.com" became "thecodeteam.com", and the team purpose went from "Open Source at DellEMC" to "Open Source at Dell Technologies". We built the website and content with {code}'s search engine goals in mind. After launch, we focused on ranking for specific terms and increasing organic traffic.
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -667,17 +667,17 @@ stacks:
         image: "images/code-search.png"
       - template: element-code
         html: |
-          <p class="flex h_c-end strip-margin"><a class="color-white strip-underline flex hover-right" href="https://blog.fullstackdigital.com/how-we-increased-organic-traffic-from-450-to-2300-month-without-backlinks-or-additional-content-931add47e20d" target="_blank"><strong>Learn more about how we do SEO</strong> <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g><line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line></g><polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline></svg></a></p>
+          <p class="flex h_children_end strip-margin"><a class="color-white strip-underline flex hover-right" href="https://blog.fullstackdigital.com/how-we-increased-organic-traffic-from-450-to-2300-month-without-backlinks-or-additional-content-931add47e20d" target="_blank"><strong>Learn more about how we do SEO</strong> <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><g><line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line></g><polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline></svg></a></p>
 - template: section-row-blocks
   id: results
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#b7285a"
   css:
   - rule: ".quote-bio img {margin-right: 20px;border-radius: 50%}"
   - rule: ".quote-bio p {font-style: italic; font-weight: 600}"
   rows:
   - template: include-row
-    class: h_c-space-between v_c-center wrap
+    class: h_children_space-between v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -708,5 +708,5 @@ stacks:
       - template: element-code
         html: |
           <h4 class="quote color-white">Altogether, this approach is the result of talented digital experts, passionate open source engineers, advocates &amp; executives, coming together to build for an open future. {code} now has the ability to reach &amp; collaborate with more people than ever before.</h4>
-          <span class="flex v_c-center quote-bio"><img src="/images/josh-photo.jpg" height="45" width="45"><p class="strip-margin color-white"> Josh Bernstein <span class="color-white"> / </span><br class="mobile-break"> VP, Technology</p></span>
+          <span class="flex v_children_center quote-bio"><img src="/images/josh-photo.jpg" height="45" width="45"><p class="strip-margin color-white"> Josh Bernstein <span class="color-white"> / </span><br class="mobile-break"> VP, Technology</p></span>
 ---

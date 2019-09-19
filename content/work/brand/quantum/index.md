@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#0370D6"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -53,12 +53,12 @@ stacks:
           From small businesses to major enterprises, more than 100,000 customers have trusted Quantum to address their most demanding data workflow challenges. Quantum approached the Fullstack team for creative support, and we couldn’t help but notice how a responsive brand framework could elevate their design to reach their perception in the market: a proven industry leader. This did not mean creating a system that would simply scale up or down, but rather a system that would make elegant and efficient use of any screen space, print, or environmental installations. So we challenged ourselves to create a concept, for proof of concept.
 - template: section-row-blocks
   id: discovery
-  class: padding-xl v_c-center
+  class: padding-xl v_children_center
   background_color: "#6A7B84"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -82,12 +82,12 @@ stacks:
           Responsive Branding is a framework of consistent voice, persona, values, look and feel that allows for a high level of customization and success. We looked closely at Quantum’s current branding guidelines & use cases, and quickly defined our approach: agile and adaptable to a changing marketplace, yet bold & confident to reflect leadership.
 - template: section-row-blocks
   id: logo
-  class: padding-xl v_c-center
+  class: padding-xl v_children_center
   background_color: "#ffffff"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -120,12 +120,12 @@ stacks:
         image: "images/quantum-comparison-animated.gif"
 - template: section-row-blocks
   id: elements
-  class: padding-xl v_c-center
+  class: padding-xl v_children_center
   background_color: "#EDEDED"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -155,12 +155,12 @@ stacks:
         image: "images/QTm-brand-elements.png"
 - template: section-row-blocks
   id: design
-  class: padding-xl v_c-center
+  class: padding-xl v_children_center
   background_color: "#0370d6"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -175,11 +175,11 @@ stacks:
         image: "images/fsd-quantum-logo-animation.gif"
 - template: section-row-blocks
   id: digital
-  class: padding-xl-top v_c-center
+  class: padding-xl-top v_children_center
   background_color: "#EFEFEF"
   rows:
   - template: include-row  
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -201,7 +201,7 @@ stacks:
         title: |
           It can be difficult to make a visual impact with detailed marks in a small-space digital world. For digital, our challenge was to strengthen this big brand to be adaptable, responsive and open, offering great flexibility in creating applications and expressions of the brand.
   - template: include-row  
-    class: h_c-end v_c-center wrap padding-m-bottom
+    class: h_children_end v_children_center wrap padding-m-bottom
     size: fullsize
     css:
     - rule: ".right-image {margin-left: auto;}"
@@ -217,7 +217,7 @@ stacks:
         class: right-image
         image: "images/Qtm-website.png"
   - template: include-row  
-    class: h_c-end v_c-center padding-m-bottom
+    class: h_children_end v_children_center padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -230,7 +230,7 @@ stacks:
         html: |
           <div style="padding:56.25% 0 0 0;position:relative;"><iframe src='https://player.vimeo.com/video/267863154' style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div><script src='https://player.vimeo.com/api/player.js'></script>
   - template: include-row  
-    class: h_c-end v_c-center
+    class: h_children_end v_children_center
     size: fullwidth
     css:
     - rule: ".stretch-full {width: 100%;}"
@@ -245,11 +245,11 @@ stacks:
         image: "images/Qtm-social.png"
 - template: section-row-blocks
   id: digital
-  class: padding-xl-top v_c-center
+  class: padding-xl-top v_children_center
   background_color: "#ffffff"
   rows:
   - template: include-row  
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -303,11 +303,11 @@ stacks:
         image: "images/qtm-product-cropped.png"
 - template: section-row-blocks
   id: digital
-  class: padding-xl v_c-center
+  class: padding-xl v_children_center
   background_color: "#0F7ECA"
   rows:
   - template: include-row  
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -329,7 +329,7 @@ stacks:
         title: |
           We love creating for data storage companies like Quantum. Although this is only a concept, we frequently work with their creative, product, and marketing teams to bring concepts to life, digitize their product line for tools like Visio, or beautify their customer facing materials such as presentations.
       - template: element-code
-        class: "text-center flex h_c-center"
+        class: "text-center flex h_children_center"
         html: |
           <a class="color-white strip-underline flex hover-right" href="/contact/"><strong>Contact Us</strong> <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>

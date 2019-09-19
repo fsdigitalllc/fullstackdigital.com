@@ -1,0 +1,33 @@
+.hidden {
+    display: none;
+}
+.hide-desktop {
+    display: none;
+}
+@media screen and (max-width: $screen-laptop ) {
+    .display-laptop {
+        display: block;
+    }
+    .hide-laptop {
+        display: none;
+    }
+}
+@media screen and (max-width: $screen-tablet ) {
+    .display-tablet {
+        display: block;
+    }
+    .hide-tablet {
+        display: none;
+    }
+}
+@media screen and (max-width: $screen-mobile-l ) {
+    .display-mobile {
+        display: block;
+    }
+    .mobile-break {
+        display: block;
+    }
+    .hide-mobile {
+        display: none;
+    }
+}

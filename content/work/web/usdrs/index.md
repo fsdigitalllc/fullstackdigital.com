@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#5a829e"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -42,11 +42,11 @@ stacks:
           <p class="color-white text-left big-paragraph">Web &amp; Marketing services for U.S. Document Retrieval Service, a 20 year old nationwide litigation support firm based in New York. Fullstack built an all-new web presence completely from scratch. The goal was to modernize the digital brand and generate a third of net-new leads from the web. Through landing page creation and optimization, paid and organic search campaigns and continual testing, their conversion rates went from 0-12% in just 3 months. The work was <a href="https://blog.fullstory.com/from-0-12-percent-optimizing-conversions-with-session-replay/" target="_blank" class="color-white underline">featured by the popular User Experience tool Fullstory</a>.</p>
 - template: section-row-blocks
   id: overview
-  class: padding-xl-top padding-xl-bottom v_c-center
+  class: padding-xl-top padding-xl-bottom v_children_center
   background_color: "#ffffff"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container-l
     cols:
     - template: block-column-builder

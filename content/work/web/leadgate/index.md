@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#1d6bd0"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -44,11 +44,11 @@ stacks:
           Leadgate is an all-new lead aggregator, enabling contractors & agencies to easily monitor the web for new opportunities relevant to their service offering. Fullstack built the entire web application from scratch, including a streamlined UX, third-party integrations and collaborative features. From simultaneous multi-user view, to text filtering enabling automatic organization/tagging, LeadGate enables teams to never miss an opportunity.
 - template: section-row-blocks
   id: overview
-  class: padding-xl-top padding-xl-bottom v_c-center
+  class: padding-xl-top padding-xl-bottom v_children_center
   background_color: "#ffffff"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: h_children_center v_children_center wrap
     size: container-l
     cols:
     - template: block-column-builder

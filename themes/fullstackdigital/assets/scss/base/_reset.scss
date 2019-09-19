@@ -31,31 +31,56 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+main {
+  padding-top: 60px;
+}
+
 svg:not(:root) {
   overflow: hidden;
 }
-.container-fullwidth {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  box-sizing: border-box;
-}
-.container, .container-l, .container-m {
-  max-width: 100%;
-  margin: 0 auto;
-  position: relative;
-  padding: 0 40px;
-  box-sizing: border-box;
-}
+
+/* fix this crap*/
 .container {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
   width: $container;
 }
+.container-fullwidth {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+}
 .container-l {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0 40px;
   width: $container-l;
 }
 .container-m {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0 40px;
   width: $container-m;
 }
+@media screen and (max-width: $screen-tablet ) {
+  .container, .container-l, .container-m {
+    padding: 0 20px;
+  }
+}
+@media screen and (max-width: $screen-mobile-l ) {
+  .container, .container-l, .container-m {
+    padding: 0 20px;
+  }
+}
+
 section {
   margin-bottom: -1px;
 }
@@ -68,57 +93,13 @@ img {
   -ms-user-select: none;
   user-select: none;
   display: block;
+
+  &.fullwidth-img {
+    width: 100%;
+  }
 }
 
-img.fullwidth-img {
-  width: 100%;
-}
-
-.hidden {
-  display: none;
-}
-.mobile-break {
-  display: none;
-}
-main {
-  padding-top: 60px;
-}
-.hide-desktop {
-  display: none;
-}
 iframe {
   padding-bottom: 15px;
 }
-@media screen and (max-width: $screen-laptop ) {
-  .display-laptop {
-    display: block;
-  }
-  .hide-laptop {
-    display: none;
-  }
-}
-@media screen and (max-width: $screen-tablet ) {
-  .container, .container-l, .container-m {
-    padding: 0 20px;
-  }
-  .display-tablet {
-    display: block;
-  }
-  .hide-tablet {
-    display: none;
-  }
-}
-@media screen and (max-width: $screen-mobile-l ) {
-  .container, .container-l, .container-m {
-    padding: 0 20px;
-  }
-  .display-mobile {
-    display: block;
-  }
-  .mobile-break {
-    display: block;
-  }
-  .hide-mobile {
-    display: none;
-  }
-}
+

@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#007DB8"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -51,12 +51,12 @@ stacks:
         title: "The {code} team, first launched as the open source division of EMC, began branding work with Fullstack in 2016 when EMC & Dell Computers agreed to merge as the newly formed DellEMC. The {code} initiative had reached success as future DellEMC customers interacted through the {code} community and its platforms. Starting in 2018, {code} was moving to encompass all of open source under Dell Technologies. The {code} team and Fullstack came together to create a cohesive brand platform to support the transition, but more importantly solidify the {code} team as a leader in the open source community and setup the brand for the open future ahead."
 - template: section-row-blocks
   id: discovery
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#000000"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom
+    class: h_children_center v_children_center padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -78,7 +78,7 @@ stacks:
         title: "Starting in 2014, EMC {code} launched as a strategic initiative with support from executive management, and aspirations of community focus, project transparency, and openness. As the team gained traction over time, so did its reach — beginning with a few projects, to launching the {code} community in 2015, followed by developer and advocate programs, to attending, hosting and sponsoring many conferences and events. As {code} prepared for its switch to Dell Technologies, it was time to bring it all together and re-introduce it to the world."
   - template: include-row
     size: container
-    class: h_c-space-between v_c-center
+    class: h_children_space-between v_children_center
     cols:
     - template: block-column-builder
       size: '3'
@@ -115,12 +115,12 @@ stacks:
         html: <p class="big-number color-white text-center"><strong>Companies supported within <br>Dell Technologies</strong></p>
 - template: section-row-blocks
   id: development
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#0f0f0f"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom
+    class: h_children_center v_children_center padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -142,7 +142,7 @@ stacks:
         title: "Starting in 2014, EMC {code} launched as a strategic initiative with support from executive management, and aspirations of community focus, project transparency, and openness. As the team gained traction over time, so did its reach — beginning with a few projects, to launching the {code} community in 2015, followed by developer and advocate programs, to attending, hosting and sponsoring many conferences and events. As {code} prepared for its switch to Dell Technologies, it was time to bring it all together and re-introduce it to the world."
   - template: include-row
     size: container
-    class: "h_c-start v_c-center"
+    class: "h_children_start v_children_center"
     cols:
     - template: block-column-builder
       size: '4'
@@ -156,7 +156,7 @@ stacks:
         title: "Brand Promise"
   - template: include-row
     size: container
-    class: "h_c-start v_c-center break-none"
+    class: "h_children_start v_children_center break-none"
     cols:
     - template: block-column-builder
       size: '4'
@@ -180,12 +180,12 @@ stacks:
         alt: "New brand promise"
 - template: section-row-blocks
   id: identity
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#ffffff"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom
+    class: h_children_center v_children_center padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -206,7 +206,7 @@ stacks:
         tag: p
         title: "Armed with an understanding of the {code} team and the community needs, we took inventory of the way the {code} brand was expressed visually. We identified the {code} logo, style, and illustrations as key pieces of their identity to focus on. Extending this identity across important touch points would ensure a cohesive experience no matter how users interacted with {code}."
   - template: include-row
-    class: h_c-space-between v_c-center padding-m-bottom wrap
+    class: h_children_space-between v_children_center padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -257,7 +257,7 @@ stacks:
         class:
         alt: "The Code Team final logo design"
   - template: include-row
-    class: h_c-space-between v_c-center padding-m-bottom wrap
+    class: h_children_space-between v_children_center padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -316,7 +316,7 @@ stacks:
         html: |
           <p class="color-oil image-cap">Dell Tech: Bright, Fresh and Energetic;<br>Authenticity, Humanity and Inviting</p>
   - template: include-row
-    class: h_c-space-between v_c-center padding-m-bottom wrap
+    class: h_children_space-between v_children_center padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -356,7 +356,7 @@ stacks:
         html: |
           <p class="color-oil image-cap">From DellEMC &amp; Dell Tech: Replica, Roboto, Arial</p>
   - template: include-row
-    class: h_c-space-between v_c-center padding-m-bottom wrap
+    class: h_children_space-between v_children_center padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -415,7 +415,7 @@ stacks:
         html: |
           <p class="color-oil image-cap">From Dell Tech, but customized</p>
   - template: include-row
-    class: h_c-space-between v_c-center padding-m-bottom wrap
+    class: h_children_space-between v_children_center padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -472,7 +472,7 @@ stacks:
         html: |
           <p class="color-oil image-cap">REX-Ray brought into the<br> world as {code} sees it</p>
   - template: include-row
-    class: h_c-space-between v_c-center padding-m-bottom wrap
+    class: h_children_space-between v_children_center padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -532,13 +532,13 @@ stacks:
           <p class="color-oil image-cap">From Dell Tech, but customized</p>
 - template: section-row-blocks
   id: touch-points
-  class: padding-none-bottom padding-xl-top v_c-center
+  class: padding-none-bottom padding-xl-top v_children_center
   background_color: "#f0f0f0"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom wrap
-    size: container-full
+    class: h_children_center v_children_center padding-m-bottom wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '6'
@@ -578,8 +578,8 @@ stacks:
       - template: element-image
         image: "images/web-before-after-code-team.png"
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom wrap
-    size: container-full
+    class: h_children_center v_children_center padding-m-bottom wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '7'
@@ -601,8 +601,8 @@ stacks:
         image: "images/code-team-blog-before-after.png"
         alt: "before and after"
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom wrap
-    size: container-full
+    class: h_children_center v_children_center padding-m-bottom wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '7'
@@ -624,8 +624,8 @@ stacks:
         image: "images/code-newsletter-before-after.png"
         alt: "newsletter before and after"
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom wrap
-    size: container-full
+    class: h_children_center v_children_center padding-m-bottom wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '7'
@@ -647,8 +647,8 @@ stacks:
         image: "images/code-events-mockup.png"
         alt: "events mockup"
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom wrap
-    size: container-full
+    class: h_children_center v_children_center padding-m-bottom wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '7'
@@ -670,8 +670,8 @@ stacks:
         image: "images/code-brand-guidelines.png"
         alt: "branding guidelines"
   - template: include-row
-    class: h_c-center v_c-center padding-none-bottom wrap
-    size: container-full
+    class: h_children_center v_children_center padding-none-bottom wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '12'
@@ -682,13 +682,13 @@ stacks:
         image: "images/code-event-pics.jpg"
 - template: section-row-blocks
   id: strategy
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#000000"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
-    size: container-full
+    class: h_children_center v_children_center wrap
+    size: container-fullwidth
     cols:
     - template: block-column-builder
       size: '7'
@@ -716,12 +716,12 @@ stacks:
         image: "images/fullstack-code-team-strategy-diagram.png"
 - template: section-row-blocks
   id: results
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#007DB8"
   background_image:
   rows:
   - template: include-row
-    class: h_c-space-between v_c-center wrap
+    class: h_children_space-between v_children_center wrap
     size: container
     cols:
     - template: block-column-builder

@@ -24,12 +24,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom v_children_center
   background_color: "#AB0000"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: h_children_center v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -63,7 +63,7 @@ stacks:
     - rule: ".column:first-child{order:2;padding-top:0px;}"
   rows:
   - template: include-row
-    class: h_c-start v_c-center
+    class: h_children_start v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -100,7 +100,7 @@ stacks:
   - rule: "h3{font-size: 36px}"
   rows:
   - template: include-row
-    class: h_c-start v_c-center padding-s-bottom
+    class: h_children_start v_children_center padding-s-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -118,7 +118,7 @@ stacks:
         title: |
           With the theme of the campaign set, we looked to our research to guide us in what prospects cared about most when choosing data storage infrastructure vendors. We then worked as a team to categorize these needs and turn them into impactful facts that correlated with compelling value propositions.
   - template: include-row
-    class: h_c-start v_c-center
+    class: h_children_start v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -207,7 +207,7 @@ stacks:
       background: linear-gradient(0deg,#deb35a 0%,#9a5624 17%,#edcb74 30%,#d8a135 36%,#fcf5db 42%,#d2a452 72%,#4f2e14 76%,#f6e789 85%,#f6f3c6 100%);}
   rows:
   - template: include-row
-    class: h_c-start v_c-center padding-s-bottom wrap
+    class: h_children_start v_children_center padding-s-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -229,7 +229,7 @@ stacks:
         title: |
           Using visual storytelling, we designed an infographic that would weave in the story, facts, and call to action in a compelling way. Titled after the namesake campaign, “Did You Know?”, it was only fitting the question mark would get special design treatment to draw the reader in.
   - template: include-row
-    class: h_c-start v_c-start padding-m-bottom wrap
+    class: h_children_start v_c-start padding-m-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -249,7 +249,7 @@ stacks:
       - template: element-image
         image: "images/dyk.png"
   - template: include-row
-    class: h_c-start v_c-start padding-m-bottom wrap
+    class: h_children_start v_c-start padding-m-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -278,7 +278,7 @@ stacks:
         html: |
           <div class=""><div class="gold-block"><span></span></div><br><p class="color-white">Vintage Gold<br>Premium feel</p></div>
   - template: include-row
-    class: h_c-start v_c-start padding-m-bottom wrap
+    class: h_children_start v_c-start padding-m-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -299,13 +299,13 @@ stacks:
         image: "images/infographic.png"
 - template: section-row-blocks
   id: experience
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#ffffff"
   scripts:
   - src: "js/work/cards.js"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: h_children_center v_children_center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -327,7 +327,7 @@ stacks:
         tag: p
         title: "Launching the campaign in a setting that would generate the most visibility and interaction was key. We decided on the company’s biggest tradeshow, the Supercomputing conference, where we could also leverage the company’s PR and product announcements. We designed an interactive experience that began online and could be reinforced offline at the conference, combining multiple channels and form factors."
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom cards
+    class: h_children_space-between v_c-start wrap padding-m-bottom cards
     size: container
     css:
     - rule: ".card-block-text {padding: 10% 10%;}"
@@ -388,7 +388,7 @@ stacks:
   - rule: "h3{font-size: 36px}"
   rows:
   - template: include-row
-    class: h_c-center v_c-center padding-m-bottom
+    class: h_children_center v_children_center padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -410,7 +410,7 @@ stacks:
         title: |
           What good would it be to create all these assets and then not connect them? The campaign message had to be simple in order to be compelling enough for booth traffic to engage with DDN amid so much other ‘noise’ at a such a large conference. It also needed to be believable given that many of DDN’s prospects and customers are PhD’s, technology buffs, and turned off by gratuitous advertising. The campaign succeeded in combining relevant conference information, as well as appropriate and useful giveaways that netted in a positive experience as visitors explored the future of HPC with DDN.
   - template: include-row
-    class: h_c-center v_c-center padding-s-bottom wrap
+    class: h_children_center v_children_center padding-s-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -438,7 +438,7 @@ stacks:
         image: "images/during-conf.png"
 - template: section-row-blocks
   id: results
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top v_children_center
   background_color: "#AB0000"
   css:
   - rule: ".quote-bio p {font-style: italic; font-weight: 600}"
@@ -446,7 +446,7 @@ stacks:
   - rule: ".numbers p {margin-bottom: 20px;}"
   rows:
   - template: include-row
-    class: h_c-space-between v_c-center
+    class: h_children_space-between v_children_center
     size: container
     cols:
     - template: block-column-builder
@@ -460,7 +460,7 @@ stacks:
           <h4 class="text-left color-white subtitle">Results</h4>
           <h2 class="text-left color-white">Maintaining an unrivalled position.</h2>
   - template: include-row
-    class: h_c-space-between v_c-start
+    class: h_children_space-between v_c-start
     size: container
     cols:
     - template: block-column-builder
