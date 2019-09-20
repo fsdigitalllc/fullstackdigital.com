@@ -393,7 +393,7 @@ stacks:
         title: |
           While the patient experience was our main focus, it was just as important for us to allow a smooth administrative experience. From adding new programs to content protection, managing subscriptions and users, it’s all inclusive.
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom cards
+    class: justify-between items-start wrap padding-m-bottom cards
     size: container
     css:
     - rule: ".card-block-text {padding: 10% 16%;}"

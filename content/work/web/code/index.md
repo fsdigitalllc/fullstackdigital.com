@@ -150,7 +150,7 @@ stacks:
         tag: p
         title: "To ensure the presentation and arrangement of all elements on the site would be as simple & open as possible, a clear navigation and layout system was needed to simplify the browsing experience and direct users towards what they needed."
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom
+    class: justify-between items-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -179,7 +179,7 @@ stacks:
       - template: element-image
         image: "images/primary-nav.png"
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom
+    class: justify-between items-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -199,7 +199,7 @@ stacks:
       - template: element-image
         image: "images/secondary-nav.png"
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom
+    class: justify-between items-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -234,7 +234,7 @@ stacks:
       - template: element-image
         image: "images/Individual-page-template.png"
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom
+    class: justify-between items-start wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -252,7 +252,7 @@ stacks:
         cover: "images/overview-poster.jpg"
         src: "https://res.cloudinary.com/dzttfmzl7/video/upload/v1532534940/Static/Overview_Temp.mp4"
   - template: include-row
-    class: justify-between v_c-start wrap
+    class: justify-between items-start wrap
     size: container
     cols:
     - template: block-column-builder
@@ -297,7 +297,7 @@ stacks:
         tag: p
         title: "We worked with the {code} team to elevate its already unique illustrations, continuing the use of its biggest advocate across the site. Rex, also known as REX-Ray ({code}'s main open source project) was used throughout the site as an organic illustrative character."
   - template: include-row
-    class: justify-start v_c-start
+    class: justify-start items-start
     size: container
     cols:
     - template: block-column-builder
@@ -310,7 +310,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Home Variant 1</span><br>Header "The {code} Vision"</p>
   - template: include-row
-    class: justify-center v_c-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -321,7 +321,7 @@ stacks:
       - template: element-image
         image: "images/code_Home-Page-Banner_2018.png"
   - template: include-row
-    class: justify-start v_c-start
+    class: justify-start items-start
     size: container
     cols:
     - template: block-column-builder
@@ -334,7 +334,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Home Variant 2</span><br>Header "Perception vs. Reality"</p>
   - template: include-row
-    class: justify-center v_c-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -345,7 +345,7 @@ stacks:
       - template: element-image
         image: "images/99-EMC_Home-Page-Banner-2018-V2-07.png"
   - template: include-row
-    class: justify-between v_c-start
+    class: justify-between items-start
     size: container
     cols:
     - template: block-column-builder
@@ -367,7 +367,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Webinars</span><br>Header "Learning Together"</p>
   - template: include-row
-    class: justify-center v_c-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -385,7 +385,7 @@ stacks:
       - template: element-image
         image: "images/webinars-banner.png"
   - template: include-row
-    class: justify-between v_c-start
+    class: justify-between items-start
     size: container
     cols:
     - template: block-column-builder
@@ -407,7 +407,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Brand</span><br>Header "Branding Responsibly"</p>
   - template: include-row
-    class: justify-center v_c-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -425,7 +425,7 @@ stacks:
       - template: element-image
         image: "images/code-Banner_Brand.png"
   - template: include-row
-    class: justify-between v_c-start
+    class: justify-between items-start
     size: container
     cols:
     - template: block-column-builder
@@ -447,7 +447,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Newsletter Archive</span><br>Header "Looking Back"</p>
   - template: include-row
-    class: justify-center v_c-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom
     size: container-l
     cols:
     - template: block-column-builder
@@ -465,7 +465,7 @@ stacks:
       - template: element-image
         image: "images/archive-banner.png"
   - template: include-row
-    class: justify-between v_c-start
+    class: justify-between items-start
     size: container
     cols:
     - template: block-column-builder
@@ -478,7 +478,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Adapted to Individual Events</span><br>Headers</p>
   - template: include-row
-    class: justify-center v_c-start padding-m-bottom wrap
+    class: justify-center items-start padding-m-bottom wrap
     size: container-l
     cols:
     - template: block-column-builder
@@ -510,7 +510,7 @@ stacks:
       - template: element-image
         image: "images/prague-event.png"
   - template: include-row
-    class: justify-center v_c-start
+    class: justify-center items-start
     cols:
     - template: block-column-builder
       size: '12'
@@ -522,7 +522,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Adapted to Mobile</span><br>Headers</p>
   - template: include-row
-    class: justify-center v_c-start wrap drag-slider
+    class: justify-center items-start wrap drag-slider
     size: container-l
     cols:
     - template: block-column-builder
@@ -576,7 +576,7 @@ stacks:
         tag: p
         title: "Even for a site as simple as {code}, managing all this content can be overwhelming and tedious. We developed custom solutions across the site to help automate and streamline content that frequently needed updating, allowing the site to work on its own."
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom cards
+    class: justify-between items-start wrap padding-m-bottom cards
     size: container
     cols:
     - template: block-column-builder
