@@ -229,7 +229,7 @@ stacks:
         title: |
           Using visual storytelling, we designed an infographic that would weave in the story, facts, and call to action in a compelling way. Titled after the namesake campaign, “Did You Know?”, it was only fitting the question mark would get special design treatment to draw the reader in.
   - template: include-row
-    class: justify-start v_c-start padding-m-bottom wrap
+    class: justify-start items-start padding-m-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -249,7 +249,7 @@ stacks:
       - template: element-image
         image: "images/dyk.png"
   - template: include-row
-    class: justify-start v_c-start padding-m-bottom wrap
+    class: justify-start items-start padding-m-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -278,7 +278,7 @@ stacks:
         html: |
           <div class=""><div class="gold-block"><span></span></div><br><p class="color-white">Vintage Gold<br>Premium feel</p></div>
   - template: include-row
-    class: justify-start v_c-start padding-m-bottom wrap
+    class: justify-start items-start padding-m-bottom wrap
     size: container
     cols:
     - template: block-column-builder
@@ -327,7 +327,7 @@ stacks:
         tag: p
         title: "Launching the campaign in a setting that would generate the most visibility and interaction was key. We decided on the company’s biggest tradeshow, the Supercomputing conference, where we could also leverage the company’s PR and product announcements. We designed an interactive experience that began online and could be reinforced offline at the conference, combining multiple channels and form factors."
   - template: include-row
-    class: justify-between v_c-start wrap padding-m-bottom cards
+    class: justify-between items-start wrap padding-m-bottom cards
     size: container
     css:
     - rule: ".card-block-text {padding: 10% 10%;}"
@@ -460,7 +460,7 @@ stacks:
           <h4 class="text-left color-white subtitle">Results</h4>
           <h2 class="text-left color-white">Maintaining an unrivalled position.</h2>
   - template: include-row
-    class: justify-between v_c-start
+    class: justify-between items-start
     size: container
     cols:
     - template: block-column-builder
