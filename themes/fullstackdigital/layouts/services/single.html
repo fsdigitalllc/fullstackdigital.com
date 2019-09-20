@@ -44,7 +44,7 @@ logos:
   <section data-index='{{ $index }}' class='template-{{ .template }}{{ if $title_t }} padding-l-top padding-xl-bottom {{ end }}{{ if $description_t}} padding-l bg_grey{{ end }}{{ if $process_t }} padding-xl-top padding-m-bottom{{ end }}{{ if $related_t }} padding-l-bottom{{ end }}{{ if $content_related_t }} padding-l-bottom{{ end }}{{ if $cta_t }} cta-left{{ end }}'>
 
   {{ if $title_t }}
-  <div class="container flex h_children_center">
+  <div class="container flex justify-center">
     <div class="maxwidth-m text-center">      
     
       {{ with .subtitle }}<h4 class="subtitle">{{ . }}</h4>{{ end }}
@@ -54,7 +54,7 @@ logos:
 
     </div>
   </div>
-  <div class="container flex h_children_center">
+  <div class="container flex justify-center">
     <div data-aos="fade-zoom-in" class="col-12 featured-logos margin-s-top{{ with .logos_width }} maxwidth-{{ . }}{{ end }}">
       
       {{ partial "helpers/get_logos.html" (dict "page" . "global" $ ) }}
@@ -63,7 +63,7 @@ logos:
   {{ end }}
 
   {{ if $description_t }}
-    <div class="container flex h_children_center text-center">
+    <div class="container flex justify-center text-center">
       <div class="col-inner maxwidth-xs"><p class="big-paragraph strip-margin-bottom">{{ .paragraph | safeHTML }}</p>
       </div>
     </div>
@@ -72,7 +72,7 @@ logos:
 
 
   {{ if $process_t }}
-    <div class="container flex h_children_center">
+    <div class="container flex justify-center">
       <div class="text-center col-10">
         {{ .section_icon | safeHTML }}
         <h4 class="color-oil subtitle">{{ .subtitle | safeHTML }}</h4>
@@ -80,7 +80,7 @@ logos:
       </div>
     </div>
 
-    <div class="container flex h_children_center margin-m-bottom">
+    <div class="container flex justify-center margin-m-bottom">
       <div class="col-4 perspecitive-col">
         <div class="perspective-items">
         <div data-aos="fade-up" data-aos-anchor="#service-offering" data-aos-offset="500" data-aos-easing="ease-out-cubic" duration="1000" class="perspective-item aos-init aos-animate">
@@ -109,7 +109,7 @@ logos:
       </div>
     </div>
 
-    <div class="container maxwidth-xl flex wrap break-tablet-s h_children_space-between">
+    <div class="container maxwidth-xl flex wrap break-tablet-s justify-between">
       <div class="maxwidth-xxxs text-center col-3">
         <span class="black-number">
         <span class="color-white strip-margin strip-padding">1</span>
@@ -119,7 +119,7 @@ logos:
 
         <p>{{ .number_1.paragraph | safeHTML }}</p>
           
-        <p class="small_link flex h_children_center strip-margin">
+        <p class="small_link flex justify-center strip-margin">
           <a class="color-oil strip-underline flex hover-right" href="{{ .number_1.link }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
@@ -139,7 +139,7 @@ logos:
 
         <p>{{ .number_2.paragraph | safeHTML }}</p>
         
-        <p class="small_link flex h_children_center strip-margin">
+        <p class="small_link flex justify-center strip-margin">
           <a class="color-oil strip-underline flex hover-right" href="{{ .number_2.link }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
@@ -156,7 +156,7 @@ logos:
         </span>
         <p class="number-title">{{ .number_3.title | safeHTML }}</p>
         <p>{{ .number_3.paragraph | safeHTML }}</p>
-        <p class="small_link flex h_children_center strip-margin">
+        <p class="small_link flex justify-center strip-margin">
           <a class="color-oil flex hover-right" href="{{ .number_3.link | safeHTML }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
@@ -170,7 +170,7 @@ logos:
 
     <div class="container flex break-tablet-s border-dark margin-m-top margin-m-bottom"></div>
 
-    <div id="number-4-row" class="container break-mobile margin-m-top margin-m-bottom h_children_center v_children_center">
+    <div id="number-4-row" class="container break-mobile margin-m-top margin-m-bottom justify-center items-center">
         <span class="black-number col-1">
         <span class="color-white strip-padding">4</span>
         </span>
@@ -179,7 +179,7 @@ logos:
 
         <p class="col-5">{{ .number_4.paragraph | safeHTML }}</p>
 
-        <p class="small_link flex h_children_center text-center col-2">
+        <p class="small_link flex justify-center text-center col-2">
           <a class="color-oil flex hover-right" href="{{ .number_4.link | safeHTML }}"><strong>Learn More</strong> <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <g>
           <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
@@ -194,7 +194,7 @@ logos:
 
   {{ if $related_t }}
 
-  <div class="container flex padding-s-bottom break-tablet h_children_start">
+  <div class="container flex padding-s-bottom break-tablet justify-start">
     <div class="text-left col-9">
         <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
         <title>Services</title>
@@ -218,7 +218,7 @@ logos:
 
   {{ if $content_related_t }}
   
-  <div class="container flex wrap padding-m-bottom break-tablet h_children_start">
+  <div class="container flex wrap padding-m-bottom break-tablet justify-start">
       <div class="text-left col-12 maxwidth-l"><svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
         <title>{{ .subtitle | safeHTML }}</title>
         <polygon fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="40,1 17,37 31,37 
@@ -231,7 +231,7 @@ logos:
       </div>
   </div>
   
-  <div class="container flex break-mobile h_children_start wrap">
+  <div class="container flex break-mobile justify-start wrap">
     <div class="text-left col-6">
       <h4 class="text-left color-oil subtitle"><strong>{{ .column_1.subtitle | safeHTML }}</strong></h4>
       <div class="text-align-left color-oil">
@@ -259,7 +259,7 @@ logos:
       <div class="article related-blog-feed">
       <a class="text-left color-oil" target="_blank" href="{{ .link }}">
         <h3>{{ .title | safeHTML }}</h4>
-        <p class="flex v_children_end h_children_end">
+        <p class="flex v_children_end justify-end">
           <span class="color-oil flex hover-right">
           <strong>Read More</strong> 
           <svg class="color-oil" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
@@ -282,7 +282,7 @@ logos:
 
 
     {{ if $cta_t }}
-      <div class="container flex break-tablet h_children_space-between">
+      <div class="container flex break-tablet justify-between">
 
         <div class="flex col-5">
           

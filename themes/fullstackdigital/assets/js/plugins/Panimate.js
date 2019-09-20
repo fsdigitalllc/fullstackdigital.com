@@ -3,6 +3,9 @@
 // Get the start an end values of identical images between pages
 // Create reversable aJax animations
 
+// Given an item:
+// 1. Get the current offset positions (start values): left, top, right, height, width
+// 2. 
 // Pass the window context as global
 (function(global, animateLibrary) {
 
@@ -75,7 +78,7 @@
 
                     }
                     return startImage.getBoundingClientRect().y;
-                    
+
                 }(topOffset)),
 
                 x: startImage.getBoundingClientRect().x
