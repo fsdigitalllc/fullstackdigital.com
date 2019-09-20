@@ -13,7 +13,7 @@
 {{ if eq $tabs true }}
 
 <div class="work-grid-tabs container padding-s-bottom">
-  <div class="flex h_children_space-between">
+  <div class="flex justify-between">
     <div class="brand active" data-aos="fade" data-aos-delay="200" data-aos-duration="1400" data-filter="brand">
         <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
           <path stroke-width="2" stroke-miterlimit="10" d="M1,21c0,20,31,38,31,38s31-18,31-38  c0-8.285-6-16-15-16c-8.285,0-16,5.715-16,14c0-8.285-7.715-14-16-14C7,5,1,12.715,1,21z"></path>
@@ -149,7 +149,7 @@
     <a class="button fill white" href='{{ .URL }}'>Read the Story</a>
     <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
   
-    <span class="card-footer-layer flex h_children_center hover-right">
+    <span class="card-footer-layer flex justify-center hover-right">
       <h6 class="gridgrow-view strip-margin">View Case Study</h6>
       <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
       <g>
@@ -162,7 +162,7 @@
   {{ else }}
     <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
   
-    <span class="card-footer-layer flex h_children_center hover-right">
+    <span class="card-footer-layer flex justify-center hover-right">
       <h6 class="gridgrow-view strip-margin">View Case Study</h6>
       <svg class="color-black" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g><path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M0 32H63z"></path></g><path fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" d="M54 41l9-9-9-9"></path></svg>
     </span>
@@ -181,7 +181,7 @@
 
 </div>
 
-<div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex h_children_space-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src=""><div class="flex tiny color-oil padding-s-top strip-padding-tablet h_children_space-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex v_c-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
+<div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex justify-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src=""><div class="flex tiny color-oil padding-s-top strip-padding-tablet justify-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex items-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
 
 
 {{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}

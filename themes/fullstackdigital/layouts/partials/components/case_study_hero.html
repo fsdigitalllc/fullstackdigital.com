@@ -7,7 +7,7 @@
 
 <section class="work-hero padding-m-top{{ with $context.class }} {{ . }}{{ end }}"{{ with $context.background_color }} style="background-color: {{ . }};"{{ end }}>
 
-  <div id="project-summary" class="container flex h_children_space-between break-t">
+  <div id="project-summary" class="container flex justify-between break-t">
     <div class="col-3 t-col-8 grid">
         {{ $logo := $context.client }}
         {{ range where .Site.Data.lookup.clients "name" $logo }}
@@ -32,7 +32,7 @@
 
         {{ end }}
 
-      <div class="flex tiny {{ $textClass }} padding-s-top strip-padding-tablet h_children_space-between">
+      <div class="flex tiny {{ $textClass }} padding-s-top strip-padding-tablet justify-between">
         
         
           <ul>
@@ -62,7 +62,7 @@
     </div>
     
 
-    <div class="col-8 flex v_c-center maxwidth-s t-col-12">
+    <div class="col-8 flex items-center maxwidth-s t-col-12">
         <h1 class="page-title strip-margin-bottom {{ $textClass }}">{{ .Title }}</h1>
     </div>
 

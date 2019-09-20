@@ -3,4 +3,13 @@
 <script type="text/javascript" src="{{ $fetchinject.Permalink }}" media="screen"></script>
 
 {{ $main_css := resources.Get "scss/main.scss" | toCSS | postCSS | minify }}
-<link rel='stylesheet' href='{{ $main_css.Permalink }}'/>
+{{ $main_cache_buster := $main_css | resources.Fingerprint "md5" }}
+<link rel='stylesheet' href='{{ $main_cache_buster.Permalink }}' integrity="{{ $main_cache_buster.Data.Integrity }}"/>
+
+{{ with .Resources.Match "css/*" }}
+    {{ range . }}
+    {{ $page_css := . | toCSS | minify }}
+    {{ $page_cache_buster := $page_css | resources.Fingerprint "md5" }}
+    <link rel='stylesheet' href='{{ $page_cache_buster.RelPermalink }}' integrity="{{ $page_cache_buster.Data.Integrity }}"/>
+	{{ end }}
+{{ end }}

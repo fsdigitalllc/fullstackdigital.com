@@ -11,7 +11,7 @@
 {{ end }}
 
   {{ if eq .template "overview" }}
-  <div class="container flex h_children_start">
+  <div class="container flex justify-start">
     <div class="col-9">
 
       {{ .icon | safeHTML }}
@@ -25,7 +25,7 @@
   {{ end }}
 
   {{ if eq .template "banner" }}
-  <div class="container-fullwidth flex h_children_center">
+  <div class="container-fullwidth flex justify-center">
       <div class="col-12">
         <img class="fullwidth-img" src="{{ .image }}">
       </div>
@@ -33,7 +33,7 @@
   {{ end }}
 
     {{ if eq .template "approach" }}
-    <div class="container flex break-tablet template-service_process h_children_space-between padding-l-bottom">
+    <div class="container flex break-tablet template-service_process justify-between padding-l-bottom">
       <div class="col-6 maxwidth-s">
         {{ .icon | safeHTML }}
         {{ .html | safeHTML }}
@@ -60,7 +60,7 @@
     {{ end }}
 
     {{ if eq .template "cta" }}
-    <div class="container flex break-tablet h_children_space-between">
+    <div class="container flex break-tablet justify-between">
 
       <div class="flex col-5">
         

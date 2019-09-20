@@ -19,7 +19,7 @@ logos:
   <section data-index='{{ $index }}' class='template-{{ .template }}{{ with .class }} {{ . }}{{ end }}{{ if eq .template "cta" }} cta-left{{ end }}'>
 
   {{ if eq .template "overview" }}
-  <div class="container flex break-tablet h_children_center">
+  <div class="container flex break-tablet justify-center">
     <div class="col-6 text-center">
       <h1>{{ .title | safeHTML }}</h1>
       <p class="big-paragraph">{{ .paragraph | safeHTML }}</p>
@@ -32,7 +32,7 @@ logos:
   {{ end }}
 
   {{ if eq .template "cta" }}
-      <div class="container flex break-tablet h_children_space-between">
+      <div class="container flex break-tablet justify-between">
 
         <div class="flex col-5">
           

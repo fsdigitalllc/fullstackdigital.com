@@ -11,7 +11,7 @@
 {{ end }}
 
   {{ if eq .template "overview" }}
-  <div class="container flex h_children_center">
+  <div class="container flex justify-center">
     <div class="col-9 text-center">
 
       {{ .icon | safeHTML }}
@@ -25,7 +25,7 @@
   {{ end }}
 
   {{ if eq .template "banner" }}
-  <div class="container-fullwidth flex h_children_center">
+  <div class="container-fullwidth flex justify-center">
       <div class="col-12">
         <img class="fullwidth-img" src="{{ .image }}">
       </div>

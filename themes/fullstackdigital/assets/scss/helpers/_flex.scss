@@ -1,29 +1,33 @@
 .flex {
   display: flex;
 }
-.flex-container {
-  display: flex;
-}
 .wrap {
   flex-wrap: wrap;
 }
-.h_children_center {
+
+//.h_children-center {
+.justify-center {
   justify-content: center;
 }
-.h_children_space-between {
+
+//.h_children-space-between {
+.justify-between {
   justify-content: space-between;
 }
-.h_children_end {
+//.h_children-end {
+.justify-end {
   justify-content: flex-end;
 }
 
 
-.v_children_center {
+//.v_children-center {
+.items-center {
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
 }
-.v_children_end {
+//.v_children-end {
+.items-end {
   align-items: flex-end;
 }
 
