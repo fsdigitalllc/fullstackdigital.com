@@ -26,13 +26,6 @@ sections:
   - name: vastdata
   - name: quantum
   - name: code
-- template: service_description
-  classes: ''
-  paragraph: 'We <strong>help</strong> technology brands express their unique story
-    &amp; personality. We <strong>create</strong> identities that weave company heritage
-    into the logo &amp; beyond. We <strong>build</strong> strategies that navigate
-    brands to success in the digital world. Above all, we <strong>keep</strong> team
-    mission, vision &amp; values at the core of everything we do.'
 - template: related_work
   grid:
     layout: row
@@ -58,11 +51,4 @@ sections:
       class: grid-image-bottom
   column_2:
     subtitle: News &amp; Stories.
-- template: cta
-  subtitle: Get Started
-  title: From presentation design to new brand strategy, we’ve got you covered.
-  form:
-  - template: contact
-    fields: 
-
 ---
