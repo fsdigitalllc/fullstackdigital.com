@@ -6,10 +6,45 @@
 {{ $main_cache_buster := $main_css | resources.Fingerprint "md5" }}
 <link rel='stylesheet' href='{{ $main_cache_buster.Permalink }}' integrity="{{ $main_cache_buster.Data.Integrity }}"/>
 
+<!--if there are any css page resources-->
 {{ with .Resources.Match "css/*" }}
     {{ range . }}
-    {{ $page_css := . | toCSS | minify }}
+    {{ $page_css := . | toCSS | postCSS | minify }}
     {{ $page_cache_buster := $page_css | resources.Fingerprint "md5" }}
-    <link rel='stylesheet' panimate-critical href='{{ $page_cache_buster.RelPermalink }}' integrity="{{ $page_cache_buster.Data.Integrity }}"/>
+    <link rel='stylesheet' panimate-critical href='{{ $page_cache_buster.Permalink }}' integrity="{{ $page_cache_buster.Data.Integrity }}"/>
 	{{ end }}
+{{ end }}
+
+<!--if there is a scss layout file-->
+<!--layouts are equal to the section name-->
+
+{{ $layout_name := string .Section }}
+
+{{ if .IsHome }}
+    {{ $layout_name = "home" }}
+{{ end }}
+
+{{ $layout_name = print "scss/layouts/" $layout_name ".scss" }}
+{{ $layout_name = string $layout_name }}
+
+{{ with resources.Get $layout_name }}
+    {{ $layout_css := resources.Get . | toCSS | postCSS | minify }}
+    {{ $layout_cache_buster := $layout_css | resources.Fingerprint "md5" }}
+    <link rel='stylesheet' panimate-critical href='{{ $layout_cache_buster.Permalink }}' integrity="{{ $layout_cache_buster.Data.Integrity }}"/>
+
+{{ end }}
+
+{{ $template_css := path.Dir .Path | replaceRE "\\/" "-" }}
+{{ print "<!--" $template_css "-->" | safeHTML }}
+
+{{ $template_css = print "scss/pages/" $template_css ".scss" }}
+
+{{ with resources.Get $template_css }}
+    {{ $template_css = resources.Get . | toCSS | postCSS | minify }}
+    {{ $template_css_buster := $template_css | resources.Fingerprint "md5" }}
+
+    {{/*  <link rel='stylesheet' panimate-critical href='{{ $template_css_buster.Permalink }}' integrity="{{ $template_css_buster.Data.Integrity }}"/>  */}}
+    <style panimate-critical>
+        {{ $template_css.Content | safeCSS }}
+    </style>
 {{ end }}

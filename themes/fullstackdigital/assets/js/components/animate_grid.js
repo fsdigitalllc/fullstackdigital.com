@@ -19,12 +19,8 @@
       
     }
   }
-  document.addEventListener("mouseover", start, false);
+  //document.addEventListener("mouseover", start, false);
 
-
-  function setTranslate() {
-    
-  }
 
   // get all of the selectors we are working with.
   let ajaxContainerCreate = document.createElement("DIV");
