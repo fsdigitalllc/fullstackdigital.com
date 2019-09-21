@@ -27,14 +27,17 @@
     font-weight: 600;
 }
 
-#design {
-    .col-6:first-child {
+#design, .events-banners {
+    .col-6:nth-child(1) {
         padding-right: 10px;
     }
-    .col-6:first-child {
+    .col-6:nth-child(3) {
         padding-right: 10px;
     }
-    .col-6:last-child {
+    .col-6:nth-child(2) {
+        padding-left: 10px;
+    }
+    .col-6:nth-child(4) {
         padding-left: 10px;
     }
 }
@@ -54,4 +57,7 @@
     .slider-column {
         width: 100%;
     }
+}
+[data-aos=reveal-left]:before, [data-aos=reveal-right]:before  {
+    background: #f0f0f0;
 }

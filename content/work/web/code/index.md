@@ -87,6 +87,7 @@ stacks:
         tag: p
         title: "We looked to the {code} teams' passionate group of open source enthusiasts and its robust community of developers to understand how they explore open source online. The purpose of the project then became clear: bring everything together and make it intuitive, yet consistent."
       - template: element-image
+        class: "margin-auto"
         image: "images/code-old-structure.png"
 - template: section-row-blocks
   id: strategy
@@ -367,7 +368,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Webinars</span><br>Header "Learning Together"</p>
   - template: include-row
-    class: justify-center items-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom events-banners
     size: container-l
     cols:
     - template: block-column-builder
@@ -407,7 +408,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Brand</span><br>Header "Branding Responsibly"</p>
   - template: include-row
-    class: justify-center items-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom events-banners
     size: container-l
     cols:
     - template: block-column-builder
@@ -447,7 +448,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Newsletter Archive</span><br>Header "Looking Back"</p>
   - template: include-row
-    class: justify-center items-start padding-m-bottom
+    class: justify-center items-start padding-m-bottom events-banners
     size: container-l
     cols:
     - template: block-column-builder
@@ -478,7 +479,7 @@ stacks:
         html: |
           <p><span style="font-weight: 800">Adapted to Individual Events</span><br>Headers</p>
   - template: include-row
-    class: justify-center items-start padding-m-bottom wrap
+    class: justify-center items-start padding-m-bottom wrap events-banners
     size: container-l
     cols:
     - template: block-column-builder
