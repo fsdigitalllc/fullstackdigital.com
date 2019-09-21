@@ -7,21 +7,24 @@
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
 {{ $plugins_js := slice $ls_unveil $lazy_js | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
+<!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $util.Permalink }}"></script>
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
-
-<script>
-  lazySizes.init();
-  AOS.init();
-</script>
+{{/*  <script type="text/javascript" src="{{ $aos.Permalink }}"></script>  */}}
 
 {{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
 <!--async loaded resource-->
 <script type="text/javascript">
   fetchInject([
-    '{{ $smoothscroll.Permalink }}'
-  ])
+    '{{ $smoothscroll.Permalink }}',
+    '{{ $aos.Permalink }}',
+    '{{ $plugins_js.Permalink }}'
+  ]).then( () => {
+    lazySizes.init();
+    AOS.init({
+      offset: 200
+    });
+  })
 </script>
 
 
