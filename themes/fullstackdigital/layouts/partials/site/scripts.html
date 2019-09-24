@@ -1,11 +1,22 @@
 {{/* <!--load this JS asap--> */}}
 
+{{ $app := resources.Get "js/app.js" | minify }}
+
+{{ if .Site.IsServer }}
+  {{ $app = resources.Get "js/app.js" }}
+{{ end }}
+
+<script type="text/javascript" src="{{ $app.Permalink }}"></script>
+
+
 <!--non render blocking plugins-->
 {{ $util := resources.Get "js/util.js" | minify }}
+{{ $ajaxScriptLoader := resources.Get "js/plugins/ajaxScriptLoader.js" | minify }}
+
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
-{{ $plugins_js := slice $ls_unveil $lazy_js | resources.Concat "js/plugins.js" | minify | fingerprint }}
+{{ $plugins_js := slice $ls_unveil $lazy_js $ajaxScriptLoader | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
 <!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $util.Permalink }}"></script>
