@@ -1,26 +1,4 @@
 ;(function (){
-  console.log("panimate ---");
-
-  console.log(Panimate("Panimate-start", "Panimate-end"));
-
-
-  // Click handler that starts our function
-  let start = function (e) {
-    let startSelector = e.target;
-    let startLink = e.target;
-    let topOffset = document.querySelector("nav").offsetHeight;
-
-    if (startSelector.classList.contains("gridgrow-link")) {
-      startSelector = startLink.parentNode.querySelector(".gridgrow-image");
-      console.log("link", startLink, startSelector)
-      console.log(
-        Panimate("Panimate-start", "Panimate-end").setStartValues(startSelector, topOffset)
-      )
-      
-    }
-  }
-  //document.addEventListener("mouseover", start, false);
-
 
   // get all of the selectors we are working with.
   let ajaxContainerCreate = document.createElement("DIV");
