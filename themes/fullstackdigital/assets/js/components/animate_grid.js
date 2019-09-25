@@ -551,6 +551,7 @@
     // runs an array of async functions in sequential order
   function seq (arr, callback, index) {
     // first call, without an index
+    console.log("arr", arr)
     if (typeof index === 'undefined') {
       index = 0
     }

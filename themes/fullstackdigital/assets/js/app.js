@@ -61,7 +61,7 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
     // After the <main> page HTML has changed, get all of the current scripts
     let thisPageSrc = document.querySelectorAll('script');
     let ajaxPageScripts = ajaxHtml.querySelectorAll('script');
-
+    AjaxScriptLoader(thisPageSrc, ajaxPageScripts).injectSrc()
     
     // replace <main> content with the content loaded via ajax
     document.querySelectorAll('main')[0].innerHTML = ajaxMain.innerHTML;
@@ -69,7 +69,7 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
     // After main loads, Reinject any newly loaded scripts from the <head> and <body> from the next page.
     console.log("AjaxScriptLoader");
     
-    AjaxScriptLoader(thisPageSrc, ajaxPageScripts).injectSrc()
+    
     
     // Run callback after async actions are finished
     // The callback should:

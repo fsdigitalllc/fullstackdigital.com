@@ -37,6 +37,10 @@
         'text/x-javascript'
     ]
 
+    function removeNode (node) {
+
+    }
+
     AjaxScriptLoader.prototype = {
         // This points to the object
         // Return this in each statement to make chainable
@@ -67,95 +71,158 @@
             // Check if valid selectors are in use
             this.validate();
 
-            let diffList = this.firstTags.concat(this.secondTags);
-            let sameList = this.firstTags.concat(this.secondTags);
-            // Start with an empty array to store a list of scripts to rerun
-            let runList = [];
 
-            console.log("diff list start", diffList)
-            diffList.forEach( (node, index) => {
+            // Iterate 
+            function mapForEachScript (firstNodes, secondNodes, fn) {
+                let nodeList = [];
+
+                secondNodes.forEach( (node, index) => {
+                    // single node, array of nodes to check
+                    let finalNode = fn(node, firstNodes);
+
+                    if (finalNode !== undefined) {
+                        nodeList.push(
+                        // Compare the item in the array with an item from another array
+                        // runNodes();
+                            finalNode
+                        )   
+                    }
+                    
+                });
+
+                //console.log("final list", diffNodes)
+                return nodeList;
+            }
+
+            let sameNodes = mapForEachScript (this.firstTags, this.secondTags, function (firstNode, secondNodes) {
+                let pushNode;
                 
-                sameList.forEach( (item, i) => {
-                    if (node.outerHTML === item.outerHTML) {
-                        diffList.splice(index, 1);
-                        console.log("SAME", node.outerHTML, item.outerHTML)
+                secondNodes.forEach( (secondNode, index) => {
+                    if (secondNode.outerHTML === firstNode.outerHTML) {
+                        pushNode = secondNode;
                     }
-                })
-            })
-            console.log("diff list end", diffList)
-            
-
-            diffList.forEach(node => {
-                let typeAttr = node.getAttribute('type');
-                // firstTags = firstPage scripts
-                // secondTags = ajax page scripts
-                // Compare the two arrays of scripts and find ones that exist on both pages
-                //console.log(this.firstTags[5])
-                // Get the scripts that exist on both pages
-
-                if (node.tagName === "SCRIPT") {
-
-                    // if there's no type attr (it's inline script) or the type attr isn't supported
-                    if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
-                        //console.log("push this", node)
-                        runList.push(function (callback) {
-                            insertScript(node, callback)
-                        })
-                    }
-                }
+                });
+                return pushNode;
             });
-            // insert the script tags sequentially
-            // to preserve execution order
-            ////////seq(runList, scriptsDone);////////////////
-            //console.log("same scripts", sameList)
 
-            // runs an array of async functions in sequential order
-            function seq (arr, callback, index) {
-                // first call, without an index
-                if (typeof index === 'undefined') {
-                index = 0
+            let diffNodes = mapForEachScript (this.firstTags, this.secondTags, function (node, arr2) {
+                let pushNode = true;
+
+                for (i = 0; i < arr2.length; i++) {
+                    // compare one node in the first array to every node in the second array
+                    // If there is a match, set pushNode to false
+                    
+                    if (arr2[i].outerHTML === node.outerHTML) {
+                        //console.log("EQUAL", arr2[i], node)
+                        // Compare
+                        pushNode = false;
+                        node = undefined;
+                        break;
+                    }
                 }
-            
-                arr[index](function () {
-                index++
-                if (index === arr.length) {
-                    callback()
-                } else {
-                    seq(arr, callback, index)
+
+                if (!pushNode) {
+                    nodeToPush = undefined;
                 }
-                })
+
+                return node;
+            });
+
+
+
+            console.log("sameNodes", sameNodes)
+            console.log("diffNodes", diffNodes)
+
+            //console.log("diff list end", diffList)
+            let runNodes = diffNodes;
+            if (runNodes.length > 0) {
+                runScripts();
             }
 
-            function insertScript (script, callback) {
-  
-                if (script.tagName === "SCRIPT") {
-                  let s = document.createElement('script')
-                  s.type = 'text/javascript'
-                  if (script.src) {
-                    s.onload = callback
-                    s.onerror = callback
-                    s.src = script.src
-                  } else {
-                    s.textContent = script.innerText
-                  }
-                  // re-insert the script tag so it executes.
-                  document.body.appendChild(s)
-                  // clean-up
-                  script.parentNode.removeChild(script)
-                  // run the callback immediately for inline scripts
-                  if (!script.src) {
-                    callback()
-                  }
+                function insertScript (script, callback) {
+                    
+                    if (script.tagName === "SCRIPT") {
+                    let s = document.createElement('script')
+                    s.type = 'text/javascript'
+                    if (script.src) {
+                        s.onload = callback
+                        s.onerror = callback
+                        s.src = script.src
+                    } else {
+                        s.textContent = script.innerText
+                    }
+                    
+                    // re-insert the script tag so it executes.
+                    document.querySelector("body").appendChild(s)
+                    // clean-up
+                    
+                    s.parentNode.removeChild(s)
+                    // run the callback immediately for inline scripts
+                    if (!script.src) {
+                        callback()
+                    }
+                    }
                 }
-              }
 
-            // trigger DOMContentLoaded and ajaxLoadEvent
-            // this will inform velocity.animate of the endVal timing for forward animation
-            function scriptsDone () {
-                let DOMContentLoadedEvent = document.createEvent('Event');
-                DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
-                document.dispatchEvent(DOMContentLoadedEvent);
-            }
+                // trigger DOMContentLoaded and ajaxLoadEvent
+                // this will inform velocity.animate of the endVal timing for forward animation
+                function scriptsDone () {
+                    let DOMContentLoadedEvent = document.createEvent('Event');
+                    DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+                    document.dispatchEvent(DOMContentLoadedEvent);
+                }
+
+                // runs an array of async functions in sequential order
+                function seq (arr, callback, index) {
+                    // first call, without an index
+                    console.log("run list", arr)
+                    if (typeof index === 'undefined') {
+                    index = 0
+                    }
+                
+                    arr[index](function () {
+                    index++
+                    if (index === arr.length) {
+
+                        // LOOP FINISHED
+                        // SCRIPTS DONE
+                        callback()
+                    } else {
+                        console.log("insert", arr[index])
+                        // LOOP NOT FINISHED
+                        seq(arr, callback, index)
+                    }
+                    })
+                }
+
+                
+                function runScripts () {
+                    let runList = [];
+                    runNodes.forEach(node => {
+                        let typeAttr = node.getAttribute('type');
+                        // firstTags = firstPage scripts
+                        // secondTags = ajax page scripts
+                        // Compare the two arrays of scripts and find ones that exist on both pages
+                        //console.log(this.firstTags[5])
+                        // Get the scripts that exist on both pages
+    
+                        if (node.tagName === "SCRIPT") {
+    
+                            // if there's no type attr (it's inline script) or the type attr isn't supported
+                            if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
+                                
+                                runList.push(function (callback) {
+                                    insertScript(node, callback)
+                                })
+                            }
+                        }
+                    });
+    
+                    // insert the script tags sequentially
+                    // to preserve execution order
+                    seq(runList, scriptsDone);
+                }
+
         },
     }
 
