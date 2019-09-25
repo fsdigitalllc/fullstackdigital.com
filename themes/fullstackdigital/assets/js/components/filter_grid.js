@@ -1,3 +1,4 @@
+( function () {
 //console.log("Tabs loaded----------");
 let filterBtns = document.querySelectorAll('[data-filter]');
 let filterItems = document.querySelectorAll('[data-item-filter]');
@@ -43,3 +44,4 @@ let filterItems = document.querySelectorAll('[data-item-filter]');
     });
 
   }
+}());
