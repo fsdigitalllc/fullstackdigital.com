@@ -40,34 +40,59 @@
   /**animations**/
   .cls-1 {
     fill:#96e4ff;
+    opacity: 1;
+    transition: all .5s linear;
   }
   .cls-2 {
     fill:#1badff;
+    opacity: 1;
+    transition: all .5s linear;
   }
   .cls-3 {
     fill:#0069f2;
-  }
-  .cls-1 {
     opacity: 1;
-  }
-  .cls-2 {
-    opacity: 1;
-  }
-  .cls-3 {
-    opacity: 1;
+    transition: all .5s linear;
   }
   .active {
     .cls-1 {
-      fill:#efefef;
+      fill:#ddd;
+      // transition: all .5s linear;
+      animation: cs1 1s linear;
     }
     .cls-2 {
-      fill:#efefef;
+      fill:#ddd;
+      // transition: all .5s linear;
+      animation: cs2 1s linear;
     }
     .cls-3 {
-      fill:#efefef;
+      fill:#ddd;
+      animation: cs3 1s linear;
     }
   }
-  
+  @keyframes cs1 {
+    0% {
+      fill:#96e4ff;
+    }
+    100% {
+      fill:#ddd;
+    }
+  }
+  @-webkit-keyframes cs2 {
+    0% {
+      fill:#1badff;
+    }
+    100% {
+      fill:#ddd;
+    }
+  }
+  @-webkit-keyframes cs3 {
+    0% {
+      fill:#0069f2;
+    }
+    100% {
+      fill:#ddd;
+    }
+  }
   .nav-list > *, .nav-list li.active:hover a {
     transition: opacity .3s ease-in;
   }
