@@ -1,3 +1,4 @@
+(function() {
 // Browser support:
 
 // Chrome >= 24
@@ -137,3 +138,4 @@ links.forEach(function (link) {
       );
     });
 });
+}())

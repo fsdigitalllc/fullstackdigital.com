@@ -1,7 +1,7 @@
 @import "../vars";
-.pageAnimating .home .logo-link, .pageTransition .home .logo-link {
-  display: block;
-}
+// .pageAnimating .home .logo-link, .pageTransition .home .logo-link {
+//   display: block;
+// }
 .pageTransition main {
   opacity: 0;
   visibility: hidden;
@@ -12,13 +12,13 @@
   visibility: hidden;
   transition: opacity 0s linear, visibility 0s linear,
 }
-.loading.start .home .logo-link {
-  display: block;
-}
+// .loading.start .home .logo-link {
+//   display: block;
+// }
 .home {
-  .logo-link {
-    display: none;
-  }
+  // .logo-link {
+  //   display: none;
+  // }
   .template-related_content .grid-2 {
     grid-template-columns: .3fr .7fr;
     grid-gap: 120px;

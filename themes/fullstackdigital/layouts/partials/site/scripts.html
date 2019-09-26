@@ -1,16 +1,8 @@
 {{/* <!--load this JS asap--> */}}
 
-{{ $app := resources.Get "js/app.js" | minify }}
-
-{{ if .Site.IsServer }}
-  {{ $app = resources.Get "js/app.js" }}
-{{ end }}
-
-<script type="text/javascript" src="{{ $app.Permalink }}"></script>
-
 
 <!--non render blocking plugins-->
-{{ $util := resources.Get "js/util.js" | minify }}
+
 {{ $ajaxScriptLoader := resources.Get "js/plugins/ajaxScriptLoader.js" | minify }}
 
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
@@ -19,9 +11,16 @@
 {{ $plugins_js := slice $ls_unveil $lazy_js $ajaxScriptLoader | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
 <!--remove this after refactoring ajax-->
-<script type="text/javascript" src="{{ $util.Permalink }}"></script>
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
 {{/*  <script type="text/javascript" src="{{ $aos.Permalink }}"></script>  */}}
+
+{{ $app := resources.Get "js/app.js" | minify }}
+
+{{ if .Site.IsServer }}
+  {{ $app = resources.Get "js/app.js" }}
+{{ end }}
+
+<script type="text/javascript" src="{{ $app.Permalink }}"></script>
 
 {{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
 <!--async loaded resource-->
@@ -37,7 +36,6 @@
     });
   })
 </script>
-
 
 <!-- include any page specific scripts if they exist -->
 {{ with .Resources.Match "js/*" }}

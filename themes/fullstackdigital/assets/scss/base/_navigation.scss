@@ -6,9 +6,10 @@
   width: 100%;
   background: #ffffff;
   border-bottom: 1px solid #efefef;
-}
-.pageAnimating .logo-link {
-  display: block;
+
+  svg {
+    pointer-events: none;
+  }
 }
 @-webkit-keyframes loading-header {
   0% {
@@ -18,29 +19,22 @@
     opacity: 0;
   }
 }
-.loading .cls-1, .logo-link a.page-link:hover .cls-1 {
-  -webkit-animation: loading-header 0.5s ease-in-out infinite; /* Safari 4+ */
-  -moz-animation:    loading-header 0.5s ease-in-out infinite; /* Fx 5+ */
-  -o-animation:      loading-header 0.5s ease-in-out infinite; /* Opera 12+ */
-  animation:         loading-header 0.5s ease-in-out infinite; /* IE 10+, Fx 29+ */
-  animation-direction: alternate;
-  animation-delay: 0s;
-}
-.loading .cls-2, .logo-link a.page-link:hover .cls-2 {
-  -webkit-animation: loading-header 0.5s ease-in-out infinite; /* Safari 4+ */
-  -moz-animation:    loading-header 0.5s ease-in-out infinite; /* Fx 5+ */
-  -o-animation:      loading-header 0.5s ease-in-out infinite; /* Opera 12+ */
-  animation:         loading-header 0.5s ease-in-out infinite; /* IE 10+, Fx 29+ */
-  animation-direction: alternate;
-  animation-delay: 0.15s;
-}
-.loading .cls-3, .logo-link a.page-link:hover .cls-3 {
-  -webkit-animation: loading-header 0.5s ease-in-out infinite; /* Safari 4+ */
-  -moz-animation:    loading-header 0.5s ease-in-out infinite; /* Fx 5+ */
-  -o-animation:      loading-header 0.5s ease-in-out infinite; /* Opera 12+ */
-  animation:         loading-header 0.5s ease-in-out infinite; /* IE 10+, Fx 29+ */
-  animation-direction: alternate;
-  animation-delay: 0.30s;
+[contentloading="true"] {
+  .cls-1, a:hover .cls-1 {
+    animation:         loading-header 0.5s ease-in-out infinite; /* IE 10+, Fx 29+ */
+    animation-direction: alternate;
+    animation-delay: 0s;
+  }
+  .cls-2, a:hover .cls-2 {
+    animation:         loading-header 0.5s ease-in-out infinite; /* IE 10+, Fx 29+ */
+    animation-direction: alternate;
+    animation-delay: 0.15s;
+  }
+  .cls-3, a:hover .cls-3 {
+    animation:         loading-header 0.5s ease-in-out infinite; /* IE 10+, Fx 29+ */
+    animation-direction: alternate;
+    animation-delay: 0.30s;
+  }
 }
 .masthead {
   /**animations**/
@@ -61,6 +55,17 @@
   }
   .cls-3 {
     opacity: 1;
+  }
+  .active {
+    .cls-1 {
+      fill:#efefef;
+    }
+    .cls-2 {
+      fill:#efefef;
+    }
+    .cls-3 {
+      fill:#efefef;
+    }
   }
   
   .nav-list > *, .nav-list li.active:hover a {
