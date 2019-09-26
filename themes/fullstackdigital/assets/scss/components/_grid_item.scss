@@ -14,17 +14,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  svg line {
+    stroke: rgba(255, 255, 255, 0.6);
+  }
+  &:hover {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+
+    &svg line {
+      stroke: rgba(255, 255, 255, 0.3);
+    }
+  }
 }
-.reverseAnimation svg line {
-  stroke: rgba(255, 255, 255, 0.6);
-}
-.reverseAnimation:hover {
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-}
-.reverseAnimation:hover svg line {
-  stroke: rgba(255, 255, 255, 0.3);
-}
+
 
 .gridgrow {
   opacity: 0;
@@ -72,7 +75,7 @@
     margin: -4%;
   }
   .gridwrap {
-    //overflow: hidden;
+    overflow: hidden;
     box-shadow: 0px 0px 1px 1px #efefef;
   }
 
@@ -126,10 +129,10 @@
   }
   .gridgrow {
     height: 80vh;
-    //overflow: hidden;
+    overflow: hidden;
   }
   .gridwrap {
-    //overflow: hidden;
+    overflow: hidden;
   }
   .gridgrow:nth-child(1) {
     z-index: 10
@@ -332,10 +335,6 @@
   height: 55px;
 }
 
-[data-item-filter] {
-  //display: none;
-}
-
 .brand > svg {
   stroke: #95E3FF;
   fill: #95E3FF;
@@ -440,7 +439,7 @@
 .gridgrow-image-holder {
   margin-left: -4%;
   margin-right: -4%;
-  //overflow: hidden;
+  overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
@@ -450,7 +449,7 @@
   color: #fff;
   display: block;
   position: absolute;
-  //overflow: hidden;
+  overflow: hidden;
   z-index: 55;
   margin-bottom: 0;
   max-width: none;

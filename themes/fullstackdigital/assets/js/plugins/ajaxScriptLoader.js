@@ -10,6 +10,7 @@
 // 2. 
 // Pass the window context as global
 (function(global) {
+//console.log("AJAX script loader loaded----")
 
 
     // Var the initializes the object
@@ -34,7 +35,8 @@
         'text/jscript',
         'text/livescript',
         'text/x-ecmascript',
-        'text/x-javascript'
+        'text/x-javascript',
+        'stylesheet'
     ]
 
     function removeNode (node) {
@@ -62,16 +64,25 @@
             // }
 
             // Param1 is object
-            console.log(errorMessage, this.firstTags)
+            //console.log(errorMessage, this.firstTags)
         },
         getSrcType: function (node) {
             return node.tagName;
         },
-        injectSrc: function() {
-            // Check if valid selectors are in use
-            this.validate();
+        isLoading: function (loading) {
 
-
+            if (loading === false) {
+                setTimeout(function () {
+                    document.querySelector("html").setAttribute("contentLoading", false);
+                }, 800)
+                
+            } else {
+                document.querySelector("html").setAttribute("contentLoading", true);
+            }
+            //console.log(performance.now())
+            return this;
+        },
+        getSrcArray: function(firstArray, secondArray) {
             // Iterate 
             function mapForEachScript (firstNodes, secondNodes, fn) {
                 let nodeList = [];
@@ -94,26 +105,27 @@
                 return nodeList;
             }
 
-            let sameNodes = mapForEachScript (this.firstTags, this.secondTags, function (firstNode, secondNodes) {
-                let pushNode;
+            // let sameNodes = mapForEachScript (this.firstTags, this.secondTags, function (firstNode, secondNodes) {
+            //     let pushNode;
                 
-                secondNodes.forEach( (secondNode, index) => {
-                    if (secondNode.outerHTML === firstNode.outerHTML) {
-                        pushNode = secondNode;
-                    }
-                });
-                return pushNode;
-            });
+            //     secondNodes.forEach( (secondNode, index) => {
+            //         if (secondNode.outerHTML === firstNode.outerHTML) {
+            //             pushNode = secondNode;
+            //         }
+            //     });
+            //     return pushNode;
+            // });
 
-            let diffNodes = mapForEachScript (this.firstTags, this.secondTags, function (node, arr2) {
+            let diffNodes = mapForEachScript (firstArray, secondArray, function (node, arr2) {
                 let pushNode = true;
 
                 for (i = 0; i < arr2.length; i++) {
                     // compare one node in the first array to every node in the second array
                     // If there is a match, set pushNode to false
-                    
-                    if (arr2[i].outerHTML === node.outerHTML) {
-                        //console.log("EQUAL", arr2[i], node)
+                    // If the script is using the reload tag, include it in the list even though it's a duplicate
+                    //console.log("node", node.getAttribute("ajax-script-reload"))
+                    if ( (arr2[i].outerHTML === node.outerHTML) && !node.getAttribute("ajax-script-reload")) {
+                        //console.log("arr2[i]", arr2[i].getAttribute("ajax-script-reload"))
                         // Compare
                         pushNode = false;
                         node = undefined;
@@ -127,101 +139,115 @@
 
                 return node;
             });
+            return diffNodes;
+        },
+        injectSrc: function(array) {
+            // Check if valid selectors are in use
+            this.validate();
 
-
-
-            console.log("sameNodes", sameNodes)
-            console.log("diffNodes", diffNodes)
-
-            //console.log("diff list end", diffList)
-            let runNodes = diffNodes;
+            //console.log("injectSRC", array)
+            let runNodes = array;
+            
             if (runNodes.length > 0) {
                 runScripts();
+            } else {
+                scriptsDone();
             }
 
-                function insertScript (script, callback) {
-                    
-                    if (script.tagName === "SCRIPT") {
-                    let s = document.createElement('script')
-                    s.type = 'text/javascript'
-                    if (script.src) {
-                        s.onload = callback
-                        s.onerror = callback
-                        s.src = script.src
-                    } else {
-                        s.textContent = script.innerText
-                    }
-                    
+            function insertScript (script, callback) {
+                //console.log("insert script", script)
+
+                function removeScript(s) {
                     // re-insert the script tag so it executes.
                     document.querySelector("body").appendChild(s)
                     // clean-up
                     
                     s.parentNode.removeChild(s)
-                    // run the callback immediately for inline scripts
-                    if (!script.src) {
-                        callback()
-                    }
-                    }
                 }
+                if (script.tagName === "SCRIPT") {
+                let s = document.createElement('script')
+                s.type = 'text/javascript'
+                if (script.src) {
+                    s.onload = callback
+                    s.onerror = callback
+                    s.src = script.src
+                } else {
+                    s.textContent = script.innerText
+                }
+                
+                removeScript(s)
+                
+                // run the callback immediately for inline scripts
+                if (!script.src) {
+                    callback()
+                }
+                }
+            }
 
-                // trigger DOMContentLoaded and ajaxLoadEvent
-                // this will inform velocity.animate of the endVal timing for forward animation
-                function scriptsDone () {
+            // trigger DOMContentLoaded and ajaxLoadEvent
+            // this will inform velocity.animate of the endVal timing for forward animation
+            function scriptsDone () {
+                
+                setTimeout(function() {
                     let DOMContentLoadedEvent = document.createEvent('Event');
                     DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
                     document.dispatchEvent(DOMContentLoadedEvent);
-                }
-
-                // runs an array of async functions in sequential order
-                function seq (arr, callback, index) {
-                    // first call, without an index
-                    console.log("run list", arr)
-                    if (typeof index === 'undefined') {
-                    index = 0
-                    }
+                }, 0)
                 
-                    arr[index](function () {
-                    index++
-                    if (index === arr.length) {
+                //console.log("scripts done", document)
+            }
 
-                        // LOOP FINISHED
-                        // SCRIPTS DONE
-                        callback()
-                    } else {
-                        console.log("insert", arr[index])
-                        // LOOP NOT FINISHED
-                        seq(arr, callback, index)
-                    }
-                    })
+            // runs an array of async functions in sequential order
+            function seq (arr, callback, index) {
+                // first call, without an index
+                //console.log("run list", arr)
+                if (typeof index === 'undefined') {
+                index = 0
                 }
+            
+                arr[index](function () {
+                index++
+                if (index === arr.length) {
 
-                
-                function runScripts () {
-                    let runList = [];
-                    runNodes.forEach(node => {
-                        let typeAttr = node.getAttribute('type');
-                        // firstTags = firstPage scripts
-                        // secondTags = ajax page scripts
-                        // Compare the two arrays of scripts and find ones that exist on both pages
-                        //console.log(this.firstTags[5])
-                        // Get the scripts that exist on both pages
-    
-                        if (node.tagName === "SCRIPT") {
-    
-                            // if there's no type attr (it's inline script) or the type attr isn't supported
-                            if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
-                                
-                                runList.push(function (callback) {
-                                    insertScript(node, callback)
-                                })
-                            }
+                    // LOOP FINISHED
+                    // SCRIPTS DONE
+                    callback()
+                } else {
+                    //console.log("insert", arr[index])
+                    // LOOP NOT FINISHED
+                    seq(arr, callback, index)
+                }
+                })
+            }
+
+            
+            function runScripts () {
+                let runList = [];
+                runNodes.forEach(node => {
+                    let typeAttr = node.getAttribute('type');
+                    let linkAttr = node.getAttribute('rel')
+                    // firstTags = firstPage scripts
+                    // secondTags = ajax page scripts
+                    // Compare the two arrays of scripts and find ones that exist on both pages
+                    //console.log(this.firstTags[5])
+                    // Get the scripts that exist on both pages
+
+                    if (node.tagName === "SCRIPT" || node.tagName === "link") {
+
+                        // if there's no type attr (it's inline script) or the type attr is supported
+                        if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1 || runScriptTypes.indexOf(linkAttr) !== -1) {
+                            
+                            runList.push(function (callback) {
+                                insertScript(node, callback)
+                            })
                         }
-                    });
-    
-                    // insert the script tags sequentially
-                    // to preserve execution order
-                    seq(runList, scriptsDone);
-                }
+                    }
+                });
+
+                // insert the script tags sequentially
+                // to preserve execution order
+                seq(runList, scriptsDone);
+            }
 
         },
     }
@@ -234,10 +260,10 @@
         var self = this;
 
         // If param1 is set use that value, otherwise set it to an empty string
-        self.firstTags = Array.prototype.slice.call(firstTags);
-        self.secondTags = Array.prototype.slice.call(secondTags);
+        //self.firstTags = Array.prototype.slice.call(firstTags);
+        //self.secondTags = Array.prototype.slice.call(secondTags);
 
-        self.validate();
+        //self.validate();
     }
 
     // Give access to all prototype properties

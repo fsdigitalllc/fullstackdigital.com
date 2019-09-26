@@ -2,6 +2,7 @@
 {{ $fetchinject := resources.Get "js/plugins/fetch-inject.js" }}
 <script type="text/javascript" src="{{ $fetchinject.Permalink }}" media="screen"></script>
 
+
 <!-- {{ $main_css := resources.Get "scss/main.scss" | toCSS | postCSS | minify }} -->
 {{ $main_css := resources.Get "scss/main.scss" | toCSS | minify }}
 

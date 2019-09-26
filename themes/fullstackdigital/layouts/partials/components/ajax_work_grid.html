@@ -189,7 +189,7 @@
 {{ $Panimate := resources.Get "js/plugins/Panimate.js" | minify }}
 
 <script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
-<script type="text/javascript" src="{{ $Panimate.Permalink }}"></script>
+<!-- <script type="text/javascript" src="{{ $Panimate.Permalink }}"></script> -->
 <script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
 
 {{ if eq $tabs true }}
@@ -206,7 +206,7 @@
 
 {{ $util := resources.Get "js/util.js" | fingerprint }}
 
-<script type="text/javascript">
+<script type="text/javascript" ajax-script-reload="true">
   fetchInject([
     '{{ $animate_grid.Permalink }}'
   ], fetchInject([
