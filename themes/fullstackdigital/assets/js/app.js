@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (typeof bodyScrollLock !== 'undefined') {
         bodyScrollLock.enableBodyScroll(document.body);
     }
-    
 }, false)
 
 
@@ -22,7 +21,7 @@ let stateObj = {
 }
 
 let changeWindowContent = () => {
-    AOS.init();
+    //AOS.init();
     lazySizes.init();
     document.querySelectorAll("head title")[0].innerText = window.history.state.title;
     AjaxScriptLoader().isLoading(false);
@@ -95,8 +94,8 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
     
     
     // After the <main> page HTML has changed, get all of the current scripts
-    let thisPageSrc = document.querySelectorAll('script');
-    let ajaxPageScripts = ajaxHtml.querySelectorAll('script');
+    let thisPageSrc = document.querySelectorAll('script, style, link[rel="stylesheet"]');
+    let ajaxPageScripts = ajaxHtml.querySelectorAll('script, style, link[rel="stylesheet"]');
 
     let runScripts = AjaxScriptLoader().getSrcArray(thisPageSrc, ajaxPageScripts);
     //AjaxScriptLoader(thisPageSrc, ajaxPageScripts).injectSrc()
