@@ -35,13 +35,15 @@
 @import "components/expand_contact";
 @import "components/services_chart";
 @import "components/sub_nav";
+@import "components/perspective_items";
+
 
 
 /* Layouts bundled for now */
-@import "layouts/home";
-@import "layouts/labs";
-@import "layouts/services";
-@import "layouts/work";
+// @import "layouts/home";
+// @import "layouts/labs";
+// @import "layouts/services";
+// @import "layouts/work";
 
 /*animations*/
 @import "animations/aos";
