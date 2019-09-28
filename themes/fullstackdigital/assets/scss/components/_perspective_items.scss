@@ -1,0 +1,105 @@
+.perspecitive-col {
+    min-width: 320px
+}
+
+.perspective-items {
+    position: relative;
+    padding: 50px;
+    -webkit-perspective: 500px;
+    perspective: 500px
+}
+
+.perspective-item {
+    padding: 60px 0;
+    margin: -120px 0;
+    -webkit-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin: center center
+}
+
+.perspective-item:nth-child(1) {
+    background: #96e4ff;
+    -webkit-transform: rotateX(40deg);
+    transform: rotateX(40deg);
+    -webkit-animation: 1.2s flip1 0s 1 forwards;
+    animation: 1.2s flip1 0s 1 forwards
+}
+
+@-webkit-keyframes flip1 {
+    0% {
+        -webkit-transform: rotateX(40deg);
+        transform: rotateX(40deg)
+    }
+
+    100% {
+        -webkit-transform: rotateX(50deg);
+        transform: rotateX(50deg)
+    }
+}
+
+.perspective-item:nth-child(1):hover {
+    animation: 1s flip1 0s 1 reverse
+}
+
+.perspective-item:nth-child(2) {
+    background: #5ec5ff;
+    -webkit-transform: rotateX(55deg);
+    transform: rotateX(55deg);
+    -webkit-animation: 1.8s flip2 0s 1 forwards;
+    animation: 1.8s flip2 0s 1 forwards;
+    -webkit-transition: -webkit-transform .5s linear;
+    transition: -webkit-transform .5s linear;
+    -o-transition: transform .5s linear;
+    transition: transform .5s linear;
+    transition: transform .5s linear,-webkit-transform .5s linear
+}
+
+@-webkit-keyframes flip2 {
+    0% {
+        -webkit-transform: rotateX(55deg);
+        transform: rotateX(55deg)
+    }
+
+    100% {
+        -webkit-transform: rotateX(65deg);
+        transform: rotateX(65deg)
+    }
+}
+
+.perspective-item:nth-child(2):hover {
+    animation: 1s flip2 0s 1 reverse
+}
+
+.perspective-item:nth-child(3) {
+    background: #0069f1;
+    -webkit-transform: rotateX(70deg);
+    transform: rotateX(70deg);
+    -webkit-animation: 2.6s flip3 0s 1 forwards;
+    animation: 2.6s flip3 0s 1 forwards;
+    -webkit-transition: -webkit-transform .5s linear;
+    transition: -webkit-transform .5s linear;
+    -o-transition: transform .5s linear;
+    transition: transform .5s linear;
+    transition: transform .5s linear,-webkit-transform .5s linear
+}
+
+@-webkit-keyframes flip3 {
+    0% {
+        -webkit-transform: rotateX(70deg);
+        transform: rotateX(70deg)
+    }
+
+    100% {
+        -webkit-transform: rotateX(80deg);
+        transform: rotateX(80deg)
+    }
+}
+
+.perspective-item:nth-child(3):hover {
+    animation: 1s flip3 0s 1 reverse
+}
+
+.perspective-item svg {
+    display: block;
+    margin: auto
+}
