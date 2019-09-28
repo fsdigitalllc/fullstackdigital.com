@@ -101,20 +101,9 @@
                     
                 });
 
-                //console.log("final list", diffNodes)
+                //console.log("final list", nodeList)
                 return nodeList;
             }
-
-            // let sameNodes = mapForEachScript (this.firstTags, this.secondTags, function (firstNode, secondNodes) {
-            //     let pushNode;
-                
-            //     secondNodes.forEach( (secondNode, index) => {
-            //         if (secondNode.outerHTML === firstNode.outerHTML) {
-            //             pushNode = secondNode;
-            //         }
-            //     });
-            //     return pushNode;
-            // });
 
             let diffNodes = mapForEachScript (firstArray, secondArray, function (node, arr2) {
                 let pushNode = true;
@@ -162,26 +151,51 @@
                     document.querySelector("body").appendChild(s)
                     // clean-up
                     
-                    s.parentNode.removeChild(s)
+                    //s.parentNode.removeChild(s)
                 }
-                if (script.tagName === "SCRIPT") {
-                let s = document.createElement('script')
-                s.type = 'text/javascript'
-                if (script.src) {
+
+                let scriptTag = script.tagName;
+                let createTag = scriptTag.toLowerCase(scriptTag);
+
+                let s = document.createElement(createTag)
+
+                if (scriptTag === "SCRIPT") {
+                    s.type = 'text/javascript'
+                    if (script.src) {
+                        
+                        s.src = script.src
+                        if (script.integrity) {
+                            s.integrity = script.integrity;
+                        }
+
+                        s.onload = callback
+                        s.onerror = callback
+                        
+
+                    } else {
+                        // run the callback immediately for inline scripts
+                        s.textContent = script.innerText;
+                        callback();
+                    }
+
+                    // if (!script.src) {
+                    //     callback();
+                    // }
+                } else if (scriptTag === "LINK") {
+                    s.rel = 'stylesheet';
                     s.onload = callback
                     s.onerror = callback
-                    s.src = script.src
-                } else {
-                    s.textContent = script.innerText
+                    s.href = script.href;
+                    if (script.integrity) {
+                        s.integrity = script.integrity;
+                    }
+                } else if (scriptTag === "STYLE") {
+                    s.textContent = script.innerText;
+                    callback();
+
                 }
-                
                 removeScript(s)
-                
-                // run the callback immediately for inline scripts
-                if (!script.src) {
-                    callback()
-                }
-                }
+                console.log("ss", s)
             }
 
             // trigger DOMContentLoaded and ajaxLoadEvent
@@ -232,16 +246,16 @@
                     //console.log(this.firstTags[5])
                     // Get the scripts that exist on both pages
 
-                    if (node.tagName === "SCRIPT" || node.tagName === "link") {
+                    //if (node.tagName === "SCRIPT" || node.tagName === "link") {
 
                         // if there's no type attr (it's inline script) or the type attr is supported
-                        if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1 || runScriptTypes.indexOf(linkAttr) !== -1) {
+                        //if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1 || runScriptTypes.indexOf(linkAttr) !== -1) {
                             
                             runList.push(function (callback) {
                                 insertScript(node, callback)
                             })
-                        }
-                    }
+                        //}
+                    //}
                 });
 
                 // insert the script tags sequentially
