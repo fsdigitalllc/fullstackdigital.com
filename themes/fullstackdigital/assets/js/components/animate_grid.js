@@ -1,6 +1,6 @@
 ;(function (global){
   let g = document;
-
+  document.querySelector("body").setAttribute("startClass", document.querySelector("body").classList);
   
 
   global.addEventListener("DOMContentLoaded", function () {
@@ -348,6 +348,7 @@
         animateGridgrow(item, direction);
         
       } else {
+        document.querySelector("body").className = document.querySelector("body").getAttribute("startclass");
         startVal = eVal(item);
         endVal = sVal(item);
         startTranslateX = endTranslateX, endTranslateX = 0, startTranslateY = endTranslateY, endTranslateY = 0;
@@ -460,6 +461,7 @@
               </svg>`;
             ajaxContainer.appendChild(reverseBtn);
             reverseBtn.addEventListener('click', (e) => {
+              reverseBtn.style.display = "none";
               reverseBtn.parentNode.removeChild(reverseBtn)
               triggerReverse(item);
             });
@@ -520,12 +522,35 @@
           // Parse the text
           let ajaxHtml = parser.parseFromString(html, "text/html");
           let ajaxContent = ajaxHtml.querySelector('main').innerHTML;
+          let ajaxBodyClass = ajaxHtml.querySelector("body").classList;
+
+          // Change the current body class to match the next page
+          document.querySelector("body").className = ajaxBodyClass;
+          
           let pageData = {
             title: ajaxHtml.querySelector('title').innerText,
             html: ajaxContent
           }
+          //runScripts(ajaxContainer, theItem.link);
+
+          // After the <main> page HTML has changed, get all of the current scripts
+          let thisPageSrc = document.querySelectorAll('script, style, link[rel="stylesheet"]');
+          let ajaxPageScripts = ajaxHtml.querySelectorAll('script, style, link[rel="stylesheet"], .client_logo, .work-hero-image');
+          //console.log("pg", ajaxPageScripts)
+          
+          //AjaxScriptLoader(thisPageSrc, ajaxPageScripts).injectSrc()
+          // replace <main> content with the content loaded via ajax
+          AjaxScriptLoader().removeScripts(ajaxPageScripts, thisPageSrc);
+          let runScripts = AjaxScriptLoader().getSrcArray(thisPageSrc, ajaxPageScripts);
+
           updateContent (pageData)
-          runScripts(ajaxContainer, theItem.link);
+
+
+          // Array of DOM reliant callbacks to execute after all scripts and styles are loaded
+          let callBacks = [AOS.init, document.dispatchEvent(ajaxLoadEvent)]
+          //console.log("inject src", runScripts)
+          AjaxScriptLoader().injectSrc(runScripts, callBacks);
+
           redoAos(ajaxContainer);
     
           let title = ajaxHtml.querySelector('title').innerText;
@@ -548,124 +573,124 @@
       }
     }
     
-    function insertScript (script, callback) {
+    // function insertScript (script, callback) {
     
-      if (script.tagName === "SCRIPT") {
-        let s = document.createElement('script')
-        s.type = 'text/javascript'
-        if (script.src) {
-          s.onload = callback
-          s.onerror = callback
-          s.src = script.src
-        } else {
-          s.textContent = script.innerText
-        }
-        // re-insert the script tag so it executes.
-        widthSpacer.appendChild(s)
-        // clean-up
-        script.parentNode.removeChild(script)
-        // run the callback immediately for inline scripts
-        if (!script.src) {
-          callback()
-        }
-      } else if (script.tagName === "IMG") {
-            callback();
-      }
-    }
+    //   if (script.tagName === "SCRIPT") {
+    //     let s = document.createElement('script')
+    //     s.type = 'text/javascript'
+    //     if (script.src) {
+    //       s.onload = callback
+    //       s.onerror = callback
+    //       s.src = script.src
+    //     } else {
+    //       s.textContent = script.innerText
+    //     }
+    //     // re-insert the script tag so it executes.
+    //     widthSpacer.appendChild(s)
+    //     // clean-up
+    //     script.parentNode.removeChild(script)
+    //     // run the callback immediately for inline scripts
+    //     if (!script.src) {
+    //       callback()
+    //     }
+    //   } else if (script.tagName === "IMG") {
+    //         callback();
+    //   }
+    // }
       
     // trigger DOMContentLoaded and ajaxLoadEvent
     // this will inform velocity.animate of the endVal timing for forward animation
-    function scriptsDone () {
-      let DOMContentLoadedEvent = document.createEvent('Event');
-      DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
-      document.dispatchEvent(DOMContentLoadedEvent);
-      document.dispatchEvent(ajaxLoadEvent);
-    }
+    // function scriptsDone () {
+    //   let DOMContentLoadedEvent = document.createEvent('Event');
+    //   DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+    //   document.dispatchEvent(DOMContentLoadedEvent);
+    //   document.dispatchEvent(ajaxLoadEvent);
+    // }
       
       // runs an array of async functions in sequential order
-    function seq (arr, callback, index) {
-      // first call, without an index
-      console.log("arr", arr)
-      if (typeof index === 'undefined') {
-        index = 0
-      }
+    // function seq (arr, callback, index) {
+    //   // first call, without an index
+    //   console.log("arr", arr)
+    //   if (typeof index === 'undefined') {
+    //     index = 0
+    //   }
     
-      arr[index](function () {
-        index++
-        if (index === arr.length) {
-          callback()
-        } else {
-          seq(arr, callback, index)
-        }
-      })
-    }
+    //   arr[index](function () {
+    //     index++
+    //     if (index === arr.length) {
+    //       callback()
+    //     } else {
+    //       seq(arr, callback, index)
+    //     }
+    //   })
+    // }
     
-    // https://html.spec.whatwg.org/multipage/scripting.html
-    let runScriptTypes = [
-      'application/javascript',
-      'application/ecmascript',
-      'application/x-ecmascript',
-      'application/x-javascript',
-      'text/ecmascript',
-      'text/javascript',
-      'text/javascript1.0',
-      'text/javascript1.1',
-      'text/javascript1.2',
-      'text/javascript1.3',
-      'text/javascript1.4',
-      'text/javascript1.5',
-      'text/jscript',
-      'text/livescript',
-      'text/x-ecmascript',
-      'text/x-javascript'
-    ]
+    // // https://html.spec.whatwg.org/multipage/scripting.html
+    // let runScriptTypes = [
+    //   'application/javascript',
+    //   'application/ecmascript',
+    //   'application/x-ecmascript',
+    //   'application/x-javascript',
+    //   'text/ecmascript',
+    //   'text/javascript',
+    //   'text/javascript1.0',
+    //   'text/javascript1.1',
+    //   'text/javascript1.2',
+    //   'text/javascript1.3',
+    //   'text/javascript1.4',
+    //   'text/javascript1.5',
+    //   'text/jscript',
+    //   'text/livescript',
+    //   'text/x-ecmascript',
+    //   'text/x-javascript'
+    // ]
     
-    function runScripts (container, nextLink) {
+    // function runScripts (container, nextLink) {
       
-      // get scripts tags from a node
-      let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
-      let runList = [];
-      let typeAttr;
+    //   // get scripts tags from a node
+    //   let scripts = container.querySelectorAll('script, .work-hero-image, .client_logo');
+    //   let runList = [];
+    //   let typeAttr;
     
-        let allSections = ajaxContainer.querySelectorAll('section');
-        allSections.forEach(section => {
-          let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
+    //     let allSections = ajaxContainer.querySelectorAll('section');
+    //     allSections.forEach(section => {
+    //       let m = (window.getComputedStyle(section).getPropertyValue("background-image")).replace(/^url\(["']?/, '').replace(/["']?\)$/, ''); 
     
-          if (m === "none") {
-              m = "";
-          } else {
-              let newLink = window.location.origin + window.location.pathname;
-              m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
-              m = m.replace(newLink, '', /["']?\)$/, '')
-              m = nextLink + m;
-              section.style.backgroundImage = "url('" + m + "')";
-          }
-        });
+    //       if (m === "none") {
+    //           m = "";
+    //       } else {
+    //           let newLink = window.location.origin + window.location.pathname;
+    //           m = getComputedStyle(document.querySelector("#section-1")).getPropertyValue("background-image").replace(/^url\(["']?/, '').replace('url(','').replace(')','').replace('\"','');
+    //           m = m.replace(newLink, '', /["']?\)$/, '')
+    //           m = nextLink + m;
+    //           section.style.backgroundImage = "url('" + m + "')";
+    //       }
+    //     });
     
-        [].forEach.call(scripts, function (script) {
-        // Get scripts and critical images, then trigger domcontentloaded event to fade in the ajaxcontainer
-        typeAttr = script.getAttribute('type');
-        // only run script tags without the type attribute
-        // or with a javascript mime attribute value
-        if (script.tagName === "SCRIPT") {
-          if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
-            runList.push(function (callback) {
-              insertScript(script, callback)
-            })
-          }
-        }
-        if (script.tagName === "IMG") {
-          runList.push(function (callback) {
-            insertScript(script, callback);
-          })
-        }
+    //     [].forEach.call(scripts, function (script) {
+    //     // Get scripts and critical images, then trigger domcontentloaded event to fade in the ajaxcontainer
+    //     typeAttr = script.getAttribute('type');
+    //     // only run script tags without the type attribute
+    //     // or with a javascript mime attribute value
+    //     if (script.tagName === "SCRIPT") {
+    //       if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1) {
+    //         runList.push(function (callback) {
+    //           insertScript(script, callback)
+    //         })
+    //       }
+    //     }
+    //     if (script.tagName === "IMG") {
+    //       runList.push(function (callback) {
+    //         insertScript(script, callback);
+    //       })
+    //     }
         
-      })
-      // insert the script tags sequentially
-      // to preserve execution order
-      seq(runList, scriptsDone);
+    //   })
+    //   // insert the script tags sequentially
+    //   // to preserve execution order
+    //   seq(runList, scriptsDone);
       
-    }
+    // }
     
     function redoAos(container) {
     // Find the item we want to animate on scroll

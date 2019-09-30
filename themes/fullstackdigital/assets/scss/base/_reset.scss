@@ -83,6 +83,7 @@ svg:not(:root) {
 
 section {
   margin-bottom: -1px;
+  background-color: #ffffff;
 }
 
 img {
@@ -95,6 +96,14 @@ img {
   display: block;
 
   &.fullwidth-img {
+    width: 100%;
+  }
+}
+
+video {
+  max-width: 100%;
+
+  &.fullwidth-video {
     width: 100%;
   }
 }

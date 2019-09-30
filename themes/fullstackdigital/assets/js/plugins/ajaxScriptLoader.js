@@ -82,7 +82,16 @@
             //console.log(performance.now())
             return this;
         },
-        getSrcArray: function(firstArray, secondArray) {
+        getSrcArray: function(pageScripts, ajaxScripts) {
+            let arr1 = pageScripts;
+            let arr2 = ajaxScripts;
+            // console.log("ajaxScripts", arr1)
+            // // get a list of pageScripts that do not exist on the ajax loaded page
+            // if (reverse === true) {
+            //     arr1 = ajaxScripts;
+                
+            //     arr2 = pageScripts;
+            // }
             // Iterate 
             function mapForEachScript (firstNodes, secondNodes, fn) {
                 let nodeList = [];
@@ -105,15 +114,18 @@
                 return nodeList;
             }
 
-            let diffNodes = mapForEachScript (firstArray, secondArray, function (node, arr2) {
+            let diffNodes = mapForEachScript (arr1, arr2, function (node, arr2) {
                 let pushNode = true;
 
                 for (i = 0; i < arr2.length; i++) {
                     // compare one node in the first array to every node in the second array
                     // If there is a match, set pushNode to false
                     // If the script is using the reload tag, include it in the list even though it's a duplicate
+                    // If the script is an image, include it in the list even though it's a duplicate
+
                     //console.log("node", node.getAttribute("ajax-script-reload"))
-                    if ( (arr2[i].outerHTML === node.outerHTML) && !node.getAttribute("ajax-script-reload")) {
+                    
+                    if ( (arr2[i].outerHTML === node.outerHTML) && !node.getAttribute("ajax-script-reload") ) {
                         //console.log("arr2[i]", arr2[i].getAttribute("ajax-script-reload"))
                         // Compare
                         pushNode = false;
@@ -128,9 +140,20 @@
 
                 return node;
             });
+            console.log("difff", diffNodes)
             return diffNodes;
         },
-        injectSrc: function(array) {
+        removeScripts: function(firstArray, secondArray) {
+            let arr = this.getSrcArray(firstArray, secondArray, true)
+            arr.forEach(s => {
+                // Do not remove images from the dom
+                if (!s.tagName === "IMG") {
+                    s.parentNode.removeChild(s)
+                }
+            });
+            return arr;
+        },
+        injectSrc: function(array, callBacks) {
             // Check if valid selectors are in use
             this.validate();
 
@@ -138,15 +161,16 @@
             let runNodes = array;
             
             if (runNodes.length > 0) {
+                console.log("RUN SCRIPTS")
                 runScripts();
             } else {
                 scriptsDone();
             }
-
+            
+            // List of filtered scripts, styles that are different from starting page
             function insertScript (script, callback) {
-                //console.log("insert script", script)
 
-                function removeScript(s) {
+                function appendScripts(s) {
                     // re-insert the script tag so it executes.
                     document.querySelector("body").appendChild(s)
                     // clean-up
@@ -156,10 +180,10 @@
 
                 let scriptTag = script.tagName;
                 let createTag = scriptTag.toLowerCase(scriptTag);
-
-                let s = document.createElement(createTag)
-
+                let s;
+                console.log("loading...", script)
                 if (scriptTag === "SCRIPT") {
+                    s = document.createElement(createTag);
                     s.type = 'text/javascript'
                     if (script.src) {
                         
@@ -182,6 +206,7 @@
                     //     callback();
                     // }
                 } else if (scriptTag === "LINK") {
+                    s = document.createElement(createTag);
                     s.rel = 'stylesheet';
                     s.onload = callback
                     s.onerror = callback
@@ -190,23 +215,35 @@
                         s.integrity = script.integrity;
                     }
                 } else if (scriptTag === "STYLE") {
+                    s = document.createElement(createTag);
                     s.textContent = script.innerText;
                     callback();
 
+                } else if (scriptTag === "IMG") {
+                    if (script.complete) {
+                        callback();
+                    }
+                    //callback();
+                    console.log("IMG LOADED", script);
                 }
-                removeScript(s)
-                console.log("ss", s)
+                if (s !== undefined) {
+                    appendScripts(s)
+
+                }
             }
 
             // trigger DOMContentLoaded and ajaxLoadEvent
             // this will inform velocity.animate of the endVal timing for forward animation
             function scriptsDone () {
                 
-                setTimeout(function() {
-                    let DOMContentLoadedEvent = document.createEvent('Event');
-                    DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
-                    document.dispatchEvent(DOMContentLoadedEvent);
-                }, 0)
+                let DOMContentLoadedEvent = document.createEvent('Event');
+                DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+                document.dispatchEvent(DOMContentLoadedEvent);
+
+                // based on an array of callback functions specified by the user
+                callBacks.forEach(cb => {
+                    cb;
+                })
                 
                 //console.log("scripts done", document)
             }
@@ -214,46 +251,42 @@
             // runs an array of async functions in sequential order
             function seq (arr, callback, index) {
                 // first call, without an index
-                //console.log("run list", arr)
                 if (typeof index === 'undefined') {
                 index = 0
                 }
-            
+                //console.log("arr", arr[index])
                 arr[index](function () {
-                index++
-                if (index === arr.length) {
+                    index++;
+                    console.log("function...")
+                    if (index === arr.length) {
 
-                    // LOOP FINISHED
-                    // SCRIPTS DONE
-                    callback()
-                } else {
-                    //console.log("insert", arr[index])
-                    // LOOP NOT FINISHED
-                    seq(arr, callback, index)
-                }
+                        // LOOP FINISHED
+                        // SCRIPTS DONE
+                        callback()
+                        console.log(index, arr.length)
+                    } else {
+                        //console.log("insert", arr[index])
+                        // LOOP NOT FINISHED
+                        seq(arr, callback, index)
+                        console.log("not finished", index, arr.length)
+
+                    }
                 })
             }
 
             
             function runScripts () {
+                
                 let runList = [];
                 runNodes.forEach(node => {
-                    let typeAttr = node.getAttribute('type');
-                    let linkAttr = node.getAttribute('rel')
-                    // firstTags = firstPage scripts
-                    // secondTags = ajax page scripts
-                    // Compare the two arrays of scripts and find ones that exist on both pages
-                    //console.log(this.firstTags[5])
-                    // Get the scripts that exist on both pages
 
                     //if (node.tagName === "SCRIPT" || node.tagName === "link") {
 
                         // if there's no type attr (it's inline script) or the type attr is supported
                         //if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1 || runScriptTypes.indexOf(linkAttr) !== -1) {
-                            
                             runList.push(function (callback) {
                                 insertScript(node, callback)
-                            })
+                            });
                         //}
                     //}
                 });
@@ -262,7 +295,6 @@
                 // to preserve execution order
                 seq(runList, scriptsDone);
             }
-
         },
     }
 

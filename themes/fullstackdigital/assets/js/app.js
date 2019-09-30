@@ -1,5 +1,6 @@
 (function() {
 
+//let scriptsOnLoad = [aos.init]
 // Start loading indicator on page load
 AjaxScriptLoader().isLoading(true);
 // History pushstate for all pages
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (typeof bodyScrollLock !== 'undefined') {
         bodyScrollLock.enableBodyScroll(document.body);
     }
+    AOS.init();
 }, false)
 
 
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Add default values for the first page load
 let stateObj = {
     title: document.querySelector("title") || "Title",
-    url: document.location.href
+    url: document.location.href,
 }
 
 let changeWindowContent = () => {
@@ -96,15 +98,16 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
     // After the <main> page HTML has changed, get all of the current scripts
     let thisPageSrc = document.querySelectorAll('script, style, link[rel="stylesheet"]');
     let ajaxPageScripts = ajaxHtml.querySelectorAll('script, style, link[rel="stylesheet"]');
-
     let runScripts = AjaxScriptLoader().getSrcArray(thisPageSrc, ajaxPageScripts);
     //AjaxScriptLoader(thisPageSrc, ajaxPageScripts).injectSrc()
     // replace <main> content with the content loaded via ajax
-    
+    AjaxScriptLoader().removeScripts(ajaxPageScripts, thisPageSrc);
     document.querySelectorAll('main')[0].innerHTML = ajaxMain.innerHTML;
 
-    AjaxScriptLoader().injectSrc(runScripts);
-    //console.log("scripts", ajaxPageScripts)
+    // Array of DOM reliant callbacks to execute after all scripts and styles are loaded
+    let callBacks = [AOS.init]
+    AjaxScriptLoader().injectSrc(runScripts, callBacks);
+
     // After main loads, Reinject any newly loaded scripts from the <head> and <body> from the next page.
 
     // Run callback after async actions are finished

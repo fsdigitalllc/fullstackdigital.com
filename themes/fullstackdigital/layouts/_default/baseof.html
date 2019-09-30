@@ -12,7 +12,12 @@
 
 
     </head>
-    <body class='{{ partial "site/body_classes.html" . }}'>
+    {{ $layout_name := false }}
+    {{ with partial "helpers/template_name.html" . }}
+        {{ $layout_name = . }}
+    {{ end }}
+
+    <body class='{{ partial "site/body_classes.html" (dict "page" . "layout_name" $layout_name ) }}'>
      
         {{ block "header" . }}{{ partial "site/header.html" . }}{{ end }}
 

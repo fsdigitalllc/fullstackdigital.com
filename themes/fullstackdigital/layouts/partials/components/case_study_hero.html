@@ -25,7 +25,9 @@
         {{ $logo_check := print "assets" $logo }}
         {{ if (fileExists $logo_check )}}
           {{ $src = resources.Get $logo }}
-          <img class="client_logo" src="{{ $src.Permalink }}">
+          <!-- <img class="client_logo" src="{{ $src.Permalink }}" ajax-script-reload="true"> -->
+
+          <img class="client_logo" src="{{ $src.Permalink }}" ajax-script-reload="true">
         {{ else }}
           <p>no logo found</p>
         {{ end }}
@@ -71,6 +73,8 @@
 
   <div class="container-m padding-m">
       {{ $src = .Resources.GetMatch $context.image }}
-      <img class="work-hero-image" src="{{ $src.Permalink }}"> 
+      <!-- <img class="work-hero-image" src="{{ $src.Permalink }}" ajax-script-reload="true">  -->
+
+      <img class="work-hero-image" src="{{ $src.Permalink }}" ajax-script-reload="true"> 
   </div>
 </section>

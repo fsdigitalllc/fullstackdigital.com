@@ -36,6 +36,25 @@
     animation-delay: 0.30s;
   }
 }
+
+.home .masthead {
+  .active {
+    .cls-1 {
+      fill:#ddd;
+      // transition: all .5s linear;
+      animation: cs1 1s linear;
+    }
+    .cls-2 {
+      fill:#ddd;
+      // transition: all .5s linear;
+      animation: cs2 1s linear;
+    }
+    .cls-3 {
+      fill:#ddd;
+      animation: cs3 1s linear;
+    }
+  }
+}
 .masthead {
   /**animations**/
   .cls-1 {
@@ -53,22 +72,7 @@
     opacity: 1;
     transition: all .5s linear;
   }
-  .active {
-    .cls-1 {
-      fill:#ddd;
-      // transition: all .5s linear;
-      animation: cs1 1s linear;
-    }
-    .cls-2 {
-      fill:#ddd;
-      // transition: all .5s linear;
-      animation: cs2 1s linear;
-    }
-    .cls-3 {
-      fill:#ddd;
-      animation: cs3 1s linear;
-    }
-  }
+  
   @keyframes cs1 {
     0% {
       fill:#96e4ff;

@@ -20,6 +20,7 @@
   {{ $app = resources.Get "js/app.js" }}
 {{ end }}
 
+<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
 <script type="text/javascript" src="{{ $app.Permalink }}"></script>
 
 {{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
@@ -27,13 +28,9 @@
 <script type="text/javascript">
   fetchInject([
     '{{ $smoothscroll.Permalink }}',
-    '{{ $aos.Permalink }}',
     '{{ $plugins_js.Permalink }}'
   ]).then( () => {
     lazySizes.init();
-    AOS.init({
-      offset: 200
-    });
   })
 </script>
 
