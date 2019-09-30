@@ -1,23 +1,12 @@
 (function() {
-  if (document.querySelector(".work-ajax") ) {
-    let workAjax = document.querySelector(".work-ajax")
-    workAjax.addEventListener("scroll", function(e){
-      container = workAjax;
-      animateCards(container);
-    });
-  } else {
-    window.addEventListener("scroll", function(e){
-      container = window;
-      animateCards(container);
-    });
-    window.addEventListener("resize", function(e){
-      container = window;
-      animateCards(container);
-    });
-  }
   
-  function animateCards(container) {
-      let cY;
+  let animateCards = () => {
+      let cY, container = window;
+
+      if (document.querySelector(".work-ajax") ) {
+        let workAjax = document.querySelector(".work-ajax");
+        container = workAjax;
+      }
   
       if (container === window) {
         cY = container.scrollY
@@ -62,4 +51,29 @@
       }
     }
   }
-})
+
+  if (typeof workAjax !== 'undefined') {
+    workAjax.removeEventListener("scroll", animateCards, false);
+    window.removeEventListener("scroll", animateCards, false);
+    window.removeEventListener("resize", animateCards, false);
+  }
+  
+  if (document.querySelector(".work-ajax")) {
+    // Case study was loaded via ajax, so the scrollable div is the container
+    let workAjax = document.querySelector(".work-ajax");
+
+    if ( workAjax.getAttribute("loaded") !== "false" ) {
+      workAjax.addEventListener("scroll", animateCards, false);
+    }
+
+  } else {
+    // Case study was loaded via normal method
+    if (document.querySelector(".cards")) {
+      window.addEventListener("scroll", animateCards, false);
+    }
+    
+  }
+  
+  window.addEventListener("resize", animateCards, false);
+
+}())
