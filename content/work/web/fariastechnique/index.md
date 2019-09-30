@@ -92,7 +92,7 @@ stacks:
       duration: '400'
       elements:
       - template: element-image
-        class: center-image
+        class: margin-auto
         image: "images/old-web.png"
 - template: section-row-blocks
   id: strategy
@@ -137,53 +137,8 @@ stacks:
         image: "images/farias-info-architecture.png"
 - template: section-row-blocks
   id: experience
-  class: padding-l items-center
+  class: padding-l items-center experience
   background_color: "#ffffff"
-  css:
-  - rule: |
-      .pb-html-block {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        height: 100%;
-      }
-  - rule: |
-      .farias-icons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-  - rule: |
-      .fa-youtube {
-        width: 59px;
-        height: 41px;
-      }
-  - rule: |
-      .fa-bell {
-        width: 50px;
-        height: 61px;
-      }
-  - rule: |
-      .bell {
-        position: relative;
-        margin-right: 20px;
-      }
-  - rule: |
-      .bell:after {
-        content: '';
-        position: absolute;
-        top: .4875rem;
-        right: .1825rem;
-        display: block;
-        width: .4375rem;
-        height: .4375rem;
-        border-radius: 50%;
-        background: #d63e2b;
-        width: .65rem;
-        height: .65rem;
-      }
-    tablet:
-      - rule: ".pb-html-block {display: none;}"
   rows:
   - template: include-row
     class: justify-center items-center wrap
@@ -244,7 +199,7 @@ stacks:
         image: "images/farias-dashboard-wireframe.png"
 - template: section-row-blocks
   id: experience
-  class: padding-l items-center
+  class: padding-l items-center farias-plan
   background_color: "#EFEFEF"
   background_image:
   rows:
@@ -282,9 +237,6 @@ stacks:
   - template: include-row
     class: justify-center v_children_space-between break-tablet
     size: fullwidth
-    css:
-    - rule: ".img-first {margin-left: -20%}"
-    - rule: ".img-last {margin-left: 20%}"
     cols:
     - template: block-column-builder
       size: '6'
@@ -335,8 +287,6 @@ stacks:
   - template: include-row
     class: justify-center items-center wrap
     size: fullwidth
-    css:
-    - rule: ".pullUp {margin-top: -10%;}"
     cols:
     - template: block-column-builder
       size: '3'
@@ -395,12 +345,6 @@ stacks:
   - template: include-row
     class: justify-between items-start wrap padding-m-bottom cards
     size: container
-    css:
-    - rule: ".card-block-text {padding: 10% 16%;}"
-    - rule: ".cards .col-6 .pb-html-block:last-child {margin-bottom: 0px;}"
-    - rule: "img {width: auto;margin-left: auto;margin-right: auto;padding-top: 55px;}"
-    - rule: ".col-6 {flex-basis: calc(50% - 20px);}"
-    - rule: ".col-6 .elements-wrapper .pb-html-block {background-color: #0f0f0f;margin-bottom: 40px;}"
     cols:
     - template: block-column-builder
       size: '6'
