@@ -51,16 +51,7 @@ stacks:
         title: "Providing the backbone for 2/3 of the Top100® fastest supercomputers in the world has been standard for DDN Storage for years. Many organizations and prospects in the high performance data storage industry recognize DDN Storage as the leader, but it was not clear why. We worked with the DDN team to create an integrated marketing campaign designed to connect with prospects online and in person, with a focus on positioning DDN Storage as the leader in 4 distinct categories."
 - template: section-row-blocks
   id: discovery
-  class:
-  css: 
-  - rule: "{background-image: url(images/q-mark.png); background-repeat: no-repeat;background-position-x: right; background-color: #ffffff;background-size: contain;}"
-  - rule: ".invisible {opacity: 0;}"
-    tablet:
-    - rule: ".invisible {opacity: 1;}"
-    - rule: "{background: #ffffff;}"
-    - rule: ".column:last-child{order:1;}"
-    - rule: ".column:last-child img{max-width:50%;margin:0 auto;}"
-    - rule: ".column:first-child{order:2;padding-top:0px;}"
+  class: "discovery"
   rows:
   - template: include-row
     class: justify-start items-center
@@ -94,10 +85,7 @@ stacks:
         image: "images/q-mark.png"
 - template: section-row-blocks
   id: content
-  class: padding-xl
-  css:
-  - rule: "{background-color: #efefef}"
-  - rule: "h3{font-size: 36px}"
+  class: padding-xl grey-section
   rows:
   - template: include-row
     class: justify-start items-center padding-s-bottom
@@ -165,46 +153,7 @@ stacks:
           </p></div>
 - template: section-row-blocks
   id: design
-  class: padding-xl
-  css:
-  - rule: "{background-color: #000000}"
-  - rule: |  
-      .red-block {
-      width: 255px;
-      max-width: 100%;
-      max-height: 100%;
-      height: 253px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      background-color: #ad0000;}
-  - rule: |
-      .red-block span {
-      width: 122px;
-      height: 123px;
-      max-width: 45%;
-      max-height: 45%;
-      background-color: #910000;
-      display: block;}
-  - rule: |
-      .gold-block {
-      width: 255px;
-      height: 253px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      background: linear-gradient(196deg,#F3CE6D 0%,#BF822F 100%);}
-  - rule: |
-      .gold-block span {
-      width: 122px;
-      height: 123px;
-      max-width: 45%;
-      max-height: 45%;
-      display: block;
-      background: -webkit-gradient(linear,left bottom,left top,left,color-stop(17%,#9a5624),color-stop(30%,#edcb74),color-stop(36%,#d8a135),color-stop(42%,#fcf5db),color-stop(72%,#d2a452),color-stop(76%,#4f2e14),color-stop(85%,#f6e789),right);
-      background: -webkit-linear-gradient(bottom,#deb35a 0%,#9a5624 17%,#edcb74 30%,#d8a135 36%,#fcf5db 42%,#d2a452 72%,#4f2e14 76%,#f6e789 85%,#f6f3c6 100%);
-      background: -o-linear-gradient(bottom,#deb35a 0%,#9a5624 17%,#edcb74 30%,#d8a135 36%,#fcf5db 42%,#d2a452 72%,#4f2e14 76%,#f6e789 85%,#f6f3c6 100%);
-      background: linear-gradient(0deg,#deb35a 0%,#9a5624 17%,#edcb74 30%,#d8a135 36%,#fcf5db 42%,#d2a452 72%,#4f2e14 76%,#f6e789 85%,#f6f3c6 100%);}
+  class: padding-xl red-blocks
   rows:
   - template: include-row
     class: justify-start items-center padding-s-bottom wrap
@@ -302,7 +251,7 @@ stacks:
   class: padding-xl-bottom padding-xl-top items-center
   background_color: "#ffffff"
   scripts:
-  - src: "js/work/cards.js"
+  - src: "js/components/cards.js"
   rows:
   - template: include-row
     class: justify-center items-center wrap padding-m-bottom
@@ -329,12 +278,6 @@ stacks:
   - template: include-row
     class: justify-between items-start wrap padding-m-bottom cards
     size: container
-    css:
-    - rule: ".card-block-text {padding: 10% 10%;}"
-    - rule: ".cards .col-6 .pb-html-block:last-child {margin-bottom: 0px;}"
-    - rule: "img {width: 100%;margin-left: auto;margin-right: auto;}"
-    - rule: ".col-6 {flex-basis: calc(50% - 20px);}"
-    - rule: ".col-6 .elements-wrapper .pb-html-block {background-color: #f7f7f7;margin-bottom: 40px;}"
     cols:
     - template: block-column-builder
       size: '6'
@@ -382,10 +325,7 @@ stacks:
           <div class="card-block-text"><h6 class="text-center color-oil">Branded Shirts</h6><div class="text-center color-oil"><p>While standard for company employees to wear logo’d shirts, we also took this opportunity to reinforce the message and offer booth traffic another way to look for facts, which also led to more sales discussions.</p></div></div>
 - template: section-row-blocks
   id: strategy
-  class: padding-xl
-  css:
-  - rule: "{background-color: #efefef}"
-  - rule: "h3{font-size: 36px}"
+  class: padding-xl strategy
   rows:
   - template: include-row
     class: justify-center items-center padding-m-bottom
@@ -438,12 +378,7 @@ stacks:
         image: "images/during-conf.png"
 - template: section-row-blocks
   id: results
-  class: padding-xl-bottom padding-xl-top items-center
-  background_color: "#AB0000"
-  css:
-  - rule: ".quote-bio p {font-style: italic; font-weight: 600}"
-  - rule: ".numbers h2 {margin-bottom: 0px;line-height:1;}"
-  - rule: ".numbers p {margin-bottom: 20px;}"
+  class: padding-xl-bottom padding-xl-top items-center quote-block
   rows:
   - template: include-row
     class: justify-between items-center
