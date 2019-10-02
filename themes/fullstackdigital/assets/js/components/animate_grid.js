@@ -462,11 +462,32 @@
             ajaxContainer.appendChild(reverseBtn);
             reverseBtn.addEventListener('click', (e) => {
               reverseBtn.style.display = "none";
-              reverseBtn.parentNode.removeChild(reverseBtn)
+              //reverseBtn.parentNode.removeChild(reverseBtn)
               triggerReverse(item);
             });
             ajaxContainer.style.overflowY = "scroll"
             Util.loadingAnimation("stop");
+
+
+            let changeBtnFill = () => {
+              
+              let sections = ajaxContainer.querySelectorAll("section");
+              sections.forEach(section => {
+                var bounding = section.getBoundingClientRect().top;
+                //console.log(section, bounding)
+                let skin = section.getAttribute("skin");
+                let reverseBtnLine = reverseBtn.querySelector("line");
+                let checkTop = reverseBtn.offsetHeight + reverseBtn.offsetTop;
+                if (bounding <= checkTop) {
+                  reverseBtn.setAttribute("skin", skin)
+                }
+              })
+            }
+
+            // Change fill color based on section skin
+            ajaxContainer.addEventListener('scroll', changeBtnFill, false);
+            
+
           }, extraDelay);
         });
         
