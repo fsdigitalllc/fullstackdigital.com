@@ -4,8 +4,6 @@
   position: fixed;
   top: 10%;
   right: 50px;
-  color: rgba(255, 255, 255, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   z-index: 999999;
   background: transparent;
@@ -14,17 +12,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.6;
+  cursor: pointer;
 
-  svg line {
-    stroke: rgba(255, 255, 255, 0.6);
-  }
-  &:hover {
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-
-    &svg line {
-      stroke: rgba(255, 255, 255, 0.3);
+  &[skin="dark"] {
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
+    svg line {
+      stroke: rgb(255, 255, 255);
     }
+  }
+
+  &[skin="light"] {
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+    svg line {
+      stroke: rgb(0, 0, 0);
+    }
+  }
+  
+  &:hover {
+    opacity: 0.3;
+    border: 2px solid rgb(255, 255, 255);
   }
 }
 
