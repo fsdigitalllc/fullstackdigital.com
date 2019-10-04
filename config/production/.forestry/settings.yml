@@ -9,7 +9,7 @@ sections:
   label: Pages
   create: all
   match: "**/*.md"
-  exclude: uploads
+  exclude: "/uploads"
 - type: directory
   path: content/work
   label: Case Studies
