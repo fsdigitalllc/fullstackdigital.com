@@ -22,13 +22,21 @@
 <!--if there is a scss layout file-->
 <!--layouts are equal to the section name-->
 
-{{ $layout_name := string .Section }}
+{{ $path := path.Dir .Path }}
 
-{{ if .IsHome }}
-    {{ $layout_name = "home" }}
+{{ if .Section }}
+    {{ $path = .Section }}
 {{ end }}
 
-{{ $layout_name = print "scss/layouts/" $layout_name ".scss" }}
+{{ $match_name := $path | replaceRE "\\/" "-" }}
+
+{{ print "<!--" $path "-->" | safeHTML }}
+
+{{ if .IsHome }}
+    {{ $match_name = "home" }}
+{{ end }}
+
+{{ $layout_name := print "scss/layouts/" $match_name ".scss" }}
 {{ $layout_name = string $layout_name }}
 
 {{ with resources.Get $layout_name }}
@@ -40,19 +48,19 @@
 
 {{ end }}
 
-{{ $template_css := path.Dir .Path | replaceRE "\\/" "-" }}
-{{ print "<!--" $template_css "-->" | safeHTML }}
+{{ $match_name = path.Dir .Path | replaceRE "\\/" "-" }}
+{{ print "<!--" $match_name "-->" | safeHTML }}
 
-{{ $template_css = print "scss/pages/" $template_css ".scss" }}
+{{ $page_critical := print "scss/pages/" $match_name ".scss" }}
 
-{{ with resources.Get $template_css }}
-    <!-- {{ $template_css = resources.Get . | toCSS | postCSS | minify }} -->
-    {{ $template_css = resources.Get . | toCSS | minify }}
+{{ with resources.Get $page_critical }}
+    <!-- {{ $page_critical = resources.Get . | toCSS | postCSS | minify }} -->
+    {{ $page_critical = resources.Get . | toCSS | minify }}
 
-    {{ $template_css_buster := $template_css | resources.Fingerprint "md5" }}
+    {{ $page_critical_buster := $page_critical | resources.Fingerprint "md5" }}
 
-    {{/*  <link rel='stylesheet' panimate-critical href='{{ $template_css_buster.Permalink }}' integrity="{{ $template_css_buster.Data.Integrity }}"/>  */}}
+    {{/*  <link rel='stylesheet' panimate-critical href='{{ $page_critical.Permalink }}' integrity="{{ $template_css_buster.Data.Integrity }}"/>  */}}
     <style panimate-critical>
-        {{ $template_css.Content | safeCSS }}
+        {{ $page_critical.Content | safeCSS }}
     </style>
 {{ end }}
