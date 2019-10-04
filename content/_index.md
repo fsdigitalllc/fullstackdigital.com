@@ -34,7 +34,6 @@ sections:
     path: ''
     path_array:
     - content/work/web/fariastechnique/index.md
-    - content/work/brand/quantum/index.md
     - content/work/market/ddn/index.md
     - content/work/web/usdrs/index.md
 - template: service_offering
