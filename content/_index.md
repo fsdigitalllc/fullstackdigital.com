@@ -27,19 +27,15 @@ sections:
   - name: vastdata
   - name: quantum
   - name: code
+- template: related-work
+  columns: '1'
   tabs: false
-  columns: ''
   match:
     path: ''
     path_array: []
 - template: service_offering
   id: services
   classes: padding-l
-  tabs: false
-  columns: ''
-  match:
-    path: ''
-    path_array: []
 - template: related_content
   classes: padding-l
   column_1:
@@ -52,22 +48,4 @@ sections:
       class: grid-image-bottom
   column_2:
     subtitle: News &amp; Stories.
-  tabs: false
-  columns: ''
-  match:
-    path: ''
-    path_array: []
-- template: query-work-items
-  columns: '1'
-  tabs: false
-  match:
-    path: ''
-    path_array: []
-- template: related-work
-  columns: '1'
-  tabs: false
-  match:
-    path: ''
-    path_array: []
-
 ---
