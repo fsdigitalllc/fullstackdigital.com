@@ -8,3 +8,8 @@ fields:
   template: partial
   label: SEO
   description: Seo partial
+- name: sections
+  type: include
+  config: {}
+  template: partial-section-repeater
+  label: Sections
