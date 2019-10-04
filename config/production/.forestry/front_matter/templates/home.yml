@@ -13,6 +13,7 @@ fields:
   label: Sections
   template_types:
   - query-work-items
+  - service-title
   config:
     min: 
     max: 
