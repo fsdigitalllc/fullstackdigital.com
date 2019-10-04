@@ -1,4 +1,10 @@
 ---
 label: Home
 hide_body: true
-fields: []
+fields:
+- name: seo
+  type: include
+  config: {}
+  template: partial
+  label: SEO
+  description: Seo partial
