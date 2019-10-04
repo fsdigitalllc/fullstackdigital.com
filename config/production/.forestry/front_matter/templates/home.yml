@@ -9,9 +9,12 @@ fields:
   label: SEO
   description: Seo partial
 - name: sections
-  type: include
-  config: {}
-  template: partial-section-repeater
+  type: blocks
   label: Sections
+  template_types:
+  - query-work-items
+  config:
+    min: 
+    max: 
 pages:
 - content/_index.md
