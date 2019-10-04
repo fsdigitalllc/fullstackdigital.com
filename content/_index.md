@@ -36,6 +36,8 @@ sections:
     - content/work/web/fariastechnique/index.md
     - content/work/market/ddn/index.md
     - content/work/web/usdrs/index.md
+    section_array:
+    - brand
 - template: service_offering
   id: services
   classes: padding-l
