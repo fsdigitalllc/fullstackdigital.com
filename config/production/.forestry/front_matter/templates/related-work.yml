@@ -59,5 +59,20 @@ fields:
         type: pages
         section: case-studies
     label: Path array
+  - name: section_array
+    type: list
+    config:
+      use_select: true
+      min: 
+      max: 
+      source:
+        type: simple
+        section: case-studies
+      options:
+      - brand
+      - web
+      - market
+    label: Section Array
+    description: Return pages based on their section
   label: Match
   description: Return a list of posts that match these rules
