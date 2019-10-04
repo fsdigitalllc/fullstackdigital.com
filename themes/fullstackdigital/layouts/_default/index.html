@@ -18,7 +18,7 @@ logos:
 
   <section{{ with .id }} id="{{ . }}"{{ end }} data-index='{{ $index }}' class='template-{{ .template }}{{ with .classes }} {{ . }}{{ end }}'>
 
-  {{ if eq .template "service_title" }}
+  {{ if eq .template "service-title" }}
   <div class="container flex justify-start">
     <div class="maxwidth-m text-left">      
     
@@ -40,7 +40,7 @@ logos:
   </div>
   {{ end }}
 
-  {{ if eq .template "related_work" }}
+  {{ if eq .template "related-work" }}
     {{ partial "components/ajax_work_grid.html" (dict "page" . "global" $ ) }}
   {{ end }}
 

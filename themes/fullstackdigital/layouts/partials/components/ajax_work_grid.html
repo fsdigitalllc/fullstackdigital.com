@@ -17,7 +17,9 @@
 {{ end }}
 
 {{/* Let the user override the computed layout */}}
-{{ $layout = .page.layout | string }}
+{{ with .page.layout }}
+  {{ $layout = . | string }}
+{{ end }}
 
 {{ if eq $layout "grid" }}
   {{ $grid = true }}
@@ -43,7 +45,7 @@
   {{/* Check if the field is an array with multiple values */}}
   {{ reflect.IsSlice . }}
 {{ end }}
-
+{{ print "layout" $layout }}
 {{/* Limit the number of returned items */}}
 {{ $count := false }}
 
@@ -96,7 +98,7 @@
 featured: work-row
 grid: work-grid
 -->
-<div class="container work-{{ $layout }}">
+<div class="container work-{{ $layout | safeHTML }}">
 
 <div class="work-container">
 <!-- <div class="gutter-guide"></div> -->
