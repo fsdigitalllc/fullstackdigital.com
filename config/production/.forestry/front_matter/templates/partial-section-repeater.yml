@@ -1,4 +1,18 @@
 ---
 label: PARTIAL - Section Repeater
 hide_body: true
-fields: []
+fields:
+- name: sections
+  type: field_group_list
+  fields:
+  - name: related_work
+    type: include
+    config: {}
+    template: query-work-items
+    label: Related Work
+  config:
+    min: 
+    max: 
+    labelField: 
+  label: Sections
+  description: Add/remove sections
