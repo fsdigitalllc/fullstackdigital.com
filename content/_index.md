@@ -11,7 +11,7 @@ meta:
   title: Fullstack Digital / Digital Agency / Strategy, Design, Development & Marketing
   robots: all
 sections:
-- template: service_title
+- template: service-title
   classes: padding-l
   title: We <span class="underline color-babyblue">make brands.</span><br>Mostly for
     the tech world.
@@ -32,7 +32,7 @@ sections:
   match:
     path: ''
     path_array: []
-- template: related_work
+- template: related-work
   grid:
     layout: row
     tabs: false
@@ -75,18 +75,4 @@ sections:
   match:
     path: ''
     path_array: []
-- template: service-title
-  logos_color: black
-  classes: ''
-  title: ''
-  paragraph: ''
-  logos_link: false
-  logos: []
-- template: query-work-items
-  columns: '1'
-  tabs: false
-  match:
-    path: ''
-    path_array: []
-
 ---

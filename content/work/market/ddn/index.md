@@ -21,6 +21,7 @@ stacks_hero:
 grid_item:
   client: "ddn"
   logo_color: true
+  featured: true
 stacks:
 - template: section-row-blocks
   id: overview

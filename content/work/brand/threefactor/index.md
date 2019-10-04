@@ -20,7 +20,6 @@ stacks_hero:
   logo_color: "color"
   class: light-skin
 grid_item:
-  client: "threefactor"
   logo_color: "color"
 stacks:
 - template: section-row-blocks

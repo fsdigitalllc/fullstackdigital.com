@@ -19,8 +19,9 @@ stacks_hero:
   client: "code"
   logo_color: false
 grid_item:
-  client: "code"
   logo_color: true
+  featured: true
+  weight: 1
 stacks:
 - template: section-row-blocks
   id: overview
