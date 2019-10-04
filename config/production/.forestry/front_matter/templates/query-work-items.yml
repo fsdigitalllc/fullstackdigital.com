@@ -1,4 +1,63 @@
 ---
-label: QUERY - Work Items
+label: SECTION - Related Work
 hide_body: true
-fields: []
+fields:
+- name: template
+  type: text
+  config:
+    required: false
+  label: Template
+  hidden: true
+  default: related_work
+- name: tabs
+  type: boolean
+  label: Tabs
+  description: Enable/disable tabs that allow sorting and filtering the returned grid
+    items.
+  default: false
+- name: columns
+  type: select
+  default: '1'
+  config:
+    required: false
+    options:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
+  label: Columns
+  description: Number of columns. Choose 1 to change to row view.
+- name: match
+  type: field_group
+  config: {}
+  fields:
+  - name: path
+    type: select
+    default: 
+    config:
+      required: false
+      options: []
+      source:
+        type: pages
+        section: case-studies
+        file: 
+        path: 
+    label: Path
+    description: Retrieve a matched page based on document path
+  - name: path_array
+    type: list
+    config:
+      use_select: true
+      min: 
+      max: 
+      source:
+        type: pages
+        section: case-studies
+    label: Path array
+  label: Match
+  description: Return a list of posts that match these rules
