@@ -13,6 +13,6 @@ fields:
   config:
     min: 
     max: 
-    labelField: 
+    labelField: template
   label: Sections
   description: Add/remove sections
