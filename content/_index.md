@@ -32,7 +32,11 @@ sections:
   tabs: false
   match:
     path: ''
-    path_array: []
+    path_array:
+    - content/work/web/fariastechnique/index.md
+    - content/work/brand/quantum/index.md
+    - content/work/market/ddn/index.md
+    - content/work/web/usdrs/index.md
 - template: service_offering
   id: services
   classes: padding-l
@@ -48,4 +52,5 @@ sections:
       class: grid-image-bottom
   column_2:
     subtitle: News &amp; Stories.
+
 ---
