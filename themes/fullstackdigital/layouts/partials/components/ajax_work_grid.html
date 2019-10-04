@@ -3,6 +3,8 @@
 {{/* Featured View: fullwidth section with longer title, description, and includes button */}}
 {{/* Grid View: contained grid of items with a short title */}}
 
+
+
 {{/* By default, 1 column will automatically default to the featured view unless otherwise specified */}}
 {{ $columns := .page.columns | default 2 | float }}
 {{ $layout := "grid" | string }}
@@ -37,23 +39,83 @@
        name: ["",""] // the name of folder + pagename (brand-code)
        category: ["", ""]
         */}}
+
+        {{ $arguments := slice }}
+        
+{{/* The repeating field key */}}
 {{ $match := .page.match }}
-{{ with $match }}
-  {{ reflect.IsMap . }}
-{{ end }}
-{{ with $match.name }}
+
+
+{{/* Return a list of paths that match the paths supplied */}}
+{{ $match_paths := slice }}
+{{ with $match.path_array }}
   {{/* Check if the field is an array with multiple values */}}
-  {{ reflect.IsSlice . }}
+  {{/* Create an empty array */}}
+  
+  {{/* If the key is an array, iterate over the values */}}
+  {{ if reflect.IsSlice . }}
+    {{ range . }}
+      {{/* Strip content from the  */}}
+      {{ $page_path := replace . "content" "" | string }}
+      {{ with $.global.Site.GetPage $page_path }}
+        {{/* Avoid duplicating  */}}
+        {{ if in $match_paths $page_path }}
+        {{ else }}
+          {{ if fileExists $page_path }}
+            {{ $s := $page_path }}
+            {{ $match_paths = $match_paths | append $s }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
-{{ print "layout" $layout }}
+
+{{ $arguments = $arguments | append $match_paths }}
+{{/* Return a list of paths from pages within the selected sections */}}
+
+{{ $match_sections := slice }}
+
+{{ with $match.section_array }}
+  {{/* Check if the field is an array with multiple values */}}
+  {{/* Create an empty array */}}
+  {{ if reflect.IsSlice . }}
+    {{ range . }}
+      tag: {{ $section_compare := . }}
+      {{ range $.global.Site.RegularPages }}
+      {{ $path_compare := path.Base (path.Dir .Path) }}
+        {{ if eq $section_compare $path_compare }}
+          {{ $page_path := .Path }}
+          {{ if in $arguments $page_path }}
+          {{ else }}
+            {{ if fileExists $page_path }}
+              {{ $match_sections = $match_sections | append $page_path }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $arguments = $arguments | append $match_sections }}
+
 {{/* Limit the number of returned items */}}
 {{ $count := false }}
 
-{{ $query := (where $.global.Site.RegularPages "Section" "work") }}
-
+{{ $query := $arguments }}
+{{ if gt (len $query) 0 }}
+  {{ range $index, $p := $query }}
+    {{ $path := string . }}
+    {{ $page := $.global.Site.GetPage $path }}<br>
+    {{ $page.Title }}
+  {{ end }}
+{{ end }}
+{{/* $query := (where $.global.Site.RegularPages "Section" "work") */}}
 
 {{/* $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") */}}
 
+{{ $query2 := (where $.global.Site.RegularPages "Section" "work") }}
 
 
 {{/* Inject Tab HTML if enabled */}}
@@ -106,8 +168,8 @@ grid: work-grid
 {{/* $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Path" "in" $thePath ) ".Params.grid_item.weight" "asc") */}}
 
 
-{{ range $index, $items := $query }}
-
+{{ range $index, $items := $query2 }}
+{{ . }}
 <!--way too much effort to grab the client logo for the grid item-->
 {{ $prefix := "assets/images/clients/color/" }}
 {{ $asset_prefix := "images/clients/color/" }}
