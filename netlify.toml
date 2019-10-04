@@ -5,7 +5,7 @@
 
 [build.environment]
     HUGO_VERSION = "0.58.3"
-    GO_VERSION = "1.12"
+    GO_VERSION = "1.12.6"
 
 [context.production.environment]
     HUGO_ENV = "development"
