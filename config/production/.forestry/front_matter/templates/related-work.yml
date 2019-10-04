@@ -8,7 +8,7 @@ fields:
     required: false
   label: Template
   hidden: true
-  default: related_work
+  default: related-work
 - name: tabs
   type: boolean
   label: Tabs
