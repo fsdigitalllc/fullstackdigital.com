@@ -32,24 +32,6 @@ sections:
   match:
     path: ''
     path_array: []
-- template: related-work
-  grid:
-    layout: row
-    tabs: false
-    columns: 2
-    items:
-    - name: dell
-    - name: quantum
-    - name: threefactor
-    - name: ddn
-  tabs: false
-  columns: ''
-  match:
-    path: content/work/web/usdrs/index.md
-    path_array:
-    - content/work/web/leadgate/index.md
-    - content/work/brand/quantum/index.md
-    - content/work/web/usdrs/index.md
 - template: service_offering
   id: services
   classes: padding-l
@@ -75,4 +57,17 @@ sections:
   match:
     path: ''
     path_array: []
+- template: query-work-items
+  columns: '1'
+  tabs: false
+  match:
+    path: ''
+    path_array: []
+- template: related-work
+  columns: '1'
+  tabs: false
+  match:
+    path: ''
+    path_array: []
+
 ---
