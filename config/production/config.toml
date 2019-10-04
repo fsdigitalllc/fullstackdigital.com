@@ -39,3 +39,8 @@ baseName = "_headers"
 isPlainText = true
 notAlternative = true
 
+[module]
+
+  [[module.imports]]
+    disable = true
+    path = "pancakesBuilder-dev"
