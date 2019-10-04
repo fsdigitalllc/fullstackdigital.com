@@ -12,8 +12,8 @@ fields:
   type: blocks
   label: Sections
   template_types:
-  - query-work-items
   - service-title
+  - query-work-items
   config:
     min: 
     max: 
