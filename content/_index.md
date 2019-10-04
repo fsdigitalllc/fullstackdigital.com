@@ -27,6 +27,11 @@ sections:
   - name: vastdata
   - name: quantum
   - name: code
+  tabs: false
+  columns: ''
+  match:
+    path: ''
+    path_array: []
 - template: related_work
   grid:
     layout: row
@@ -37,9 +42,22 @@ sections:
     - name: quantum
     - name: threefactor
     - name: ddn
+  tabs: false
+  columns: ''
+  match:
+    path: content/work/web/usdrs/index.md
+    path_array:
+    - content/work/web/leadgate/index.md
+    - content/work/brand/quantum/index.md
+    - content/work/web/usdrs/index.md
 - template: service_offering
   id: services
   classes: padding-l
+  tabs: false
+  columns: ''
+  match:
+    path: ''
+    path_array: []
 - template: related_content
   classes: padding-l
   column_1:
@@ -52,5 +70,10 @@ sections:
       class: grid-image-bottom
   column_2:
     subtitle: News &amp; Stories.
+  tabs: false
+  columns: ''
+  match:
+    path: ''
+    path_array: []
 
 ---

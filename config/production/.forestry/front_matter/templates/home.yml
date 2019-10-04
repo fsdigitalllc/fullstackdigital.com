@@ -13,3 +13,5 @@ fields:
   config: {}
   template: partial-section-repeater
   label: Sections
+pages:
+- content/_index.md
