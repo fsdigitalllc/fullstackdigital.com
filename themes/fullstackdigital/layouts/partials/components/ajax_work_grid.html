@@ -1,116 +1,140 @@
 <div class="container-m width-spacer"></div>
-{{ $size := .page.grid.columns | default "4" }}
-{{ $tabs := .page.grid.tabs | default true }}
-{{ $layout := .page.grid.layout | default "grid" }}
-{{ $category := .page.grid.category | default "brand" }}
-{{ $count := .page.grid.count | default "4" }}
-{{ $featured := false }}
-{{ $manuallySet := "" }}
-{{ if eq $layout "row" }}
-  {{ $size = "1" }}
-  {{ $featured = true }}
+
+{{/* Featured View: fullwidth section with longer title, description, and includes button */}}
+{{/* Grid View: contained grid of items with a short title */}}
+
+{{/* By default, 1 column will automatically default to the featured view unless otherwise specified */}}
+{{ $columns := .page.columns | default 2 | float }}
+{{ $layout := "grid" | string }}
+{{ $grid := "" }}
+{{ $row := "" }}
+
+{{ if gt $columns 1 }}
+  {{/* If no layout value is set, default to the layout that makes sense given the column number */}}
+  {{ $layout = "grid" }}
+{{ else }}
+  {{ $layout = "row" }}
 {{ end }}
+
+{{/* Let the user override the computed layout */}}
+{{ $layout = .page.layout | string }}
+
+{{ if eq $layout "grid" }}
+  {{ $grid = true }}
+  {{ $row = false }}
+{{ else }}
+  {{ $grid = false }}
+  {{ $row = true }}
+{{ end }}
+
+{{/* Add sorting and filtering with JS */}}
+{{ $tabs := .page.tabs | default false }}
+
+{{/* Match Rules */}}
+{{/* match: 
+       name: ["",""] // the name of folder + pagename (brand-code)
+       category: ["", ""]
+        */}}
+{{ $match := .page.match }}
+{{ with $match }}
+  {{ reflect.IsMap . }}
+{{ end }}
+{{ with $match.name }}
+  {{/* Check if the field is an array with multiple values */}}
+  {{ reflect.IsSlice . }}
+{{ end }}
+
+{{/* Limit the number of returned items */}}
+{{ $count := false }}
+
+{{ $query := (where $.global.Site.RegularPages "Section" "work") }}
+
+
+{{/* $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") */}}
+
+
+
+{{/* Inject Tab HTML if enabled */}}
 {{ if eq $tabs true }}
 
-<div class="work-grid-tabs container padding-s-bottom">
+  <div class="work-grid-tabs container padding-s-bottom">
   <div class="flex justify-between">
+
     <div class="brand active" data-aos="fade" data-aos-delay="200" data-aos-duration="1400" data-filter="brand">
-        <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-          <path stroke-width="2" stroke-miterlimit="10" d="M1,21c0,20,31,38,31,38s31-18,31-38  c0-8.285-6-16-15-16c-8.285,0-16,5.715-16,14c0-8.285-7.715-14-16-14C7,5,1,12.715,1,21z"></path>
-          </svg>
-        <span>Brand</span>
-      </div>
-      <div class="web" data-aos="fade" data-aos-delay="400" data-aos-duration="1400" data-filter="web">
-          <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-            <g>
-            <rect x="1" y="10" stroke-width="2" stroke-miterlimit="10" width="62" height="41"></rect>
-            <line stroke-width="2" stroke-miterlimit="10" x1="22" y1="63" x2="42" y2="63"></line>
-            <line stroke-width="2" stroke-miterlimit="10" x1="32" y1="63" x2="32" y2="51"></line>
-            </g>
-            <line stroke-width="2" stroke-miterlimit="10" x1="1" y1="43" x2="64" y2="43"></line>
-            </svg>
-          <span>Web</span>
-        </div>
-        <div class="market" data-aos="fade" data-aos-delay="600" data-aos-duration="1400" data-filter="market">
-          <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-            <polygon stroke-width="2" stroke-miterlimit="10" points="26,49.042 54.963,49.042 54.963,11.042   1,11.042 1,49.042 14,49.042 14,59.486 "></polygon>
-            <polyline stroke-width="2" stroke-miterlimit="10" points="57,41.042 62.963,41.042 62.963,3.042   9,3.042 9,9 "></polyline>
-            </svg>
-          <span>Market</span>
-        </div>  
-        </div>
+      <svg class="padding-xs-bottom" id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <path stroke-width="2" stroke-miterlimit="10" d="M1,21c0,20,31,38,31,38s31-18,31-38  c0-8.285-6-16-15-16c-8.285,0-16,5.715-16,14c0-8.285-7.715-14-16-14C7,5,1,12.715,1,21z"></path>
+        </svg>
+      <span>Brand</span>
+    </div>
+
+    <div class="web active" data-aos="fade" data-aos-delay="400" data-aos-duration="1400" data-filter="web">
+      <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <g>
+          <rect x="1" y="10" stroke-width="2" stroke-miterlimit="10" width="62" height="41"></rect>
+          <line stroke-width="2" stroke-miterlimit="10" x1="22" y1="63" x2="42" y2="63"></line>
+          <line stroke-width="2" stroke-miterlimit="10" x1="32" y1="63" x2="32" y2="51"></line>
+        </g>
+        <line stroke-width="2" stroke-miterlimit="10" x1="1" y1="43" x2="64" y2="43"></line>
+        </svg>
+      <span>Web</span>
+    </div>
+
+      <div class="market active" data-aos="fade" data-aos-delay="600" data-aos-duration="1400" data-filter="market">
+        <svg id="Layer_1" width="44" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <polygon stroke-width="2" stroke-miterlimit="10" points="26,49.042 54.963,49.042 54.963,11.042   1,11.042 1,49.042 14,49.042 14,59.486 "></polygon>
+          <polyline stroke-width="2" stroke-miterlimit="10" points="57,41.042 62.963,41.042 62.963,3.042   9,3.042 9,9 "></polyline>
+        </svg>
+        <span>Market</span>
+      </div>  
+
+  </div>
 </div>
 
 {{ end }}
 
-<div class="container work-{{ $layout }} work-outer" id="loading_content" style="visibility: visible; display: block;">
-<div class="work-container type-{{ $size }}">
+<!-- $layout 
+featured: work-row
+grid: work-grid
+-->
+<div class="container work-{{ $layout }}">
+
+<div class="work-container">
 <!-- <div class="gutter-guide"></div> -->
 
-{{ $query := (where $.global.Site.RegularPages "Section" "work") }}
+{{/* $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Path" "in" $thePath ) ".Params.grid_item.weight" "asc") */}}
 
-{{ if $featured }}
-  {{ $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") }}
-{{ end }}
-
-
-{{ if and (eq $featured false) (eq $tabs false) }}
-
-{{ $.global.Scratch.Set "manuallySet" "" }}
-{{ $.global.Scratch.Set "path" "" }}
-
-  {{ range .page.grid.items }}
-    {{ $theName := .name | string }}
-    {{ $theName = print $theName " " }}
-    {{ $.global.Scratch.Add "manuallySet" $theName }}
-  {{ end }}
-
-  {{ $manuallySet = $.global.Scratch.Get "manuallySet" }}
-  
-  {{ range (where $.global.Site.RegularPages "Section" "work" ) }}
-    {{ if in $manuallySet .Params.name }}
-      {{ $.global.Scratch.Add "path" .Path }}
-    {{ end }}
-  {{ end }}
-  
-  {{ $thePath :=  $.global.Scratch.Get "path" }}
-
-{{ $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Path" "in" $thePath ) ".Params.grid_item.weight" "asc") }}
-
-{{ end }}
 
 {{ range $index, $items := $query }}
-{{ $tag := "" }}
-{{ if in .Path "market" }}
-  {{ $tag = "market" }}
-{{ end }}
-{{ if in .Path "web" }}
-  {{ $tag = "web" }}
-{{ end }}
-{{ if in .Path "brand" }}
-  {{ $tag = "brand" }}
-{{ end }}
 
 <!--way too much effort to grab the client logo for the grid item-->
-{{ $prefix := "assets/images/clients/" }}
-{{ $asset_prefix := "images/clients/" }}
+{{ $prefix := "assets/images/clients/color/" }}
+{{ $asset_prefix := "images/clients/color/" }}
+
 {{ $context := .Params.stacks_hero }}
 {{ $image := .Resources.GetMatch $context.image }}
 {{ $logo := "" }}
-{{ $name := $context.client }}
-  {{ if $featured }}
-    {{ $prefix = "assets/images/clients/grey/" }}
-    {{ $asset_prefix = "images/clients/grey/" }}
-  {{ else if or (eq .Params.grid_item.logo_color "color") (eq .Params.grid_item.logo_color true ) }}
-    {{ $prefix = "assets/images/clients/color/" }}
-    {{ $asset_prefix = "images/clients/color/" }}
-  {{ else if or (eq .Params.grid_item.logo_color "white") (eq .Params.grid_item.logo_color false ) }}
-    {{ $prefix = "assets/images/clients/white/" }}
-    {{ $asset_prefix = "images/clients/white/" }}
-  {{ else if or (eq .Params.grid_item.logo_color "black") }}
-    {{ $prefix = "assets/images/clients/black/" }}
-    {{ $asset_prefix = "images/clients/black/" }}
-  {{ end }}
+
+{{ $path := replace .Path "index.md" "" }}
+{{ $path = path.Base $path }}
+{{ $name := $path }}
+{{ with $context.client }}
+  {{ $name = . }}
+{{ end }}
+
+
+{{/* Set the logo color. Default to color logos */}}
+{{ $logo_color := $.page.logo_color }}
+
+{{ if eq $logo_color "grey" }}
+  {{ $prefix = "assets/images/clients/grey/" }}
+  {{ $asset_prefix = "images/clients/grey/" }}
+{{ else if eq $logo_color "white" }}
+  {{ $prefix = "assets/images/clients/white/" }}
+  {{ $asset_prefix = "images/clients/white/" }}
+{{ else if eq $logo_color "black" }}
+  {{ $prefix = "assets/images/clients/black/" }}
+  {{ $asset_prefix = "images/clients/black/" }}
+{{ end }}
   
 {{ range $.global.Site.Data.lookup.clients }}
   {{ if eq .name $name }}
@@ -120,22 +144,23 @@
 
 {{ $path := print $prefix $logo }}
 {{ $assetpath := print $asset_prefix $logo }}
-<div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow {{ $name }}' data-item-filter="{{ $tag }}">
+
+<div{{ if $row }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow {{ $name }}' data-item-filter="" data-item-weight="{{ $index }}">
   <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
   
-  <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
+  <div{{ if $row }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
 
     <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
 
-      <img class="gridgrow-image {{ $name }}" {{ if $featured }}left='{{ .Params.grid_item.featured_left | default "0%" }}'{{ end }} {{ if $featured }}top='{{ .Params.grid_item.featured_top | default "10%" }}'{{ end }} {{ if $featured }}m-top='{{ .Params.grid_item.featured_m_top | default "0%" }}'{{ end }} {{ if $featured }}m-left='{{ .Params.grid_item.featured_m_left | default "0%" }}'{{ end }} {{ if $featured }}m-width='{{ .Params.grid_item.featured_m_width | default "80%" }}'{{ end }} width='{{ if $featured }}{{ .Params.grid_item.featured_width | default "120%" }}{{ else }}{{ .Params.grid_item.normal_width | default "50%" }}{{ end }}' data-src='{{ $image.Permalink }}'>
+      <img class="gridgrow-image {{ $name }}" {{ if $row }}left='{{ .Params.grid_item.featured_left | default "0%" }}'{{ end }} {{ if $row }}top='{{ .Params.grid_item.featured_top | default "10%" }}'{{ end }} {{ if $row }}m-top='{{ .Params.grid_item.featured_m_top | default "0%" }}'{{ end }} {{ if $row }}m-left='{{ .Params.grid_item.featured_m_left | default "0%" }}'{{ end }} {{ if $row }}m-width='{{ .Params.grid_item.featured_m_width | default "80%" }}'{{ end }} width='{{ if $row }}{{ .Params.grid_item.featured_width | default "120%" }}{{ else }}{{ .Params.grid_item.normal_width | default "50%" }}{{ end }}' data-src='{{ $image.Permalink }}'>
 
-      {{ if eq $featured false }}
+      {{ if eq $row false }}
       <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
       {{ end }}
       
     </div>
 
-  <div{{ if $featured }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
+  <div{{ if $row }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
   <div class="excerpt-group">
   <div class="card-logo-holder flex-center-vertical">
   {{ if (fileExists $path) }}
@@ -143,7 +168,7 @@
   <img class="card-logo lazyload lazypreload {{ $name }}" src="{{ $imagesrc.Permalink }}">
   {{ end }}
   </div>
-  {{ if $featured }}
+  {{ if $row }}
     <h2 class="color-white">{{ .Params.grid_item.featured_title | safeHTML | default "FEATURED TITLE" }}</h2>
     <h3>{{ .Params.grid_item.featured_caption | safeHTML | default "FEATURED TITLE" }}</h3>
     <a class="button fill white" href='{{ .URL }}'>Read the Story</a>
@@ -171,7 +196,7 @@
   
   </div>
   </div>
-  {{ if $featured }}
+  {{ if $row }}
   <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
   {{ end }}
 </div>
@@ -184,6 +209,7 @@
 <div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex justify-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src="" ajax-script-reload="true"><div class="flex tiny color-oil padding-s-top strip-padding-tablet justify-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex items-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
 
 
+
 {{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
 {{ $scroll_lock := resources.Get "js/plugins/bodyScrollLock.js" | minify }}
 {{ $Panimate := resources.Get "js/plugins/Panimate.js" | minify }}
@@ -192,14 +218,20 @@
 <!-- <script type="text/javascript" src="{{ $Panimate.Permalink }}"></script> -->
 <script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
 
+
 {{ if eq $tabs true }}
+{{ $Postquery := resources.Get "js/plugins/Postquery.js" | minify }}
+<script type="text/javascript" src="{{ $Postquery.Permalink }}" ajax-script-reload="true"></script>
+
 {{ $filter_grid := resources.Get "js/components/filter_grid.js" }}
 <script type="text/javascript" src="{{ $filter_grid.Permalink }}" ajax-script-reload="true"></script>
+
 {{ end }}
 
-{{ if eq $featured true }}
-{{ $featured_grid := resources.Get "js/components/featured_grid.js" }}
-<script type="text/javascript" src="{{ $featured_grid.Permalink }}"></script>
+
+{{ if eq $row true }}
+{{ $row_grid := resources.Get "js/components/featured_grid.js" }}
+<script type="text/javascript" src="{{ $row_grid.Permalink }}"></script>
 {{ end }}
 
 {{ $animate_grid := resources.Get "js/components/animate_grid.js" | fingerprint }}
@@ -208,8 +240,8 @@
 
 <script type="text/javascript" ajax-script-reload="true">
   fetchInject([
-    '{{ $animate_grid.Permalink }}'
+    '{{ $animate_grid.RelPermalink }}'
   ], fetchInject([
-    '{{ $util.Permalink }}'
+    '{{ $util.RelPermalink }}'
   ]))
 </script>

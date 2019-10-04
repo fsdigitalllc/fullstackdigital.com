@@ -6,6 +6,7 @@
 @import "base/reset";
 @import "base/navigation";
 @import "base/type";
+@import "base/icons";
 @import "base/footer";
 
 /* Helpers that create layouts with html classes*/
@@ -23,27 +24,6 @@
 @import "elements/base";
 @import "elements/buttons";
 @import "elements/forms";
-
-/* Components bundled for now */
-@import "components/cards";
-@import "components/cta";
-@import "components/grid_item";
-@import "components/logos";
-@import "components/related_content";
-@import "components/sticky_nav";
-@import "components/work_hero";
-@import "components/expand_contact";
-@import "components/services_chart";
-@import "components/sub_nav";
-@import "components/perspective_items";
-
-
-
-/* Layouts bundled for now */
-// @import "layouts/home";
-// @import "layouts/labs";
-// @import "layouts/services";
-// @import "layouts/work";
 
 /*animations*/
 @import "animations/aos";

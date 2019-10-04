@@ -1,4 +1,10 @@
 ;(function (global){
+
+  // Classes:
+
+  // Featured grid: work-row
+  // Normal grid: work-grid
+
   let g = document;
   document.querySelector("body").setAttribute("startClass", document.querySelector("body").classList);
   
@@ -87,7 +93,7 @@
           widthSpacer: document.querySelector(".width-spacer"),
           heightSpacer: document.querySelector(".height-spacer"),
           containerInner: document.querySelector(".work-container"),
-          containerOuter: document.querySelector(".work-outer"),
+          containerOuter: document.querySelector(".work-grid") || document.querySelector(".work-row"),
           cardFooter: item.querySelector(".card-footer"),
           image: item.querySelector(".gridgrow-image"),
           imageWrapper: item.querySelector(".gridgrow-image-holder"),
@@ -737,7 +743,7 @@
     }
     
     function isFeatured(item) {
-      return item.parentNode.classList.contains("type-1");
+      return item.closest("work-row");
     }
   }
   

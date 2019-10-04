@@ -14,7 +14,7 @@
   
   function positionCaption (extraSpace) {
 
-    if (document.querySelector(".type-1")) {
+    if (document.querySelector(".work-row")) {
       //console.log("featured items loading...");
       let gridItems = document.querySelectorAll(".gridgrow");
       let container = document.querySelector(".container");
