@@ -10,6 +10,20 @@ sections:
   create: all
   match: "**/*.md"
   exclude: uploads
+- type: directory
+  path: content/work
+  label: Case Studies
+  create: all
+  match: "**/*"
+- type: directory
+  path: content/labs
+  label: Labs
+  create: all
+  match: "**/*"
+- type: document
+  path: readme.md
+  label: Readme
+  match: "**/*"
 upload_dir: content/uploads
 public_path: "/uploads"
 front_matter_path: ''
