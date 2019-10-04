@@ -1,7 +1,7 @@
 baseURL = "/"
 languageCode = "en-us"
 title = "Fullstack Digital"
-theme = ["pancakesBuilder-dev", "pancakesDashboard", "fullstackdigital"]
+theme = ["pancakesDashboard", "fullstackdigital"]
 
 enableRobotsTXT = true
 disableAliases = true
