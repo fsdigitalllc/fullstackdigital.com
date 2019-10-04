@@ -27,8 +27,8 @@
 <!--async loaded resource-->
 <script type="text/javascript">
   fetchInject([
-    '{{ $smoothscroll.Permalink }}',
-    '{{ $plugins_js.Permalink }}'
+    '{{ $smoothscroll.RelPermalink }}',
+    '{{ $plugins_js.RelPermalink }}'
   ]).then( () => {
     lazySizes.init();
   })
