@@ -75,5 +75,18 @@ sections:
   match:
     path: ''
     path_array: []
+- template: service-title
+  logos_color: black
+  classes: ''
+  title: ''
+  paragraph: ''
+  logos_link: false
+  logos: []
+- template: query-work-items
+  columns: '1'
+  tabs: false
+  match:
+    path: ''
+    path_array: []
 
 ---
