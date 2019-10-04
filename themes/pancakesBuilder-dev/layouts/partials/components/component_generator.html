@@ -1,0 +1,38 @@
+{{ $this_page := .UniqueID | urlize }}
+{{ $file_path := replaceRE "\\\\" "/" .File.Path }}
+
+{{ .Scratch.Set "site" $.Site }}
+
+
+{{ $page_slug := .Params.slug | replace "/" "" }}
+{{ $page_hash := .UniqueID | urlize }}
+{{ $loop_hash := .UniqueID | urlize }}
+{{/* <!--start the stack loop to return page sections--> */}}
+{{/* <!--check for any values in the stacks field type--> */}}
+{{/* <!--iterate through blocks, use if statement to find template, then set variable equal to template name--> */}}
+  
+
+{{ if .Params.stacks }}
+{{/* <!--use index to add a count to the range--> */}}
+    
+  {{ range $index, $stacks := .Params.stacks }}
+    {{/* <!--set an ID for each section so that we can reference it in the stylesheet--> */}}
+
+    {{ $section_id := print "section-" $index }}
+    {{ $section_template := .template }}
+    {{ $section_type := .template }}
+    {{ $section_class := print "c-" $index "-" .template }}
+    {{ $this_class := print "p-" $index "-" $page_hash }}
+    
+    
+    {{ partial "components/section.html" (dict "page" . "global" $ "section_id" $section_id "section_template" $section_template "page_hash" $page_hash "this_class" $this_class "section_type" $section_type) }}
+
+          
+      
+  {{ end }}{{/* <!--end section range--> */}} 
+       
+{{ else }}{{/* <!--if no block within a stack--> */}}
+  {{ print "no sections added yet"}}
+{{ end }}{{/* <!-- end section if statement--> */}}
+    
+{{/* <!--add cloudinary image processing based on a scratch value from column.html--> */}}

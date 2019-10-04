@@ -1,0 +1,13 @@
+{{- define "main" -}}
+{{- $env := getenv "HUGO_ENV" -}}
+
+{{- $.Scratch.Set "is_css" false -}}
+
+{{ if .Params.stacks_hero }}
+  {{ $hero_path := .Params.stacks_hero.path }}
+  {{ partial "components/case_study_hero.html" . }}
+{{ end }}
+
+{{- partial "components/component_generator.html" . | safeHTML -}}
+
+{{- end -}}
