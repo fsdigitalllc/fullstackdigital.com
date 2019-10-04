@@ -1,4 +1,32 @@
 ---
 label: Service Title
 hide_body: true
-fields: []
+fields:
+- name: classes
+  type: text
+  config:
+    required: false
+  label: Classes
+- name: title
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: false
+    schema:
+      format: markdown
+  label: Title
+- name: paragraph
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: false
+    schema:
+      format: markdown
+  label: Paragraph
+- name: logos
+  type: include
+  config: {}
+  template: partial-logos
+  label: Logos
