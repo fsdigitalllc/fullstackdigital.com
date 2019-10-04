@@ -1,0 +1,35 @@
+{{ .global.Scratch.Set "site" .global.Site }}
+{{ .global.Scratch.Set "section_index" .this_class }}
+
+  {{ if and (eq .page.template "include") (.page.path) }}
+    {{ $path := .page.path }}
+    {{ partial $path (dict "page" . "global" $ ) }}
+  {{ else }}
+  <section id="{{ .section_id }}" class="{{ .this_class }} {{ .page.class }}{{ if .page.background_parallax }} background-parallax{{ end }}" {{ with .page.background_color }} style="background-color: {{ . }};"{{ end }}>
+  {{ range .page.rows }}
+    {{ partial "components/row.html" (dict "page" . "global" $ ) }}
+  {{ end }}
+
+  </section>
+
+  {{ if .page.scripts }}
+  {{ range .page.scripts }}
+    {{ with .src }}
+      {{ $rs := string . }}
+      {{ $src := resources.Get . }}
+      {{ with $src }}
+      {{ $src = $src | minify }}
+        <script type="text/javascript">
+          fetchInject([
+            '{{ $src.Permalink }}'
+          ]);
+        </script>
+      {{ else }}
+        {{ print "no resource found" }}
+      {{ end }}
+
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ end }}
