@@ -24,3 +24,5 @@ fields:
     description: Set the robots meta value.
   label: Meta
   description: Meta values for SEO and sharing pages.
+pages:
+- content/_index.md
