@@ -9,6 +9,7 @@ sections:
   label: Pages
   create: all
   match: "**/*.md"
+  exclude: uploads
 upload_dir: content/uploads
 public_path: "/uploads"
 front_matter_path: ''
