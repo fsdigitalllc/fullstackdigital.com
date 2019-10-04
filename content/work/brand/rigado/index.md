@@ -18,7 +18,6 @@ stacks_hero:
   client: "rigado"
   logo_color: "color"
 grid_item:
-  client: "rigado"
   featured: true
   featured_title: "We scale high-growth technology startups."
   featured_caption: |

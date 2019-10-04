@@ -19,7 +19,6 @@ stacks_hero:
   client: "quantum"
   logo_color: "white"
 grid_item:
-  client: "quantum"
   logo_color: "color"
 stacks:
 - template: section-row-blocks

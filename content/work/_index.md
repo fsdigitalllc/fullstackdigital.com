@@ -10,12 +10,20 @@ night_footer: true
 layout: "pages/work"
 language: en
 sections:
+- template: "hero_title"
+  title: "Work Reflections"
+  lead: "Projects we've handled, <strong>success stories</strong>, and lessons learned."
+  paragraph: 
 - template: "related_work"
+  match: 
+    name: "one name"
+    category: "brand"
   grid:
     layout: "grid"
     tabs: true
     columns: "2"
 - template: "cta"
+  class: "cta-left"
   subtitle: "Get Started"
   title: "From presentation design to new brand strategy, we’ve got you covered."
   form:

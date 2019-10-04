@@ -19,7 +19,6 @@ stacks_hero:
   client: "typeking"
   logo_color: "white"
 grid_item:
-  client: "typeking"
   logo_color: "color"
 stacks:
 - template: section-row-blocks

@@ -18,7 +18,6 @@ stacks_hero:
   client: "ddn"
   logo_color: "color"
 grid_item:
-  client: "ddn"
   featured: true
   featured_title: "We scale high-growth technology startups."
   featured_caption: |
