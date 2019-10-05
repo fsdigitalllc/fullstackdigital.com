@@ -59,7 +59,7 @@ fields:
         type: pages
         section: case-studies
     label: Path array
-  - name: section_array
+  - name: name_array
     type: list
     config:
       use_select: true
@@ -72,7 +72,7 @@ fields:
       - brand
       - web
       - market
-    label: Section Array
-    description: Return pages based on their section
+    label: Name Array
+    description: Return a page based on the folder name of the page.
   label: Match
   description: Return a list of posts that match these rules
