@@ -1,0 +1,134 @@
+{{/* 
+    HELPER FUNCTION: Return Query Arguments 
+
+    Purpose: This function returns an array of paths based on various query options
+
+    Features: 
+    - Automatically removes duplicates, so multiple match rules can be used in conjunction without returning redundant data
+    - The order of the array depends on the order of the rules in the front matter
+    - Post is only returned if the path exists to avoid errors
+
+    */}}
+
+{{/* match front matter keys and possible values: 
+
+    // match any markdown file based on a path.
+
+    path_array: 
+    - content/work/web/fariastechnique/index.md
+    - /work/web/fariastechnique/index.md
+
+
+    // match based on the markdown file's directory name. Useful if all markdown files are named index.md and page resources are used.
+
+    name_array: 
+    - fariastechnique
+
+    
+    // Match any markdown file that belongs to a specific section. 
+    // Matches either the section name or a supplied directory path
+    // Use the directory path for "sub-categories" or if sections have identical names
+
+    section_array: // the name of the section/category the post belongs to. 
+    - work
+    - work/web
+    
+    */}}
+
+    {{/* pass the global context if using this partial file within another partial file */}}
+    
+{{ $arguments := slice }}
+
+{{ $match := .page.match }}
+
+
+{{/* Return a list of paths that match the paths supplied */}}
+{{ $match_paths := slice }}
+{{ with $match.path_array }}
+  {{/* Check if the field is an array with multiple values */}}
+  {{/* Create an empty array */}}
+  
+  {{/* If the key is an array, iterate over the values */}}
+  {{ if reflect.IsSlice . }}
+    {{ range . }}
+      {{/* Strip content from the  */}}
+      {{ $page_path := replace . "content" "" | string }}
+      {{ with $.global.Site.GetPage $page_path }}
+        {{/* Avoid duplicating  */}}
+        {{ if in $match_paths $page_path }}
+        {{ else }}
+          {{ if fileExists $page_path }}
+            {{ $s := $page_path }}
+            {{ $match_paths = $match_paths | append $s }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $arguments = $arguments | append $match_paths }}
+{{/* Return a list of paths from pages within the selected sections */}}
+
+{{ $match_names := slice }}
+
+{{ with $match.name_array }}
+  {{/* Check if the field is an array with multiple values */}}
+  {{/* Create an empty array */}}
+  {{ if reflect.IsSlice . }}
+    {{ range . }}
+      {{ $name_compare := . }}
+      {{ range $.global.Site.RegularPages }}
+      {{ $path_compare := path.Base (path.Dir .Path) }}
+        {{ if eq $name_compare $path_compare }}
+          {{ $page_path := .Path }}
+          {{ if in $arguments $page_path }}
+          {{ else }}
+            {{ if fileExists $page_path }}
+              {{ $match_names = $match_names | append $page_path }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $arguments = $arguments | append $match_names }}
+{{/* Return a list of paths from pages within the selected sections */}}
+
+{{ $match_sections := slice }}
+
+{{ with $match.section_array }}
+  {{/* Check if the field is an array with multiple values */}}
+  {{/* Create an empty array */}}
+  {{ if reflect.IsSlice . }}
+    {{ range . }}
+      {{ $section_compare := . }}
+
+      {{ range $.global.Site.RegularPages }}
+
+      {{ $category_path := path.Dir .Path }}
+      {{ $p := path.Base $category_path }}
+      {{ $category_path = replace $category_path $p "" }}
+      {{/* Make sure category_path doesn't use a trailing slash /\/+$/ */}}
+      {{ $category_path := replaceRE "\\/$" "" $category_path }}
+
+      {{ if or (eq .Section $section_compare) (eq $category_path $section_compare) }}
+          {{ $page_path := .Path }}
+          {{ if in $arguments $page_path }}
+          {{ else }}
+            {{ if fileExists $page_path }}
+              {{ $match_sections = $match_sections | append $page_path }}
+            {{ end }}
+          {{ end }}
+      {{ end }}
+        
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $arguments = $arguments | append $match_sections }}
+
+{{ return $arguments }}

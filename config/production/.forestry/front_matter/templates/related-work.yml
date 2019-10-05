@@ -59,6 +59,17 @@ fields:
         type: pages
         section: case-studies
     label: Path array
+  - name: section_array
+    type: list
+    config:
+      use_select: true
+      min: 
+      max: 
+      source:
+        type: pages
+        section: case-studies
+    label: Section array
+    description: Return a page if it belongs to a certain section.
   - name: name_array
     type: list
     config:
