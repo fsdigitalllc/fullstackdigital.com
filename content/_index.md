@@ -37,7 +37,9 @@ sections:
     - content/work/market/ddn/index.md
     - content/work/web/usdrs/index.md
     name_array:
-    - web
+    - threefactor
+    section_array:
+    - work/web
 - template: service_offering
   id: services
   classes: padding-l
