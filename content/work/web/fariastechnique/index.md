@@ -11,6 +11,13 @@ description: page description
 date: 2018-07-03 04:00:00 +0000
 tags: ["Web Experience", "Web Design", "Web Development"]
 aliases:
+hero:
+  background_color: "#0F2349"
+  image: "images/cover.png"
+excerpt:
+  background_color: ""
+  image:
+    src: 
 stacks_hero:
   path: "helpers/work/hero.html"
   image: "images/cover.png"

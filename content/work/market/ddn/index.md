@@ -12,6 +12,8 @@ date: 2019-03-08 04:00:00 +0000
 tags: ["Content Marketing", "Social Marketing"]
 aliases :
   - /work/ddn-storage-marketing/
+excerpt:
+  description: "Providing the backbone for 2/3 of the Top100® fastest supercomputers in the world"
 stacks_hero:
   path: "helpers/work/hero.html"
   image: "images/ddn-cover.png"

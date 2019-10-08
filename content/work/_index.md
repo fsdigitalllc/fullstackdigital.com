@@ -14,14 +14,93 @@ sections:
   title: "Work Reflections"
   lead: "Projects we've handled, <strong>success stories</strong>, and lessons learned."
   paragraph: 
-- template: "related_work"
-  match: 
-    name: "one name"
-    category: "brand"
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "contain"
+  count: 6
+  columns: '2'
+  col_gap: 'sm'
+  row_gap: 'sm'
+  tabs: true
+  skin: "dark"
+  match:
+    section_array:
+    - work/web
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "contain"
+  contain_style: "overflow"
+  count: 6
+  columns: '2'
+  col_gap: 'lg'
+  row_gap: 'sm'
+  tabs: false
+  skin: "dark"
+  match:
+    section_array:
+    - work/web
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "fullwidth"
+  count: 6
+  columns: '2'
+  col_gap: 'sm'
+  tabs: false
+  match:
+    section_array:
+    - work/web
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "contain"
+  count: 4
+  columns: '1'
+  tabs: false
+  match:
+    section_array:
+    - work/brand
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "fullwidth"
+  count: 4
+  columns: '1'
+  tabs: false
+  match:
+    section_array:
+    - work/brand
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "fullwidth"
+  count: 4
+  columns: '2'
+  tabs: false
+  match:
+    name_array:
+    - fariastechnique
+    section_array:
+    - work
   grid:
     layout: "grid"
     tabs: true
     columns: "2"
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "fullwidth"
+  count: 4
+  columns: '1'
+  tabs: false
+  match:
+    section_array:
+    - work/brand
+- template: "related-work"
+  classes: "padding-l-bottom"
+  layout_size: "contain"
+  count: 6
+  columns: '2'
+  tabs: false
+  match:
+    section_array:
+    - work/web
+    - work/brand
 - template: "cta"
   class: "cta-left"
   subtitle: "Get Started"
