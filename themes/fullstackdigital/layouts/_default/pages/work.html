@@ -30,7 +30,7 @@ logos:
           </div>
         </div>
     {{ end }}
-    {{ if eq .template "related_work" }}
+    {{ if eq .template "related-work" }}
       {{ partial "components/ajax_work_grid.html" (dict "page" . "global" $ ) }}
     {{ end }}
 

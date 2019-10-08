@@ -1,7 +1,7 @@
-{{/* Featured View: fullwidth section with longer title, description, and includes button */}}
-{{/* Grid View: contained grid of items with a short title */}}
-
-
+{{ $classes := false }}
+{{ with .page.classes }}
+  {{ $classes = . }}
+{{ end }}
 
 {{/* By default, 1 column will automatically default to the featured view unless otherwise specified */}}
 {{ $columns := .page.columns | default 2 | float }}
@@ -48,18 +48,10 @@
 
 
 {{/* Limit the number of returned items */}}
-{{ $count := false }}
+{{ $count := .page.count | default 2 }}
 
 {{ $query := $arguments }}
-{{ if gt (len $query) 0 }}
-{{ $global := .global }}
-{{ $page := .page }}
-  {{ range $index, $p := $query }}
-    {{ $path := string . }}
-    {{ $post := $.global.Site.GetPage $path }}<br>
-    {{ partial "components/work/grid_item.html" (dict "post" $post "page" $page "global" $global ) }}
-  {{ end }}
-{{ end }}
+
 {{/* $query := (where $.global.Site.RegularPages "Section" "work") */}}
 
 {{/* $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Params.grid_item.featured" "==" true) ".Params.grid_item.weight" "asc") */}}
@@ -108,116 +100,29 @@
 <!-- $layout 
 featured: work-row
 grid: work-grid
+
+$count:
 -->
-<div class="container work-{{ $layout | safeHTML }}">
-
-<div class="work-container">
-<!-- <div class="gutter-guide"></div> -->
-
-{{/* $query = first $count (sort (where (where $.global.Site.RegularPages "Section" "work") ".Path" "in" $thePath ) ".Params.grid_item.weight" "asc") */}}
-
-
-{{ range $index, $items := $query2 }}
-
-<!--way too much effort to grab the client logo for the grid item-->
-{{ $prefix := "assets/images/clients/color/" }}
-{{ $asset_prefix := "images/clients/color/" }}
-
-{{ $context := .Params.stacks_hero }}
-{{ $image := .Resources.GetMatch $context.image }}
-{{ $logo := "" }}
-
-{{ $path := replace .Path "index.md" "" }}
-{{ $path = path.Base $path }}
-{{ $name := $path }}
-{{ with $context.client }}
-  {{ $name = . }}
-{{ end }}
+{{ $col_count := 2 | safeHTML }}
+{{ $layout_size := .page.layout_size | default "contain" | string | safeHTML }}
+{{ $layout_contain_style := .page.contain_style | default "auto" | safeHTML }}
+{{ $col_gap := .page.col_gap | string | safeHTML }}
+{{ $row_gap := .page.row_gap | string | safeHTML }}
 
 
-{{/* Set the logo color. Default to color logos */}}
-{{ $logo_color := $.page.logo_color }}
-
-{{ if eq $logo_color "grey" }}
-  {{ $prefix = "assets/images/clients/grey/" }}
-  {{ $asset_prefix = "images/clients/grey/" }}
-{{ else if eq $logo_color "white" }}
-  {{ $prefix = "assets/images/clients/white/" }}
-  {{ $asset_prefix = "images/clients/white/" }}
-{{ else if eq $logo_color "black" }}
-  {{ $prefix = "assets/images/clients/black/" }}
-  {{ $asset_prefix = "images/clients/black/" }}
-{{ end }}
-  
-{{ range $.global.Site.Data.lookup.clients }}
-  {{ if eq .name $name }}
-    {{ $logo = .image }}
-  {{ end }}
-{{ end }}
-
-{{ $path := print $prefix $logo }}
-{{ $assetpath := print $asset_prefix $logo }}
-
-<div{{ if $row }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class='gridgrow {{ $name }}' data-item-filter="" data-item-weight="{{ $index }}">
-  <a class="work-link gridgrow-link" href='{{ .URL }}' title=""><span>{{ .Title | safeHTML }}</span></a>
-  
-  <div{{ if $row }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="gridwrap background-light">
-
-    <div class="flex-center gridgrow-image-holder" style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};">
-
-      <img class="gridgrow-image {{ $name }}" {{ if $row }}left='{{ .Params.grid_item.featured_left | default "0%" }}'{{ end }} {{ if $row }}top='{{ .Params.grid_item.featured_top | default "10%" }}'{{ end }} {{ if $row }}m-top='{{ .Params.grid_item.featured_m_top | default "0%" }}'{{ end }} {{ if $row }}m-left='{{ .Params.grid_item.featured_m_left | default "0%" }}'{{ end }} {{ if $row }}m-width='{{ .Params.grid_item.featured_m_width | default "80%" }}'{{ end }} width='{{ if $row }}{{ .Params.grid_item.featured_width | default "120%" }}{{ else }}{{ .Params.grid_item.normal_width | default "50%" }}{{ end }}' data-src='{{ $image.Permalink }}'>
-
-      {{ if eq $row false }}
-      <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
-      {{ end }}
-      
-    </div>
-
-  <div{{ if $row }} style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};"{{ end }} class="card-footer" itemprop="description">
-  <div class="excerpt-group">
-  <div class="card-logo-holder flex-center-vertical">
-  {{ if (fileExists $path) }}
-  {{ $imagesrc := resources.Get $assetpath }}
-  <img class="card-logo lazyload lazypreload {{ $name }}" src="{{ $imagesrc.Permalink }}">
-  {{ end }}
-  </div>
-  {{ if $row }}
-    <h2 class="color-white">{{ .Params.grid_item.featured_title | safeHTML | default "FEATURED TITLE" }}</h2>
-    <h3>{{ .Params.grid_item.featured_caption | safeHTML | default "FEATURED TITLE" }}</h3>
-    <a class="button fill white" href='{{ .URL }}'>Read the Story</a>
-    <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
-  
-    <span class="card-footer-layer flex justify-center hover-right">
-      <h6 class="gridgrow-view strip-margin">View Case Study</h6>
-      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-      <g>
-      <line fill="none" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
-      </g>
-      <polyline fill="none" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
-                        54,23 "></polyline>
-      </svg>
-    </span>
-  {{ else }}
-    <h6 class="gridgrow-excerpt strip-margin">{{ .Title | safeHTML }}</h6>
-  
-    <span class="card-footer-layer flex justify-center hover-right">
-      <h6 class="gridgrow-view strip-margin">View Case Study</h6>
-      <svg class="color-black" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g><path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M0 32H63z"></path></g><path fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" d="M54 41l9-9-9-9"></path></svg>
-    </span>
+<div class="container ajax_work_grid col-count-{{ $col_count }} layout-size-{{ $layout_size }} col-gap-{{ $col_gap }} row-gap-{{ $row_gap }}{{ with $classes }} {{ . }}{{ end }}{{ with $layout_contain_style }} contain-style-{{ . }}{{ end }}">
+    
+  {{ if gt (len $query) 0 }}
+  {{ $global := .global }}
+  {{ $page := .page }}
+    {{ range $index, $p := first $count $query }}
+      {{ $path := string . }}
+      {{ $post := $.global.Site.GetPage $path }}
+      {{ partial "components/work/item.html" (dict "post" $post "page" $page "global" $global "index" $index ) }}
     {{ end }}
-  </div>
-  
-  </div>
-  </div>
-  {{ if $row }}
-  <div style="background-color: {{ .Params.stacks_hero.background_color | safeHTML }};" class="wipe"></div>
   {{ end }}
-</div>
 
-{{ end }}
-</div>
-
-</div>
+</div><!--ajax_work_grid-->
 
 <div class="height-spacer"><div id="project-summary" class="container padding-m-top padding-m-bottom flex justify-between break-t"><div class="col-3 t-col-8 grid"><img class="client_logo lazypreload lazyloaded" src="" ajax-script-reload="true"><div class="flex tiny color-oil padding-s-top strip-padding-tablet justify-between"><ul><li class="active">Brand</li><li class="active">Development</li><li class="active">Identity</li><li>Strategy</li></ul><ul><li>Web</li><li>Experience</li><li>Design</li><li>Development</li></ul><ul><li>Market</li><li>Search</li><li>Content</li><li>Social</li></ul></div></div><div class="col-8 flex items-center maxwidth-s t-col-12"><h1 class="page-title strip-margin-bottom color-oil"></h1></div></div></div>
 

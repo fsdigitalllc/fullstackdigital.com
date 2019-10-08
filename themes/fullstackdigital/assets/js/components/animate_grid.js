@@ -1,9 +1,24 @@
 ;(function (global){
 
+  // let items = document.querySelectorAll(".item");
+
+  // let itemHover = (e) => {
+  //   let item = e.target.closest('.item');
+
+  //   if (item) {
+  //     let zIndex = getComputedStyle(item).zIndex;
+  //   }
+  // }
+
+  // global.addEventListener("mouseover", itemHover, false);
+})(window);
+
+;(function (global){
+
   // Classes:
 
   // Featured grid: work-row
-  // Normal grid: work-grid
+  // Normal grid: ajax_work_grid
 
   let g = document;
   document.querySelector("body").setAttribute("startClass", document.querySelector("body").classList);
@@ -71,7 +86,7 @@
         setHeightSpacerContent(item);
       }
     }
-    document.querySelector(".template-related_work").addEventListener("mouseover", mouseOverEvent, false);
+    document.querySelector(".work-container").addEventListener("mouseover", mouseOverEvent, false);
     
     
     let mouseClickEvent = function (e) {
@@ -85,7 +100,7 @@
       
     }
     //document.removeEventListener("click", mouseClickEvent, false);
-    document.querySelector(".template-related_work").addEventListener("click", mouseClickEvent, false);
+    document.querySelector(".work-container").addEventListener("click", mouseClickEvent, false);
     
     let getItem = (item) => {
       if (item.classList.contains("gridgrow")) {
@@ -93,7 +108,7 @@
           widthSpacer: document.querySelector(".width-spacer"),
           heightSpacer: document.querySelector(".height-spacer"),
           containerInner: document.querySelector(".work-container"),
-          containerOuter: document.querySelector(".work-grid") || document.querySelector(".work-row"),
+          containerOuter: document.querySelector(".ajax_work_grid") || document.querySelector(".work-row"),
           cardFooter: item.querySelector(".card-footer"),
           image: item.querySelector(".gridgrow-image"),
           imageWrapper: item.querySelector(".gridgrow-image-holder"),
