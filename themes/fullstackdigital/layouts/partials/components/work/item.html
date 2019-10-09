@@ -102,6 +102,9 @@
 {{ with $params.grid_item.featured_caption }}
     {{ $description = . }}
 {{ end }}
+{{ with $params.grid_item.featured_caption }}
+    {{ $description = . }}
+{{ end }}
 
 {{ $permalink := .post.Permalink }}
 {{ with $params.excerpt.permalink }}
@@ -190,8 +193,9 @@
 
             <div class="caption_text">
                 <span class="caption_heading">{{ $title }}</span>
+                {{ with $description }}
                 <span class="caption_description">{{ $description }}</span>
-    
+                {{ end }}
                 <div class="caption_text_link">
                     <span class="caption_view_text">
                             View Case Study

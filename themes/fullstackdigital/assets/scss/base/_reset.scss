@@ -44,8 +44,21 @@ svg:not(:root) {
   margin: 0 auto;
   position: relative;
   box-sizing: border-box;
-  max-width: 100%;
-  width: $container;
+  width: 87.5vw;
+  
+  @media screen and (min-width:  $screen-tablet ) {
+    max-width: $container-tablet;
+    width: 100%;
+  }
+
+  @media screen and (min-width: $screen-laptop ) {
+    max-width: $container-laptop;
+  }
+
+  @media screen and (min-width: $screen-desktop-s ) {
+    max-width: $container;
+  }
+  
 }
 .container-fullwidth {
   margin: 0 auto;
@@ -70,16 +83,8 @@ svg:not(:root) {
   padding: 0 40px;
   width: $container-m;
 }
-@media screen and (max-width: $screen-tablet ) {
-  .container, .container-l, .container-m {
-    padding: 0 20px;
-  }
-}
-@media screen and (max-width: $screen-mobile-l ) {
-  .container, .container-l, .container-m {
-    padding: 0 20px;
-  }
-}
+
+
 
 section {
   margin-bottom: -1px;
