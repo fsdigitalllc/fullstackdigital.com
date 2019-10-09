@@ -1,3 +1,18 @@
+{{/*
+  - template: "related-work"
+    classes: ""
+    - template: post-grid
+      items:
+      - layout_type: "hero"
+        layout_style: ""
+        - template: match
+          match:
+            section_array:
+            - work/web
+            - work/brand
+          
+*/}}
+
 {{ $classes := false }}
 {{ with .page.classes }}
   {{ $classes = . }}
@@ -107,7 +122,7 @@ $count:
 {{ $layout_size := .page.layout_size | default "contain" | string | safeHTML }}
 {{ $layout_contain_style := .page.contain_style | default "auto" | safeHTML }}
 {{ $col_gap := .page.col_gap | string | safeHTML }}
-{{ $row_gap := .page.row_gap | string | safeHTML }}
+{{ $row_gap := .page.row_gap | default "sm" | string | safeHTML }}
 
 
 <div class="container ajax_work_grid col-count-{{ $col_count }} layout-size-{{ $layout_size }} col-gap-{{ $col_gap }} row-gap-{{ $row_gap }}{{ with $classes }} {{ . }}{{ end }}{{ with $layout_contain_style }} contain-style-{{ . }}{{ end }}">

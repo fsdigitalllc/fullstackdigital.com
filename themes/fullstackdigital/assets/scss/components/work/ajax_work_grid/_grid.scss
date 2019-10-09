@@ -42,20 +42,36 @@ $description_size: 1.25rem;
 
     }
 
+    @media screen and (max-width: $screen-tablet-l ) {
+        .width-1, .width-2, .width-3, .width-4 {
+            grid-column: 1/3;
+        }
+    }
+
     &.layout-size {
 
         &-contain {
 
             &.contain-style-overflow {
-                width: calc(#{$container} + 0.8rem + 0.8rem);
-                .item {
-                    margin-left: -0.8rem;
-                    margin-right: -0.8rem;
+
+                @media screen and (min-width: $screen-tablet ) {
+                    max-width: calc(#{$container-tablet} + 1.6rem + 1.6rem);
+                }
+
+                @media screen and (min-width: $screen-laptop ) {
+                    max-width: calc(#{$container-laptop} + 1.6rem + 1.6rem);
+                }
+
+                @media screen and (min-width: $screen-desktop-s ) {
+                    max-width: calc(#{$container} + 1.6rem + 1.6rem);
                 }
             }
             &.contain-style-auto {
                 .caption {
-                    padding: 0 2rem;
+                    padding: 0 0.25rem;
+                    @media screen and (min-width: $screen-tablet) {
+                        padding: 0 2rem;
+                    }
                 }
             }
 
@@ -77,6 +93,7 @@ $description_size: 1.25rem;
         }
 
         &-fullwidth {
+            max-width: 100%;
             width: 100%;
         }
     }
