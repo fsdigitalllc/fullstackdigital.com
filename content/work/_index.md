@@ -24,6 +24,8 @@ sections:
   tabs: true
   skin: "dark"
   match:
+    name_array:
+    - ddn
     section_array:
     - work/web
 - template: "related-work"
@@ -32,8 +34,8 @@ sections:
   contain_style: "overflow"
   count: 6
   columns: '2'
-  col_gap: 'lg'
-  row_gap: 'sm'
+  col_gap: 'md'
+  row_gap: 'md'
   tabs: false
   skin: "dark"
   match:
