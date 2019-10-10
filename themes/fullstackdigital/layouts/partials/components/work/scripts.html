@@ -1,0 +1,20 @@
+{{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
+{{ $scroll_lock := resources.Get "js/plugins/bodyScrollLock.js" | minify }}
+{{ $Panimate := resources.Get "js/plugins/Panimate.js" | minify }}
+
+<script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
+<!-- <script type="text/javascript" src="{{ $Panimate.Permalink }}"></script> -->
+<script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
+
+{{ $animate_grid := resources.Get "js/components/work/ajax_work_grid.js" | fingerprint }}
+
+{{ $util := resources.Get "js/util.js" | fingerprint }}
+
+<script type="text/javascript" ajax-script-reload="true">
+  fetchInject([
+    '{{ $animate_grid.RelPermalink }}'
+  ], fetchInject([
+    '{{ $util.RelPermalink }}'
+  ]))
+</script>
+

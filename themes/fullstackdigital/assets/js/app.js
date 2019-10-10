@@ -21,7 +21,7 @@ function setSectionSkins () {
     sections.forEach(section => {
         let bgColor = getComputedStyle(section).backgroundColor;
         let skin = lightOrDark(bgColor);
-        console.log(section, bgColor, skin)
+        //console.log(section, bgColor, skin)
 
         section.setAttribute("skin", skin)
     });

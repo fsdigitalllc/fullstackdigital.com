@@ -40,3 +40,15 @@
     <script src="{{ .RelPermalink }}"></script>
     {{ end }}
 {{ end }}
+
+{{ with .Params.sections }}
+{{ $related_work := false }}
+  {{ range . }}
+    {{ if eq .template "related-work" }}
+      {{ $related_work = true }}
+    {{ end }}
+  {{ end }}
+  {{ if $related_work }}
+  {{ partial "components/work/scripts.html" . }}
+  {{ end }}
+{{ end }}
