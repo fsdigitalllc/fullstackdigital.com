@@ -55,7 +55,7 @@ $grow_duration: 1s;
         transition: $grow_duration all;
 
         img {
-            max-height: 100%;
+            max-height: calc(100% + (2rem * 2) );
             z-index: $z_layer_3;
         }
     }
@@ -406,8 +406,7 @@ $grow_duration: 1s;
 
             &_logo {
                 height: 100%;
-                flex-basis: 20%;
-                margin-right: 1.5rem;
+                flex-basis: 25%;
                 display: flex;
                 align-items: center;
 
@@ -418,6 +417,7 @@ $grow_duration: 1s;
                 }
             }
             &_text {
+                padding-left: 0.75rem;
                 height: 100%;
                 flex-basis: 80%;
             }
@@ -430,6 +430,7 @@ $grow_duration: 1s;
                 position: absolute;
                 top: 50%;
                 transform: translate(0, -50%);
+                font-size: 90%;
             }
             
         }
@@ -545,6 +546,19 @@ $grow_duration: 1s;
             height: calc(100% + (#{$item_grow} * 2));
             transition: $grow_duration all;
         }
+
+
+        // Default behavior and mobile defaults to this
+        .image_wrapper {
+            //height: 104%;
+            //padding-bottom: 3%;
+            padding-top: $item_grow;
+            margin-top: -$item_grow;
+            padding-bottom: $item_grow;
+            margin-bottom: -$item_grow;
+            transition: $grow_duration all;
+        }
+        
         &.position-h-right {
             .image_wrapper {
                 margin-right: -$item_grow;

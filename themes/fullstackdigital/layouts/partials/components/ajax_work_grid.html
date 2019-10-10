@@ -75,6 +75,7 @@
 
 
 {{/* Inject Tab HTML if enabled */}}
+{{ $tabs = false }}
 {{ if eq $tabs true }}
 
   <div class="work-grid-tabs container padding-s-bottom">
@@ -143,38 +144,3 @@ $count:
 
 
 
-{{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
-{{ $scroll_lock := resources.Get "js/plugins/bodyScrollLock.js" | minify }}
-{{ $Panimate := resources.Get "js/plugins/Panimate.js" | minify }}
-
-<script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
-<!-- <script type="text/javascript" src="{{ $Panimate.Permalink }}"></script> -->
-<script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
-
-
-{{ if eq $tabs true }}
-{{ $Postquery := resources.Get "js/plugins/Postquery.js" | minify }}
-<script type="text/javascript" src="{{ $Postquery.Permalink }}" ajax-script-reload="true"></script>
-
-{{ $filter_grid := resources.Get "js/components/filter_grid.js" }}
-<script type="text/javascript" src="{{ $filter_grid.Permalink }}" ajax-script-reload="true"></script>
-
-{{ end }}
-
-
-{{ if eq $row true }}
-{{ $row_grid := resources.Get "js/components/featured_grid.js" }}
-<script type="text/javascript" src="{{ $row_grid.Permalink }}"></script>
-{{ end }}
-
-{{ $animate_grid := resources.Get "js/components/animate_grid.js" | fingerprint }}
-
-{{ $util := resources.Get "js/util.js" | fingerprint }}
-
-<script type="text/javascript" ajax-script-reload="true">
-  fetchInject([
-    '{{ $animate_grid.RelPermalink }}'
-  ], fetchInject([
-    '{{ $util.RelPermalink }}'
-  ]))
-</script>
