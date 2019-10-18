@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
         bodyScrollLock.enableBodyScroll(document.body);
     }
     AOS.init();
+    lazySizes.init();
     setSectionSkins();
+
 }, false)
 
 
