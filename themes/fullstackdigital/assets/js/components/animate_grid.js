@@ -1,24 +1,6 @@
 ;(function (global){
 
-  let items = document.querySelectorAll(".item");
-
-  let itemHover = (e) => {
-    let item = e.target.closest('.item');
-    if (item) {
-      let zIndex = parseInt(getComputedStyle(item).zIndex) + 1;
-      if (e.type === "mouseenter") {
-        item.style.zIndex = zIndex;
-      }
-      if (e.type === "mouseleave") {
-        item.style.zIndex = "";
-      }
-    }
-  }
-
-  items.forEach( (item, index) => {
-    item.addEventListener("mouseleave", itemHover, false);
-    item.addEventListener("mouseenter", itemHover, false);
-  })
+  
 
 })(window);
 

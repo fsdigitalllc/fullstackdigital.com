@@ -12,15 +12,19 @@ $grow_duration: 1s;
     overflow: visible;
     z-index: $z_layer_3;
 
-    &[data-loaded="false"] {
+    &[data-image-loaded="false"], &[data-load="false"] {
         //display: none !important;
+        visibility: hidden;
+        z-index: -1;
+        height: 0 !important;
         transform: scale(0.95);
         opacity: 0;
     }
-    &[data-loaded="true"] {
+    &[data-image-loaded="true"][data-load="true"] {
+        //height: 0;
         transform: scale(1);
         opacity: 1;
-        transition: 1s all;
+        transition: 1s opacity, 1s transform;
     }
 
     .item_wipe {
