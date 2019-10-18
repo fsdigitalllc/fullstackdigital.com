@@ -152,7 +152,6 @@
 
                                 let imgLoaded = (e) => {
                                     loaded++;
-                                    console.log("image loaded", img)
 
                                     if (loaded === total) {
                                         setImageLoaded(this.index);
@@ -170,15 +169,18 @@
                 // Get all images in the item and add an event listener
 
             });
-            console.log(itemArray)
+            //console.log(itemArray)
             return this;
         },
         loadInOrder: function () {
+            console.log("loadinorder_first", itemArray)
             itemArray.forEach( (item, i) => {
 
                 item.checkImages();
 
             });
+            console.log("loadinorder_second", itemArray)
+
         },
     }
 
