@@ -105,6 +105,7 @@
                 let itemImages = item.querySelectorAll("img");
                 let loaded = 0;
 
+                console.log("que", this.items.length, this.items)
                 itemImages.forEach( (img, i) => {
                     
                     let setLoaded = () => {
