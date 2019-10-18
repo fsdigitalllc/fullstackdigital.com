@@ -121,16 +121,28 @@ $description_size: 1.25rem;
     &.row-gap {
 
         &-lg {
-            grid-row-gap: $gap_lg;
+            //grid-row-gap: $gap_lg;
+            .item[data-load="true"] {
+                margin-bottom: $gap_lg;
+            }
         }
         &-md {
-            grid-row-gap: $gap_md;
+            //grid-row-gap: $gap_md;
+            .item[data-load="true"] {
+                margin-bottom: $gap_md;
+            }
         }
         &-sm {
-            grid-row-gap: $gap_sm;
+            //grid-row-gap: $gap_sm;
+            .item[data-load="true"] {
+                margin-bottom: $gap_sm;
+            }
         }
         &-none {
-            grid-row-gap: 0;
+            //grid-row-gap: 0;
+            .item[data-load="true"] {
+                margin-bottom: 0;
+            }
         }
         
     }

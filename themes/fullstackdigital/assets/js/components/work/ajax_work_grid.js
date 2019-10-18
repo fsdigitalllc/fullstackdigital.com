@@ -49,7 +49,7 @@
                     loadedMore++;
 
                     if (loadedMore < loadMoreIncrement) {
-                        s.setAttribute("data-load", true);
+                        s.setAttribute("data-load", "true");
                     }
                 }
 
@@ -65,10 +65,10 @@
       sectionItems.forEach( (sectionItem, index) => {
           // start index from 1
           index++
-          if (index <= limit) {
-              sectionItem.setAttribute("data-load", true)
+          if (index <= limit || limit === 0) {
+              sectionItem.setAttribute("data-load", "true")
           } else {
-              sectionItem.setAttribute("data-load", false)
+              sectionItem.setAttribute("data-load", "false")
           }
       });
       
