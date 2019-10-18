@@ -1,31 +1,146 @@
-;(function() {
-
-    // Get all items in use on the page and create an array of objects
-    let items = [];
+// Since this is inject asynchronously, need to use DOMContentLoaded to initialize
+;(function(global) {
 
 
-    document.querySelectorAll(".item").forEach( (item, index) => {
-        items.push (
-            item = {
-                node: item,
-                image: item.querySelector("img"),
-                index: index,
-                imageLoaded: function () {
-                    console.log(this.image, "loaded...")
-                },
-                isLoaded: function () {
-                    this.image.onload = this.imageLoaded;
-                    return this.image;
-                }
-            }
-        )
-    });
+    // Update this
+    let items = document.querySelectorAll(".item");
 
+  let itemHover = (e) => {
+    let item = e.target.closest('.item');
     
+    if (item) {
+      let zIndex = parseInt(getComputedStyle(item).zIndex) + 1;
+      if (e.type === "mouseenter") {
+        item.style.zIndex = zIndex;
+      }
+      if (e.type === "mouseleave") {
+        item.style.zIndex = "";
+      }
+    }
+  }
 
-    items.forEach( (item, index) => {
-            console.log("method", item.isLoaded())
+  items.forEach( (item, index) => {
+    item.addEventListener("mouseleave", itemHover, false);
+    item.addEventListener("mouseenter", itemHover, false);
+  });
 
+    // Get the items
+    // Build the item objects
+    // Get all images within the items
+    // Add a loaded event listener to each image
+    // Fire the event listener callback after the width/height is rendered
+    // The callback should include reinitializing aos on that item to account for preloading
+    let RevealAfterLoad = function (items) {
+        return new RevealAfterLoad.init(items);
+    }
 
-    });
-}())
+    // Contains all of the items
+    let itemArray = [];
+
+    // Event handler for loading images
+    let setImageLoaded = (index) => {
+        itemArray[index].imagesLoaded = true;
+        console.log(itemArray)
+        // loop through the list again
+        itemArray.forEach( (a, f) => {
+
+            let previous = f - 1;
+            if (a.imagesLoaded === true && (previous >= 0 && itemArray[previous].imagesLoaded === true ) || f === 0) {
+                console.log("nn", a)
+                a.node.setAttribute("data-loaded", true);
+            }
+        })
+
+        console.log(itemArray[index]);
+    }
+
+    RevealAfterLoad.prototype = {
+        validate: function() {
+
+            var errorMessage;
+
+            if (!this.items) {
+                errorMessage = "no items defined";
+            }
+
+            if (errorMessage) {
+                throw errorMessage;
+            }
+
+            return this;
+        },
+        loadItem: function(item) {
+            
+        },
+        getItems: function() {
+
+            this.items.forEach( (item, index) => {
+
+                //this.loadItem(item);
+                // Push an items object to the items array
+                itemArray.push (
+                    itemObject = {
+                        index: index,
+                        node: item,
+                        images: item.querySelectorAll("img"),
+                        imagesLoaded: false,
+                        checkImages: function () {
+
+                            let loaded = 0;
+                            let total = this.images.length;
+                            this.images.forEach( (img, i) => {
+
+                                let imgLoaded = (e) => {
+                                    loaded++;
+
+                                    if (loaded === total) {
+                                        setImageLoaded(this.index);
+                                    }
+                                }
+
+                                img.addEventListener("load", imgLoaded, false);
+                            });
+
+                        },
+                    }
+                )
+
+                // Get all images in the item and add an event listener
+
+            });
+            console.log(itemArray)
+            return this;
+        },
+        loadInOrder: function () {
+            itemArray.forEach( (item, i) => {
+
+                item.checkImages();
+
+            });
+        },
+    }
+
+    RevealAfterLoad.init = function(items, options) {
+
+        // Set default values
+        var self = this;
+        self.items = items;
+
+        // If param1 is set use that value, otherwise set it to an empty string
+        //self.firstTags = Array.prototype.slice.call(firstTags);
+        //self.secondTags = Array.prototype.slice.call(secondTags);
+
+        self.validate();
+        self.getItems().loadInOrder();
+    }
+
+    // Give access to all prototype properties
+    RevealAfterLoad.init.prototype = RevealAfterLoad.prototype;
+    // Pass Panimate to the global object;
+    global.RevealAfterLoad = RevealAfterLoad;
+
+    RevealAfterLoad(
+        document.querySelectorAll(".item")
+    )
+        
+}(window))

@@ -122,6 +122,7 @@
     get the post image, or override with more specific images if they exist
 -->
 {{ $image := false }}
+
 {{ with $params.image }}
     {{ $image = . }}
 {{ end }}
@@ -140,20 +141,25 @@
     {{ $image = . }}
 {{ end }}
 
+{{ $image768 := false }}
+{{ $image520 := false }}
 {{ if $image }}
     <!--first check for the global resource-->
     {{ $global_resource := resources.Get $image }}
-    
-    {{ with $global_resource }}
-        {{ $image = .Permalink }}
-    {{ end }}
 
-    <!--first check for the page resource-->
+    <!--next check for the page resource-->
     {{ $page_resource := .post.Resources.GetMatch $image }}
     
-    {{ with $page_resource }}
-        {{ $image = .Permalink }}
+    {{ with or ($global_resource) ($page_resource) }}
+        {{ $resource := . }}
+        {{ $resource520 := $resource.Resize "520x q100" }}
+        {{ $resource768 := $resource.Resize "768x q100" }}
+        
+        {{ $image520 = $resource520.Permalink }}
+        {{ $image768 = $resource768.Permalink }}
+        {{ $image = $resource.Permalink }}
     {{ end }}
+
 {{ end }}
 
 {{ $logo := false }}
@@ -173,10 +179,15 @@
 {{ end }}
 
 
-<div index="{{ .index }}" name="{{ $name }}" skin="{{ $skin }}" class="item layout-{{ $layout }} width-{{ $width }} position-h-{{ $img_position_horizontal }} position-v-{{ $img_position_vertical }}" style="background-color: {{ $bg_color }};" item-link="{{ $permalink }}">
+<div index="{{ .index }}" name="{{ $name }}" skin="{{ $skin }}" data-loaded="false" class="item layout-{{ $layout }} width-{{ $width }} position-h-{{ $img_position_horizontal }} position-v-{{ $img_position_vertical }}" style="background-color: {{ $bg_color }};" item-link="{{ $permalink }}">
     
     <div class="image_wrapper img-size-{{ $img_size }}">
-        <img src="{{ $image }}">
+        <img 
+            sizes="50vw, 70vw, 100vw"
+            data-srcset="{{ $image }} 1160w, {{ $image768 }} 768w, {{ $image520 }} 520w"
+            data-src="{{ $image }}"
+            alt=""
+            class="lazyload">
 
         {{ if ne $layout "hero" }}
             <div class="item_wipe" style="background-color: {{ $bg_color }};"></div>
@@ -188,7 +199,7 @@
         <div class="caption_content">
             
             <div class="caption_logo">
-                <img src="{{ $logo }}">
+                <img data-src="{{ $logo }}" class="lazyload">
             </div>
 
             <div class="caption_text">

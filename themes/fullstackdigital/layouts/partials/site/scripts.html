@@ -32,6 +32,10 @@
   ]).then( () => {
     lazySizes.init();
   })
+
+  window.addEventListener("resize", function () {
+    lazySizes.init();
+  })
 </script>
 
 <!-- include any page specific scripts if they exist -->

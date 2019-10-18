@@ -18,31 +18,6 @@
         return new AjaxScriptLoader.init(firstTags, secondTags);
     }
 
-    // Array of supported script types
-    let runScriptTypes = [
-        'application/javascript',
-        'application/ecmascript',
-        'application/x-ecmascript',
-        'application/x-javascript',
-        'text/ecmascript',
-        'text/javascript',
-        'text/javascript1.0',
-        'text/javascript1.1',
-        'text/javascript1.2',
-        'text/javascript1.3',
-        'text/javascript1.4',
-        'text/javascript1.5',
-        'text/jscript',
-        'text/livescript',
-        'text/x-ecmascript',
-        'text/x-javascript',
-        'stylesheet'
-    ]
-
-    function removeNode (node) {
-
-    }
-
     AjaxScriptLoader.prototype = {
         // This points to the object
         // Return this in each statement to make chainable
@@ -140,7 +115,7 @@
 
                 return node;
             });
-            console.log("difff", diffNodes)
+            //console.log("difff", diffNodes)
             return diffNodes;
         },
         removeScripts: function(firstArray, secondArray) {
@@ -224,7 +199,6 @@
                         callback();
                     }
                     //callback();
-                    console.log("IMG LOADED", script);
                 }
                 if (s !== undefined) {
                     appendScripts(s)
@@ -254,21 +228,19 @@
                 if (typeof index === 'undefined') {
                 index = 0
                 }
-                //console.log("arr", arr[index])
                 arr[index](function () {
                     index++;
-                    console.log("function...")
                     if (index === arr.length) {
 
                         // LOOP FINISHED
                         // SCRIPTS DONE
                         callback()
-                        console.log(index, arr.length)
+                        //console.log(index, arr.length)
                     } else {
                         //console.log("insert", arr[index])
                         // LOOP NOT FINISHED
                         seq(arr, callback, index)
-                        console.log("not finished", index, arr.length)
+                        //console.log("not finished", index, arr.length)
 
                     }
                 })
@@ -298,7 +270,7 @@
         },
     }
 
-    // 2. //
+    // 2.
     // Create a function constructor that builds an object and gives it 2 properties with default values
     AjaxScriptLoader.init = function(firstTags, secondTags) {
 
@@ -314,46 +286,7 @@
 
     // Give access to all prototype properties
     AjaxScriptLoader.init.prototype = AjaxScriptLoader.prototype;
-    // Pass Panimate to the global object;
+    // Pass AjaxScriptLoader to the global object;
     global.AjaxScriptLoader = AjaxScriptLoader;
-
-    
-    
-      
-    // First class function for comparing two arrays of scripts
-    // If the script exists in the <head> of the other page, but does not exist in the head of the current container, then inject that script and load it in order.
-    
-    // fn is the comparison function
-    // function mapForEachScript(arrStart, arrNext, fn) {
-
-    //     // Create a new array of just sources from scripts
-    //     let arrStartSrc = [];
-        
-    //     for (var i=0; i < arrStart.length; i++) {
-    //         if (arrStart[i].src) {
-    //             arrStartSrc.push(arrStart[i].src);
-    //         }
-    //     }
-
-    //     newArr = [];
-        
-    //     // Loop through the given array
-    //     for (var i=0; i < arrNext.length; i++) {
-
-    //         if (arrNext[i].src) {
-    //             if (!arrStartSrc.includes(arrNext[i].src)) {
-    //                 newArr.push(
-    //                     fn(arrNext[i].src)
-    //                 )
-    //             }
-    //         }
-    //     };
-    //     return newArr;
-    // }
-    // let loadNewScripts = mapForEachScript(currentScripts, ajaxScripts, function(script) {
-    //     document.querySelector("head").innerHTML += script;
-
-    //     console.log(script)
-    // });
 
 }(window));
