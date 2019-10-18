@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setSectionSkins();
 }, false)
 
+
 function setSectionSkins () {
     let sections = document.querySelectorAll("section");
 

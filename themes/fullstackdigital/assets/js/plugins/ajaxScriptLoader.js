@@ -136,7 +136,7 @@
             let runNodes = array;
             
             if (runNodes.length > 0) {
-                console.log("RUN SCRIPTS")
+                //console.log("RUN SCRIPTS")
                 runScripts();
             } else {
                 scriptsDone();
@@ -156,7 +156,7 @@
                 let scriptTag = script.tagName;
                 let createTag = scriptTag.toLowerCase(scriptTag);
                 let s;
-                console.log("loading...", script)
+                //console.log("loading...", script)
                 if (scriptTag === "SCRIPT") {
                     s = document.createElement(createTag);
                     s.type = 'text/javascript'

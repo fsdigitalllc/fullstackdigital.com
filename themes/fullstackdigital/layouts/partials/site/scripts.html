@@ -3,16 +3,17 @@
 
 <!--non render blocking plugins-->
 
-{{ $ajaxScriptLoader := resources.Get "js/plugins/ajaxScriptLoader.js" | minify }}
+{{ $AjaxScriptLoader := resources.Get "js/plugins/AjaxScriptLoader.js" | minify }}
 
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
-{{ $plugins_js := slice $ls_unveil $lazy_js $ajaxScriptLoader | resources.Concat "js/plugins.js" | minify | fingerprint }}
+{{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
+
+{{ $plugins_js := slice $ls_unveil $lazy_js $aos $smoothscroll $AjaxScriptLoader | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
 <!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-{{/*  <script type="text/javascript" src="{{ $aos.Permalink }}"></script>  */}}
 
 {{ $app := resources.Get "js/app.js" | minify }}
 
@@ -20,23 +21,9 @@
   {{ $app = resources.Get "js/app.js" }}
 {{ end }}
 
-<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
+{{/*  <script type="text/javascript" src="{{ $aos.Permalink }}"></script>  */}}
 <script type="text/javascript" src="{{ $app.Permalink }}"></script>
 
-{{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
-<!--async loaded resource-->
-<script type="text/javascript">
-  fetchInject([
-    '{{ $smoothscroll.RelPermalink }}',
-    '{{ $plugins_js.RelPermalink }}'
-  ]).then( () => {
-    lazySizes.init();
-  })
-
-  window.addEventListener("resize", function () {
-    lazySizes.init();
-  })
-</script>
 
 <!-- include any page specific scripts if they exist -->
 {{ with .Resources.Match "js/*" }}
