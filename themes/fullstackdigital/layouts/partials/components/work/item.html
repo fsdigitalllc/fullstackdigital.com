@@ -187,7 +187,7 @@
             data-srcset="{{ $image }} 1160w, {{ $image768 }} 768w, {{ $image520 }} 520w"
             data-src="{{ $image }}"
             alt=""
-            class="lazyload">
+            class="lazyload lazypreload">
 
         {{ if ne $layout "hero" }}
             <div class="item_wipe" style="background-color: {{ $bg_color }};"></div>
@@ -199,7 +199,7 @@
         <div class="caption_content">
             
             <div class="caption_logo">
-                <img data-src="{{ $logo }}" class="lazyload">
+                <img data-src="{{ $logo }}" class="lazyload lazypreload">
             </div>
 
             <div class="caption_text">

@@ -38,9 +38,8 @@
       if (sectionItems.length > limit && limit !== 0) {
           let loadMoreDiv = document.createElement("div");
           loadMoreDiv.className = "btn_loadmore_container";
-          loadMoreDiv.innerHTML = "<div class='btn_loadmore' data-aos='fade-in' data-aos-duration='1000' data-aos-delay='1000'><span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span></div>";
+          loadMoreDiv.innerHTML = "<div class='btn_loadmore'><span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span></div>";
           section.appendChild(loadMoreDiv);
-          AOS.init();
 
           let loadMoreItems = () => {
               
@@ -153,10 +152,12 @@
 
                                 let imgLoaded = (e) => {
                                     loaded++;
+                                    console.log("image loaded", img)
 
                                     if (loaded === total) {
                                         setImageLoaded(this.index);
                                     }
+                                    img.removeEventListener("load", imgLoaded, false);
                                 }
 
                                 img.addEventListener("load", imgLoaded, false);
