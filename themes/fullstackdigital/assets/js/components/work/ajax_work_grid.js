@@ -40,25 +40,28 @@
           loadMoreDiv.className = "btn_loadmore_container";
           loadMoreDiv.innerHTML = "<div class='btn_loadmore' data-aos='fade-in' data-aos-duration='1000' data-aos-delay='1000'><span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span></div>";
           section.appendChild(loadMoreDiv);
+          AOS.init();
 
           let loadMoreItems = () => {
               
-              let loadMoreIncrement = 3;
-              let loadedMore = 0;
-              sectionItems.forEach( (s, index) => {
+            // Updated loadmore increment to be based on the follow items
+            // 1 if 
+            let loadMoreIncrement = 3;
+            let loadedMore = 0;
+            sectionItems.forEach( (s, index) => {
 
-                if (s.getAttribute("data-load") === "false") {
-                    loadedMore++;
+            if (s.getAttribute("data-load") === "false") {
+                loadedMore++;
 
-                    if (loadedMore < loadMoreIncrement) {
-                        s.setAttribute("data-load", "true");
-                    }
+                if (loadedMore < loadMoreIncrement) {
+                    s.setAttribute("data-load", "true");
                 }
+            }
 
-                if (s.getAttribute("data-load") === "true" && index === sectionItems.length -1) {
-                    loadMoreDiv.parentNode.removeChild(loadMoreDiv)
-                }
-              });
+            if (s.getAttribute("data-load") === "true" && index === sectionItems.length -1) {
+                loadMoreDiv.parentNode.removeChild(loadMoreDiv)
+            }
+            });
           }
 
           loadMoreDiv.addEventListener("click", loadMoreItems, false);
