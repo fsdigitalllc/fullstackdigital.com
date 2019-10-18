@@ -1,0 +1,76 @@
+.btn_ {
+    &loadmore {
+        width: 2rem;
+        height: 2rem;
+        background-color: #efefef;
+        border-radius: 50%;
+        color: #444;
+        border-color: #ddd;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+
+        .m_2, .m_3, .m_1 {
+            transition: 2s all;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .m_2, .m_3, .m_1 {
+                transition: 2s all;
+            }
+            
+            .m_1 {
+                transform: translate(-1px, -2px) scale(1.25);
+            }
+
+            .m_2 {
+                transform: translate(0px, 4px) scale(1.25);
+            }
+            .m_3 {
+                transform: translate(1px, -2px) scale(1.25);
+            }
+
+            // .m_1 {
+            //     animation-name: m1;
+            //     animation-duration: 1s;
+            //     animation-timing-function: ease-in;
+            //     animation-iteration-count: infinite;
+            // }
+            // .m_2 {
+            //     animation-name: m1;
+            //     animation-duration: 1s;
+            //     animation-timing-function: ease-in;
+            //     animation-delay: 0.25s;
+            //     animation-iteration-count: infinite;
+            // }
+            // .m_3 {
+            //     animation-name: m1;
+            //     animation-duration: 1s;
+            //     animation-timing-function: ease-in;
+            //     animation-delay: 0.5s;
+            //     animation-iteration-count: infinite;
+            // }
+        }
+
+        @keyframes m1 {
+            0% {
+                transform: translate(0px, 0px);
+            }
+            25% {
+                transform: translate(0px, -3px);
+            }
+            50% {
+                transform: translate(0px, 0px);
+            }
+            75% {
+                transform: translate(0px, 3px);
+            }
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+    }
+}
