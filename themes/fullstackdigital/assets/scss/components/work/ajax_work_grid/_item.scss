@@ -12,6 +12,17 @@ $grow_duration: 1s;
     overflow: visible;
     z-index: $z_layer_3;
 
+    &[data-loaded="false"] {
+        //display: none !important;
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    &[data-loaded="true"] {
+        transform: scale(1);
+        opacity: 1;
+        transition: 1s all;
+    }
+
     .item_wipe {
         width: 100%;
         height: 100%;

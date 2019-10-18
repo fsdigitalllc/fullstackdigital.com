@@ -13,8 +13,8 @@
 <script type="text/javascript" ajax-script-reload="true">
   fetchInject([
     '{{ $animate_grid.RelPermalink }}'
-  ], fetchInject([
-    '{{ $util.RelPermalink }}'
-  ]))
+  ]).then(
+    console.log("animate Grid Loaded")
+  );
 </script>
 
