@@ -149,9 +149,11 @@
                             let loaded = 0;
                             let total = this.images.length;
                             this.images.forEach( (img, i) => {
+                                console.log("checkImage", img);
 
                                 let imgLoaded = (e) => {
                                     loaded++;
+                                    console.log("imageLoaded", img);
 
                                     if (loaded === total) {
                                         setImageLoaded(this.index);
