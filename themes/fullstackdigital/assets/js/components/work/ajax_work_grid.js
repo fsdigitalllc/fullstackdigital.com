@@ -97,17 +97,23 @@
 
     // Contains all of the items
     let itemArray = [];
-
+    let loadArray = [];
+    
     // Event handler for loading images
     let setImageLoaded = (index) => {
         itemArray[index].imagesLoaded = true;
         //console.log(itemArray)
         // loop through the list again
-        itemArray.forEach( (a, f) => {
+        itemArray.forEach( (item, f) => {
 
+            // get the index of the previous 
             let previous = f - 1;
-            if (a.imagesLoaded === true && (previous >= 0 && itemArray[previous].imagesLoaded === true ) || f === 0) {
-                a.node.setAttribute("data-image-loaded", true);
+            if (previous < 0) {
+                previous = 0;
+            }
+
+            if (item.imagesLoaded === true && ((previous >= 0 && itemArray[previous].imagesLoaded === true ) || f === 0 )) {
+                item.node.setAttribute("data-image-loaded", true);
             }
         })
 
@@ -129,14 +135,10 @@
 
             return this;
         },
-        loadItem: function(item) {
-            
-        },
         getItems: function() {
 
             this.items.forEach( (item, index) => {
 
-                //this.loadItem(item);
                 // Push an items object to the items array
                 itemArray.push (
                     itemObject = {
@@ -146,21 +148,31 @@
                         imagesLoaded: false,
                         checkImages: function () {
 
+                            // Check if images for this node are loaded
                             let loaded = 0;
                             let total = this.images.length;
+
+                            // Check all images
                             this.images.forEach( (img, i) => {
-                                console.log("checkImage", img);
 
                                 let imgLoaded = (e) => {
-                                    loaded++;
-                                    console.log("imageLoaded", img);
 
+                                    // Remove this event listener to avoid duplication
+
+                                    img.removeEventListener("load", imgLoaded, false);
+
+                                    // Increment the image loaded counter by 1
+
+                                    loaded++;
+
+                                    // If all images on this node have loaded, change the itemObject imagesLoaded key to true
                                     if (loaded === total) {
                                         setImageLoaded(this.index);
                                     }
-                                    img.removeEventListener("load", imgLoaded, false);
+                                    
                                 }
 
+                                // Add an event listener to each image
                                 img.addEventListener("load", imgLoaded, false);
                             });
 
