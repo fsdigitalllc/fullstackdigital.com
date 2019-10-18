@@ -18,6 +18,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "contain"
   count: 6
+  limit: 0
   columns: '2'
   col_gap: 'sm'
   row_gap: 'sm'
@@ -33,9 +34,10 @@ sections:
   layout_size: "contain"
   contain_style: "overflow"
   count: 6
+  limit: 2
   columns: '2'
-  col_gap: 'md'
-  row_gap: 'md'
+  col_gap: 'none'
+  row_gap: 'none'
   tabs: false
   skin: "dark"
   match:
@@ -45,6 +47,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "fullwidth"
   count: 6
+  limit: 2
   columns: '2'
   col_gap: 'sm'
   tabs: false
@@ -55,6 +58,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "contain"
   count: 4
+  limit: 2
   columns: '1'
   tabs: false
   match:
@@ -64,6 +68,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "fullwidth"
   count: 4
+  limit: 2
   columns: '1'
   tabs: false
   match:
@@ -73,6 +78,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "fullwidth"
   count: 4
+  limit: 2
   columns: '2'
   tabs: false
   match:
@@ -88,6 +94,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "fullwidth"
   count: 4
+  limit: 2
   columns: '1'
   tabs: false
   match:
@@ -97,6 +104,7 @@ sections:
   classes: "padding-l-bottom"
   layout_size: "contain"
   count: 6
+  limit: 2
   columns: '2'
   tabs: false
   match:
