@@ -90,16 +90,16 @@ var bounding = elem.getBoundingClientRect();
     );
 };
 
-Util.pushHistory = (data, title, location) => {
-  //console.log("push history", data, title, location)
-// Create a state object for the content to be toggled via ajax
-  window.history.pushState(data, title, location);
-};
-Util.replaceHistory = (data, title, location) => {
-  //console.log("replace history", data, title, location)
-// Create a state object for the content to be toggled via ajax
-  window.history.replaceState(data, title, location);
-};
+// Util.pushHistory = (data, title, location) => {
+//   //console.log("push history", data, title, location)
+// // Create a state object for the content to be toggled via ajax
+//   window.history.pushState(data, title, location);
+// };
+// Util.replaceHistory = (data, title, location) => {
+//   //console.log("replace history", data, title, location)
+// // Create a state object for the content to be toggled via ajax
+//   window.history.replaceState(data, title, location);
+// };
 
 (() => {
   Util.loadingAnimation();
