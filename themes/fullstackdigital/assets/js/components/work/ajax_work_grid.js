@@ -35,8 +35,8 @@
 
       if (sectionItems.length > limit) {
           let loadMoreDiv = document.createElement("div");
-          loadMoreDiv.className = "btn_loadmore";
-          loadMoreDiv.innerHTML = "<span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span>";
+          loadMoreDiv.className = "btn_loadmore_container";
+          loadMoreDiv.innerHTML = "<div class='btn_loadmore'><span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span></div>";
           section.appendChild(loadMoreDiv);
 
           let loadMoreItems = (e) => {

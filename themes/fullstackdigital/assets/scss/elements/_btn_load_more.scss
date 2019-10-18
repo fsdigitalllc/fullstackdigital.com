@@ -1,4 +1,5 @@
 .btn_ {
+    
     &loadmore {
         width: 2rem;
         height: 2rem;
@@ -10,6 +11,9 @@
         justify-content: center;
         text-align: center;
         font-weight: bold;
+        margin: 0 auto;
+        transition: 1s all;
+
 
         .m_2, .m_3, .m_1 {
             transition: 2s all;
@@ -71,6 +75,11 @@
             100% {
                 transform: translate(0px, 0px);
             }
+        }
+
+        &_container {
+            width: 100%;
+            grid-column: 1/-1;
         }
     }
 }
