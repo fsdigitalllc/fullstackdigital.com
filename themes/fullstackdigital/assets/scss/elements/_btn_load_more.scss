@@ -1,3 +1,10 @@
+.load-more {
+    .btn_ {
+        &loadmore {
+            display: flex;
+        }
+    }
+}
 .btn_ {
     
     &loadmore {
@@ -7,13 +14,12 @@
         border-radius: 50%;
         color: #444;
         border-color: #ddd;
-        display: flex;
         justify-content: center;
         text-align: center;
         font-weight: bold;
         margin: 0 auto;
         transition: 1s all;
-
+        display: none;
 
         .m_2, .m_3, .m_1 {
             transition: 2s all;

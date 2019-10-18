@@ -26,20 +26,22 @@
 
   // Scratch pad
 
- 
+  // Refactor this so that it's based on if the initial items have actually loaded
+  // The condition should check if the first items within the initial limit have data-images-loaded="true"
+  // If the limit is smaller than the total items in that array, 
   let limitSections = document.querySelectorAll('[data-limit]');
 
   limitSections.forEach( (section, i) => {
       let sectionItems = section.querySelectorAll(".item");
       let limit = parseFloat(section.getAttribute("data-limit"));
 
-      if (sectionItems.length > limit) {
+      if (sectionItems.length > limit && limit !== 0) {
           let loadMoreDiv = document.createElement("div");
           loadMoreDiv.className = "btn_loadmore_container";
-          loadMoreDiv.innerHTML = "<div class='btn_loadmore'><span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span></div>";
+          loadMoreDiv.innerHTML = "<div class='btn_loadmore' data-aos='fade-in' data-aos-duration='1000' data-aos-delay='1000'><span class='m_1'>.</span><span class='m_2'>.</span><span class='m_3'>.</span></div>";
           section.appendChild(loadMoreDiv);
 
-          let loadMoreItems = (e) => {
+          let loadMoreItems = () => {
               
               let loadMoreIncrement = 3;
               let loadedMore = 0;
@@ -68,7 +70,13 @@
           if (index <= limit || limit === 0) {
               sectionItem.setAttribute("data-load", "true")
           } else {
-              sectionItem.setAttribute("data-load", "false")
+              sectionItem.setAttribute("data-load", "false");
+
+            // Display the load-more btn by adding a class to the wrapping div
+            if (!section.classList.contains("load-more")) {
+                section.classList.add("load-more");
+            }
+
           }
       });
       
@@ -97,7 +105,6 @@
 
             let previous = f - 1;
             if (a.imagesLoaded === true && (previous >= 0 && itemArray[previous].imagesLoaded === true ) || f === 0) {
-                console.log("nn", a)
                 a.node.setAttribute("data-image-loaded", true);
             }
         })
