@@ -2,6 +2,7 @@
 /node_modules
 
 /functions
+/resources
 
 #themes/pancakesBuilder-dev
 #themes/pancakesDocs-dev
