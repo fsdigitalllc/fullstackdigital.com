@@ -65,6 +65,10 @@
 {{/* Limit the number of returned items */}}
 {{ $count := .page.count | default 2 }}
 
+{{/* Load more if limit is less than count */}}
+
+{{ $limit := .page.limit | default false }}
+
 {{ $query := $arguments }}
 
 {{/* $query := (where $.global.Site.RegularPages "Section" "work") */}}
@@ -126,7 +130,7 @@ $count:
 {{ $row_gap := .page.row_gap | default "sm" | string | safeHTML }}
 
 
-<div class="container ajax_work_grid col-count-{{ $col_count }} layout-size-{{ $layout_size }} col-gap-{{ $col_gap }} row-gap-{{ $row_gap }}{{ with $classes }} {{ . }}{{ end }}{{ with $layout_contain_style }} contain-style-{{ . }}{{ end }}">
+<div{{ with $limit }} data-limit="{{ . }}"{{ end }} class="container ajax_work_grid col-count-{{ $col_count }} layout-size-{{ $layout_size }} col-gap-{{ $col_gap }} row-gap-{{ $row_gap }}{{ with $classes }} {{ . }}{{ end }}{{ with $layout_contain_style }} contain-style-{{ . }}{{ end }}">
     
   {{ if gt (len $query) 0 }}
   {{ $global := .global }}

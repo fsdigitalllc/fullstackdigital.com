@@ -24,6 +24,57 @@
     item.addEventListener("mouseenter", itemHover, false);
   });
 
+  // Scratch pad
+
+ 
+  let limitSections = document.querySelectorAll('[data-limit]');
+
+  limitSections.forEach( (section, i) => {
+      let sectionItems = section.querySelectorAll(".item");
+      let limit = parseFloat(section.getAttribute("data-limit"));
+
+      if (sectionItems.length > limit) {
+          let loadMoreDiv = document.createElement("div");
+          loadMoreDiv.className = "loadmore_btn";
+          loadMoreDiv.innerText = "loadmore";
+          section.appendChild(loadMoreDiv);
+
+          let loadMoreItems = (e) => {
+              
+              let loadMoreIncrement = 3;
+              let loadedMore = 0;
+              sectionItems.forEach( (s, index) => {
+
+                if (s.getAttribute("data-load") === "false") {
+                    loadedMore++;
+
+                    if (loadedMore < loadMoreIncrement) {
+                        s.setAttribute("data-load", true);
+                    }
+                }
+                
+                if (s.getAttribute("data-load") === "true" && index === sectionItems.length -1) {
+                    loadMoreDiv.parentNode.removeChild(loadMoreDiv)
+                }
+              });
+          }
+
+          loadMoreDiv.addEventListener("click", loadMoreItems, false);
+      }
+
+      sectionItems.forEach( (sectionItem, index) => {
+          // start index from 1
+          index++
+          if (index <= limit) {
+              sectionItem.setAttribute("data-load", true)
+          } else {
+              sectionItem.setAttribute("data-load", false)
+          }
+      });
+      
+  });
+
+
     // Get the items
     // Build the item objects
     // Get all images within the items
@@ -40,18 +91,18 @@
     // Event handler for loading images
     let setImageLoaded = (index) => {
         itemArray[index].imagesLoaded = true;
-        console.log(itemArray)
+        //console.log(itemArray)
         // loop through the list again
         itemArray.forEach( (a, f) => {
 
             let previous = f - 1;
             if (a.imagesLoaded === true && (previous >= 0 && itemArray[previous].imagesLoaded === true ) || f === 0) {
                 console.log("nn", a)
-                a.node.setAttribute("data-loaded", true);
+                a.node.setAttribute("data-image-loaded", true);
             }
         })
 
-        console.log(itemArray[index]);
+        //console.log(itemArray[index]);
     }
 
     RevealAfterLoad.prototype = {
