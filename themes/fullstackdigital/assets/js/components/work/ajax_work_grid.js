@@ -1,7 +1,7 @@
 // Since this is inject asynchronously, need to use DOMContentLoaded to initialize
 ;(function(global) {
 
-
+    document.addEventListener("DOMContentLoaded", function () {
     // Change the z-index of a hovered grid item so that it overlaps the item below
     let items = document.querySelectorAll(".item");
 
@@ -36,5 +36,6 @@
 
     // Animate items with 60fps
     //Velocity();
+    });
         
 }(window))
