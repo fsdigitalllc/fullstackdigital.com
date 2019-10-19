@@ -10,7 +10,7 @@
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
 {{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
 
-{{ $plugins_js := slice $ls_unveil $lazy_js $aos $smoothscroll $ajaxScriptLoader | resources.Concat "js/plugins.js" | minify | fingerprint }}
+{{ $plugins_js := slice $ls_unveil $lazy_js $aos $ajaxScriptLoader | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
 <!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
