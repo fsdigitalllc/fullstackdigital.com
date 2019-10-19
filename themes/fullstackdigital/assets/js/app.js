@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
         bodyScrollLock.enableBodyScroll(document.body);
     }
     AOS.init();
-    lazySizes.init();
+    //lazySizes.init();
     setSectionSkins();
+    lazySizes.init();
 
 }, false)
 
@@ -82,7 +83,7 @@ let stateObj = {
 
 let changeWindowContent = () => {
     //AOS.init();
-    lazySizes.init();
+    //lazySizes.init();
     document.querySelectorAll("head title")[0].innerText = window.history.state.title;
     AjaxScriptLoader().isLoading(false);
     window.scrollTo (0,0);

@@ -5,11 +5,6 @@
 {{ $RevealAfterImagesLoad := resources.Get "js/plugins/helpers/RevealAfterImagesLoad.js" | minify }}
 {{ $LoadMoreItems := resources.Get "js/plugins/helpers/LoadMoreItems.js" | minify }}
 
-
-<script type="text/javascript" src="{{ $velocity.Permalink }}"></script>
-<!-- <script type="text/javascript" src="{{ $Panimate.Permalink }}"></script> -->
-<script type="text/javascript" src="{{ $scroll_lock.Permalink }}"></script>
-
 {{ $ajax_work_grid := resources.Get "js/components/work/ajax_work_grid.js" | fingerprint }}
 
 {{ $util := resources.Get "js/util.js" | fingerprint }}
@@ -19,10 +14,14 @@
     '{{ $ajax_work_grid.RelPermalink }}'
   ], fetchInject([
     '{{ $RevealAfterImagesLoad.RelPermalink }}',
-    '{{ $LoadMoreItems.RelPermalink }}'
+    '{{ $LoadMoreItems.RelPermalink }}',
+    '{{ $velocity.RelPermalink }}',
+    '{{ $scroll_lock.RelPermalink }}'
+  ])).then(() => {
+    console.log("work grid loaded");
+    console.log("RevealImages Loaded");
+    console.log("LoadMoreItems loaded");
+  });
 
-  ]).then(
-    console.log("animate Grid Loaded")
-  ));
 </script>
 
