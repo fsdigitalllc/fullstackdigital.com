@@ -3,7 +3,7 @@
 
 <!--non render blocking plugins-->
 
-{{ $AjaxScriptLoader := resources.Get "js/plugins/AjaxScriptLoader.js" | minify }}
+{{ $AjaxScriptLoader := resources.Get "js/plugins/AjaxScriptLoader.js" }}
 
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
