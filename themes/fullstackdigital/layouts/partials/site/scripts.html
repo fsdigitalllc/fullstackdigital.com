@@ -3,18 +3,17 @@
 
 <!--non render blocking plugins-->
 
-{{ $ajaxscriptloader := resources.Get "js/plugins/scriptloader.js" }}
+{{ $ajaxscriptloader := resources.Get "js/plugins/ajaxScriptLoader.js" }}
 
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
 {{ $aos := resources.Get "js/plugins/aos.min.js" }}
 {{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
 
-{{ $plugins_js := slice $ls_unveil $lazy_js $aos $smoothscroll | resources.Concat "js/plugins.js" | minify | fingerprint }}
+{{ $plugins_js := slice $ls_unveil $lazy_js $aos $smoothscroll $ajaxscriptloader | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
 <!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-<script type="text/javascript" src="{{ $ajaxscriptloader.Permalink }}"></script>
 
 {{ $app := resources.Get "js/app.js" | minify }}
 
