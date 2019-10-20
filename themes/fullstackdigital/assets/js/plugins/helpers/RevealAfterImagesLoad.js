@@ -108,15 +108,25 @@
 
                 //console.log("que", this.items.length, this.items)
                 itemImages.forEach( (img, i) => {
-                    
                     let setLoaded = () => {
                         loaded++
 
+                        console.log("image", img, loaded, itemImages.length)
+
                         if (loaded === itemImages.length) {
                             item.closest(".item").setAttribute("data-image-loaded", true);
+                            img.setAttribute("data-image-loaded", true);
+
                         }
                     }
+
+                    // Check if an image is loaded, then start the callback
                     img.addEventListener("load", setLoaded, false);
+                    
+                    // If the image loads before the event is attached, use this fallback method
+                    if (img.complete) {
+                        setLoaded();
+                    }
                 })
             })
             itemArray.forEach( (item, i) => {
