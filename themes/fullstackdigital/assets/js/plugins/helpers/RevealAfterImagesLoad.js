@@ -1,4 +1,5 @@
 ;(function(global) {
+    console.log("reveal images FUNCTION START")
     // Get the items
     // Build the item objects
     // Get all images within the items
@@ -105,7 +106,7 @@
                 let itemImages = item.querySelectorAll("img");
                 let loaded = 0;
 
-                console.log("que", this.items.length, this.items)
+                //console.log("que", this.items.length, this.items)
                 itemImages.forEach( (img, i) => {
                     
                     let setLoaded = () => {

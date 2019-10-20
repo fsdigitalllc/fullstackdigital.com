@@ -18,9 +18,9 @@
     '{{ $velocity.RelPermalink }}',
     '{{ $scroll_lock.RelPermalink }}'
   ])).then(() => {
-    console.log("work grid loaded");
-    console.log("RevealImages Loaded");
-    console.log("LoadMoreItems loaded");
+    let DOMContentLoadedEvent = document.createEvent('Event');
+    DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+    document.dispatchEvent(DOMContentLoadedEvent);
   });
 
 </script>
