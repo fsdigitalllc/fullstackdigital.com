@@ -1,6 +1,6 @@
 // Since this is inject asynchronously, need to use DOMContentLoaded to initialize
 ;(function(global) {
-    document.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener("DOMContentLoaded", function () {
         console.log("work -contentloaded ++")
         ajax_work_grid();
     }, false);

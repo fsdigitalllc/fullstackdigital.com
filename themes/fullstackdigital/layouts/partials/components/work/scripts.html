@@ -20,7 +20,7 @@
   ])).then(() => {
     let DOMContentLoadedEvent = document.createEvent('Event');
     DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
-    document.dispatchEvent(DOMContentLoadedEvent);
+    window.dispatchEvent(DOMContentLoadedEvent);
   });
 
 </script>
