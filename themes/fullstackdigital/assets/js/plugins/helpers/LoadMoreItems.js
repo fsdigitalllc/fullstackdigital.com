@@ -1,4 +1,5 @@
 ;(function(global) {
+    console.log("load more")
     // Get the items
     // Build the item objects
     // Get all images within the items
