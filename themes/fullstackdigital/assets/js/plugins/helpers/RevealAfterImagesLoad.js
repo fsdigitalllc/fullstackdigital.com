@@ -124,7 +124,7 @@
                     img.addEventListener("load", setLoaded, false);
                     
                     // If the image loads before the event is attached, use this fallback method
-                    if (img.complete) {
+                    if (img.height > 0) {
                         setLoaded();
                     }
                 })
