@@ -111,7 +111,7 @@
                     let setLoaded = () => {
                         loaded++
 
-                        console.log("image", img, loaded, itemImages.length)
+                        //console.log("image", img, loaded, itemImages.length)
 
                         if (loaded === itemImages.length) {
                             item.closest(".item").setAttribute("data-image-loaded", true);
