@@ -1,41 +1,69 @@
 {{ $responsive_images := false }}
 
 {{/* 
-    return an array of srcs with image processing applied
+    1. return an html-safe string to be used within an image tag
+    2. adds responsive image queries and the processed images
 
-    Options:
-    - src: the relative path to the image. Either a page or global resource
-    - lazyload: true/false.
-    - 
+    Options (dict "page" . "global" $ "option_name" option_value):
+    - page (required): pass the current context
+    - global (required): pass the global context
+    - src/datasrc: the relative path to the image. Either a page or global resource.
+    -- using datasrc will use the attribute data-srcset and data-src instead of srcset and src.
+
 
     Example usage in template:
 
-        {{ $src := false}}
-        {{ with partial "helpers/get_responsive_images.html" (dict "page" . "global" $ "src" $context.image "lazyoad" false ) }}
-            {{ $src = . }}
-            
+        {{ $img := false }}
+        {{ with partial "helpers/get_responsive_images.html" (dict "page" . "global" $ "src" $context.image ) }}
+            {{ $img = . }}
         {{ end }}
 
-        {{ if $src }}
-            <img 
-                {{ $src }}
-                class="work-hero-image">
+        {{ if $img }}
+            <img {{ $img }} class="work-hero-image" ajax-script-reload="true"> 
         {{ end }}
 
      */}}
 
 
 {{/* the image source */}}
-{{ $src := .src | default false }}
+{{ $src := false }}
+{{ $tag := "src" }}
+
+{{ with .src }}
+    {{ $src = . }}
+{{ end }}
+{{ with .datasrc }}
+    {{ $src = . }}
+    {{ $tag = "data-src" }}
+{{ end }}
+
+{{ $image768 := false }}
+{{ $image520 := false }}
 
 {{ if $src }}
-    {{ $src = .global.Resources.GetMatch $src }}
+    {{/* first check for a global resource match */}}
+    {{ $global_resource := resources.Get $src }}
 
-    {{ with $src }}
-        {{ $src = .Permalink }}
+    {{/* next check for a page resource match */}}
+    {{ $page_resource := .page.Resources.GetMatch $src }}
+
+    {{/* if either match, process the resource */}}
+    {{ with or ($global_resource) ($page_resource) }}
+        {{ $resource := . }}
+
+        {{ $resource520 := $resource.Resize "520x q100" }}
+        {{ $resource768 := $resource.Resize "768x q100" }}
+        
+        {{ $image520 = $resource520.Permalink }}
+        {{ $image768 = $resource768.Permalink }}
+        {{ $src = $resource.Permalink }}
     {{ end }}
 {{ end  }}
 
-{{ $html := print "src='" $src "'" }}
+{{ if $src }}
+{{ $html := print "sizes='50vw, 70vw, 100vw' " $tag "set='" $src " 1160w," $image768 " 768w," $image520 " 520w' " $tag "='" $src "'" }}
 {{ $responsive_images =  print $html | safeHTMLAttr }}
+{{ end }}
+
+
 {{ return $responsive_images }}

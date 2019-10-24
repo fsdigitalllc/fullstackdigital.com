@@ -141,26 +141,6 @@
     {{ $image = . }}
 {{ end }}
 
-{{ $image768 := false }}
-{{ $image520 := false }}
-{{ if $image }}
-    <!--first check for the global resource-->
-    {{ $global_resource := resources.Get $image }}
-
-    <!--next check for the page resource-->
-    {{ $page_resource := .post.Resources.GetMatch $image }}
-    
-    {{ with or ($global_resource) ($page_resource) }}
-        {{ $resource := . }}
-        {{ $resource520 := $resource.Resize "520x q100" }}
-        {{ $resource768 := $resource.Resize "768x q100" }}
-        
-        {{ $image520 = $resource520.Permalink }}
-        {{ $image768 = $resource768.Permalink }}
-        {{ $image = $resource.Permalink }}
-    {{ end }}
-
-{{ end }}
 
 {{ $logo := false }}
 {{ $path := print "images/clients/color/" $name "*" }}
@@ -188,19 +168,21 @@
     
     <div class="image_wrapper img-size-{{ $img_size }}">
         {{ if $lazyload }}
-        <img 
-            sizes="50vw, 70vw, 100vw"
-            data-srcset="{{ $image }} 1160w, {{ $image768 }} 768w, {{ $image520 }} 520w"
-            data-src="{{ $image }}"
-            alt=""
-            class="lazyload">
+            {{ $img := false }}
+            {{ with partial "helpers/get_responsive_images.html" (dict "page" .post "global" $ "datasrc" $image ) }}
+                {{ $img = . }}
+            {{ end }}
+            {{ if $img }}
+                <img {{ $img }}> 
+            {{ end }}
         {{ else }}
-        <img 
-            sizes="50vw, 70vw, 100vw"
-            srcset="{{ $image }} 1160w, {{ $image768 }} 768w, {{ $image520 }} 520w"
-            src="{{ $image }}"
-            alt=""
-            class="">
+            {{ $img := false }}
+            {{ with partial "helpers/get_responsive_images.html" (dict "page" .post "global" $ "src" $image ) }}
+                {{ $img = . }}
+            {{ end }}
+            {{ if $img }}
+                <img {{ $img }} class="lazyload"> 
+            {{ end }}
         {{ end }}
 
         {{ if ne $layout "hero" }}

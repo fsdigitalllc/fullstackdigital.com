@@ -75,14 +75,11 @@
       <!-- <img class="work-hero-image" src="{{ $src.Permalink }}" ajax-script-reload="true">  -->
 
       {{ $img := false }}
-      {{ with partial "helpers/get_responsive_images.html" (dict "page" . "global" $ "src" $context.image "lazyoad" false ) }}
+      {{ with partial "helpers/get_responsive_images.html" (dict "page" . "global" $ "src" $context.image ) }}
         {{ $img = . }}
-        
       {{ end }}
-      {{ $img }}
       {{ if $img }}
-        <img {{ $img }}
-        class="work-hero-image" ajax-script-reload="true"> 
+        <img {{ $img }} class="work-hero-image" ajax-script-reload="true"> 
       {{ end }}
 
       </div>
