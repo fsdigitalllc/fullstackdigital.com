@@ -1,5 +1,5 @@
 ;(function(global) {
-    console.log("reveal images FUNCTION START")
+    //console.log("reveal images FUNCTION START")
     // Get the items
     // Build the item objects
     // Get all images within the items
@@ -50,57 +50,6 @@
 
             return this;
         },
-        // getItems: function() {
-
-        //     this.items.forEach( (item, index) => {
-
-        //         // Push an items object to the items array
-        //         itemArray.push (
-        //             itemObject = {
-        //                 index: index,
-        //                 node: item,
-        //                 images: item.querySelectorAll("img"),
-        //                 imagesLoaded: false,
-        //                 checkImages: function () {
-
-        //                     // Check if images for this node are loaded
-        //                     let loaded = 0;
-        //                     let total = this.images.length;
-
-        //                     // Check all images
-        //                     this.images.forEach( (img, i) => {
-
-        //                         let imgLoaded = (e) => {
-
-        //                             // Remove this event listener to avoid duplication
-
-        //                             img.removeEventListener("load", imgLoaded, false);
-
-        //                             // Increment the image loaded counter by 1
-
-        //                             loaded++;
-
-        //                             // If all images on this node have loaded, change the itemObject imagesLoaded key to true
-        //                             if (loaded === total) {
-        //                                 setImageLoaded(this.index);
-        //                             }
-                                    
-        //                         }
-
-        //                         // Add an event listener to each image
-        //                         img.addEventListener("load", imgLoaded, false);
-        //                     });
-
-        //                 },
-        //             }
-        //         )
-
-        //         // Get all images in the item and add an event listener
-
-        //     });
-        //     //console.log(itemArray)
-        //     return this;
-        // },
         loadInOrder: function () {
             this.items.forEach( (item, index) => {
                 let itemImages = item.querySelectorAll("img");
@@ -116,7 +65,6 @@
                         if (loaded === itemImages.length) {
                             item.closest(".item").setAttribute("data-image-loaded", true);
                             img.setAttribute("data-image-loaded", true);
-
                         }
                     }
 
@@ -142,7 +90,7 @@
         // Set default values
         var self = this;
         self.items = items;
-
+        console.log("reveal images FUNCTION START")
         // If param1 is set use that value, otherwise set it to an empty string
         //self.firstTags = Array.prototype.slice.call(firstTags);
         //self.secondTags = Array.prototype.slice.call(secondTags);

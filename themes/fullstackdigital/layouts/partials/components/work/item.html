@@ -173,7 +173,7 @@
                 {{ $img = . }}
             {{ end }}
             {{ if $img }}
-                <img {{ $img }}> 
+                <img {{ $img }} class="lazyload"> 
             {{ end }}
         {{ else }}
             {{ $img := false }}
@@ -181,7 +181,7 @@
                 {{ $img = . }}
             {{ end }}
             {{ if $img }}
-                <img {{ $img }} class="lazyload"> 
+                <img {{ $img }}> 
             {{ end }}
         {{ end }}
 
