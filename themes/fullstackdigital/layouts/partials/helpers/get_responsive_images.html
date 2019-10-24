@@ -1,0 +1,41 @@
+{{ $responsive_images := false }}
+
+{{/* 
+    return an array of srcs with image processing applied
+
+    Options:
+    - src: the relative path to the image. Either a page or global resource
+    - lazyload: true/false.
+    - 
+
+    Example usage in template:
+
+        {{ $src := false}}
+        {{ with partial "helpers/get_responsive_images.html" (dict "page" . "global" $ "src" $context.image "lazyoad" false ) }}
+            {{ $src = . }}
+            
+        {{ end }}
+
+        {{ if $src }}
+            <img 
+                {{ $src }}
+                class="work-hero-image">
+        {{ end }}
+
+     */}}
+
+
+{{/* the image source */}}
+{{ $src := .src | default false }}
+
+{{ if $src }}
+    {{ $src = .global.Resources.GetMatch $src }}
+
+    {{ with $src }}
+        {{ $src = .Permalink }}
+    {{ end }}
+{{ end  }}
+
+{{ $html := print "src='" $src "'" }}
+{{ $responsive_images =  print $html | safeHTMLAttr }}
+{{ return $responsive_images }}

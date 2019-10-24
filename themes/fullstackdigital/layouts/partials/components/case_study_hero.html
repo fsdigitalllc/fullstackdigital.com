@@ -72,9 +72,18 @@
   </div>
 
   <div class="container-m padding-m">
-      {{ $src = .Resources.GetMatch $context.image }}
       <!-- <img class="work-hero-image" src="{{ $src.Permalink }}" ajax-script-reload="true">  -->
 
-      <img class="work-hero-image" src="{{ $src.Permalink }}" ajax-script-reload="true"> 
-  </div>
+      {{ $img := false }}
+      {{ with partial "helpers/get_responsive_images.html" (dict "page" . "global" $ "src" $context.image "lazyoad" false ) }}
+        {{ $img = . }}
+        
+      {{ end }}
+      {{ $img }}
+      {{ if $img }}
+        <img {{ $img }}
+        class="work-hero-image" ajax-script-reload="true"> 
+      {{ end }}
+
+      </div>
 </section>
