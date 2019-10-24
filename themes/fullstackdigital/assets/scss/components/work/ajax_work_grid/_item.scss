@@ -12,6 +12,14 @@ $grow_duration: 1s;
     overflow: visible;
     z-index: $z_layer_3;
 
+    &[data-load="false"] {
+
+        img {
+            visibility: hidden;
+            display: none;
+        }
+    }
+
     &[data-image-loaded="false"], &[data-load="false"] {
         //display: none !important;
         visibility: hidden;
