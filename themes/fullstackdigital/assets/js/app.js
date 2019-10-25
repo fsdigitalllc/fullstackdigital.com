@@ -1,4 +1,4 @@
-(function() {
+;(function(global) {
 
 //let scriptsOnLoad = [aos.init]
 // Start loading indicator on page load
@@ -118,6 +118,31 @@ let toggleActiveState = () => {
     });
 }
 
+    // Var the initializes the object
+    let AjaxLoadPage = function () {
+        return new AjaxLoadPage.init();
+    }
+    AjaxLoadPage.prototype = {
+
+        validate: function() {
+            // Validate if this is a link that should load an ajax page.
+        }
+
+    }
+    // Create a function constructor that builds an object and gives it 2 properties with default values
+    AjaxLoadPage.init = function(link) {
+        // Set default values
+        var self = this;
+
+        self.link = link;
+        validate();
+    }
+
+    // Give access to all prototype properties
+    AjaxLoadPage.init.prototype = AjaxLoadPage.prototype;
+    // Pass AjaxScriptLoader to the global object;
+    global.AjaxLoadPage = AjaxLoadPage;
+
 
 const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
 
@@ -179,6 +204,26 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
     callBack();
 }
 
+
+function initAjaxLoadPage(link) {
+    ajaxLoadPage(link);
+}
+
+function isAjaxLink(link) {
+    return (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"))
+}
+
+function buildLink(link) {
+    // Return the URL by default if it's already an absolute reference
+    let url = link;
+
+    // Turn a relative path into an absolute path
+    if (link[0] === "/" && !link.includes(document.location.host)) {
+        url = document.location.origin + link;
+    }
+    return url;
+}
+
 // Starts the ajax functions
 // Even handler for relative links
 let ajaxLinkClick = (e) => {
@@ -188,24 +233,7 @@ let ajaxLinkClick = (e) => {
     // Only perform the function if a link is clicked
 
 
-    function initAjaxLoadPage(link) {
-        ajaxLoadPage(link);
-    }
-
-    function isAjaxLink(link) {
-        return (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"))
-    }
     
-    function buildLink(link) {
-        // Return the URL by default if it's already an absolute reference
-        let url = link;
-
-        // Turn a relative path into an absolute path
-        if (link[0] === "/" && !link.includes(document.location.host)) {
-            url = document.location.origin + link;
-        }
-        return url;
-    }
 
     // Handle a normal link click
     if ( (self.closest('a') && self.closest("a").hasAttribute("href")) || self.closest('.item')) {
@@ -238,4 +266,4 @@ window.onpopstate = function(event) {
 
 
 
-}())
+}(window))
