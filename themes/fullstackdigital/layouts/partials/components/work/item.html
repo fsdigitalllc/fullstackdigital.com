@@ -106,9 +106,9 @@
     {{ $description = . }}
 {{ end }}
 
-{{ $permalink := .post.Permalink }}
+{{ $permalink := .post.RelPermalink }}
 {{ with $params.excerpt.permalink }}
-    {{ $permalink }}
+    {{ $permalink = . }}
 {{ end }}
 
 
@@ -164,7 +164,7 @@
     {{ $lazyload = false }}
 {{ end }}
 
-<div index="{{ .index }}" name="{{ $name }}" skin="{{ $skin }}" data-load="false" data-image-loaded="false" class="item layout-{{ $layout }} width-{{ $width }} position-h-{{ $img_position_horizontal }} position-v-{{ $img_position_vertical }}" style="background-color: {{ $bg_color }};" item-link="{{ $permalink }}">
+<div index="{{ .index }}" name="{{ $name }}" skin="{{ $skin }}" data-load="false" data-image-loaded="false" class="item layout-{{ $layout }} width-{{ $width }} position-h-{{ $img_position_horizontal }} position-v-{{ $img_position_vertical }}" style="background-color: {{ $bg_color }};" ajax-link="{{ $permalink }}">
     
     <div class="image_wrapper img-size-{{ $img_size }}">
         {{ if $lazyload }}

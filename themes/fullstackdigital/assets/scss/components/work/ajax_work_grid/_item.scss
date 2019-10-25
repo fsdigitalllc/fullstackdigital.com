@@ -11,6 +11,7 @@ $grow_duration: 1s;
     position: relative;
     overflow: visible;
     z-index: $z_layer_3;
+    cursor: pointer;
 
     &[data-load="false"] {
 
@@ -541,7 +542,7 @@ $grow_duration: 1s;
 }
 
 .item:hover {
-    cursor: pointer;
+    //cursor: pointer;
 
     // Makes this selected item overlap any other item
     z-index: $z_layer_4;

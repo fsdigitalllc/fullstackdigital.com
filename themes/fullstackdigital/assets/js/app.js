@@ -99,6 +99,7 @@ let changeWindowHistory = () => {
     // Add a history entry with the stateObj, 
     window.history.pushState(stateObj, stateObj.title, stateObj.url);
 
+    console.log("history entry", stateObj.url, stateObj.title)
     // Update the page title based on the URL
     changeWindowContent();
 }
@@ -183,24 +184,46 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
 let ajaxLinkClick = (e) => {
     // Make sure context is within the scope of this function
     let self = e.target;
+    let href;
     // Only perform the function if a link is clicked
-    if (self.closest('a')) {
-        let href = self.href;
-        // Check if we are visiting a page on the site and not an external link
-        // For absolute references to pages on the site, compare the origin of the href and the current origin
-        // Or just check to see if it's a relative path by checking the first character of the link for a /
-        // If the link contains an anchor tag, then do default behavior.
 
+
+    function initAjaxLoadPage(link) {
+        ajaxLoadPage(link);
+    }
+
+    function isAjaxLink(link) {
+        return (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"))
+    }
+    
+    function buildLink(link) {
+        // Return the URL by default if it's already an absolute reference
+        let url = link;
+
+        // Turn a relative path into an absolute path
+        if (link[0] === "/" && !link.includes(document.location.host)) {
+            url = document.location.origin + link;
+        }
+        return url;
+    }
+
+    // Handle a normal link click
+    if ( (self.closest('a') && self.closest("a").hasAttribute("href")) || self.closest('.item')) {
+        href = self.href || self.closest(".item").getAttribute("ajax-link");
+
+        // For the current page, don't refresh it
         if (href === window.location.href) {
             // do nothing
             e.preventDefault();
-        }   else if ( (href.includes(document.location.host) || href[0] === "/") && !href.includes("#") && !self.classList.contains("work-link")) {
+        } else if (isAjaxLink(href)) {
+            href = buildLink(href);
             // Prevent default link behavior so that we can override with an ajax request
             e.preventDefault();
             // Load the next page via fetch
-            ajaxLoadPage(href)
+            initAjaxLoadPage(href)
+        } else if (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link")) {
+            window.open(href)
         }
-
     }
 }
 document.addEventListener("click", ajaxLinkClick, false);

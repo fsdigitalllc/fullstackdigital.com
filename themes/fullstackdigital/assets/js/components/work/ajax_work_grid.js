@@ -21,14 +21,6 @@
                 }
             }
             return this;
-            // Throw error if this required param is missing in the supportedDivs array
-            // If this was a selector, we would need to make sure to get the classname as a string
-            // if (supportedDivs.indexOf(this.param1) === -1) {
-            //     errorMessage = "Unsported selector passed";
-            // }
-
-            // Param1 is object
-            //console.log(errorMessage, this.firstTags)
         },
         buildGrid: function() {
 
@@ -70,6 +62,7 @@
     
             // Animate items with 60fps
             //Velocity();
+            return this;
         }
     }
 
@@ -81,7 +74,7 @@
         var self = this;
 
         self.items = items || document.querySelectorAll(".item");
-        console.log("starts", this)
+        //console.log("starts", this)
         // If param1 is set use that value, otherwise set it to an empty string
         //self.firstTags = Array.prototype.slice.call(firstTags);
         //self.secondTags = Array.prototype.slice.call(secondTags);
