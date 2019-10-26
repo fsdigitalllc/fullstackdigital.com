@@ -15,14 +15,19 @@
 <!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
 
-{{ $app := resources.Get "js/app.js" | minify }}
+{{ $ajaxloadpage := resources.Get "js/components/work/AjaxLoadPage.js" }}
+{{ $app := resources.Get "js/app.js" }}
+
+{{ $app_js := slice $ajaxloadpage $app | resources.Concat "js/app.js" }}
 
 {{ if .Site.IsServer }}
-  {{ $app = resources.Get "js/app.js" }}
+  {{ $app_js = $app_js }}
+{{ else }}
+  {{ $app_js = $app_js | minify }}
 {{ end }}
 
 {{/*  <script type="text/javascript" src="{{ $aos.Permalink }}"></script>  */}}
-<script type="text/javascript" src="{{ $app.Permalink }}"></script>
+<script type="text/javascript" src="{{ $app_js.Permalink }}"></script>
 
 
 <!-- include any page specific scripts if they exist -->

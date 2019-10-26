@@ -115,7 +115,7 @@
 
                 return node;
             });
-            console.log("difff", diffNodes)
+            //console.log("difff", diffNodes)
             return diffNodes;
         },
         removeScripts: function(firstArray, secondArray) {

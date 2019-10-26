@@ -34,7 +34,7 @@
                     let zIndex = parseInt(getComputedStyle(item).zIndex) + 1;
                     if (e.type === "mouseenter") {
                         console.log(
-                            "buildGrid --- z_index changing"
+                            //"buildGrid --- z_index changing"
                         )
                         item.style.zIndex = zIndex;
                     }

@@ -1,4 +1,4 @@
-;(function(global) {
+(function(global) {
 
 //let scriptsOnLoad = [aos.init]
 // Start loading indicator on page load
@@ -19,60 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }, false)
 
 
-function setSectionSkins () {
-    let sections = document.querySelectorAll("section");
 
-    sections.forEach(section => {
-        let bgColor = getComputedStyle(section).backgroundColor;
-        let skin = lightOrDark(bgColor);
-        //console.log(section, bgColor, skin)
-
-        section.setAttribute("skin", skin)
-    });
-}
-function lightOrDark(color) {
-
-    // Variables for red, green, blue values
-    var r, g, b, hsp;
-    
-    // Check the format of the color, HEX or RGB?
-    if (color.match(/^rgb/)) {
-
-        // If HEX --> store the red, green, blue values in separate variables
-        color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
-        
-        r = color[1];
-        g = color[2];
-        b = color[3];
-    } 
-    else {
-        
-        // If RGB --> Convert it to HEX: http://gist.github.com/983661
-        color = +("0x" + color.slice(1).replace( 
-        color.length < 5 && /./g, '$&$&'));
-
-        r = color >> 16;
-        g = color >> 8 & 255;
-        b = color & 255;
-    }
-    
-    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
-    hsp = Math.sqrt(
-    0.299 * (r * r) +
-    0.587 * (g * g) +
-    0.114 * (b * b)
-    );
-
-    // Using the HSP value, determine whether the color is light or dark
-    if (hsp>127.5) {
-
-        return 'light';
-    } 
-    else {
-
-        return 'dark';
-    }
-}
 
 // Object associated with a history entry
 // Add default values for the first page load
@@ -97,7 +44,7 @@ let changeWindowHistory = () => {
     //console.log("window history", stateObj)
 
     // Add a history entry with the stateObj, 
-    window.history.pushState(stateObj, stateObj.title, stateObj.url);
+    window.history.pushState(stateObj, stateObj.title, stateObj.url, stateObj.preloaded = true);
 
     console.log("history entry", stateObj.url, stateObj.title)
     // Update the page title based on the URL
@@ -117,31 +64,6 @@ let toggleActiveState = () => {
         }
     });
 }
-
-    // Var the initializes the object
-    let AjaxLoadPage = function () {
-        return new AjaxLoadPage.init();
-    }
-    AjaxLoadPage.prototype = {
-
-        validate: function() {
-            // Validate if this is a link that should load an ajax page.
-        }
-
-    }
-    // Create a function constructor that builds an object and gives it 2 properties with default values
-    AjaxLoadPage.init = function(link) {
-        // Set default values
-        var self = this;
-
-        self.link = link;
-        validate();
-    }
-
-    // Give access to all prototype properties
-    AjaxLoadPage.init.prototype = AjaxLoadPage.prototype;
-    // Pass AjaxScriptLoader to the global object;
-    global.AjaxLoadPage = AjaxLoadPage;
 
 
 const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
@@ -223,39 +145,62 @@ function buildLink(link) {
     }
     return url;
 }
-
 // Starts the ajax functions
 // Even handler for relative links
-let ajaxLinkClick = (e) => {
+let ajaxPrepare = (e) => {
     // Make sure context is within the scope of this function
-    let self = e.target;
-    let href;
+    let self, href;
+    
+    if (e.target && e.target.nodeName !== "#document") {
+        self = e.target;
+    }
+
     // Only perform the function if a link is clicked
+    if (e.type === "click") {
+
+        // Load page
+        // Start Animation
 
 
+        // Handle a normal link click
+        if ( (self.closest('a') && self.closest("a").hasAttribute("href")) || self.closest('.item')) {
+            href = self.href || self.closest(".item").getAttribute("ajax-link");
+
+            // For the current page, don't refresh it
+            if (href === window.location.href) {
+                // do nothing
+                e.preventDefault();
+            } else if (isAjaxLink(href)) {
+                href = buildLink(href);
+                // Prevent default link behavior so that we can override with an ajax request
+                e.preventDefault();
+                // Load the next page via fetch
+                initAjaxLoadPage(href)
+            } else if (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link")) {
+                window.open(href)
+            }
+        }
+
+    } else {
+
+        // Preload
+        if (self) {
+            let isItem = self.closest(".item");
+            if (isItem) {
+                AjaxLoadPage(isItem.getAttribute("ajax-link")).preload();
+            }
+        }
+
+    }
     
 
-    // Handle a normal link click
-    if ( (self.closest('a') && self.closest("a").hasAttribute("href")) || self.closest('.item')) {
-        href = self.href || self.closest(".item").getAttribute("ajax-link");
-
-        // For the current page, don't refresh it
-        if (href === window.location.href) {
-            // do nothing
-            e.preventDefault();
-        } else if (isAjaxLink(href)) {
-            href = buildLink(href);
-            // Prevent default link behavior so that we can override with an ajax request
-            e.preventDefault();
-            // Load the next page via fetch
-            initAjaxLoadPage(href)
-        } else if (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link")) {
-            window.open(href)
-        }
-    }
+    
 }
-document.addEventListener("click", ajaxLinkClick, false);
-//document.addEventListener("mouseover", ajaxLinkClick, false);
+
+
+document.addEventListener("click", ajaxPrepare, false);
+document.addEventListener("mouseenter", ajaxPrepare, true);
+
 // This function loads when the history entry changes
 // This function will load after changeWindowHistory();
 window.onpopstate = function(event) {
@@ -266,4 +211,64 @@ window.onpopstate = function(event) {
 
 
 
-}(window))
+
+// Extra layout functions
+
+function setSectionSkins () {
+    let sections = document.querySelectorAll("section");
+
+    sections.forEach(section => {
+        let bgColor = getComputedStyle(section).backgroundColor;
+        let skin = lightOrDark(bgColor);
+        //console.log(section, bgColor, skin)
+
+        section.setAttribute("skin", skin)
+    });
+}
+
+function lightOrDark(color) {
+
+    // Variables for red, green, blue values
+    var r, g, b, hsp;
+    
+    // Check the format of the color, HEX or RGB?
+    if (color.match(/^rgb/)) {
+
+        // If HEX --> store the red, green, blue values in separate variables
+        color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        
+        r = color[1];
+        g = color[2];
+        b = color[3];
+    } 
+    else {
+        
+        // If RGB --> Convert it to HEX: http://gist.github.com/983661
+        color = +("0x" + color.slice(1).replace( 
+        color.length < 5 && /./g, '$&$&'));
+
+        r = color >> 16;
+        g = color >> 8 & 255;
+        b = color & 255;
+    }
+    
+    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+    hsp = Math.sqrt(
+    0.299 * (r * r) +
+    0.587 * (g * g) +
+    0.114 * (b * b)
+    );
+
+    // Using the HSP value, determine whether the color is light or dark
+    if (hsp>127.5) {
+
+        return 'light';
+    } 
+    else {
+
+        return 'dark';
+    }
+}
+
+
+}(window));
