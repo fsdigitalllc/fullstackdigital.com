@@ -37,8 +37,8 @@
         // Validate if this is a valid aJax link
         // If it's valid, return this
         // If it's an external link or a non ajax link (like a anchor link), just load the page directly.
-        validate: function(l) {
-            let link = l || this.link;
+        validate: function(link) {
+            link = link || this.link;
             let warning;
 
             if (!link) {

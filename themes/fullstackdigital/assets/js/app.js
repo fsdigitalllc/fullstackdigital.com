@@ -131,9 +131,6 @@ function initAjaxLoadPage(link) {
     ajaxLoadPage(link);
 }
 
-function isAjaxLink(link) {
-    return (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"))
-}
 
 function buildLink(link) {
     // Return the URL by default if it's already an absolute reference
@@ -145,53 +142,74 @@ function buildLink(link) {
     }
     return url;
 }
+
+
 // Starts the ajax functions
 // Even handler for relative links
 let ajaxPrepare = (e) => {
     // Make sure context is within the scope of this function
-    let self, href;
-    
+    let validTarget = false,
+    href;
+    //workLink = link => (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"));
+
     if (e.target && e.target.nodeName !== "#document") {
-        self = e.target;
+        validTarget = true;
     }
 
-    // Only perform the function if a link is clicked
-    if (e.type === "click") {
-
-        // Load page
-        // Start Animation
+    if (validTarget) {
+        let target = e.target;
 
 
-        // Handle a normal link click
-        if ( (self.closest('a') && self.closest("a").hasAttribute("href")) || self.closest('.item')) {
-            href = self.href || self.closest(".item").getAttribute("ajax-link");
+        let linkSelector = (self = target) => {
+            let link = false;
 
-            // For the current page, don't refresh it
-            if (href === window.location.href) {
-                // do nothing
-                e.preventDefault();
-            } else if (isAjaxLink(href)) {
-                href = buildLink(href);
-                // Prevent default link behavior so that we can override with an ajax request
-                e.preventDefault();
-                // Load the next page via fetch
-                initAjaxLoadPage(href)
-            } else if (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link")) {
-                window.open(href)
+            if (self.closest('a') && self.closest("a").hasAttribute("href")) {
+                link = self.closest("a");
+            } else if (self.closest("[ajax-link]") && self.closest("[ajax-link]").hasAttribute("ajax-link")) {
+                link = self.closest("[ajax-link]");
             }
+            
+            return link;
         }
 
-    } else {
+        // Two types of events: click or mouseover. 
+        // Click should init the link interaction
+        // Mouseover should preload a page if it already isn't preloaded
+        if (linkSelector()) {
+            console.log("link", linkSelector());            
 
-        // Preload
-        if (self) {
-            let isItem = self.closest(".item");
-            if (isItem) {
-                AjaxLoadPage(isItem.getAttribute("ajax-link")).preload();
-            }
         }
+        if (e.type === "click") {
+
+            if (link) {
+                console.log("normal link");            
+                    
+            } else if (workLink) {
+                console.log("work link");
+
+            }
+
+            //window.open(href)
+            // (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link"))
+
+        } else {
+
+            // Preload
+            // Check if it's a valid ajaxLink
+            //AjaxLoadPage(link).preload();
+
+        }
+
 
     }
+    
+
+    //link = link();
+    
+
+
+    
+
     
 
     
