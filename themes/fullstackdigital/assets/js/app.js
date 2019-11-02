@@ -66,21 +66,17 @@ let toggleActiveState = () => {
 }
 
 
-const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
+const ajaxLoadPage = async (response, callBack = changeWindowHistory) => {
 
     // Start loading indicator
     AjaxScriptLoader().isLoading(true);
-    // Download the target relative page
-    const response = await fetch(pageLink);
 
-    // After it downloads, convert the response to a string
-    const responseText = await response.text();
+    // Parsed text response
+    let ajaxHtml = response.html;
 
-    // Parse response
-    let parser = new DOMParser();
+    // Url stored in tthe object passed to the function
+    let pageLink = response.url;
 
-    // Parse the text
-    let ajaxHtml = parser.parseFromString(responseText, "text/html");
 
     // Get some stuff
     let ajaxTitle = ajaxHtml.querySelector("title");
@@ -127,31 +123,20 @@ const ajaxLoadPage = async (pageLink, callBack = changeWindowHistory) => {
 }
 
 
-function initAjaxLoadPage(link) {
-    ajaxLoadPage(link);
-}
-
-
-function buildLink(link) {
-    // Return the URL by default if it's already an absolute reference
-    let url = link;
-
-    // Turn a relative path into an absolute path
-    if (link[0] === "/" && !link.includes(document.location.host)) {
-        url = document.location.origin + link;
-    }
-    return url;
-}
+// function initAjaxLoadPage(link) {
+//     ajaxLoadPage(link);
+// }
 
 
 // Starts the ajax functions
 // Even handler for relative links
-let ajaxPrepare = (e) => {
+let ajaxPrepare = async (e) => {
     // Make sure context is within the scope of this function
     let validTarget = false,
     href;
     //workLink = link => (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"));
 
+    // e.target.closest throws an error when the mouse enters the screen because the nodeName is #document
     if (e.target && e.target.nodeName !== "#document") {
         validTarget = true;
     }
@@ -160,58 +145,68 @@ let ajaxPrepare = (e) => {
         let target = e.target;
 
 
-        let linkSelector = (self = target) => {
+        let getSelectorLink = (self = target) => {
             let link = false;
 
             if (self.closest('a') && self.closest("a").hasAttribute("href")) {
-                link = self.closest("a");
+                link = self.closest("a").href;
             } else if (self.closest("[ajax-link]") && self.closest("[ajax-link]").hasAttribute("ajax-link")) {
-                link = self.closest("[ajax-link]");
+                link = self.closest("[ajax-link]").getAttribute("ajax-link");
             }
-            
+
+
+            if (link) {
+                link = buildLink(link);
+                function buildLink (url) {
+                    
+                    // Check if it's  relative URL, then return the absolute URL
+                    if (url[0] === "/" && !url.includes(document.location.host)) {
+                        return document.location.origin + url;
+                    } else {
+                        return url;
+                    }
+                }
+            }
+
+            // return either false or the cleaned link
             return link;
         }
 
         // Two types of events: click or mouseover. 
         // Click should init the link interaction
         // Mouseover should preload a page if it already isn't preloaded
-        if (linkSelector()) {
-            console.log("link", linkSelector());            
+        if (getSelectorLink()) { 
+            href = getSelectorLink();
+            let isRelativeAjaxLink = AjaxLoadPage().isAjaxLink(href);
 
-        }
-        if (e.type === "click") {
-
-            if (link) {
-                console.log("normal link");            
+            
+            if (e.type === "click") {
+                
+                if (isRelativeAjaxLink) {
+                    e.preventDefault();
+                    //initAjaxLoadPage(href)   
                     
-            } else if (workLink) {
-                console.log("work link");
 
+                    let ajaxHtml = await AjaxLoadPage(href)
+                    .getAjaxContent(document.querySelector("main"));
+                    
+                    ajaxLoadPage(ajaxHtml);
+                        
+                }
+    
+                //
+                // (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link"))
+    
+            } else {
+                
+                // Preload
+                // Check if it's a valid ajaxLink
+                AjaxLoadPage(href).preload();
+    
             }
 
-            //window.open(href)
-            // (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link"))
-
-        } else {
-
-            // Preload
-            // Check if it's a valid ajaxLink
-            //AjaxLoadPage(link).preload();
-
         }
-
-
     }
-    
-
-    //link = link();
-    
-
-
-    
-
-    
-
     
 }
 
@@ -221,9 +216,11 @@ document.addEventListener("mouseenter", ajaxPrepare, true);
 
 // This function loads when the history entry changes
 // This function will load after changeWindowHistory();
-window.onpopstate = function(event) {
+window.onpopstate = async function(event) {
     //console.log(window.location.href)
-    ajaxLoadPage(window.location.href);
+    let ajaxHtml = await AjaxLoadPage(window.location.href)
+    .getAjaxContent(document.querySelector("main"));
+    ajaxLoadPage(ajaxHtml);
 }
 
 
