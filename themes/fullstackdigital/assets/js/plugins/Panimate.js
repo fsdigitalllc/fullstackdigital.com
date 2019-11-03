@@ -19,10 +19,6 @@
     // Array of supported items
     var supportedDivs = ['Panimate-start', 'Panimate-end'];
 
-    var testObject = {
-        key1: "Test 1",
-        key2: "Test 2"
-    }
 
     // Add a prototype for our constructor
     // Will use this to add any methods we want to use for our Panimate object

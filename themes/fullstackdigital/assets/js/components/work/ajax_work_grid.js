@@ -22,6 +22,16 @@
             }
             return this;
         },
+        createAjaxContainer: function(containerClass = "work-ajax") {
+            
+            if (!document.querySelector(`.${containerClass}`)) {
+                let createDiv = document.createElement("div");
+                createDiv.className = containerClass;
+                document.querySelector("main").appendChild(createDiv);
+            }
+            
+            return this;
+        },
         buildGrid: function() {
 
             // Change the z-index of a hovered grid item so that it overlaps the item below
@@ -59,7 +69,8 @@
             // Display an item only when the images have loaded
             // The order should be sequentual
             RevealAfterImagesLoad(items);
-    
+            
+            //createAjaxContainer();
             // Animate items with 60fps
             //Velocity();
             return this;
@@ -79,7 +90,7 @@
         //self.firstTags = Array.prototype.slice.call(firstTags);
         //self.secondTags = Array.prototype.slice.call(secondTags);
 
-        self.validate().buildGrid();
+        self.validate().buildGrid().createAjaxContainer();
     }
 
     // Give access to all prototype properties

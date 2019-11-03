@@ -7,53 +7,64 @@
         return new AjaxLoadPage.init(link);
     }
 
-    let ajaxHistory = [];
-
-    // Check ajaxHistory for existing entries
-    function ifExistsInArray(link) {
-        let exists = false;
-
-        if (ajaxHistory.length > 0 && link) {
-            ajaxHistory.forEach( (object, index) => {
-
-                for (entry in object) {
-                    if (entry === "url" && object[entry] === link) {
-                        exists = true;
-                    }
-                }
-            })
-        }
-
-        return exists;
-    }
-
-    // Add a link object to an array if it doesn't exist
-    function pushToArray(link) {
-        return ajaxHistory.push(
-            entry = {
-                url: link,
-                state: {
-                    preloaded: false
-                }
-            }
-        )
-    }
-
-    function awaitParse (link) {
-        return new Promise(resolve => {
-            fetch(link)
-                .then(response => resolve(response.text()));
-        })
-    }
-
-    
-
     AjaxLoadPage.prototype = {
+
+        ajaxHistory: [],
         callback: function() {
-            console.log("callback:", ajaxHistory);
+
+        },
+        getArrayIndex: function(link = this.link) {
+            //console.log("get array index", this)
+            let r = false;
+            if (this.ifExistsInArray()) {
+                this.ajaxHistory.forEach( (object, index) => {
+                    for (entry in object) {
+                        if (entry === "url" && object[entry] === link) {
+                            r = index;
+                        }
+                    }
+                })
+            }
+            return r;
+        },
+        // Add a link object to an array if it doesn't exist
+        pushToArray: function(link = this.link) {
+            return this.ajaxHistory.push(
+                entry = {
+                    url: link,
+                    state: {
+                        preloaded: false
+                    },
+                    targetContainer: false,
+                }
+            )
+        },
+        awaitParse: function(link) {
+            return new Promise(resolve => {
+                fetch(link)
+                    .then(response => resolve(response.text()));
+            })
+        },
+        // Check ajaxHistory for existing entries
+        ifExistsInArray: function(link = this.link) {
+            let exists = false;
+
+            if (this.ajaxHistory.length > 0 && link) {
+                this.ajaxHistory.forEach( (object, index) => {
+
+                    for (entry in object) {
+                        if (entry === "url" && object[entry] === link) {
+                            exists = true;
+                        }
+                    }
+                })
+            }
+
+            return exists;
         },
         // If it's a valid ajax link, push the object to the array if it doesn't already exist
         isAjaxLink: function (link) {
+            link = link || this.link;
             // Is a page on this site
             let r = false;
 
@@ -98,10 +109,10 @@
             // the array has some items already, so we need to check if there is already an entry for the URL
 
             // Check if the entry does not exist and it's a valid link to a page on the same origin
-            if (!ifExistsInArray(link)) {
+            if (!this.ifExistsInArray(link)) {
 
                 if (this.isAjaxLink(link)) {
-                    pushToArray(link);
+                    this.pushToArray(link);
 
                     // Continue the method chain
                     pass = this;
@@ -112,7 +123,7 @@
             return pass;
         },
         // On mouse hover of a valid link, fetch the page
-        preload: async function(link) {
+        preload: async function(link, targetContainer) {
             link = link || this.link;
 
             // Validate the link first
@@ -122,9 +133,9 @@
             // Assume the page is already preloaded
             let preloaded = true, objectEntry;
 
-            if (ajaxHistory.length > 0) {
-                ajaxHistory.forEach( (object, index) => {
-
+            if (this.ajaxHistory.length > 0) {
+                this.ajaxHistory.forEach( (object, index) => {
+                    object.targetContainer = targetContainer;
                     //console.log("object", object.url)
                     if (object.url === link) {
                         objectEntry = object;
@@ -139,7 +150,7 @@
                 // Change value of preloaded key for this entry
                 objectEntry["state"]["preloaded"] = true;
                 // After it downloads, convert the response to a string
-                let responseText = await awaitParse(link);
+                let responseText = await this.awaitParse(link);
 
                 // Parse response
                 let parser = new DOMParser();
@@ -163,9 +174,14 @@
 
             return this;
         },
+        // Set the target container based on the passed 
+        getAjaxTarget: function (container) {
+
+            
+        },
         getAjaxContent: async function(targetContainer, link = this.link) {
 
-            let responseText = await awaitParse(link);
+            let responseText = await this.awaitParse(link);
 
             let parser = new DOMParser();
 
