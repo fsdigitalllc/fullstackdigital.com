@@ -1,3 +1,4 @@
+// Given a passed URL, loads the page and preloads content
 // 
 
 (function(global) {
@@ -10,22 +11,32 @@
     AjaxLoadPage.prototype = {
 
         ajaxHistory: [],
+        // Get the location of this page in the array of pages.
+        // [{}, {}, {}]
+        getAjaxEntry: function (link = this.link) {
+            //link = link || this.link;
+
+            let i = (function(link, _this) {
+                let r = false;
+
+                if (_this.ifExistsInArray(link)) {
+
+                    _this.ajaxHistory.forEach( (object, index) => {
+                        for (entry in object) {
+                            if (entry === "url" && object[entry] === link) {
+                                r = index;
+                            }
+                        }
+                    })
+                }
+
+                return r;
+            }(link, this))
+
+            return this.ajaxHistory[i];
+        },
         callback: function() {
 
-        },
-        getArrayIndex: function(link = this.link) {
-            //console.log("get array index", this)
-            let r = false;
-            if (this.ifExistsInArray()) {
-                this.ajaxHistory.forEach( (object, index) => {
-                    for (entry in object) {
-                        if (entry === "url" && object[entry] === link) {
-                            r = index;
-                        }
-                    }
-                })
-            }
-            return r;
         },
         // Add a link object to an array if it doesn't exist
         pushToArray: function(link = this.link) {
@@ -35,11 +46,15 @@
                     state: {
                         preloaded: false
                     },
-                    targetContainer: false,
+                    //targetContainer: false,
+                    // animation: {
+                    //     panimate: false,
+                    //     last_direction: false
+                    // }
                 }
             )
         },
-        awaitParse: function(link) {
+        awaitParse: function(link = this.link) {
             return new Promise(resolve => {
                 fetch(link)
                     .then(response => resolve(response.text()));
@@ -63,8 +78,8 @@
             return exists;
         },
         // If it's a valid ajax link, push the object to the array if it doesn't already exist
-        isAjaxLink: function (link) {
-            link = link || this.link;
+        isAjaxLink: function (link = this.link) {
+            //link = link || this.link;
             // Is a page on this site
             let r = false;
 
@@ -87,8 +102,8 @@
         // Validate if this is a valid aJax link
         // If it's valid, return this
         // If it's an external link or a non ajax link (like a anchor link), just load the page directly.
-        validate: function(link) {
-            link = link || this.link;
+        validate: function(link = this.link) {
+            //link = link || this.link;
             let warning;
 
             // Do not continue the method chain if this does not pass.
@@ -98,17 +113,26 @@
                 warning = "No link passed to prototype"
             }
 
+            // Check if it's a valid ajax Link
+            if (this.isAjaxLink(link)) {
+
+                // Create an entry in the ajaxHistory array with this url
+                this.createAjaxEntry(link);
+
+                // Continue the method chain
+                pass = this;
+            } else {
+                //warning = "Not an ajax link";
+                pass = false;
+            }
+
             if (warning) {
                 throw warning;
             }
 
-            // Check if it's a valid ajax Link
-
-            // There are no issues with the param
-
-            // the array has some items already, so we need to check if there is already an entry for the URL
-
-            // Check if the entry does not exist and it's a valid link to a page on the same origin
+            return pass;
+        },
+        createAjaxEntry: function (link = this.link) {
             if (!this.ifExistsInArray(link)) {
 
                 if (this.isAjaxLink(link)) {
@@ -117,67 +141,59 @@
                     // Continue the method chain
                     pass = this;
                 }
-                
             }
-            // Validate if this is a link that should load an ajax page.
-            return pass;
-        },
-        // On mouse hover of a valid link, fetch the page
-        preload: async function(link, targetContainer) {
-            link = link || this.link;
-
-            // Validate the link first
-            this.validate();
-            // if Object has entries
-
-            // Assume the page is already preloaded
-            let preloaded = true, objectEntry;
-
-            if (this.ajaxHistory.length > 0) {
-                this.ajaxHistory.forEach( (object, index) => {
-                    object.targetContainer = targetContainer;
-                    //console.log("object", object.url)
-                    if (object.url === link) {
-                        objectEntry = object;
-                        //console.log("object entry", objectEntry)
-                        preloaded = object.state.preloaded;
-
-                    }
-                });
-            }
-
-            if (!preloaded) {
-                // Change value of preloaded key for this entry
-                objectEntry["state"]["preloaded"] = true;
-                // After it downloads, convert the response to a string
-                let responseText = await this.awaitParse(link);
-
-                // Parse response
-                let parser = new DOMParser();
-
-                // Parse the text
-                let ajaxHtml = parser.parseFromString(responseText, "text/html");
-                //console.log(responseText)
-                //console.log("thisdfsdf", this.pageData)
-                // Prefetch the top two non-lazy images
-                let images = ajaxHtml.querySelectorAll("img[src]");
-
-                if (images.length > 0) {
-                    let preloadImages = [images[0], images[1]];
-
-                    preloadImages.forEach( (preloadImg, index) => {
-                        let preloadImgSrc = preloadImg.src;
-                        fetch(preloadImgSrc)
-                    });
-                }
-            }
-
             return this;
         },
-        // Set the target container based on the passed 
-        getAjaxTarget: function (container) {
-
+        // On mouse hover of a valid link, fetch the page
+        // link = a valid link from the same origin
+        // preload: a count of the number of images to preload
+        preload: async function(link = this.link, preload = 1) {
             
+
+            // Validate the link first
+            if (this.validate(link)) {
+            // if Object has entries
+
+                // Assume the page is already preloaded
+                let preloaded = this.getAjaxEntry(link).state.preloaded, objectEntry;
+
+
+                if (!preloaded) {
+                    // Change value of preloaded key for this entry
+                    this.getAjaxEntry(link).state.preloaded = true;
+                    // After it downloads, convert the response to a string
+                    let responseText = await this.awaitParse(link);
+
+                    // Parse response
+                    let parser = new DOMParser();
+
+                    // Parse the text
+                    let ajaxHtml = parser.parseFromString(responseText, "text/html");
+                    //console.log(responseText)
+                    //console.log("thisdfsdf", this.pageData)
+                    // Prefetch the top two non-lazy images
+                    let images = ajaxHtml.querySelectorAll("img");
+                    let preloadedImages = [];
+
+                    if (images.length > 0) {
+
+                        images.forEach( (img, index) => {
+                            if (index+1 <= preload) {
+                                preloadedImages.push(img);
+                            }
+                        });
+                        //let preloadImages = [images[0], images[1]];
+
+                        preloadedImages.forEach( (preloadImg, index) => {
+                            let preloadImgSrc = preloadImg.src || preloadImg.getAttribute("data-src") || preloadImg.getAttribute("data-srcset");
+                            fetch(preloadImgSrc)
+                        });
+                    }
+                }
+            };
+            
+
+            return this;
         },
         getAjaxContent: async function(targetContainer, link = this.link) {
 
@@ -190,7 +206,9 @@
                 url: link
             }
 
+            // Load any callback
             this.callback();
+
             return ajaxContent;
         }
 
@@ -199,8 +217,8 @@
     AjaxLoadPage.init = function(link) {
         // Set default values
         var self = this;
-
         self.link = link;
+        //self.link = link;
             
         // Validate should push the type of page (work item, normal page);
         // Preload should push the preload state

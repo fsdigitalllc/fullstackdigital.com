@@ -27,6 +27,7 @@
             if (!document.querySelector(`.${containerClass}`)) {
                 let createDiv = document.createElement("div");
                 createDiv.className = containerClass;
+                createDiv.setAttribute("panimate-container", "")
                 document.querySelector("main").appendChild(createDiv);
             }
             

@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 }, false)
 
 
-let ajaxHistory = AjaxLoadPage().ajaxHistory;
-
+// Access the array from AjaxLoadPage
+//let ajaxHistory = AjaxLoadPage().ajaxHistory;
 
 
 let stateObj = {
@@ -76,23 +76,31 @@ let AppContentLoader = function (href, targetContainer) {
     return new AppContentLoader.init(href, targetContainer);
 }
 
-AppContentLoader.prototype = {
-    ajaxArrayIndex: function (link) {
-        let i = AjaxLoadPage(link).getArrayIndex();
 
-        return i;
+// Given a relative link, load the content into the target container
+AppContentLoader.prototype = {
+
+
+    ajaxHistory: AjaxLoadPage().ajaxHistory,
+    ajaxEntry: function(link = this.href) {
+        return AjaxLoadPage().getAjaxEntry(link);
     },
+
     // Navigator handles forward/backward navigation and sets the proper directions
-    navigator: function () {
+    navigator: async function () {
         //let self = this;
-        
+        if (typeof Panimate !== 'undefined' && this.ajaxEntry().panimate === true) {
+            console.log("start panimating");
+        } else {
+            console.log("start normal loading");
+        }
         return this;
     },
 
     
 
     loadStart: async function (href = this.href) {
-
+        this.navigator();
         let ajaxHtml = await AjaxLoadPage(href)
         .getAjaxContent(document.querySelector("main"));
     
@@ -108,7 +116,12 @@ AppContentLoader.prototype = {
         //lazySizes.init();
         document.querySelectorAll("head title")[0].innerText = window.history.state.title;
         AjaxScriptLoader().isLoading(false);
+
+
         window.scrollTo (0,0);
+
+
+
         toggleActiveState();
         setSectionSkins();
 
@@ -116,9 +129,6 @@ AppContentLoader.prototype = {
     },
 
     changeWindowHistory: function () {
-        //window.history.forward();
-        //console.log("window history", stateObj)
-        //console.log("history entry", stateObj, "ajaxhistory", ajaxHistory)
     
         // Add a history entry with the stateObj, 
         window.history.pushState(stateObj, stateObj.title, stateObj.url, stateObj.preloaded = true);
@@ -150,7 +160,7 @@ AppContentLoader.prototype = {
         // Parsed text response
         let ajaxHtml = response.html;
     
-        // Url stored in tthe object passed to the function
+        // Url stored in the object passed to the function
         let pageLink = response.url;
     
     
@@ -206,15 +216,15 @@ AppContentLoader.prototype = {
 
 // Create a function constructor that builds an object and gives it 2 properties with default values
 AppContentLoader.init = function(href, containerTarget) {
-
     // Set default values
     var self = this;
 
     self.href = href;
     self.containerTarget = containerTarget || ".site-main";
+
     // Object associated with a history entry
     // Add default values for the first page load
-    
+    AjaxLoadPage().validate(href);
 }
 
 // Give access to all prototype properties
@@ -223,10 +233,44 @@ AppContentLoader.init.prototype = AppContentLoader.prototype;
 global.AppContentLoader = AppContentLoader;
 
 
+// Expose the current entry based on the appcontentloader method
+
+
+// For page links that aren't animated, main the container target <main> and just replace the content
+function getAjaxContentArea(target) {
+    let containerTarget = ".site-main";
+
+    if (target.closest(".item")) {
+        containerTarget = ".work-ajax";
+    }
+
+    return containerTarget;
+}
+
+function setPanimateOptions(target) {
+    let panimate = false;
+    if (target.closest(".item")) {
+        let thisItem = target.closest(".item");
+        panimate = [];
+
+        panimate.push({
+            start: thisItem.querySelector(".item_image"),
+            end: {
+                top: document.querySelectorAll("[panimate-top]")[0],
+                width: document.querySelectorAll("[panimate-width]")[0]
+            }
+        }, {
+            start: thisItem.querySelector(".item_wipe"),
+            top: 0,
+            width: window.innerWidth
+        })
+    }
+    return panimate;
+}
+
 let ajaxPrepare = async (e) => {
     // Make sure context is within the scope of this function
-    let validTarget = false,
-    href;
+    let validTarget = false, href;
     //workLink = link => (link.includes(document.location.host) || link[0] === "/") && (!link.includes("#"));
 
     // e.target.closest throws an error when the mouse enters the screen because the nodeName is #document
@@ -238,40 +282,37 @@ let ajaxPrepare = async (e) => {
         let target = e.target;
 
 
+        // For ajax animated content, target a container that overlaps main
+        
+
         // Two types of events: click or mouseover. 
+
         // Click should init the link interaction
         // Mouseover should preload a page if it already isn't preloaded
-        if (getSelectorLink(target)) { 
-            href = getSelectorLink(target);
-            let isRelativeAjaxLink = AjaxLoadPage(href).isAjaxLink();
-            let containerTarget = ".site-main";
-            let i = AppContentLoader().ajaxArrayIndex(href);
+
+        // If the selector is a Link or if it's an .item
+        href = getSelectorLink(target);
+
+        if (href) {
+            let ajaxEntry = AppContentLoader(href).ajaxEntry();
+
+            // Set a variable for the entry within the ajaxhistory array
             
+            // For initial page load, check if the target is a work link
+            ajaxEntry.container = getAjaxContentArea(target);
+            ajaxEntry.panimate = setPanimateOptions(target);
+
             if (e.type === "click") {
-                
-                if (isRelativeAjaxLink) {
-                    e.preventDefault();
-                    //initAjaxLoadPage(href)
-                    
-                    console.log(ajaxHistory)
-                    if (i !== false) {
-                        //AppContentLoader(window.location.href, )
-                        containerTarget = ajaxHistory[i].targetContainer;
-                    }
-                    AppContentLoader(href, containerTarget).navigator().loadStart();
-                        
-                }
-    
+                e.preventDefault();
+
+                AppContentLoader(href, ajaxEntry.container).loadStart();
+
                 // (!isAjaxLink(href) && self.closest('.item').hasAttribute("ajax-link"))
     
             } else {
 
-                if (target.closest(".item")) {
-
-                    containerTarget = ".work-ajax"; 
-
-                }
-                AjaxLoadPage(href).preload(href, containerTarget);
+                AjaxLoadPage().preload(href, 2);
+                
 
                 // Set the target container in the object
                 
@@ -280,6 +321,12 @@ let ajaxPrepare = async (e) => {
     
             }
 
+            // Creates a new entry in the array
+            
+            console.log("this entry", ajaxEntry);
+
+
+
         }
     }
     return this;
@@ -287,17 +334,18 @@ let ajaxPrepare = async (e) => {
 
 
 document.addEventListener("click", ajaxPrepare, false);
+
+document.addEventListener("touchstartt", ajaxPrepare, false);
 document.addEventListener("mouseenter", ajaxPrepare, true);
 // Start the methods
 
 
 window.onpopstate = function() {
     let targetContainer = undefined;
-    let i = AppContentLoader().ajaxArrayIndex(window.location.href);
 
-    if (i !== false) {
+    if (AppContentLoader(window.location.href).ajaxEntry() !== false) {
         //AppContentLoader(window.location.href, )
-        targetContainer = ajaxHistory[i].targetContainer;
+        targetContainer = AppContentLoader(window.location.href).ajaxEntry().container;
     }
     AppContentLoader(window.location.href, targetContainer).loadStart();
 }

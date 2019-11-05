@@ -31,15 +31,7 @@
                     errorMessage = "Type supported";
                 }
             }
-            
-            // Throw error if this required param is missing in the supportedDivs array
-            // If this was a selector, we would need to make sure to get the classname as a string
-            // if (supportedDivs.indexOf(this.param1) === -1) {
-            //     errorMessage = "Unsported selector passed";
-            // }
 
-            // Param1 is object
-            //console.log(errorMessage, this.firstTags)
         },
         getSrcType: function (node) {
             return node.tagName;
@@ -60,14 +52,7 @@
         getSrcArray: function(pageScripts, ajaxScripts) {
             let arr1 = pageScripts;
             let arr2 = ajaxScripts;
-            // console.log("ajaxScripts", arr1)
-            // // get a list of pageScripts that do not exist on the ajax loaded page
-            // if (reverse === true) {
-            //     arr1 = ajaxScripts;
-                
-            //     arr2 = pageScripts;
-            // }
-            // Iterate 
+            
             function mapForEachScript (firstNodes, secondNodes, fn) {
                 let nodeList = [];
 
@@ -251,16 +236,9 @@
                 
                 let runList = [];
                 runNodes.forEach(node => {
-
-                    //if (node.tagName === "SCRIPT" || node.tagName === "link") {
-
-                        // if there's no type attr (it's inline script) or the type attr is supported
-                        //if (!typeAttr || runScriptTypes.indexOf(typeAttr) !== -1 || runScriptTypes.indexOf(linkAttr) !== -1) {
-                            runList.push(function (callback) {
-                                insertScript(node, callback)
-                            });
-                        //}
-                    //}
+                    runList.push(function (callback) {
+                        insertScript(node, callback)
+                    });
                 });
 
                 // insert the script tags sequentially
@@ -276,12 +254,6 @@
 
         // Set default values
         var self = this;
-
-        // If param1 is set use that value, otherwise set it to an empty string
-        //self.firstTags = Array.prototype.slice.call(firstTags);
-        //self.secondTags = Array.prototype.slice.call(secondTags);
-
-        //self.validate();
     }
 
     // Give access to all prototype properties

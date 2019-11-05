@@ -12,13 +12,14 @@
     // 1. //
     // Init initializes an object
     // We set a var equal to a function that initializes the object
-    var Panimate = function(param1, param2) {
-        return new Panimate.init(param1, param2);
+    let Panimate = function(start, end, options) {
+        return new Panimate.init(start, end, options);
     }
 
     // Array of supported items
-    var supportedDivs = ['Panimate-start', 'Panimate-end'];
+    var supportedDivs = ['panimate-start', 'panimate-end'];
 
+   
 
     // Add a prototype for our constructor
     // Will use this to add any methods we want to use for our Panimate object
@@ -35,18 +36,13 @@
                     errorMessage = "Not of type Image";
                 }
             }
-            
-            // Throw error if this required param is missing in the supportedDivs array
-            // If this was a selector, we would need to make sure to get the classname as a string
-            if (supportedDivs.indexOf(this.param1) === -1) {
-                errorMessage = "Unsported selector passed";
-            }
-            if (supportedDivs.indexOf(this.param2) === -1) {
-                errorMessage = "Missing Param2";
+
+            if (!document.querySelector("[panimate-container]")) {
+                errorMessage = "panimate-container not defined"
             }
 
             if (!animateLibrary || animateLibrary === undefined) {
-                errorMessage = "VelocityJS Not Loaded";
+                errorMessage = "Animation library Not Loaded";
                 throw errorMessage;
             }
             
@@ -55,12 +51,6 @@
                 throw errorMessage;
             }
             
-        },
-
-        animateBetweenPages: function() {
-            // Check if valid selectors are in use
-            this.validate();
-            return this.param1 + " animateBetweenPages";
         },
 
         getStartValues: function(startImage, topOffset) {
@@ -93,15 +83,24 @@
 
     // 2. //
     // Create a function constructor that builds an object and gives it 3 properties with default values
-    Panimate.init = function(param1, param2) {
+    Panimate.init = function(start, end, options) {
 
         // Set default values
         var self = this;
 
-        // If param1 is set use that value, otherwise set it to an empty string
-        self.param1 = param1 || '';
-        self.param2 = param2 || "test";
+        self.start = start || document.querySelectorAll("[panimate-start]");
+        self.end = end || document.querySelectorAll("[panimate-end]");
 
+        self.options = options || {
+            forward: {
+
+            },
+            back: {
+                duration: 400,
+                easing: "linear",
+            }
+        }
+        
         self.validate();
     }
 

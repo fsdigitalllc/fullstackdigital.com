@@ -13,11 +13,13 @@
   fetchInject([
     '{{ $ajax_work_grid.RelPermalink }}'
   ], fetchInject([
+    '{{ $Panimate.RelPermalink }}'
+  ], fetchInject([
     '{{ $RevealAfterImagesLoad.RelPermalink }}',
     '{{ $LoadMoreItems.RelPermalink }}',
     '{{ $velocity.RelPermalink }}',
     '{{ $scroll_lock.RelPermalink }}'
-  ])).then(() => {
+  ]))).then(() => {
     let DOMContentLoadedEvent = document.createEvent('Event');
     DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
     window.dispatchEvent(DOMContentLoadedEvent);
