@@ -88,24 +88,29 @@ AppContentLoader.prototype = {
 
     // Navigator handles forward/backward navigation and sets the proper directions
     navigator: async function () {
-        //let self = this;
-        if (typeof Panimate !== 'undefined' && this.ajaxEntry().panimate === true) {
-            console.log("start panimating");
-        } else {
-            console.log("start normal loading");
+        let promise = false;
+        if (typeof Panimate !== 'undefined' && this.ajaxEntry().panimate) {
+            let items = this.ajaxEntry().panimate;
+            //console.log("it", items)
+            Panimate(items);
         }
-        return this;
+        return promise;
     },
 
     
 
     loadStart: async function (href = this.href) {
         this.navigator();
-        let ajaxHtml = await AjaxLoadPage(href)
-        .getAjaxContent(document.querySelector("main"));
-    
+        
+
+        ///////////// Refactor ////////////
+        let promises = [];
+        let ajaxHtml = await AjaxLoadPage(href).getAjaxContent(document.querySelector("main"))
+        promises.push(ajaxHtml);
+        //console.log("promise", ajaxHtml)
+
         // Create an array of promises so that the load process does not start untill all promises are resolved
-        Promise.all([ajaxHtml]).then(() => {
+        Promise.all(promises).then(() => {
             this.ajaxLoadPage(ajaxHtml);
         });
         return this;
@@ -258,11 +263,15 @@ function setPanimateOptions(target) {
             end: {
                 top: document.querySelectorAll("[panimate-top]")[0],
                 width: document.querySelectorAll("[panimate-width]")[0]
-            }
+            },
+            complete: false
         }, {
             start: thisItem.querySelector(".item_wipe"),
-            top: 0,
-            width: window.innerWidth
+            end: {
+                top: 0,
+                width: window.innerWidth,
+            },
+            complete: false
         })
     }
     return panimate;
@@ -335,7 +344,7 @@ let ajaxPrepare = async (e) => {
 
 document.addEventListener("click", ajaxPrepare, false);
 
-document.addEventListener("touchstartt", ajaxPrepare, false);
+document.addEventListener("touchstart", ajaxPrepare, false);
 document.addEventListener("mouseenter", ajaxPrepare, true);
 // Start the methods
 
