@@ -27,19 +27,20 @@ sections:
   - name: vastdata
   - name: quantum
   - name: code
-- template: related-work
+- template: "related-work"
+  layout: "hero"
+  layout_size: "fullwidth"
+  row_gap: "none"
+  count: 3
+  limit: 3
   columns: '1'
   tabs: false
+  image_position_h: right
   match:
-    path: ''
     path_array:
-    - content/work/web/fariastechnique/index.md
-    - content/work/market/ddn/index.md
-    - content/work/web/usdrs/index.md
-    name_array:
-    - threefactor
-    section_array:
-    - work/web
+    - content/work/web/fariastechnique
+    - content/work/web/code
+    - content/work/brand/rigado
 - template: service_offering
   id: services
   classes: padding-l

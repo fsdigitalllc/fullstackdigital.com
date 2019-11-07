@@ -59,20 +59,23 @@ sections:
       title: "Brand Management<br><strong>How the brand lives on.</strong>"
       paragraph: "Supporting the brand with its very own team of dedicated experts, so it can focus on building equity"
       link: "#get-started"
-  - template: "related_work"
+  - template: "related-work"
     subtitle: "Fullstack Branding Work"
     title: "Not just projects, collaborations where we helped imagine the future."
-    grid:
-      layout: "grid"
-      tabs: false
-      columns: "2"
-      category: "brand"
-      count: "4"
-      items:
-      - name: "code"
-      - name: "quantum"
-      - name: "threefactor"
-      - name: "fariastechnique"
+    layout: "hero"
+    layout_size: "contain"
+    row_gap: "sm"
+    col_gap: "sm"
+    count: 3
+    limit: 3
+    columns: '2'
+    tabs: false
+    image_position_h: center
+    image_position_v: bottom
+    match:
+      path_array:
+      - content/work/brand/code
+      - content/work/brand/rigado
   - template: "related_content"
     subtitle: "Fullstack Branding Today"
     title: "How we stay current in the world of digital branding."

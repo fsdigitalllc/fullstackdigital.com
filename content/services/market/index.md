@@ -54,20 +54,22 @@ sections:
       title: "Reputation Management<br><strong>How people trust you.</strong>"
       paragraph: "Maintaining your online reputation and growth strategy so that you outpace competitors"
       link: "#get-started"
-  - template: "related_work"
+  - template: "related-work"
     subtitle: "Fullstack Marketing Work"
     title: "Not just projects, collaborations where we helped imagine the future."
-    grid:
-      layout: "grid"
-      tabs: false
-      columns: "2"
-      category: "market"
-      count: "4"
-      items:
-      - name: "ddn"
-      - name: "quantum"
-      - name: "threefactor"
-      - name: "fariastechnique"
+    layout: "hero"
+    layout_size: "contain"
+    row_gap: "sm"
+    col_gap: "sm"
+    count: 3
+    limit: 3
+    columns: '1'
+    tabs: false
+    image_position_h: center
+    image_position_v: bottom
+    match:
+      path_array:
+      - content/work/market/ddn
   - template: "related_content"
     subtitle: "Fullstack Branding Today"
     title: "How we stay current in the world of digital marketing."

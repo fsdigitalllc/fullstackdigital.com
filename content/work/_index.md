@@ -17,100 +17,24 @@ sections:
 - template: "related-work"
   classes: "padding-l-bottom"
   layout_size: "contain"
-  count: 6
-  limit: 0
+  count: 20
+  limit: 4
   columns: '2'
   col_gap: 'sm'
   row_gap: 'sm'
+  image_position_v: bottom
   tabs: true
   skin: "dark"
   match:
+    path_array:
+    - content/work/brand/code
+    - content/work/web/fariastechnique
     name_array:
+    - rigado
     - ddn
-    section_array:
-    - work/web
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "contain"
-  contain_style: "overflow"
-  count: 6
-  limit: 2
-  columns: '2'
-  col_gap: 'none'
-  row_gap: 'none'
-  tabs: false
-  skin: "dark"
-  match:
-    section_array:
-    - work/web
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "fullwidth"
-  count: 6
-  limit: 2
-  columns: '2'
-  col_gap: 'sm'
-  tabs: false
-  match:
-    section_array:
-    - work/web
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "contain"
-  count: 4
-  limit: 2
-  columns: '1'
-  tabs: false
-  match:
-    section_array:
-    - work/brand
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "fullwidth"
-  count: 4
-  limit: 2
-  columns: '1'
-  tabs: false
-  match:
-    section_array:
-    - work/brand
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "fullwidth"
-  count: 4
-  limit: 2
-  columns: '2'
-  tabs: false
-  match:
-    name_array:
-    - fariastechnique
-    section_array:
-    - work
-  grid:
-    layout: "grid"
-    tabs: true
-    columns: "2"
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "fullwidth"
-  count: 4
-  limit: 2
-  columns: '1'
-  tabs: false
-  match:
-    section_array:
-    - work/brand
-- template: "related-work"
-  classes: "padding-l-bottom"
-  layout_size: "contain"
-  count: 6
-  limit: 2
-  columns: '2'
-  tabs: false
-  match:
-    section_array:
-    - work/web
-    - work/brand
+    - 4dv
+    - typeking
+    - leadgate
 - template: "cta"
   class: "cta-left"
   subtitle: "Get Started"

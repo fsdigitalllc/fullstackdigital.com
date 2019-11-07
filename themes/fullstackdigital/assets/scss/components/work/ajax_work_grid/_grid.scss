@@ -1,6 +1,10 @@
 $heading_size: 2.1rem;
 $description_size: 1.25rem;
 
+// Hide the height spacer for now
+.height-spacer {
+    display: none;
+}
 .ajax_work_grid {
 
     display: grid;

@@ -7,7 +7,10 @@ language: en
 published: true
 slug: "rebranding-code-open-source"
 layout: pancakes
-description: page description
+description: The {code} team and Fullstack came together to create a cohesive brand platform to support the transition, but more importantly solidify the {code} team as a leader in the open source community and setup the brand for the open future ahead.
+excerpt:
+  title: "Rebranding an Open Source Team for an Open Future"
+  description: As {code} prepared for its switch to Dell Technologies, it was time to bring it all together and re-introduce it to the world.
 date: 2018-07-03 04:00:00 +0000
 tags: ["Brand Development", "Brand Identity"]
 aliases :
