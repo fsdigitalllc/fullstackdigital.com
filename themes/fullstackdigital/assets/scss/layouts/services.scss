@@ -1,0 +1,105 @@
+@import "../vars";
+@import "../components/perspective_items";
+@import "../components/work/ajax_work_grid";
+@import "../components/related_content";
+@import "../components/cta";
+@import "../components/logos";
+
+.template-service_process {
+    .col-3 {
+      flex-basis: 28%;
+    }
+    .black-number {
+      background: #000000;
+      border-radius: 50%;
+      display: flex;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      margin: 0 auto;
+      justify-content: center;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+    #number-4-row {
+      display: grid;
+      grid-template-columns: .8fr 1.5fr 2.4fr 1fr;
+    }
+    .border-dark {
+      height: 1px;
+      background-color: #666666;
+    }
+    .number-title {
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.25;
+    }
+    .black-number > span {
+      font-size: 20px;
+      line-height: 1.5em;
+      font-weight: 900;
+    }
+    @media screen and (min-width: $screen-tablet) {
+      #number-4-row p, #number-4-row .black-number {
+        margin-bottom: 0px;
+      }
+    }
+    @media screen and (max-width: $screen-tablet) and (min-width: $screen-mobile-l) {
+      #number-4-row.container {
+        grid-template-rows: 1fr 1fr .5fr;
+        grid-template-columns: .8fr 3fr;
+      }
+      #number-4-row.container .col-1 {
+        grid-row-start: 1;
+        grid-column-start: 1;
+      }
+      #number-4-row.container .small_link {
+        grid-column-start: 2;
+        grid-row-start: 3;
+      }
+      #number-4-row.container .number-title {
+        grid-row-start: 1;
+        grid-column-start: 2;
+      }
+      #number-4-row.container .col-5 {
+        grid-row-start: 2;
+        grid-column-start: 2;
+        text-align: left;
+        justify-self: flex-start;
+      }
+    }
+    @media screen and (max-width: $screen-tablet) {
+      .container {
+        align-items: center;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+      .container > div {
+        margin-bottom: 32px;
+      }
+      .container > div:last-child {
+        margin-bottom: -10px;
+      }
+      #number-4-row .small_link {
+        justify-content: flex-start;
+      }
+    }
+    @media screen and (max-width: $screen-mobile-l) {
+      #number-4-row.container {
+        display: flex;
+      }
+      #number-4-row.container {
+        width: 350px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .border-dark {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+      #number-4-row.container .text-left > *, #number-4-row p {
+        text-align: center;
+      }
+    }
+  }

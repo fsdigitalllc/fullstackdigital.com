@@ -2453,7 +2453,6 @@ nav.sub .link-4 {
   margin: -4%; }
 
 .work-grid .gridwrap {
-  overflow: hidden;
   -webkit-box-shadow: 0px 0px 1px 1px #efefef;
           box-shadow: 0px 0px 1px 1px #efefef; }
 
@@ -2510,11 +2509,7 @@ nav.sub .link-4 {
   z-index: 20; }
 
 .work-row .gridgrow {
-  height: 80vh;
-  overflow: hidden; }
-
-.work-row .gridwrap {
-  overflow: hidden; }
+  height: 80vh; }
 
 .work-row .gridgrow:nth-child(1) {
   z-index: 10; }
@@ -2847,7 +2842,6 @@ nav.sub .link-4 {
 .gridgrow-image-holder {
   margin-left: -4%;
   margin-right: -4%;
-  overflow: hidden;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2863,7 +2857,6 @@ nav.sub .link-4 {
   color: #fff;
   display: block;
   position: absolute;
-  overflow: hidden;
   z-index: 55;
   margin-bottom: 0;
   max-width: none; }
@@ -2993,9 +2986,9 @@ nav.sub .link-4 {
   .gridgrow .gridgrow-excerpt {
     font-size: 14px; }
   .work-row .gridgrow .gridgrow-image-holder {
-    max-height: 50%; }
+    max-height: 40%; }
   .work-row .gridgrow .card-footer {
-    max-height: 50%; } }
+    max-height: 60%; } }
 
 .stickyNav {
   position: -webkit-sticky;

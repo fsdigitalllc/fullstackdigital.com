@@ -1,0 +1,242 @@
+{{/* 
+    Component - Work - Item:
+    Template for the individual item within the work post/page loop.
+    
+    .global : access the page context the item is included on
+    .page : this sections context
+    .post : the fields from the queried post
+
+    Options:
+    count: 2 // Integer. Controls the number of items on each row
+    size: fullwidth / contain
+
+    style:
+    - caption // a contained grid of items with even spacing
+    - hero // a fullwidth row
+    - hero-left
+    - hero-right
+    - hero-center
+
+    - add-tint // add an overlay. Useful if using center center
+
+    layouts:
+    - hero
+    - 
+
+    // DEFINE THE LAYOUT TEMPLATE ON EACH ITEM SO THEY CAN BE STYLED INDIVIDUALLY. So multiple styles in same grid.
+    */}}
+
+    {{ $params := .post.Params }}
+
+
+{{ $bg_color := .post.Params.stacks_hero.background_color | default "#ffffff" | safeHTML }}
+{{ $name := path.Base (path.Dir .post.Path) }}
+{{ $width := .page.columns | default "1" }}
+
+{{ $skin := .page.skin | default "dark" }}
+{{ $img_position_horizontal := .page.image_position_h | default "center" }}
+{{ $img_position_vertical := .page.image_position_v | default "center" }}
+
+{{ $img_size := "full" | safeHTML }}
+
+
+{{ $layout := .page.layout | default "hero" }}
+{{ if eq $layout "list-grid" }}
+        {{ $img_size = "md" }}
+{{ end }}
+
+{{ $test := false }}
+
+{{ if eq $test true }}
+
+
+    <!--can override on post level, or just use the global column value-->
+    
+
+    {{ if eq $layout "list-grid" }}
+        {{ $img_size = "md" }}
+
+    {{ if eq .index 0 }}
+        {{ $layout = "hero" }}
+        {{ $img_position_horizontal = "center" }}
+        {{ $img_position_vertical = "bottom" }}
+    {{ end }}
+    {{ if eq .index 1 }}
+        {{ $layout = "hero" }}
+        {{ $img_position_horizontal = "center" }}
+        {{ $img_position_vertical = "center add-tint" }}
+    {{ end }}
+    {{ if eq .index 2 }}
+        {{ $layout = "hero" }}
+        <!-- {{ $width = "1" }} -->
+        {{ $img_position_horizontal = "center" }}
+        {{ $img_position_vertical = "bottom" }}
+    {{ end }}
+    {{ if eq .index 3 }}
+        {{ $layout = "hero" }}
+        <!-- {{ $width = "1" }} -->
+        {{ $img_position_horizontal = "right" }}
+        {{ $img_position_vertical = "center" }}
+    {{ end }}
+    {{ if eq .index 4 }}
+        {{ $img_position_horizontal = "center" }}
+        {{ $img_position_vertical = "center" }}
+        {{ $img_size = "md" }}
+    {{ end }}
+    {{ if eq .index 6 }}
+        {{ $layout = "hero" }}
+        {{ $width = "1" }}
+        {{ $img_position_horizontal = "left" }}
+        {{ $img_position_vertical = "center" }}
+    {{ end }}
+    {{ end }}
+
+{{ end }}
+
+
+
+<!--content-->
+
+<!--
+    get the post title, or override with more specific titles if they exist
+-->
+{{ $title := false }}
+{{ with .post.Title }}
+    {{ $title = . }}
+{{ end }}
+{{ with $params.hero.title }}
+    {{ $title = . }}
+{{ end }}
+{{ with $params.excerpt.title }}
+    {{ $title = . }}
+{{ end }}
+
+{{ $description := false }}
+{{ with $params.excerpt.description }}
+    {{ $description = . }}
+{{ end }}
+<!--PLACEHOLDER: Repeating section hero-->
+{{ with $params.grid_item.featured_caption }}
+    {{ $description = . }}
+{{ end }}
+{{ with $params.grid_item.featured_caption }}
+    {{ $description = . }}
+{{ end }}
+
+{{ $permalink := .post.RelPermalink }}
+{{ with $params.excerpt.permalink }}
+    {{ $permalink = . }}
+{{ end }}
+
+
+<!--PLACEHOLDER-->
+<!--DEPRECATED-->
+{{ with $params.grid_item.title }}
+    {{ $title = . }}
+{{ end }}
+
+<!--
+    get the post image, or override with more specific images if they exist
+-->
+{{ $image := false }}
+
+{{ with $params.image }}
+    {{ $image = . }}
+{{ end }}
+{{ with $params.hero.image }}
+    {{ $image = . }}
+{{ end }}
+{{ with $params.excerpt.image }}
+    {{ $image = . }}
+{{ end }}
+
+<!--DEPRECATED-->
+{{ with $params.stacks_hero.image }}
+    {{ $image = . }}
+{{ end }}
+{{ with $params.grid_item.image }}
+    {{ $image = . }}
+{{ end }}
+
+
+{{ $logo := false }}
+{{ $path := print "images/clients/color/" $name "*" }}
+{{ if eq $skin "dark" }}
+    {{ $path = print "images/clients/white/" $name "*" }}
+{{ end }}
+{{ if eq $skin "white" }}
+    {{ $path = print "images/clients/black/" $name "*" }}
+{{ end }}
+{{ if eq $skin "grey" }}
+    {{ $path = print "images/clients/grey/" $name "*" }}
+{{ end }}
+{{ with resources.GetMatch $path }}
+
+    {{ $logo = .Permalink }}
+{{ end }}
+
+<!-- lazyload only items that are after 2 -->
+{{ $lazyload := true }}
+{{ if le .index 2 }}
+    {{ $lazyload = false }}
+{{ end }}
+
+<div index="{{ .index }}" name="{{ $name }}" skin="{{ $skin }}" data-load="false" data-image-loaded="false" class="item layout-{{ $layout }} width-{{ $width }} position-h-{{ $img_position_horizontal }} position-v-{{ $img_position_vertical }}" style="background-color: {{ $bg_color }};" ajax-link="{{ $permalink }}">
+    
+    <div class="image_wrapper img-size-{{ $img_size }}">
+        {{ if $lazyload }}
+            {{ $img := false }}
+            {{ with partial "helpers/get_responsive_images.html" (dict "page" .post "global" $ "datasrc" $image ) }}
+                {{ $img = . }}
+            {{ end }}
+            {{ if $img }}
+                <img {{ $img }} class="lazyload"> 
+            {{ end }}
+        {{ else }}
+            {{ $img := false }}
+            {{ with partial "helpers/get_responsive_images.html" (dict "page" .post "global" $ "src" $image ) }}
+                {{ $img = . }}
+            {{ end }}
+            {{ if $img }}
+                <img {{ $img }}> 
+            {{ end }}
+        {{ end }}
+
+        {{ if ne $layout "hero" }}
+            <div class="item_wipe" style="background-color: {{ $bg_color }};"></div>
+        {{ end }}
+    </div>
+
+    <div class="caption container">
+
+        <div class="caption_content">
+            
+            <div class="caption_logo">
+                {{ if $lazyload }}
+                <img data-src="{{ $logo }}" class="lazyload">
+                {{ else }}
+                <img src="{{ $logo }}" class="">
+                {{ end }}
+            </div>
+
+            <div class="caption_text">
+                <span class="caption_heading">{{ $title }}</span>
+                {{ with $description }}
+                <span class="caption_description">{{ $description }}</span>
+                {{ end }}
+                <div class="caption_text_link">
+                    <span class="caption_view_text">
+                            View Case Study
+                    </span>
+                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 64 64" enable-background="new 0 0 64 64"><g><path fill="none" stroke="#fff" stroke-width="2" stroke-miterlimit="10" d="M0 32H63z"></path></g><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" d="M54 41l9-9-9-9"></path></svg>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    {{ if eq $layout "hero" }}
+        <div class="item_wipe" style="background-color: {{ $bg_color }};"></div>
+    {{ end }}
+
+</div>

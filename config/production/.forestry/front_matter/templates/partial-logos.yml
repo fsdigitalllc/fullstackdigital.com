@@ -1,0 +1,39 @@
+---
+label: Partial - Logos
+hide_body: true
+fields:
+- name: logos_color
+  type: select
+  default: black
+  config:
+    required: false
+    options:
+    - color
+    - white
+    - black
+    - grey
+    source:
+      type: simple
+      section: 
+      file: 
+      path: 
+  label: Logos Color
+- name: logos_link
+  type: boolean
+  label: Logos Link
+  description: Enable if clicking a logo should direct to a related case study (if
+    it exists)
+- name: logos
+  type: field_group_list
+  fields:
+  - name: name
+    type: text
+    config:
+      required: false
+    label: Name
+    description: Name of the client logo. Use a word like "code" or "fariastechnique."
+  config:
+    min: 
+    max: 
+    labelField: 
+  label: Logos

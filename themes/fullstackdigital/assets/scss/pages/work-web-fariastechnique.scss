@@ -1,0 +1,86 @@
+@import "../vars";
+@import "../components/cards";
+
+.work-web-fariastechnique {
+    .experience {
+        .pb-html-block {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            height: 100%;
+        }
+        .farias-icons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .fa-youtube {
+            width: 59px;
+            height: 41px;
+        }
+        .fa-bell {
+            width: 50px;
+            height: 61px;
+        }
+        .bell {
+            position: relative;
+            margin-right: 20px;
+        }
+        .bell:after {
+            content: '';
+            position: absolute;
+            top: .4875rem;
+            right: .1825rem;
+            display: block;
+            width: .4375rem;
+            height: .4375rem;
+            border-radius: 50%;
+            background: #d63e2b;
+            width: .65rem;
+            height: .65rem;
+        }
+        @media screen and (max-width: $screen-tablet) {
+            .pb-html-block {
+                display: none;
+            }
+        }
+    }
+
+    .farias-plan {
+        .pullUp {
+            margin-top: -10%;
+        }
+
+        .img-first {
+            margin-left: -20%
+        }
+        .img-last {
+            margin-left: 20%
+        }  
+    }
+
+    .cards {
+        .card-block-text {
+            padding: 10% 16%;
+        }
+        .cards .col-6 .pb-html-block:last-child {
+            margin-bottom: 0px;
+        }
+        img {
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 55px;
+        }
+        .col-6 {
+            flex-basis: calc(50% - 20px);
+        }
+        .col-6 .elements-wrapper .pb-html-block {
+            background-color: #0f0f0f;
+            margin-bottom: 40px;
+        }
+    }
+}
+
+
+      

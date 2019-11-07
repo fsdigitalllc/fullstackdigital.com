@@ -18,7 +18,6 @@ stacks_hero:
   client: "ddn"
   logo_color: "color"
 grid_item:
-  client: "ddn"
   featured: true
   featured_title: "We scale high-growth technology startups."
   featured_caption: |
@@ -32,12 +31,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom items-center
   background_color: "#AB0000"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: justify-center items-center
     size: container
     cols:
     - template: block-column-builder

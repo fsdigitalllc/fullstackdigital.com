@@ -1,0 +1,26 @@
+---
+label: META - Partial
+hide_body: true
+fields:
+- name: meta
+  type: field_group
+  config: {}
+  fields:
+  - name: robots
+    type: select
+    default: all
+    config:
+      required: false
+      options:
+      - all
+      - none
+      - noindex
+      source:
+        type: simple
+        section: 
+        file: 
+        path: 
+    label: Index
+    description: Set the robots meta value.
+  label: Meta
+  description: Meta values for SEO and sharing pages.

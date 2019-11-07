@@ -1,0 +1,159 @@
+<!-- logos_color: true
+logos_link: true
+logos_width: xs
+logos:
+  - name: "dell"
+    logo_link: false
+  - name: "quantum"
+    logo_color: false
+  - name: "rigado"
+  - name: "threefactor"
+  - name: "ddn"
+  - name: "code" -->
+
+{{/* <!-- Needed Update for this partial: Add ability to just specify a client category and count, then return the required logos --> */}}
+
+{{/* <!--ABOUT: Easily add logos to any page. Upload logos one time, then look them up in the data file to get the logo location. Let the user override the URL on the individual page (some pages don't need the logos to link out) and allow the admin to toggle the logo color individually or for the entire row --> */}}
+
+{{/* <!--assets/images/clients/color --> */}}
+{{/* <!--assets/images/clients/white --> */}}
+
+{{/* <!--logo pass defaults to color, but admin can toggle white version --> */}}
+{{/* <!--WHEN UPDATING LOGOS IN THE FOLDER: Use same naming convention for both white and color, I have added some checks and balances, but it's not perfect --> */}}
+
+{{ $site := $.global.Site }}
+
+{{ $prefix := "assets/images/clients/" }}
+{{ $asset_prefix := "images/clients/" }}
+{{/* <!--the default color setting --> */}}
+{{ if eq .page.logos_color "white" }}
+  {{ $prefix = "assets/images/clients/white/" }}
+  {{ $asset_prefix = "images/clients/white/" }}
+{{ else if eq .page.logos_color "color" }}
+  {{ $prefix = "assets/images/clients/color/" }}
+  {{ $asset_prefix = "images/clients/color/" }}
+  {{ else if eq .page.logos_color "black" }}
+  {{ $prefix = "assets/images/clients/black/" }}
+  {{ $asset_prefix = "images/clients/black/" }}
+{{ end }}
+
+{{/* <!--on an individual level, override the default setting --> */}}
+{{ $logos_link := $.page.logos_link }}
+{{ $logo_link := $.page.logos_link }}
+
+{{ range .page.logos }}
+  {{ if eq .logo_color "color" }}
+    {{ $prefix = "assets/images/clients/color/" }}
+    {{ $asset_prefix = "images/clients/color/" }}
+  {{ end }}
+  {{ if eq .logo_color "white" }}
+    {{ $prefix = "assets/images/clients/white/" }}
+    {{ $asset_prefix = "images/clients/white/" }}
+  {{ end }}
+  {{ if eq .logo_color "black" }}
+    {{ $prefix = "assets/images/clients/black/" }}
+    {{ $asset_prefix = "images/clients/black/" }}
+  {{ end }}
+
+    {{ $name := .name }}
+    {{ $url := .url }}
+    {{ $image := "" }}
+    
+    {{/* <!--lookup the client in the datafile --> */}}
+  {{ range $site.Data.lookup.clients }}
+    {{ if eq $name .name }}
+      {{ $image = .image }}
+    {{ if $url }}
+      {{ $url = $url }}
+      {{ $logo_link = true }}
+    {{ else if .url }}
+      {{ $url = .url }}
+      {{ $logo_link = true }}
+    {{ else }}
+      {{ $logo_link = false }}
+    {{ end }}
+    {{ if eq .logo_link false }}
+      {{ $logo_link = false }}
+    {{ else if eq .logo_link true }}
+      {{ $logo_link = $logos_link }}
+    {{ end }}
+
+  {{ $path := print $prefix $image }}
+  {{ $assetpath := print $asset_prefix $image }}
+ 
+    {{/* <!--on an individual level, override the default setting --> */}}
+    
+    {{ if and (not $url) (eq $logos_link true) (eq $logo_link true) }}
+      {{ range where $.global.Site.Pages "Section" $.global.Site.Data.lookup.client_default_section }}
+      
+      {{ if eq .Params.name $name }}
+      {{ $url = .Permalink }}
+        {{/* <!--did I override the URL, path, or image on this page?--> */}}
+
+        {{/* <!--If the work page doesn't exist, or the data logo url is undefined, or the page logo url is undefined, remove the link entirely--> */}}
+
+          {{ if (fileExists $path) }}
+            {{ $imagesrc := resources.Get $assetpath }}
+            {{ if eq $logo_link false }}
+              <span class="{{ $name }}">
+            {{ else }}
+              <a class="{{ $name }}" href="{{ $url }}">
+            {{ end }}
+              <img src="{{ $imagesrc.Permalink }}">
+            {{ if eq $logo_link false }}
+              </span>
+            {{ else }}
+              </a>
+            {{ end }}
+          {{ end }}
+
+      {{ end }}
+      {{ end }}
+
+    {{ else if or ($url) ( eq $logos_link false ) }}
+      
+        {{ if (fileExists $path) }}
+          {{ $imagesrc := resources.Get $assetpath }}
+          {{ if eq $logo_link false }}
+            <span class="{{ $name }}">
+          {{ else }}
+            <a class="{{ $name }}" href="{{ $url }}">
+          {{ end }}
+            <img src="{{ $imagesrc.Permalink }}">
+          {{ if eq $logo_link false }}
+            </span>
+          {{ else }}
+            </a>
+          {{ end }}
+        {{ end }}
+
+    {{ else }}
+    {{ if (fileExists $path) }}
+      {{ $imagesrc := resources.Get $assetpath }}
+      {{ if eq $logo_link false }}
+        <span class="{{ $name }}">
+      {{ else }}
+        <a class="{{ $name }}" href="{{ $url }}">
+      {{ end }}
+        <img src="{{ $imagesrc.Permalink }}">
+      {{ if eq $logo_link false }}
+        </span>
+      {{ else }}
+        </a>
+      {{ end }}
+    {{ end }}
+
+    {{ end }}
+
+
+
+
+    {{ end }}
+    {{/* <!--end lookup the client in the datafile --> */}}
+  
+
+
+  
+
+  {{ end }}
+  {{ end }}

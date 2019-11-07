@@ -1,5 +1,5 @@
 baseURL = "/"
-languageCode = "en-gb"
+languageCode = "en-us"
 title = "Fullstack Digital"
 theme = ["pancakesBuilder", "pancakesDashboard", "fullstackdigital"]
 
@@ -39,3 +39,8 @@ baseName = "_headers"
 isPlainText = true
 notAlternative = true
 
+[module]
+
+  [[module.imports]]
+    disable = true
+    path = "pancakesBuilder-dev"

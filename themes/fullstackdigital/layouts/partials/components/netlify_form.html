@@ -1,0 +1,119 @@
+<form name="form-{{ .global.Title | lower | urlize }}" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field" class="flex wrap">
+  
+  <input type="hidden" name="permalink" id="zc_gad" value="{{ .global.Permalink }}">
+  <input type="text" style="display:none;" name="returnURL" value="https://fullstackdigital.com/contact-success/">
+  
+  <div class="form-row">
+    <div class="form-2">
+    <p class="hidden">
+      <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+    </p>
+      <input type="text" maxlength="80" placeholder="Your Name" name="Last Name" required="true" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+    </div>
+    <div class="form-2">
+      <input type="email" placeholder="Your Email" maxlength="100" name="Email" pattern="[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required="true">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-2">
+      <input type="text" placeholder="Your Company Name" maxlength="255" name="Company" required="true">
+    </div>
+    <div class="form-2">
+    <input type="url" placeholder="Your Website" maxlength="255" name="Website" pattern="https?://.+" required="true">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-1">
+    <textarea placeholder="Your story..." name="Description" maxlength="1000" required="true"></textarea>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-1">
+    
+    <div data-netlify-recaptcha="true"></div>
+    <button class="button fill deepblue hover-right submit" type="submit" id="submit" value="Submit" disabled>Send Message <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+    <g>
+    <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+    </g>
+    <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 54,23 "></polyline>
+    </svg></button>
+    </div>
+  </div>
+  
+  </form>
+
+<script type="text/javascript">
+
+(function() {
+//validate forms for inputs
+validateForm();
+
+function validateForm() {
+  let submitBtn = document.querySelector('.template-cta [type="submit"]');
+  let formFields = document.querySelectorAll('.template-cta [required]');
+
+  submitBtn.setAttribute("percent-left", "100%");
+
+  formFields.forEach(function (field, index ) {
+    //console.log(field);
+    count = formFields.length;
+
+    let totalPercent = submitBtn.getAttribute("percent-left");
+    field.addEventListener("focus", function(e) {
+      setPercentage(totalPercent);
+      setDisabled(totalPercent, field, count);
+    });
+    field.addEventListener("keyup", function(e) {
+      setPercentage(totalPercent);
+      setDisabled(totalPercent, field, count);
+    });
+
+  });
+
+  function setDisabled(totalPercent, field, count) {
+    let filledIn = false;
+    setPercentage(totalPercent);
+      
+      let inputsWithoutValue = count;
+      
+      formFields.forEach(function (field, count, index ) {
+        
+        if ( field.value == "" ) {
+          filledIn = true;
+          
+        } else {
+          inputsWithoutValue-= 1;
+        }
+        totalPercent = inputsWithoutValue / count * 100 + "%";
+      });
+      //console.log(totalPercent);
+      setPercentage(totalPercent);
+
+      if (filledIn) {
+        submitBtn.setAttribute("disabled", "");
+      } else {
+        submitBtn.removeAttribute("disabled");
+      }
+  }
+
+  function setPercentage(totalPercent) {
+    if (totalPercent >= "75%") {
+      submitBtn.setAttribute("percent-left", "75%");
+    } else if (totalPercent >= "50%") {
+      submitBtn.setAttribute("percent-left", "50%");
+    } else if (totalPercent >= "30%") {
+      submitBtn.setAttribute("percent-left", "30%");
+    } else if (totalPercent >= "25%") {
+      submitBtn.setAttribute("percent-left", "25%");
+    } else if (totalPercent == "0%" ) {
+      submitBtn.setAttribute("percent-left", "0%");
+    }
+  }
+}
+}())
+
+  
+</script>

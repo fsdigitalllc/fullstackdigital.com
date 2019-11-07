@@ -11,6 +11,13 @@ description: page description
 date: 2018-07-03 04:00:00 +0000
 tags: ["Web Experience", "Web Design", "Web Development"]
 aliases:
+hero:
+  background_color: "#0F2349"
+  image: "images/cover.png"
+excerpt:
+  background_color: ""
+  image:
+    src: 
 stacks_hero:
   path: "helpers/work/hero.html"
   image: "images/cover.png"
@@ -32,12 +39,12 @@ grid_item:
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom items-center
   background_color: "#0F2349"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: justify-center items-center
     size: container
     cols:
     - template: block-column-builder
@@ -59,12 +66,12 @@ stacks:
         title: "Focal Dystonia is a neurological condition which affects a muscle or group of muscles, causing involuntary muscular contractions and abnormal postures. As the 3rd most common neurological condition in the world, there is currently no medicinal cure for the hundreds of thousands of people affected by its symptoms. Dr. Joaquin Farias, a leading specialist treating dystonia using movement therapy, approached the Fullstack team with the challenge of creating a complete online dystonia recovery program. Our team was particularly excited about this project, as this would provide dystonia patients across the world with complete recovery, for the first time ever."
 - template: section-row-blocks
   id: discovery
-  class: padding-l v_c-center
+  class: padding-l items-center
   background_color: "#000000"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -92,16 +99,16 @@ stacks:
       duration: '400'
       elements:
       - template: element-image
-        class: center-image
+        class: margin-auto
         image: "images/old-web.png"
 - template: section-row-blocks
   id: strategy
-  class: padding-l v_c-center
+  class: padding-l items-center
   background_color: "#161616"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -124,7 +131,7 @@ stacks:
         title: |
           We started with the information architecture of the platform. To ensure patients could navigate each program in a structured manner, we created a flexible hierarchy specifically designed to facilitate the long-term healing process. Because we were using video, it was inspired by the leading video streaming option today: Netflix. The result was then adjusted based on Dr. Farias’ unique experiences with thousands of patients worldwide,  as it has been proven to show results.
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -137,56 +144,11 @@ stacks:
         image: "images/farias-info-architecture.png"
 - template: section-row-blocks
   id: experience
-  class: padding-l v_c-center
+  class: padding-l items-center experience
   background_color: "#ffffff"
-  css:
-  - rule: |
-      .pb-html-block {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        height: 100%;
-      }
-  - rule: |
-      .farias-icons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-  - rule: |
-      .fa-youtube {
-        width: 59px;
-        height: 41px;
-      }
-  - rule: |
-      .fa-bell {
-        width: 50px;
-        height: 61px;
-      }
-  - rule: |
-      .bell {
-        position: relative;
-        margin-right: 20px;
-      }
-  - rule: |
-      .bell:after {
-        content: '';
-        position: absolute;
-        top: .4875rem;
-        right: .1825rem;
-        display: block;
-        width: .4375rem;
-        height: .4375rem;
-        border-radius: 50%;
-        background: #d63e2b;
-        width: .65rem;
-        height: .65rem;
-      }
-    tablet:
-      - rule: ".pb-html-block {display: none;}"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -209,7 +171,7 @@ stacks:
         title: |
           Like any rehab program, Dr. Farias’ platform needed to be 100% focused on content & recovery. Our mission during the UX design process was to ensure that patients spend the least amount of time figuring out where things like notifications and videos can be found. The recovery process should feel familiar as possible, almost as if they were visiting Dr. Farias himself. 
   - template: include-row
-    class: h_c-center break-tablet
+    class: justify-center break-tablet
     size: container
     cols:
     - template: block-column-builder
@@ -244,12 +206,12 @@ stacks:
         image: "images/farias-dashboard-wireframe.png"
 - template: section-row-blocks
   id: experience
-  class: padding-l v_c-center
+  class: padding-l items-center farias-plan
   background_color: "#EFEFEF"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -280,11 +242,8 @@ stacks:
         class: center-image fullwidth-img
         image: "images/Farias-homepage.png"
   - template: include-row
-    class: h_c-center v_c-space-between break-tablet
+    class: justify-center v_children_space-between break-tablet
     size: fullwidth
-    css:
-    - rule: ".img-first {margin-left: -20%}"
-    - rule: ".img-last {margin-left: 20%}"
     cols:
     - template: block-column-builder
       size: '6'
@@ -303,7 +262,7 @@ stacks:
         class: center-image img-last
         image: "images/farias-payment.png"
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: justify-center items-center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -321,7 +280,7 @@ stacks:
         title: |
           The patient homepage is a place to explore a variety of tools designed to help patients improve the way they move, feel, and perceive the world around them.
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container-large
     cols: 
     - template: block-column-builder
@@ -333,10 +292,8 @@ stacks:
         class: center-image
         image: "images/farias-dashboard.png"  
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: fullwidth
-    css:
-    - rule: ".pullUp {margin-top: -10%;}"
     cols:
     - template: block-column-builder
       size: '3'
@@ -363,14 +320,14 @@ stacks:
         image: "images/Farias-responsive.png"
 - template: section-row-blocks
   id: development
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top items-center
   background_color: "#000000"
   background_image:
   scripts:
-  - src: "js/work/cards.js"
+  - src: "js/components/cards.js"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: justify-center items-center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -393,14 +350,8 @@ stacks:
         title: |
           While the patient experience was our main focus, it was just as important for us to allow a smooth administrative experience. From adding new programs to content protection, managing subscriptions and users, it’s all inclusive.
   - template: include-row
-    class: h_c-space-between v_c-start wrap padding-m-bottom cards
+    class: justify-between items-start wrap padding-m-bottom cards
     size: container
-    css:
-    - rule: ".card-block-text {padding: 10% 16%;}"
-    - rule: ".cards .col-6 .pb-html-block:last-child {margin-bottom: 0px;}"
-    - rule: "img {width: auto;margin-left: auto;margin-right: auto;padding-top: 55px;}"
-    - rule: ".col-6 {flex-basis: calc(50% - 20px);}"
-    - rule: ".col-6 .elements-wrapper .pb-html-block {background-color: #0f0f0f;margin-bottom: 40px;}"
     cols:
     - template: block-column-builder
       size: '6'
@@ -428,12 +379,12 @@ stacks:
           <div class="card-block-text"><img class="card-logo-img margin-s-bottom" src="/images/stripe.png"><h6 class="text-center color-white"><span style="font-weight: 800">Ultra Secure Individual and Recurring Transactions</span></h6><div class="text-center color-white"><p>We integrated Stripe to ensure any transactions made on the platform are as secure as possible. From the front-end, users can pay monthly or yearly. From the back-end, Dr. Farias can easily manage payments and get real-time reporting on the subscription revenue.</p></div></div>
 - template: section-row-blocks
   id: process
-  class: padding-l-top v_c-center
+  class: padding-l-top items-center
   background_color: "#ffffff"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap padding-m-bottom
+    class: justify-center items-center wrap padding-m-bottom
     size: container
     cols:
     - template: block-column-builder
@@ -455,7 +406,7 @@ stacks:
         title: |
           From kickoff to launch to management, Fullstack has worked side-by-side with Dr. Farias to bring the entire program experience to life.
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: fullwidth
     cols:
     - template: block-column-builder
@@ -468,11 +419,11 @@ stacks:
         image: "images/farias-fsd-partnership.jpg"
 - template: section-row-blocks
   id: results
-  class: padding-xl-bottom padding-xl-top v_c-center
+  class: padding-xl-bottom padding-xl-top items-center
   background_color: "#0F2349"
   rows:
   - template: include-row
-    class: h_c-space-between v_c-center wrap
+    class: justify-between items-center wrap
     size: container
     cols:
     - template: block-column-builder

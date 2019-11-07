@@ -1,36 +1,50 @@
 {{/* <!--load this JS asap--> */}}
-<!--<script src="https://polyfill.io/v3/polyfill.min.js?features=es6%2CElement.prototype.closest%2Cfetch%2CArray.prototype.%40%40iterator"></script>-->
 
-{{ $util := resources.Get "js/util.js" | minify }}
-<script type="text/javascript" src="{{ $util.Permalink }}"></script>
+
+<!--non render blocking plugins-->
+
+{{ $ajaxscriptloader := resources.Get "js/plugins/ajaxScriptLoader.js" }}
 
 {{ $lazy_js := resources.Get "js/plugins/lazysizes.min.js" }}
 {{ $ls_unveil := resources.Get "js/plugins/ls.unveilhooks.js" }}
+{{ $aos := resources.Get "js/plugins/aos.min.js" }}
+{{ $smoothscroll := resources.Get "js/plugins/smoothscroll.js" }}
 
+{{ $plugins_js := slice $ls_unveil $lazy_js $aos $smoothscroll $ajaxscriptloader | resources.Concat "js/plugins.js" | minify | fingerprint }}
 
-{{ $plugins_js := slice $ls_unveil $lazy_js | resources.Concat "js/plugins.js" | minify | fingerprint }}
+<!--remove this after refactoring ajax-->
 <script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-<script>
-lazySizes.init();
-AOS.init();
-</script>
-<style>
-  
-  /*[data-aos]{opacity: 1 !important; transform: translate3d(0,0,0) !important;}*/
-</style>
 
-<script type="text/javascript" src="{{ $plugins_js.Permalink }}" integrity="{{ $plugins_js.Data.Integrity }}"></script>
-{{ $smoothscroll := resources.Get "js/smoothscroll.js" }}
+{{ $ajaxloadpage := resources.Get "js/components/work/AjaxLoadPage.js" }}
+{{ $app := resources.Get "js/app.js" }}
 
-<script type="text/javascript">
-  fetchInject([
-    '{{ $smoothscroll.Permalink }}'
-  ])
-</script>
+{{ $app_js := slice $ajaxloadpage $app | resources.Concat "js/app.js" }}
+
+{{ if .Site.IsServer }}
+  {{ $app_js = $app_js }}
+{{ else }}
+  {{ $app_js = $app_js | minify }}
+{{ end }}
+
+{{/*  <script type="text/javascript" src="{{ $aos.Permalink }}"></script>  */}}
+<script type="text/javascript" src="{{ $app_js.Permalink }}"></script>
 
 
-{{ $noncritical_css := resources.Get "scss/noncritical.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS | postCSS | minify }}
+<!-- include any page specific scripts if they exist -->
+{{ with .Resources.Match "js/*" }}
+    {{ range . }}
+    <script src="{{ .RelPermalink }}"></script>
+    {{ end }}
+{{ end }}
 
-<link rel='stylesheet' href='{{ $noncritical_css.Permalink }}'/>
-
-
+{{ with .Params.sections }}
+{{ $related_work := false }}
+  {{ range . }}
+    {{ if eq .template "related-work" }}
+      {{ $related_work = true }}
+    {{ end }}
+  {{ end }}
+  {{ if $related_work }}
+  {{ partial "components/work/scripts.html" . }}
+  {{ end }}
+{{ end }}

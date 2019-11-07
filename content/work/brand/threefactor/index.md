@@ -20,17 +20,16 @@ stacks_hero:
   logo_color: "color"
   class: light-skin
 grid_item:
-  client: "threefactor"
   logo_color: "color"
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom items-center
   background_color: "#f7f7f7"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: justify-center items-center
     size: container
     cols:
     - template: block-column-builder
@@ -45,11 +44,11 @@ stacks:
           Brand, Web, and Marketing services for Three Factor Security, a startup commercial and residential security firm offering high-end surveillance design, installation, and maintenance solutions based in Los Angeles. From naming to brand development, identity, strategy and designing a unique web presence, Fullstack nurtured this startup from infancy to maturity. Today it is one of the most trusted vendors across Southern California.
 - template: section-row-blocks
   id: overview
-  class: padding-xl-top padding-xl-bottom v_c-center
+  class: padding-xl-top padding-xl-bottom items-center
   background_color: "#ffffff"
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container-l
     cols:
     - template: block-column-builder

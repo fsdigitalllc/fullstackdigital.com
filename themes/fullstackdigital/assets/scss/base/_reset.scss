@@ -1,0 +1,119 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+body, html {
+  min-height: 100%;
+  min-width: 320px;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  color: $oil;
+  font-family: $font-family;
+  line-height: 1.5;
+  font-feature-settings: "liga", "kern";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  overflow-x: hidden;
+}
+main {
+  padding-top: 60px;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* fix this crap*/
+.container {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  width: 87.5vw;
+  
+  @media screen and (min-width:  $screen-tablet ) {
+    max-width: $container-tablet;
+    width: 100%;
+  }
+
+  @media screen and (min-width: $screen-laptop ) {
+    max-width: $container-laptop;
+  }
+
+  @media screen and (min-width: $screen-desktop-s ) {
+    max-width: $container;
+  }
+  
+}
+.container-fullwidth {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+}
+.container-l {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0 40px;
+  width: $container-l;
+}
+.container-m {
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0 40px;
+  width: $container-m;
+}
+
+
+
+section {
+  margin-bottom: -1px;
+  background-color: #ffffff;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+
+  &.fullwidth-img {
+    width: 100%;
+  }
+}
+
+video {
+  max-width: 100%;
+
+  &.fullwidth-video {
+    width: 100%;
+  }
+}
+
+iframe {
+  padding-bottom: 15px;
+}
+

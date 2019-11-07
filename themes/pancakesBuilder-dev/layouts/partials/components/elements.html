@@ -1,0 +1,157 @@
+
+{{/* <!--start columns--> */}}
+{{ $scratch := .global.global.global.global.Scratch }}
+{{ $global_page := .global.global.global.global }}
+{{ $global_site := $scratch.Get "site" }}
+{{ $section_index := $scratch.Get "section_index" }}
+
+{{ $element_prefix := print $section_index "-" .element_index }}
+{{ $scratch.Set "element_prefix" $element_prefix }}
+
+
+
+  {{/* <!--user defined components. Add base css--> */}}
+  {{ if in .page.template "custom" }}
+    {{/* <!--components/custom/custom-text.html--> */}}
+    {{ $component_ref := print "components/custom/" .page.file_name }}
+    {{ partial $component_ref . }}
+  {{ end }}
+
+  {{/* <!--individual elements--> */}}
+
+  {{/* <!--draggable slider--> */}}
+  {{ if in .page.template "element-flickity" }}
+    
+    {{ $flickslider_js := resources.Get "pancakes/js/plugins/flickity.pkgd.min.js" | minify }}
+    {{ $flickslider_css := resources.Get "pancakes/css/plugins/flickity.css" | minify }}
+
+    <script type="text/javascript">
+      fetchInject([
+        '{{ $flickslider_js.Permalink }}',
+        '{{ $flickslider_css.Permalink }}'
+      ]).then(() => {
+            //console.log(`Loaded FLICKITY JS`);
+      })
+    </script>
+
+    {{ $wrapAround := .page.wrapAround | default false }}
+    {{ $freeScroll := .page.freeScroll | default true }}
+    {{ $draggable := .page.draggable | default true }}
+    {{ $prevNextButtons := .page.prevNextButtons | default false }}
+    {{ $pageDots := .page.pageDots | default false }}
+    {{ $contain := .page.contain | default true }}
+    {{- /* <!--can be a number or true false--> */ -}}
+    {{ $groupCells := .page.groupCells | default false }}
+    {{ $autoPlay := .page.autoPlay | default false }}
+    
+    <div class="carousel"
+    data-flickity='{ "wrapAround": {{ $wrapAround }}, "freeScroll": {{ $freeScroll }}, "draggable": {{ $draggable }}, "prevNextButtons": {{ $prevNextButtons}}, "pageDots": {{ $pageDots }}, "contain": {{ $contain }}, "groupCells": {{ $groupCells }}, "autoPlay": {{ $autoPlay }} }'>
+
+      {{ range .page.images }}
+      {{ $img_src := $global_page.Resources.GetMatch .image }}
+      {{ $img_src = $img_src.Permalink }}
+        <div class="carousel-cell{{ with $.page.class }} {{ . }}{{ end }}"><img src="{{ $img_src }}"/></div>
+      {{ end }}
+    </div>
+
+  {{ end }}
+
+
+  {{ if in .page.template "element-video" }}
+
+    <video autoplay="{{ if eq .page.autoplay false }}false{{ else }}true {{ end }}" muted="{{ if eq .page.muted false }}false{{ else }}true{{ end }}" preload="metadata" loop="loop" playsinline="playsinline" poster="{{ .page.cover }}" class="video-autoplay">
+      <source src="{{ .page.src }}" type="video/mp4">
+      </video>
+  {{ end }}
+
+  {{ if in .page.template "element-image" }}
+
+    {{ $scratch.Set "element_image" true }}
+
+    {{ $img_quality := .page.quality | default "100" }}
+    {{ $img_quality = print $img_quality "/" }}
+    {{ $img_size := print "w_1000,c_limit/"}}
+
+    {{ $alt_text := .alt }}
+      {{ with .page.alt }}
+        {{ $alt_text = . }}
+      {{ else }}
+      {{ $alt_text = replaceRE "\\..+" "" .page.image }}
+        {{ $alt_text = $alt_text }}
+      {{ end }}
+
+      {{ with .page.image }}
+        {{ $img_src := . }}
+        {{ if in . "http" }}
+        {{/* <!--if absolute link, not cloudinary--> */}}
+          {{ $img_src = . }}
+          <img class="lazyload" data-element="element-image"
+          data-srcset="
+          {{ . }} 500w,
+            {{ . }} 768w,
+            {{ . }} 2x" data-src="{{ . }}" alt="{{ $alt_text }}" class="{{ $.page.class | safeHTML }}"/>
+
+        {{ else if in . "images/" }}
+
+        {{ $img_src := $global_page.Resources.GetMatch . }}
+        {{ $img_src = $img_src.Permalink }}
+        <img data-element="element-image"
+        data-srcset="{{ $img_src }}" alt="{{ $.page.alt }}" class="{{ $.page.class | safeHTML }} lazyload"/>
+
+        {{ else if in . "uploads" }}
+        {{/* <!--if resource upload in content/uploads, perform basic image processing--> */}}
+        {{/* <!--need to make these options manual--> */}}
+            {{ $imageResource := ($global_site.GetPage "section" "uploads").Resources.GetMatch (strings.TrimPrefix "/uploads/" . ) }}
+            
+            {{ $resized900 := ($imageResource.Resize "900x q100") }}
+            {{ $resized500 := ($imageResource.Resize "500x q100") }}
+            <img data-element="element-image" data-edit 
+            data-sizes="(min-width: 1000px) 900px, 90vw" data-srcset="{{ $resized500.RelPermalink }} 500w, {{ $resized900.RelPermalink }} 900w" data-src="{{ $resized500.RelPermalink }}" class="lazyload {{ $.page.class | safeHTML }}" alt="{{ $alt_text }}"/>
+
+        
+      {{ else }}{{/* <!--withelse--> */}}
+
+      no image found
+
+      {{ end }}{{/* <!--endwith--> */}}
+    {{ end }}{{/* <!--if html--> */}}
+  {{ end }}{{/* <!--end if image--> */}}
+
+  {{ if in .page.template "element-title" }}
+  
+  {{ $title_class := "" }}
+
+    {{ with .page.class }}
+      {{ $title_class = print " class='" . "'" }}
+    {{ end }}
+  {{ $title_tag := "h2" }}
+
+    {{ with .page.tag }}
+      {{ $title_tag = . }}
+      {{ print "<" $title_tag " data-edit data-element='element-title'" $title_class ">" | safeHTML }}
+    {{ end }}
+
+    {{ .page.title }}
+
+    {{ with .page.tag }}
+      {{ print "</" $title_tag ">" | safeHTML }}
+    {{ end }}
+
+  {{ end }}
+
+  {{ if in .page.template "element-code" }}<div data-edit class="pb-html-block{{ with .page.class }} {{ . }}{{ end }}">{{ .page.html | safeHTML }}</div>{{ end }}
+
+  {{ if in .page.template "element-button" }}
+    {{ $scratch.Set "element_button" true }}
+
+    <a data-element="element-button" id="{{ $element_prefix }}" class="button button-fill " href="{{ .page.link }}">{{ .page.text }}</a>
+    {{ partial "components/elements/button/source.html" . }}
+
+  {{ end }}
+
+  {{ if in .page.template "form" }}
+  {{ $scratch.Set "element_form" true }}
+
+  {{ end }}
+
+{{/* <!--end individual elements--> */}}

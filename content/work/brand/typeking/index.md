@@ -19,17 +19,16 @@ stacks_hero:
   client: "typeking"
   logo_color: "white"
 grid_item:
-  client: "typeking"
   logo_color: "color"
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom items-center
   background_color: "#aa8e33"
   background_image:
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: justify-center items-center
     size: container
     cols:
     - template: block-column-builder

@@ -1,0 +1,11 @@
+{{ $scratch := .global.global.Scratch }}
+{{ $global_scratch := .global.global.Scratch }}
+{{ $global_site := .global.global.Scratch.Get "site" }}
+
+<div class="row flex {{ .page.class }} {{ .page.size | default "container" }}{{ with .page.wrap }} wrap{{ end }}">
+{{ range .page.cols }}
+
+{{ partial "components/column.html" (dict "page" . "global" $ ) }}
+
+{{ end }}{{/* <!--end columns--> */}}
+</div>{{/* <!--row html end--> */}}

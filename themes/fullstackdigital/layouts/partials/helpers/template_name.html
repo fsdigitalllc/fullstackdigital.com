@@ -1,0 +1,14 @@
+{{ $template_name := false }}
+
+{{ $template_name = string .Section }}
+
+{{ $template_name = path.Dir .Path | replaceRE "\\/" "-" }}
+{{ $template_name = string $template_name }}
+
+{{ if .IsHome }}
+    {{ $template_name = "home" }}
+{{ end }}
+
+
+
+{{ return $template_name }}

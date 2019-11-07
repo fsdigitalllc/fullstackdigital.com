@@ -23,17 +23,16 @@ stacks_hero:
   client: quantum
   logo_color: white
 grid_item:
-  client: quantum
-  logo_color: color
+  logo_color: "color"
 stacks:
 - template: section-row-blocks
   id: overview
-  class: padding-m-bottom v_c-center
+  class: padding-m-bottom items-center
   background_color: "#0370D6"
   background_image: 
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: justify-center items-center
     size: container
     cols:
     - template: block-column-builder
@@ -67,12 +66,12 @@ stacks:
 '
 - template: section-row-blocks
   id: discovery
-  class: padding-xl v_c-center
+  class: padding-xl items-center
   background_color: "#6A7B84"
   background_image: 
   rows:
   - template: include-row
-    class: h_c-center v_c-center
+    class: justify-center items-center
     size: container
     cols:
     - template: block-column-builder
@@ -102,12 +101,12 @@ stacks:
 '
 - template: section-row-blocks
   id: logo
-  class: padding-xl v_c-center
+  class: padding-xl items-center
   background_color: "#ffffff"
   background_image: 
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -146,12 +145,12 @@ stacks:
         image: images/quantum-comparison-animated.gif
 - template: section-row-blocks
   id: elements
-  class: padding-xl v_c-center
+  class: padding-xl items-center
   background_color: "#EDEDED"
   background_image: 
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -187,12 +186,12 @@ stacks:
         image: images/QTm-brand-elements.png
 - template: section-row-blocks
   id: design
-  class: padding-xl v_c-center
+  class: padding-xl items-center
   background_color: "#0370d6"
   background_image: 
   rows:
   - template: include-row
-    class: h_c-center v_c-center wrap
+    class: justify-center items-center wrap
     size: container
     cols:
     - template: block-column-builder
@@ -207,11 +206,16 @@ stacks:
         image: images/fsd-quantum-logo-animation.gif
 - template: section-row-blocks
   id: digital
-  class: padding-xl-top v_c-center
+  class: padding-xl-top items-center
   background_color: "#EFEFEF"
   rows:
+<<<<<<< HEAD
   - template: include-row
     class: h_c-center v_c-center wrap padding-m-bottom
+=======
+  - template: include-row  
+    class: justify-center items-center wrap padding-m-bottom
+>>>>>>> dev
     size: container
     cols:
     - template: block-column-builder
@@ -230,6 +234,7 @@ stacks:
       - template: element-title
         class: color-oil text-center
         tag: p
+<<<<<<< HEAD
         title: 'It can be difficult to make a visual impact with detailed marks in
           a small-space digital world. For digital, our challenge was to strengthen
           this big brand to be adaptable, responsive and open, offering great flexibility
@@ -238,6 +243,12 @@ stacks:
 '
   - template: include-row
     class: h_c-end v_c-center wrap padding-m-bottom
+=======
+        title: |
+          It can be difficult to make a visual impact with detailed marks in a small-space digital world. For digital, our challenge was to strengthen this big brand to be adaptable, responsive and open, offering great flexibility in creating applications and expressions of the brand.
+  - template: include-row  
+    class: justify-end items-center wrap padding-m-bottom
+>>>>>>> dev
     size: fullsize
     css:
     - rule: ".right-image {margin-left: auto;}"
@@ -251,9 +262,15 @@ stacks:
       elements:
       - template: element-image
         class: right-image
+<<<<<<< HEAD
         image: images/Qtm-website.png
   - template: include-row
     class: h_c-end v_c-center padding-m-bottom
+=======
+        image: "images/Qtm-website.png"
+  - template: include-row  
+    class: justify-end items-center padding-m-bottom
+>>>>>>> dev
     size: container
     cols:
     - template: block-column-builder
@@ -263,6 +280,7 @@ stacks:
       duration: "400"
       elements:
       - template: element-code
+<<<<<<< HEAD
         html: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src=''https://player.vimeo.com/video/267863154''
           style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0"
           webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div><script
@@ -271,6 +289,12 @@ stacks:
 '
   - template: include-row
     class: h_c-end v_c-center
+=======
+        html: |
+          <div style="padding:56.25% 0 0 0;position:relative;"><iframe src='https://player.vimeo.com/video/267863154' style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div><script src='https://player.vimeo.com/api/player.js'></script>
+  - template: include-row  
+    class: justify-end items-center
+>>>>>>> dev
     size: fullwidth
     css:
     - rule: ".stretch-full {width: 100%;}"
@@ -285,11 +309,16 @@ stacks:
         image: images/Qtm-social.png
 - template: section-row-blocks
   id: digital
-  class: padding-xl-top v_c-center
+  class: padding-xl-top items-center
   background_color: "#ffffff"
   rows:
+<<<<<<< HEAD
   - template: include-row
     class: h_c-center v_c-center wrap padding-m-bottom
+=======
+  - template: include-row  
+    class: justify-center items-center wrap padding-m-bottom
+>>>>>>> dev
     size: container
     cols:
     - template: block-column-builder
@@ -347,11 +376,16 @@ stacks:
         image: images/qtm-product-cropped.png
 - template: section-row-blocks
   id: digital
-  class: padding-xl v_c-center
+  class: padding-xl items-center
   background_color: "#0F7ECA"
   rows:
+<<<<<<< HEAD
   - template: include-row
     class: h_c-center v_c-center wrap
+=======
+  - template: include-row  
+    class: justify-center items-center wrap
+>>>>>>> dev
     size: container
     cols:
     - template: block-column-builder
@@ -378,6 +412,7 @@ stacks:
 
 '
       - template: element-code
+<<<<<<< HEAD
         class: text-center flex h_c-center
         html: "<a class=\"color-white strip-underline flex hover-right\" href=\"/contact/\"><strong>Contact
           Us</strong> <svg class=\"color-white\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\"
@@ -389,4 +424,15 @@ stacks:
           stroke-miterlimit=\"10\" points=\"54,41 63,32 \n                  54,23
           \"></polyline>\n</svg></a>\n"
 
+=======
+        class: "text-center flex justify-center"
+        html: |
+          <a class="color-white strip-underline flex hover-right" href="/contact/"><strong>Contact Us</strong> <svg class="color-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <g>
+          <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="0" y1="32" x2="63" y2="32"></line>
+          </g>
+          <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="54,41 63,32 
+                            54,23 "></polyline>
+          </svg></a>
+>>>>>>> dev
 ---

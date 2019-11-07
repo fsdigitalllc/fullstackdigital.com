@@ -1,6 +1,0 @@
-{{/* <!--get all javascript srcs --> */}}
-{{ with .Resources.Match "js/*" }}
-    {{ range . }}
-    <script src="{{ .RelPermalink }}"></script>
-    {{ end }}
-{{ end }}

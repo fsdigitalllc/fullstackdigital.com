@@ -1,23 +1,66 @@
-
-<!--<script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.forEach%2Cfetch%2CgetComputedStyle%2Cdocument.querySelector%2CXMLHttpRequest%2CArray.from"></script>-->
-
+<!--load this stuff first-->
 {{ $fetchinject := resources.Get "js/plugins/fetch-inject.js" }}
-
 <script type="text/javascript" src="{{ $fetchinject.Permalink }}" media="screen"></script>
 
-{{ $aos := resources.Get "js/plugins/aos.min.js" }}
-<script type="text/javascript" src="{{ $aos.Permalink }}"></script>
 
+<!-- {{ $main_css := resources.Get "scss/main.scss" | toCSS | postCSS | minify }} -->
+{{ $main_css := resources.Get "scss/main.scss" | toCSS | minify }}
 
-<style class="page_critical_css">
- {{ $critical_css := "" }}
-{{ if $.Site.IsServer }}
-  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | postCSS }}
-{{ else }}
-  {{ $critical_css = resources.Get "scss/crit.scss" | resources.ExecuteAsTemplate "style.crit.scss" . | toCSS | postCSS | minify }}
+{{ $main_cache_buster := $main_css | resources.Fingerprint "md5" }}
+<link rel='stylesheet' href='{{ $main_cache_buster.Permalink }}' integrity="{{ $main_cache_buster.Data.Integrity }}"/>
+
+<!--if there are any css page resources-->
+{{ with .Resources.Match "css/*" }}
+    {{ range . }}
+    <!-- {{ $page_css := . | toCSS | postCSS | minify }} -->
+    {{ $page_css := . | toCSS | minify }}
+    {{ $page_cache_buster := $page_css | resources.Fingerprint "md5" }}
+    <link rel='stylesheet' panimate-critical href='{{ $page_cache_buster.Permalink }}' integrity="{{ $page_cache_buster.Data.Integrity }}"/>
+	{{ end }}
 {{ end }}
 
-{{ (slice $critical_css | resources.Concat "style.scss").Content | safeCSS }}
+<!--if there is a scss layout file-->
+<!--layouts are equal to the section name-->
 
+{{ $path := path.Dir .Path }}
 
-</style>
+{{ if .Section }}
+    {{ $path = .Section }}
+{{ end }}
+
+{{ $match_name := $path | replaceRE "\\/" "-" }}
+
+{{ print "<!--" $path "-->" | safeHTML }}
+
+{{ if .IsHome }}
+    {{ $match_name = "home" }}
+{{ end }}
+
+{{ $layout_name := print "scss/layouts/" $match_name ".scss" }}
+{{ $layout_name = string $layout_name }}
+
+{{ with resources.Get $layout_name }}
+    <!-- {{ $layout_css := resources.Get . | toCSS | postCSS | minify }} -->
+    {{ $layout_css := resources.Get . | toCSS | minify }}
+
+    {{ $layout_cache_buster := $layout_css | resources.Fingerprint "md5" }}
+    <link rel='stylesheet' panimate-critical href='{{ $layout_cache_buster.Permalink }}' integrity="{{ $layout_cache_buster.Data.Integrity }}"/>
+
+{{ end }}
+
+{{ $match_name = path.Dir .Path | replaceRE "\\/" "-" }}
+{{ print "<!--" $match_name "-->" | safeHTML }}
+
+{{ $page_critical := print "scss/pages/" $match_name ".scss" }}
+
+{{ with resources.Get $page_critical }}
+    <!-- {{ $page_critical = resources.Get . | toCSS | postCSS | minify }} -->
+    {{ $page_critical = resources.Get . | toCSS | minify }}
+
+    {{ $page_critical_buster := $page_critical | resources.Fingerprint "md5" }}
+
+    {{/*  <link rel='stylesheet' panimate-critical href='{{ $page_critical.Permalink }}' integrity="{{ $template_css_buster.Data.Integrity }}"/>  */}}
+    <style panimate-critical>
+        {{ $page_critical.Content | safeCSS }}
+    </style>
+{{ end }}

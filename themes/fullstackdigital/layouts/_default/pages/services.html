@@ -6,12 +6,12 @@
 
 {{ if eq .template "sub_nav" }}
 
-{{ partial "helpers/sub_nav.html" (dict "page" . "global" $ ) }}
+{{ partial "components/sub_nav.html" (dict "page" . "global" $ ) }}
 
 {{ end }}
 
   {{ if eq .template "overview" }}
-  <div class="container flex h_children_center">
+  <div class="container flex justify-center">
     <div class="col-9 text-center">
 
       {{ .icon | safeHTML }}
@@ -25,7 +25,7 @@
   {{ end }}
 
   {{ if eq .template "banner" }}
-  <div class="container-fullwidth flex h_children_center">
+  <div class="container-fullwidth flex justify-center">
       <div class="col-12">
         <img class="fullwidth-img" src="{{ .image }}">
       </div>
@@ -33,12 +33,12 @@
   {{ end }}
 
     {{ if eq .template "approach" }}
-    {{ partial "helpers/services_chart.html" (dict "page" . "global" $ ) }}
+    {{ partial "components/services_chart.html" (dict "page" . "global" $ ) }}
 
     {{ end }}
 
     {{ if eq .template "expand-contact" }}
-        {{ partial "helpers/forms/expand-contact.html" (dict "page" . "global" $ "form" .form )}}
+        {{ partial "components/expand_form.html" (dict "page" . "global" $ "form" .form )}}
     {{ end }}
   
 

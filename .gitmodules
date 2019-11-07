@@ -5,6 +5,3 @@
 [submodule "themes/pancakesDashboard"]
 	path = themes/pancakesDashboard
 	url = https://github.com/pancakes-builder/pancakesDashboard.git
-[submodule "themes/--force"]
-	path = themes/--force
-	url = https://github.com/pancakes-builder/pancakesDocs.git

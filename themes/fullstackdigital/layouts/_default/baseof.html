@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ .Site.LanguageCode | default "en" }}">
+{{ print "<!-- aJax-powered theme developed by Ben Bozzay | bbozzay.com -->" | safeHTML }}
     <head>
 
         {{ block "site/meta" . }}{{ partial "site/meta.html" . }}{{ end }}
@@ -9,11 +10,15 @@
         {{ end }}
 
         {{ block "site/styles" . }}{{ partial "site/styles.html" . }}{{ end }}
-        {{- block "critical" . }}{{ end -}}
 
 
     </head>
-    <body class='{{ partial "site/body_classes.html" . }}'>
+    {{ $layout_name := false }}
+    {{ with partial "helpers/template_name.html" . }}
+        {{ $layout_name = . }}
+    {{ end }}
+
+    <body class='{{ partial "site/body_classes.html" (dict "page" . "layout_name" $layout_name ) }}'>
      
         {{ block "header" . }}{{ partial "site/header.html" . }}{{ end }}
 
@@ -24,10 +29,6 @@
         </main>
 
         {{ block "footer" . }}{{ partial "site/footer.html" . }}{{ end }}
-
-        {{ if eq .Params.layout "pancakes" }}
-        {{ partial "site/pancakes/scripts.html" . | safeHTML }}
-        {{ end }}
 
         {{ block "site/scripts" . }}{{ partial "site/scripts.html" . }}{{ end }}
 

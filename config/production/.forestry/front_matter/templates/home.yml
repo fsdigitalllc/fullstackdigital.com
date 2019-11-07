@@ -1,0 +1,21 @@
+---
+label: TEMPLATE - Home
+hide_body: true
+fields:
+- name: seo
+  type: include
+  config: {}
+  template: partial
+  label: SEO
+  description: Seo partial
+- name: sections
+  type: blocks
+  label: Sections
+  template_types:
+  - service-title
+  - related-work
+  config:
+    min: 
+    max: 
+pages:
+- content/_index.md

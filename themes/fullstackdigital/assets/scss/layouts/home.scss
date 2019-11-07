@@ -1,0 +1,51 @@
+@import "../vars";
+
+@import "../components/work/ajax_work_grid";
+
+@import "../components/services_chart";
+@import "../components/related_content";
+@import "../components/logos";
+
+// .pageAnimating .home .logo-link, .pageTransition .home .logo-link {
+//   display: block;
+// }
+.pageTransition main {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0s linear, visibility 0s linear,
+}
+.pageTransition section {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0s linear, visibility 0s linear,
+}
+// .loading.start .home .logo-link {
+//   display: block;
+// }
+.home {
+  // .logo-link {
+  //   display: none;
+  // }
+  .template-related_content .grid-2 {
+    grid-template-columns: .3fr .7fr;
+    grid-gap: 120px;
+    display: grid;
+  }
+  .template-related_content {
+    background: #000000;
+  }
+  .template-related_content .subtitle {
+    font-style: italic;
+    color: #aaa;
+  }
+  @media screen and (max-width: $screen-tablet ) {
+    .template-related_content .grid-2 {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-gap: 25px;
+    }
+    .copyright {
+      margin-bottom: 0px;
+    }
+  }
+}

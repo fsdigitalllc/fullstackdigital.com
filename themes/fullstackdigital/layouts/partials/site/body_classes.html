@@ -1,1 +1,1 @@
-{{ if .Params.night_header }}night-header{{ end }} {{ .Section }}{{ if .IsHome }} home {{ end }}
+{{ .page.Section }}{{ print " " .layout_name }}{{ if .page.Params.night_header }} night-header {{ end }}

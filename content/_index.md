@@ -1,6 +1,6 @@
 ---
 title: Fullstack Digital / Digital Agency / Strategy, Design, Development & Marketing
-date: 2019-03-10 18:51:34 +0000
+date: '2019-03-10T18:51:34.000+00:00'
 published: true
 description: Fullstack Digital is a business-focused digital agency in Los Angeles.
   Our team is made up of 'full-stack' experts across multiple disciplines.
@@ -9,13 +9,14 @@ night_footer: true
 language: en
 meta:
   title: Fullstack Digital / Digital Agency / Strategy, Design, Development & Marketing
+  robots: all
 sections:
-- template: service_title
+- template: service-title
   classes: padding-l
   title: We <span class="underline color-babyblue">make brands.</span><br>Mostly for
     the tech world.
-  paragraph: 'Fullstack works with B2B teams during times of invention to build innovative
-    brands through an open, coherent approach.'
+  paragraph: Fullstack works with B2B teams during times of invention to build innovative
+    brands through an open, coherent approach.
   logos_color: black
   logos_link: false
   logos:
@@ -26,25 +27,22 @@ sections:
   - name: vastdata
   - name: quantum
   - name: code
-- template: service_description
-  classes: ''
-  paragraph: 'We <strong>help</strong> technology brands express their unique story
-    &amp; personality. We <strong>create</strong> identities that weave company heritage
-    into the logo &amp; beyond. We <strong>build</strong> strategies that navigate
-    brands to success in the digital world. Above all, we <strong>keep</strong> team
-    mission, vision &amp; values at the core of everything we do.'
-- template: related_work
-  grid:
-    layout: row
-    tabs: false
-    columns: 2
-    items:
-    - name: dell
-    - name: quantum
-    - name: threefactor
-    - name: ddn
+- template: "related-work"
+  layout: "hero"
+  layout_size: "fullwidth"
+  row_gap: "none"
+  count: 3
+  limit: 3
+  columns: '1'
+  tabs: false
+  image_position_h: right
+  match:
+    path_array:
+    - content/work/web/fariastechnique
+    - content/work/web/code
+    - content/work/brand/rigado
 - template: service_offering
-  id: "services"
+  id: services
   classes: padding-l
 - template: related_content
   classes: padding-l
@@ -58,11 +56,5 @@ sections:
       class: grid-image-bottom
   column_2:
     subtitle: News &amp; Stories.
-- template: cta
-  subtitle: Get Started
-  title: From presentation design to new brand strategy, we’ve got you covered.
-  form:
-  - template: contact
-    fields: 
 
 ---

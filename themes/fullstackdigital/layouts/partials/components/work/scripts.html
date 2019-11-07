@@ -1,0 +1,27 @@
+{{ $velocity := resources.Get "js/plugins/velocity.min.js" | minify }}
+{{ $scroll_lock := resources.Get "js/plugins/bodyScrollLock.js" | minify }}
+
+{{ $Panimate := resources.Get "js/plugins/Panimate.js" | minify }}
+{{ $RevealAfterImagesLoad := resources.Get "js/plugins/helpers/RevealAfterImagesLoad.js" | minify }}
+{{ $LoadMoreItems := resources.Get "js/plugins/helpers/LoadMoreItems.js" | minify }}
+
+{{ $ajax_work_grid := resources.Get "js/components/work/ajax_work_grid.js" | fingerprint }}
+
+{{ $util := resources.Get "js/util.js" | fingerprint }}
+
+<script type="text/javascript" ajax-script-reload="true">
+  fetchInject([
+    '{{ $ajax_work_grid.RelPermalink }}'
+  ], fetchInject([
+    '{{ $RevealAfterImagesLoad.RelPermalink }}',
+    '{{ $LoadMoreItems.RelPermalink }}',
+    '{{ $velocity.RelPermalink }}',
+    '{{ $scroll_lock.RelPermalink }}'
+  ])).then(() => {
+    let DOMContentLoadedEvent = document.createEvent('Event');
+    DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+    window.dispatchEvent(DOMContentLoadedEvent);
+  });
+
+</script>
+

@@ -1,0 +1,30 @@
+@import "../vars";
+
+@import "../components/work/filter";
+@import "../components/work/ajax_work_grid";
+
+@import "../components/work/hero";
+@import "../components/cta";
+
+
+.work {
+  p.image-cap {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    text-align: center;
+  }
+  @media screen and (max-width: $screen-tablet) {
+    .point-right {
+      transform: rotate(90deg);
+    }
+    .numbers {
+      justify-content: space-between;
+      display: flex;
+    }
+    @media screen and (max-width: $screen-mobile-l) {
+      .numbers {
+        flex-direction: column;
+      }
+    }
+  }
+}

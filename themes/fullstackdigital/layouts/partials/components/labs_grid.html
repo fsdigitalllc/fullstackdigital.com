@@ -1,0 +1,24 @@
+<div class="container labs-grid" id="loading_content" style="visibility: visible; display: block;">
+<div class="labs-container row-3">
+<!-- <div class="gutter-guide"></div> -->
+{{ $count := 3 }}
+{{ $query := first $count (sort (where $.global.Site.RegularPages "Section" "labs") ".Params.grid_item.weight" "asc") }}
+
+
+{{ range $query }}
+{{ $title := .Title }}
+{{ with .Params.grid_item.title }}
+  {{ $title = . }}
+{{ end }}
+<div class="card" style='background-color: {{ .Params.grid_item.background | default "rgb(239, 239, 239)" | safeCSS }}'>
+    <a class="normal page-link" href="{{ .Permalink }}"></a>
+    <div class="image" style='background-image: url({{ .Params.grid_item.image | default "/uploads/labs/mobilize-wordpress-plugin.png" }})'></div>
+    <div class="description" itemprop="description">
+    <h3 class="color-oil">{{ $title | safeHTML }}</h3>
+    <p class="color-oil">{{ .Params.grid_item.excerpt }}</p>
+    </div>
+</div>
+{{ end }}
+</div>
+
+</div>
